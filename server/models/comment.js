@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const messageSchema = new Schema(
+const commentSchema = new Schema(
   {
     creator: {
       type: Schema.Types.ObjectId,
@@ -26,6 +26,6 @@ const messageSchema = new Schema(
   }
 );
 
-const Message = mongoose.model("Message", messageSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
-module.exports = Message;
+module.exports = Comment;

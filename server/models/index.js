@@ -1,6 +1,6 @@
 module.exports = {
   Book: require("./book"),
   Event: require('./event'),
-  Message: require('./message'),
+  Comment: require('./comment'),
   User: require('./user'),
 };
