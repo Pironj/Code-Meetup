@@ -14,6 +14,7 @@ const messageSchema = new Schema(
     body: {
       type: String,
       required: false,
+      trim: true,
     },
     // location: { // TODO
     //   type: pointSchema,

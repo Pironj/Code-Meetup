@@ -16,13 +16,15 @@ const eventSchema = new Schema(
     ],
     title: {
       type: String,
-      required: true
+      required: true,
+      trim: true,
     },
     description: {
       type: String,
       required: true,
-      min: 0,
-      max: 10000,
+      minlength: 0,
+      maxlength: 10000,
+      trim: true,
     },
     date: {
       type: Date,
