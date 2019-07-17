@@ -12,7 +12,7 @@ router.route("/:id")
 //   .put(eventController.update)
 //   .delete(eventController.remove);
 
-router.route("/:id/addAttendee")
-  .put(eventController.addAttendee)
+// router.route("/:id/addAttendee")
+//   .put(eventController.addAttendee)
 
 module.exports = router;

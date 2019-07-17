@@ -1,46 +1,55 @@
 const db = require("../models");
-const mongoose = require('mongoose')
+
 
 module.exports = {
 
   findAll: function (req, res) {
-    db.User
+    db.UserEvent
       .find({})
-      // .sort({ date: -1 })
+      .sort({ createdAt: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
-  findById: function (req, res) {
-    db.User
-      .findById(req.params.id)
+  findByEventId: function (req, res) {
+    db.UserEvent
+      .find({event_id: req.params.event_id})
+      .populate('user_id')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
-  create: function (req, res) {
-    db.User
+  findByUserId: function (req, res) {
+    db.UserEvent
+      .find({user_id: req.params.user_id})
+      .populate('event_id')
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  create: function (req, res) { // creator currently not in attendes on create
+    db.UserEvent
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
+  // addAttendee: (req, res) => {
+  //   db.UserEvent.findByIdAndUpdate(req.params.id, { $push: { attendees: req.body.attendeeId } }, { new: true })
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // }
+
   // update: function(req, res) {
-  //   db.User
+  //   db.UserEvent
   //     .findOneAndUpdate({ _id: req.params.id }, req.body)
   //     .then(dbModel => res.json(dbModel))
   //     .catch(err => res.status(422).json(err));
   // },
   // remove: function(req, res) {
-  //   db.User
+  //   db.UserEvent
   //     .findById({ _id: req.params.id })
   //     .then(dbModel => dbModel.remove())
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // }
-  // findEventsForUser: (req, res) => { // Not working!
-  //   db.Event
-  //     .find({ 'attendes': mongoose.Types.ObjectId(req.params.id) })
   //     .then(dbModel => res.json(dbModel))
   //     .catch(err => res.status(422).json(err));
   // }

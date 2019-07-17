@@ -12,8 +12,8 @@ router.route("/:id")
 //   .put(userController.update)
 //   .delete(userController.remove);
 
-router.route('/:id/events')
-  .get(userController.findEventsForUser)
+// router.route('/:id/events')
+//   .get(userController.findEventsForUser)
 
 
 module.exports = router;
