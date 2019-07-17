@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require('../models');
 
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  create: function (req, res) { // creator currently not in attendes on create
+  create: function (req, res) {
     db.UserEvent
       .create(req.body)
       .then(dbModel => res.json(dbModel))

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema(
@@ -46,6 +46,6 @@ eventSchema.virtual('attendees', {
   foreignField: 'event_id'
 });
 
-const Event = mongoose.model("Event", eventSchema);
+const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;

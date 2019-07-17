@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
@@ -25,7 +25,7 @@ const userSchema = new Schema(
     //   required: true
     // }
   },
-  { 
+  {
     timestamps: true // Assigns createdAt and updatedAt fields
   }
 );
@@ -36,6 +36,6 @@ userSchema.virtual('events', {
   foreignField: 'user_id'
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
