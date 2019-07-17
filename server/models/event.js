@@ -8,12 +8,12 @@ const eventSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    attendes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-      }
-    ],
+    // attendees: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User',
+    //   }
+    // ],
     title: {
       type: String,
       required: true,
@@ -39,6 +39,12 @@ const eventSchema = new Schema(
     timestamps: true // Assigns createdAt and updatedAt fields
   }
 );
+
+eventSchema.virtual('attendees', {
+  ref: 'UserEvent',
+  localField: '_id',
+  foreignField: 'event_id'
+});
 
 const Event = mongoose.model("Event", eventSchema);
 

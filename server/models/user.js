@@ -30,6 +30,12 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.virtual('events', {
+  ref: 'UserEvent',
+  localField: '_id',
+  foreignField: 'user_id'
+});
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

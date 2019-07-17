@@ -4,12 +4,16 @@ const userController = require("../../controllers/userController");
 // // Matches with "/api/users"
 router.route("/")
   .get(userController.findAll)
-//   .post(booksController.create);
+  .post(userController.create);
 
 // // Matches with "/api/users/:id"
 router.route("/:id")
   .get(userController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
+//   .put(userController.update)
+//   .delete(userController.remove);
+
+router.route('/:id/events')
+  .get(userController.findEventsForUser)
+
 
 module.exports = router;

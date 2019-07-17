@@ -1,9 +1,9 @@
 const db = require("../models");
-
+const mongoose = require('mongoose')
 
 module.exports = {
 
-  findAll: function(req, res) {
+  findAll: function (req, res) {
     db.User
       .find({})
       // .sort({ date: -1 })
@@ -11,30 +11,37 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  findById: function(req, res) {
+  findById: function (req, res) {
     db.User
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
-  // create: function(req, res) {
-  //   db.Book
-  //     .create(req.body)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
+  create: function (req, res) {
+    db.User
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
   // update: function(req, res) {
-  //   db.Book
+  //   db.User
   //     .findOneAndUpdate({ _id: req.params.id }, req.body)
   //     .then(dbModel => res.json(dbModel))
   //     .catch(err => res.status(422).json(err));
   // },
   // remove: function(req, res) {
-  //   db.Book
+  //   db.User
   //     .findById({ _id: req.params.id })
   //     .then(dbModel => dbModel.remove())
   //     .then(dbModel => res.json(dbModel))
   //     .catch(err => res.status(422).json(err));
   // }
+  findEventsForUser: (req, res) => { // Not working!
+    db.Event
+      .find({ 'attendes': mongoose.Types.ObjectId(req.params.id) })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
 };
