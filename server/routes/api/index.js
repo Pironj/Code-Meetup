@@ -21,5 +21,4 @@ router.use('/comments', commentRoutes);
 router.use('/userEvents', userEventRoutes);
 
 
-
 module.exports = router;
