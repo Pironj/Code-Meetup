@@ -8,9 +8,9 @@ router.route('/')
 
 // // Matches with "/api/books/:id"
 router.route('/:id')
-  .get(eventController.findById);
-//   .put(eventController.update)
-//   .delete(eventController.remove);
+  .get(eventController.findById)
+  .put(eventController.update)
+  .delete(eventController.remove);
 
 // router.route("/:id/addAttendee")
 //   .put(eventController.addAttendee)

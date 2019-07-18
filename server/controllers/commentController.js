@@ -3,7 +3,7 @@ const db = require('../models');
 
 module.exports = {
 
-  findAll: function(req, res) {
+  findAll: function (req, res) {
     db.Comment
       .find({})
       .sort({ date: -1 })
@@ -11,13 +11,20 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  findById: function(req, res) {
+  findById: function (req, res) {
     db.Comment
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  create: function(req, res) {
+
+  // findCommentsForEvent: (req, res) => {
+  //   db.Comment.find({ event: req.params.eventId })
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
+
+  create: function (req, res) {
     db.Comment
       .create(req.body)
       .then(dbModel => res.json(dbModel))

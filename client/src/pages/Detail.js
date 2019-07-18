@@ -12,20 +12,20 @@ class Detail extends Component {
   // e.g. http://localhost:3000/books/:id
   // The book id for this route can be accessed using this.props.match.params.id
 
-  componentDidMount() {
-    this.getBook();
-  }
+  // componentDidMount() {
+  //   this.getBook();
+  // }
 
-  getBook = () => {
-    API.getBook(this.props.match.params.id)
-      .then(res => {
-        console.log(res)
-        this.setState({book: res.data})
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  // getBook = () => {
+  //   API.getBook(this.props.match.params.id)
+  //     .then(res => {
+  //       console.log(res)
+  //       this.setState({book: res.data})
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   render() {
     return (

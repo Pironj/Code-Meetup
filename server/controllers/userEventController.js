@@ -27,7 +27,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  create: function (req, res) {
+  create: function (req, res) { // Creates document with userid, event_id
     db.UserEvent
       .create(req.body)
       .then(dbModel => res.json(dbModel))
