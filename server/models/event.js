@@ -8,12 +8,7 @@ const eventSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    // attendees: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'User',
-    //   }
-    // ],
+
     title: {
       type: String,
       required: true,
@@ -39,6 +34,14 @@ const eventSchema = new Schema(
     timestamps: true // Assigns createdAt and updatedAt fields
   }
 );
+
+// attendees: [
+//   {
+//     type: Schema.Types.ObjectId,
+//     ref: 'User',
+//   }
+// ],P
+
 
 eventSchema.virtual('attendees', {
   ref: 'UserEvent',

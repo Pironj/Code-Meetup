@@ -9,7 +9,7 @@
 ## Future Improvements
 
 
-## Develment Information
+## Development Information
 
 ### Run development server
 ```
@@ -21,7 +21,7 @@ npm run start
 npm run seed
 ```
 
-### Lint Code
+### Lint Only Server Code
 Make sure to install eslint first:
 ```
 npm install -g eslint
