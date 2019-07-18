@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "node"
+cache:
+  directories:
+    - node_modules
+on:
+  branch: master
+
+language: node_js  
