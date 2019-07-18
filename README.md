@@ -21,13 +21,12 @@ npm run start
 npm run seed
 ```
 
-### Lint code
-Make sure to install eslint and babel-eslint globally first:
+### Lint Code
+Make sure to install eslint first:
 ```
-npm i -g eslint
-npm i -g babel-eslint
+npm install -g eslint
 ```
-### Run eslint fix
+#### Run in root 
 ```
 npm run fix
 ```

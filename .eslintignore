@@ -1,3 +1,4 @@
 /apidoc
 /node_modules
 *.css
+/client
