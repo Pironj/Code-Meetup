@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   // Gets all books
   getEvents: function() {
-    return axios.get("/api/events");
+    return axios.get('/api/events');
   },
   // // Gets the book with the given id
   // getBook: function(id) {

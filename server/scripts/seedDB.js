@@ -1,88 +1,89 @@
-// const mongoose = require('mongoose');
-// const db = require('../models');
+const mongoose = require('mongoose');
+const db = require('../models');
 
-// // This file empties the Books collection and inserts the books below
+// This file empties the all collections and populates
 
-// mongoose.connect(
-//   process.env.MONGODB_URI ||
-//   'mongodb://localhost/codemeetup'
-// );
+mongoose.connect(
+  process.env.MONGODB_URI ||
+  'mongodb://localhost/codemeetup'
+);
 
-// async function asyncForEach(array, callback) {
-//   for (let index = 0; index < array.length; index++) {
-//     await callback(array[index]);
-//   }
-// };
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index);
+  }
+}
 
-// async function createCategoryDocuments() {
-//   await asyncForEach(Array.from(categories), async (item) => {
-//     const possibleExistingCategory = await Category.findOne({ category: item });
-//     if (!possibleExistingCategory) {
-//       const category = new Category({ category: item });
-//       await category.save();
-//       console.log(category);
-//     }
-//   });
-//   mongoose.connection.close();
+const userSeed = [
+  {
+    google_id: '0234',
+  },
+  {
+    google_id: '5678',
+  },
+  {
+    google_id: '9101',
+  },
+  {
+    google_id: '1213',
+  },
+  {
+    google_id: '1415',
+  },
+  {
+    google_id: '1617',
+  }
+];
 
-// };
+const eventSeed = [
+  {
+    'title': 'Interview Questions', // 0234
+    'description': 'Practice interviewQuestions',
+  },
+  {
+    'title': 'Study Time!', // 5678
+    'description': 'Time to work on projects.',
+  },
+  {
+    'title': 'Interview a dev', // 9101
+    'description': 'Get some insight in the industry',
+  }
+];
 
-// const userSeed = [
-//   {
-//     google_id: '0234',
-//   },
-//   {
-//     google_id: '5678',
-//   },
-//   {
-//     google_id: '9101',
-//   },
-//   {
-//     google_id: '1213',
-//   }
-// ];
+const assignUsersToEvents = async (tuple) => {
+  const user = await db.User.findOne({ google_id: userSeed[tuple[0]].google_id });
+  const event = await db.Event.findOne({ title: eventSeed[tuple[1]].title });
 
-// const eventSeed = [
-//   {
-//     'title': 'Interview Questions', // 0234
-//     'description': 'Practice interviewQuestions',
-//   },
-//   {
-//     'title': 'Study Time!', // 5678
-//     'description': 'Time to work on projects.',
-//   },
-//   {
-//     'title': 'Interview a dev', // 9101
-//     'description': 'Get some insight in the industry',
-//   }
-// ];
+  const userEvent = new db.UserEvent({ user_id: user._id, event_id: event._id });
+  await userEvent.save();
+};
 
-// db.User
-//   // .remove({})
-//   .remove({ _id: { $ne: "5d2e6d976ef33530b82bbaf4" } })
-//   .then(() => db.User.collection.insertMany(userSeed))
-//   .then(async data => {
-//     console.log(data.result.n + ' user records inserted!');
-//     for (let i = 0; i < eventSeed.length; i++) {
-//       db.User.find({ google_id: userSeed[i] })
-//         .then(user => {
-//           eventSeed.user = user._id;
-//           eventSeed[i].save();
-//         });
-//     }
+const populateDB = async () => {
+  await db.User.remove({});
+  await db.Event.remove({});
+  await db.UserEvent.remove({});
+  await db.User.collection.insertMany(userSeed);
 
-//     await asyncForEach(Array.from(categories), async (item) => {
-//       const possibleExistingCategory = await Category.findOne({ category: item });
-//       if (!possibleExistingCategory) {
-//         const category = new Category({ category: item });
-//         await category.save();
-//         console.log(category);
-//       }
-//     });
+  await asyncForEach(eventSeed, async (item, index) => {
+    const savedUser = await db.User.find({ google_id: userSeed[index].google_id });
+    user = savedUser[0];
+    const event = item;
+    event.creator = user._id;
+    savedEvent = new db.Event(event);
+    await savedEvent.save();
+    const userEvent = new db.UserEvent({ user_id: user._id, event_id: savedEvent._id });
+    await userEvent.save();
+  });
 
-//     // process.exit(0);
-//   })
-//   .catch(err => {
-//     console.error(err);
-//     process.exit(1);
-//   });
+  // (user, event)
+  await asyncForEach([[0, 1], [0, 2], [1, 0], [3, 0]], async (tuple, index) => {
+    console.log(index);
+    await assignUsersToEvents(tuple);
+  });
+
+
+  process.exit(0);
+};
+
+populateDB();
+

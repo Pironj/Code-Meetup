@@ -1,0 +1,136 @@
+# API Endpoints
+
+## (Work in progress)
+
+## Users
+
+User Schema: 
+```javascript
+ {
+    google_id: {
+      type: String,
+      unique: true,
+      required: true
+    },
+    first_name: {
+      type: String,
+      required: false
+    },
+    last_name: {
+      type: String,
+      required: false,
+    },
+    email: {
+      type: String,
+      required: false,
+    },
+    // location: { // TODO
+    //   type: pointSchema,
+    //   required: true
+    // }
+  },
+```
+
+| Method | URL | Description |
+| ---    | --- | ---         |
+GET  | /api/users     | Find all users
+POST | /api/users     | Create user
+GET  | /api/users/:id | Find user by id
+
+
+## Events
+
+Event Schema
+```javascript
+  {
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      minlength: 0,
+      maxlength: 10000,
+      trim: true,
+    },
+    date: {
+      type: Date,
+      default: Date.now,
+    }
+    // location: { // TODO
+    //   type: pointSchema,
+    //   required: true
+    // }
+  },
+  ```
+| Method | URL | Description |
+| ---    | --- | ---         |
+GET  | /api/events     | Find all events
+POST | /api/events     | Create event
+GET  | /api/events/:id | Find event by id
+PUT  | /api/events/:id | Update event by id
+DELETE  | /api/events/:id | Delete event by id
+
+## UserEvents
+UserEvent entries are a record of a user attending an event.
+
+UserEvent Schema
+```javascript
+  {
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    event_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Event',
+      required: true,
+    }
+  },
+```
+
+| Method | URL | Description |
+| ---    | --- | ---         |
+GET  | /api/userEvents     | Find all UserEvents
+POST | /api/userEvents     | Create UserEvent
+GET  | /api/userEvents/user/:user_id | Find all events for a user id
+GET  | /api/userEvents/event/:event_id | Find all users for an event id
+
+
+## Comments
+
+Comment Schema
+```javascript
+  {
+    creator: {
+      type: Schema.Types.ObjectId,
+      required: true
+    },
+    event: {
+      type: Schema.Types.ObjectId,
+      required: true
+    },
+    body: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    // location: { // TODO
+    //   type: pointSchema,
+    //   required: true
+    // }
+  },
+  ```
+| Method | URL | Description |
+| ---    | --- | ---         |
+GET  | /api/comments     | Find all comments
+POST | /api/comments     | Create comment
+GET  | /api/comments/:id | Find comment by id
