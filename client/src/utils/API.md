@@ -36,6 +36,8 @@ User Schema:
 GET  | /api/users     | Find all users
 POST | /api/users     | Create user
 GET  | /api/users/:id | Find user by id
+PUT  | /api/users/:id | Update user by id
+DELETE | /api/users/:id | Delete user by id
 
 
 ## Events

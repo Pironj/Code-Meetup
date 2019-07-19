@@ -23,7 +23,7 @@ app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.connect(mongodbUrl,
-  { useNewUrlParser: true, useCreateIndex: true, }
+  { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false}
 );
 
 // Start the API server
