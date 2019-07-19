@@ -1,4 +1,4 @@
-.eventCard {
+/* .eventCard {
   background-color: transparent;
   width: 300px;
   height: 200px;
@@ -35,10 +35,19 @@
   background-color: rgb(238, 238, 238);
   color:rgb(107, 107, 107);
   transform: rotateY(180deg);
+} */
+
+.attendBtn {
+  margin-left: 160px;
 }
 
-#attendBtn {
-  margin-left: 115px;
-  margin-top: 175px;
+.jumbotron {
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+.eventCard {
+  float: left;
 }
 

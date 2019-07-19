@@ -1,10 +1,30 @@
-import React from "react";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import './style.css';
 
-function Btn(props) {
-    return (
-      <span className="_btn" {...props} role="button" tabIndex="0">
-      </span>
-    );
+const attendBtn = (props) => {
+  const clickHandler = () => {
+
   }
-  
-  export default Btn;
+  return (
+    <div className="attendBtn"
+    onClick={clickHandler}
+    >
+
+      <Button variant="primary">Primary</Button>
+
+
+    </div>
+
+
+
+
+
+
+
+  )
+
+
+
+
+}
