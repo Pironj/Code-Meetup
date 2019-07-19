@@ -36,23 +36,24 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  // addAttendee: (req, res) => {
-  //   db.UserEvent.findByIdAndUpdate(req.params.id, { $push: { attendees: req.body.attendeeId } }, { new: true })
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // }
+  findById: (req, res) => {
+    db.UserEvent
+      .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 
-  // update: function(req, res) {
-  //   db.UserEvent
-  //     .findOneAndUpdate({ _id: req.params.id }, req.body)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
-  // remove: function(req, res) {
-  //   db.UserEvent
-  //     .findById({ _id: req.params.id })
-  //     .then(dbModel => dbModel.remove())
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // }
+  removeById: (req, res) => {
+    db.UserEvent
+      .findByIdAndDelete(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  remove: function(req, res) {
+    db.UserEvent
+      .findOneAndDelete({ user_id: req.params.user_id, event_id: req.params.event_id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
 };
