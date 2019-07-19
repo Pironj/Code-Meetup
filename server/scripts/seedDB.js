@@ -81,7 +81,7 @@ const populateDB = async () => {
     // await userEvent.save();
   });
 
-  // Tuple indices are: (user, event)
+  // Tuple indices represent: (user, event)
   await asyncForEach([[0, 1], [0, 2], [1, 0], [3, 0]], async (tuple, index) => {
     console.log(index);
     await assignUsersToEvents(tuple);
