@@ -1,34 +1,28 @@
 import React from 'react';
 import './style.css';
+import {attendBtn} from '../btn';
+import {Card} from 'react-bootstrap';
 
-const eventCard = (props) => {
+
+const EventCard = (props) => {
   const clickHandler = () => {
     props.updateSelectedEventId(props.id)
   };
 
   return (
-    <div
-      className="eventCard__wrap"
-      onClick={clickHandler}
-    >
-        <div className="eventCard">
-          <div className="eventCard-inner">
-            <div className="eventCard-front">
-              <div className="card-header">Event you might be interested in..</div>
-              <div className="card-body text-dark">
-                <h5 className="card-title">{props.eventCard__title}</h5>
-                <img src="imgs/terchplaceholderpic.jpeg" alt="tech pic" width="auto" height="auto">
-                <p id="eventCard__text" className="card-text">{props.eventCard__content}</p>
-              </div>
-            </div>
 
-            <div className="eventCard-back">
-              <button id="attendBtn" type="button" className="btn btn-primary">Attend</button>
-            </div>
-          </div>
-        </div>
+        <Card border="dark" style={{ width: '18rem' }}>
+    <Card.Header>Event you may be interested in</Card.Header>
+    <Card.Body>
+      <Card.Title>{props.eventTitle}</Card.Title>
+      <Card.Text>
+       {props.eventContent}}
+      </Card.Text>
+      <button onClick={() => props.attendEvent(props.id)}>Attend</button>
+    </Card.Body>
+  </Card>
   );
 
 }
  
-export default eventCard;
+export default EventCard;
