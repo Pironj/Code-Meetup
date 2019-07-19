@@ -1,7 +1,6 @@
 import React from 'react';
 import './style.css';
-import {attendBtn} from '../btn';
-import {Card} from 'react-bootstrap';
+import {Card, Button} from 'react-bootstrap';
 
 
 const EventCard = (props) => {
@@ -11,14 +10,14 @@ const EventCard = (props) => {
 
   return (
 
-        <Card border="dark" style={{ width: '18rem' }}>
-    <Card.Header>Event you may be interested in</Card.Header>
+        <Card className="eventCard" border="dark" style={{ width: '18rem' }}>
+    <Card.Header>Popular Events</Card.Header>
     <Card.Body>
       <Card.Title>{props.eventTitle}</Card.Title>
       <Card.Text>
        {props.eventContent}}
       </Card.Text>
-      <button onClick={() => props.attendEvent(props.id)}>Attend</button>
+      <Button className="attendBtn" variant="outline-dark" onClick={() => props.attendEvent(props.id)}>Attend</Button>
     </Card.Body>
   </Card>
   );

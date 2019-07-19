@@ -1,13 +1,13 @@
 import React from "react";
 import API from "../utils/API";
-import Btn from "../components/btn";
+// import Btn from "../components/btn";
 import EventCard from "../components/eventcard";
 import Axios from "axios";
+import {Jumbotron, Container, Row, Col} from "react-bootstrap";
 
 class HomePage extends React.Component {
   state = {
     events: [],
-    // selectedEventId: '',
 
   }
 
@@ -33,13 +33,33 @@ class HomePage extends React.Component {
 
     return (
       <div>
-      <h1> This is home page.</h1>
       <div>
-      <p>Hello World</p>
+              <Jumbotron fluid>
+          <Container className="jumbotron">
+            <h1>
+            <span>&#60;</span>
+            <span>&#8725;</span>
+             rendezvous
+            <span>&#62;</span></h1>
+            <p>
+              A meet up app where you create events to network and code!
+            </p>
+          </Container>
+        </Jumbotron>
       </div>
       <div>
       <p>Events cards</p>
-      {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+      <Row>
+    <Col>
+    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    </Col>
+    <Col>
+    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    </Col>
+    <Col>
+    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    </Col>
+  </Row>
       </div>
       </div>
 

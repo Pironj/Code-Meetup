@@ -4,14 +4,14 @@ import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstr
 function Navigation() {
   return (
     <div>
-          <Navbar bg="dark" expand="lg">
+          <Navbar bg="info" expand="lg">
         <Navbar.Brand href="#home">rendezvous</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Login/Sign up</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <NavDropdown title="More" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Events</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Create Event</NavDropdown.Item>
