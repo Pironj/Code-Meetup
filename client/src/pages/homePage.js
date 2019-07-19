@@ -38,8 +38,8 @@ class HomePage extends React.Component {
           <Container className="jumbotron">
             <h1>
             <span>&#60;</span>
-            <span>&#8725;</span>
-             rendezvous
+             rendezvous 
+             <span>&#8725;</span>
             <span>&#62;</span></h1>
             <p>
               A meet up app where you create events to network and code!
