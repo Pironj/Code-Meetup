@@ -8,8 +8,14 @@ router.route('/')
 
 // // Matches with "/api/books/:id"
 router.route('/:id')
-  .get(commentController.findById);
-//   .put(commentController.update)
-//   .delete(commentController.remove);
+  .get(commentController.findById)
+  .put(commentController.update)
+  .delete(commentController.remove);
+
+router.route('/user/:id')
+  .get(commentController.findCommentsForUser);
+
+router.route('/event/:id')
+  .get(commentController.findCommentsForEvent);
 
 module.exports = router;
