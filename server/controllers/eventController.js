@@ -17,11 +17,15 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  create: function (req, res) {
-    db.Event
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+
+  create: async function (req, res) {
+    try {
+      const event = await db.Event.create(req.body);
+      await db.UserEvent.create({user_id: event.creator, event_id: event._id}); // Event creator will attend event
+      return res.json(event);
+    } catch (err) {
+      return res.status(422).json(err);
+    }
   },
 
   update: function (req, res) {
@@ -30,12 +34,6 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-
-  // addAttendee: (req, res) => { // creator currently not in attendes on create
-  //   db.Event.findByIdAndUpdate(req.params.id, { $push: { attendees: req.body.attendeeId } }, { new: true })
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // }
 
   remove: function (req, res) {
     db.Event

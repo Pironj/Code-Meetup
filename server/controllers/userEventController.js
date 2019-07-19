@@ -11,7 +11,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  findByEventId: function (req, res) {
+  // Find all users for an event id
+  findUsersForEventId: function (req, res) {
     db.UserEvent
       .find({event_id: req.params.event_id})
       .populate('user_id')
@@ -19,7 +20,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  findByUserId: function (req, res) {
+  // Find all events for a user id
+  findEventsForUserId: function (req, res) {
     db.UserEvent
       .find({user_id: req.params.user_id})
       .populate('event_id')

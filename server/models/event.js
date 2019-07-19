@@ -35,14 +35,6 @@ const eventSchema = new Schema(
   }
 );
 
-// attendees: [
-//   {
-//     type: Schema.Types.ObjectId,
-//     ref: 'User',
-//   }
-// ],P
-
-
 eventSchema.virtual('attendees', {
   ref: 'UserEvent',
   localField: '_id',
