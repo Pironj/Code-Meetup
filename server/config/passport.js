@@ -20,7 +20,7 @@ passport.use(
     {
      clientID: process.env.GOOGLE_CLIENT_ID,
      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-     callbackURL: "/auth/google/callback"
+     callbackURL: "http://localhost:4500/auth/google/callback"
     },
     (accessToken, refreshToken, profile, done) => {
       // passport callback function
@@ -47,8 +47,14 @@ passport.use(
       User.findOne({ google_id: profile.id })
       .then((currentUser) => {
         if(currentUser){
+          console.log(userData.token);
+          currentUser['token'] = userData.token;
           // already have this user
-          console.log('<=============== FOUND CURRENT USER IN DB ==============>\nCurrent user is:\n\n', currentUser, '\n========================================================\n\n');
+          console.log('<=============== FOUND CURRENT USER IN DB ==============>\nCurrent user is:\n\n', currentUser._id, '\n========================================================\n\n');
+          return done(null, {
+            id: currentUser._id,
+            token: accessToken
+          })
         } else {
           //create user in our db
           const newUser = {
@@ -62,7 +68,7 @@ passport.use(
             .then(mongoResponse => {
               console.log('created new user: ', mongoResponse);
               return done(null, {
-                id: user[0].id,
+                id: newUser._id,
                 token: accessToken
               });
             })
