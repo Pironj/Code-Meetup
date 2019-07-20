@@ -8,10 +8,19 @@ import { Col, Row, Container } from "../components/Grid";
 
 class UserProfile extends React.Component{
     state = {
+        user:{},
         events: [],
     }
 
     componentDidMount() {
+        API.findUserById(this.props.match.params.id)
+        .then(res => {
+          console.log(res.data)
+          this.setState({user: res.data})
+        }).catch(err => {
+          console.log(err)
+        });
+
         Axios.get("/api/events")
         .then(res =>{
             console.log(res.data);
@@ -23,5 +32,8 @@ class UserProfile extends React.Component{
         this.state.events.map(event => (<EventCard eventTitle={event.Title} eventContent={event.description} key={event._id}/>))
     }
 
-    
+    render() {
+        
+    }
+
 }
