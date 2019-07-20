@@ -48,7 +48,6 @@ class HomePage extends React.Component {
         </Jumbotron>
       </div>
       <div>
-      <p>Events cards</p>
       <Row>
     <Col>
     {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
