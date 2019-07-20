@@ -23,7 +23,7 @@ router.get('http://localhost:4500/auth/google/callback', passport.authenticate('
   // res.send(req.user);
   console.log("===== USER OBJECT FROM PASSPORT ======");
   console.log(req.user);
-  res.redirect('/books');
+  res.redirect('/');
 });
 
 module.exports = router;
