@@ -5,8 +5,6 @@ const EVENT_API_URL = '/api/events';
 const USER_EVENT_API_URL = '/api/userEvents';
 const COMMENT_API_URL= '/api/comments'
 
-
-
 export default {
   // User
 
