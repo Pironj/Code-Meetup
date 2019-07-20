@@ -4,7 +4,9 @@ const User = require('../models/user');
 require("dotenv").config();
 
 passport.serializeUser((user, done) => {
+  console.log(user);
   done(null, user.id);
+  console.log(user.id);
 });
 
 passport.deserializeUser((id, done) => {
@@ -18,35 +20,50 @@ passport.use(
     {
      clientID: process.env.GOOGLE_CLIENT_ID,
      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-     callbackURL: "http://localhost:4500/auth/google/callback"
+     callbackURL: "/auth/google/callback"
     },
     (accessToken, refreshToken, profile, done) => {
       // passport callback function
-      console.log('passport callback function fired:');
+      console.log('\n<===== passport callback function fired =====>\n\n');
       console.log(profile);
+      // console.log(email);
       // create a user object with user data returned from their google profile
-      var userData = {
+      const userData = {
        google_id: profile.id,
-       first_name: profile.displayName, // <===== TODO =====> splice the first name here
-       last_name: profile.displayName, // <===== TODO =====> splice the last name here
+       first_name: profile.name.givenName,
+       last_name: profile.name.familyName,
+       picture: profile.photos[0].value,
        email: profile.emails[0].value,
        token: accessToken
       };
       console.log(userData);
       // check if user already exists in our own db
-      User.findOne({ googleId: profile.id })
+      User.findOne({ google_Id: profile.id })
       .then((currentUser) => {
         if(currentUser){
           // already have this user
           console.log('user is: ', currentUser);
         } else {
           //create user in our db
-          new User({userData})
-          .save().then((newUser) => {
-            console.log('created new user: ', newUser);
-            done(null, newUser);
-          })
+          const newUser = {
+            google_id: userData.google_id,
+            first_name: userData.first_name,
+            last_name: userData.last_name,
+            picture: userData.picture,
+            email: userData.email
+          };
+          User.create(newUser)
+            .then(mongoResponse => {
+              console.log('created new user: ', mongoResponse);
+              return done;
+            })
+            .catch(err => {
+              console.log('FAILED TO CREATE NEW USER: ', err);
+            });
         }
+      })
+      .catch(err => {
+        console.log('Did not find user in DB error: ', err);
       });
 
     })

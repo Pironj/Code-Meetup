@@ -20,6 +20,10 @@ const userSchema = new Schema(
       type: String,
       required: false,
     },
+    picture: {
+      type: String,
+      required: false,
+    }
     // location: { // TODO
     //   type: pointSchema,
     //   required: true
