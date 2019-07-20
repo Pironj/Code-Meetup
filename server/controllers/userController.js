@@ -38,11 +38,4 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   }
-
-  // findEventsForUser: (req, res) => { // Not working!
-  //   db.Event
-  //     .find({ 'attendes': mongoose.Types.ObjectId(req.params.id) })
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // }
 };

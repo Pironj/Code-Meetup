@@ -1,13 +1,13 @@
 # Code Meetup
 
 ## Description
-
+TODO
 ## Motivation
-
+TODO
 ## Results
-
+TODO
 ## Future Improvements
-
+TODO
 
 ## Development Information
 
@@ -16,7 +16,7 @@
 npm run start
 ```
 
-### Seed DB
+### Delete all DB Documents and Seed DB
 ```
 npm run seed
 ```
