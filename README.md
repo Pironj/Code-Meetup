@@ -21,7 +21,7 @@ npm run start
 npm run seed
 ```
 
-### Lint Only Server Code
+### Lint Code
 Make sure to install eslint first:
 ```
 npm install -g eslint

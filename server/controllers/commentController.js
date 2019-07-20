@@ -18,11 +18,17 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  // findCommentsForEvent: (req, res) => {
-  //   db.Comment.find({ event: req.params.eventId })
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
+  findCommentsForEvent: (req, res) => {
+    db.Comment.find({ event: req.params.eventId })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  findCommentsForUser: (req, res) => {
+    db.Comment.find({ user: req.params.userId })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 
   create: function (req, res) {
     db.Comment
@@ -31,17 +37,17 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  // update: function(req, res) {
-  //   db.Comment
-  //     .findOneAndUpdate({ _id: req.params.id }, req.body)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
-  // remove: function(req, res) {
-  //   db.Comment
-  //     .findById({ _id: req.params.id })
-  //     .then(dbModel => dbModel.remove())
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // }
+  update: function(req, res) {
+    db.Comment
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  remove: function(req, res) {
+    db.Comment
+      .findByIdAndDelete(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  }
 };

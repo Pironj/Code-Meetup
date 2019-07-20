@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// UserEvent is a record of a user attending an event
 const userEventSchema = new Schema(
   {
     user_id: {
