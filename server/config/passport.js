@@ -26,6 +26,9 @@ passport.use(
       // passport callback function
       console.log('\n<===== passport callback function fired =====>\n\n');
       console.log(profile);
+      console.log('========================================================')
+      console.log('========================================================')
+
       // console.log(email);
       // create a user object with user data returned from their google profile
       const userData = {
@@ -36,13 +39,16 @@ passport.use(
        email: profile.emails[0].value,
        token: accessToken
       };
+      console.log('\n\n<===================== USER DATA ======================>\n');
+
       console.log(userData);
+      console.log('\n========================================================\n\n')
       // check if user already exists in our own db
-      User.findOne({ google_Id: profile.id })
+      User.findOne({ google_id: profile.id })
       .then((currentUser) => {
         if(currentUser){
           // already have this user
-          console.log('user is: ', currentUser);
+          console.log('<=============== FOUND CURRENT USER IN DB ==============>\nCurrent user is:\n\n', currentUser, '\n========================================================\n\n');
         } else {
           //create user in our db
           const newUser = {
@@ -55,10 +61,13 @@ passport.use(
           User.create(newUser)
             .then(mongoResponse => {
               console.log('created new user: ', mongoResponse);
-              return done;
+              return done(null, {
+                id: user[0].id,
+                token: accessToken
+              });
             })
             .catch(err => {
-              console.log('FAILED TO CREATE NEW USER: ', err);
+              console.log('\nFAILED TO CREATE NEW USER: ', err, '\n\n');
             });
         }
       })
