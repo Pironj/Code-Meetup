@@ -1,12 +1,9 @@
 const router = require('express').Router();
-const bookRoutes = require('./books');
 const userRoutes = require('./userRoutes');
 const commentRoutes = require('./commentRoutes');
 const eventRoutes = require('./eventRoutes');
 const userEventRoutes = require('./userEventRoutes');
 
-// Book routes
-router.use('/books', bookRoutes);
 
 // // User routes
 router.use('/users', userRoutes);
