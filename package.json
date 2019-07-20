@@ -12,12 +12,16 @@
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "fix": "eslint --fix server/** && cd client && npm run fix"
+    "fix": "eslint --fix server/** && cd client && npm run fix",
+    "test": "mocha ./server/test --timeout 10000"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "concurrently": "^4.1.0",
+    "mocha": "^6.2.0",
     "nodemon": "^1.18.7"
   },
   "dependencies": {

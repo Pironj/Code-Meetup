@@ -6,7 +6,7 @@ const morgan = require('morgan');
 require('./server/config/passport');
 
 const app = express();
-const PORT = process.env.PORT || 4500;
+const PORT = process.env.PORT || (process.env.NODE_ENV === 'test' ? 3002 : 4500);
 
 // Require cookie packages
 const cookieParser = require('cookie-parser');
@@ -26,7 +26,8 @@ app.use(cookieParser()); // Lets us easily get cookie data as request
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-const mongodbUrl = process.env.MONGODB_URI || 'mongodb://localhost/codemeetup';
+
+const mongodbUrl = process.env.MONGODB_URI || (process.env.NODE_ENV === 'test' ? 'mongodb://localhost/testcodemeetup' : 'mongodb://localhost/codemeetup');
 
 // Define middleware here
 app.use(express.urlencoded({ extended: false }));
@@ -38,7 +39,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-  
 // Add routes, both API and view
 const routes = require('./server/routes');
 // const authRoutes = require('./server/routes/api/authRoutes');
