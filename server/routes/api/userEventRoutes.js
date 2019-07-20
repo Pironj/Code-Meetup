@@ -17,7 +17,7 @@ router.route('/event/:event_id')
   .get(userEventController.findUsersForEventId);
 
 router.route('/delete/:user_id/:event_id')
-  .delete(userEventController.remove);
+  .delete(userEventController.removeByUserAndEventId);
 
 
 module.exports = router;

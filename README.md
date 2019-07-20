@@ -16,7 +16,7 @@
 npm run start
 ```
 
-### Seed DB
+### Delete all DB Documents and Seed DB
 ```
 npm run seed
 ```

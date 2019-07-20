@@ -50,7 +50,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  remove: function(req, res) {
+  removeByUserAndEventId: function(req, res) {
     db.UserEvent
       .findOneAndDelete({ user_id: req.params.user_id, event_id: req.params.event_id })
       .then(dbModel => res.json(dbModel))

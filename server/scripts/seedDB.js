@@ -75,10 +75,6 @@ const populateDB = async () => {
     const event = item;
     event.creator = user._id;
     await createEvent(event);
-    // savedEvent = new db.Event(event);
-    // await savedEvent.save();
-    // const userEvent = new db.UserEvent({ user_id: user._id, event_id: savedEvent._id });
-    // await userEvent.save();
   });
 
   // Tuple indices represent: (user, event)
