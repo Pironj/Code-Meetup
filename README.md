@@ -1,13 +1,13 @@
 # Code Meetup
 
 ## Description
-
+TODO
 ## Motivation
-
+TODO
 ## Results
-
+TODO
 ## Future Improvements
-
+TODO
 
 ## Development Information
 
