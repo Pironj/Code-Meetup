@@ -1,13 +1,13 @@
 # Code Meetup
 
 ## Description
-
+TODO
 ## Motivation
-
+TODO
 ## Results
-
+TODO
 ## Future Improvements
-
+TODO
 
 ## Development Information
 
@@ -16,12 +16,12 @@
 npm run start
 ```
 
-### Seed DB
+### Delete all DB Documents and Seed DB
 ```
 npm run seed
 ```
 
-### Lint Only Server Code
+### Lint Code
 Make sure to install eslint first:
 ```
 npm install -g eslint
