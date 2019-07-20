@@ -7,7 +7,7 @@ const passport = require('passport');
 // });
 
 // auth with google+
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] })
+router.get('http://localhost:4500/auth/google', passport.authenticate('google', { scope: ['profile'] })
 );
 
 // auth logout
