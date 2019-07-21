@@ -44,8 +44,10 @@ class UserProfile extends React.Component {
 
     render() {
         return (
-            <Container fluid>
-                <Nav />
+            
+                <Container fluid>
+                    <Nav />
+                </Container>    
                 <Container>
                     <Row>
                         <Col size="4">
@@ -90,7 +92,6 @@ class UserProfile extends React.Component {
                     </Col>
                     
                 </Container>
-            </Container>
         )
     }
 
