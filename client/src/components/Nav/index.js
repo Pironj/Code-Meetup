@@ -1,7 +1,7 @@
 import React from 'react';
 import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
-import Login from '..//googleLogin';
-import Logout from '..//googleLogout';
+import Login from '../googleLogin';
+import Logout from '../googleLogout';
 
 function Navigation() {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import API from "../utils/API";
 // import Btn from "../components/btn";
 import EventCard from "../components/eventcard";
-import CommentBox from "../components/commentbox"
+import FooterPage from "../components/footer"
 import Axios from "axios";
 import {Jumbotron, Container, Row, Col} from "react-bootstrap";
 
@@ -60,7 +60,7 @@ class HomePage extends React.Component {
     {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
     </Col>
   </Row>
-      </div>
+   </div>
       </div>
 
 
