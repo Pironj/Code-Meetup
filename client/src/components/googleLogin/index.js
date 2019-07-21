@@ -5,7 +5,7 @@ function Login() {
 
   const responseGoogle = (response) => {
     console.log(response);
-  
+    console.log(response.Zi.id_token);
   }
   return (
     <GoogleLogin
