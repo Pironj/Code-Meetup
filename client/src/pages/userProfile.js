@@ -1,6 +1,6 @@
 import React from "react";
 import API from "../utils/API";
-import Btn from "../components/btn";
+//import Btn from "../components/btn";
 import Nav from "../components/Nav";
 import EventCard from "../components/eventcard";
 import { Col, Row, Container } from "../components/Grid";
@@ -51,8 +51,8 @@ class UserProfile extends React.Component {
                         <Col size="4">
                             <image>User Img Here</image>
                             <React.Fragment>
-                                <td>Name: {`${user.first_name} ` + `${user.last_name}`}</td>
-                                <td> Email: {`${user.email}`}</td>
+                                <td>Name: </td>
+                                <td> Email: </td>
                             </React.Fragment>
 
                         </Col>
@@ -77,3 +77,5 @@ class UserProfile extends React.Component {
     }
 
 }
+
+export default UserProfile;
