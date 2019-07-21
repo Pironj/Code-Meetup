@@ -17,6 +17,7 @@ app.use(
   cookieSession({
     name: "session", // key name for our cookie to reference later for our logged in user foreign id
     keys: ["123"], // key encryption
+    resave: false
     // maxAge: 24 * 60 * 60 * 1000, //encrypt cookie make sure it is a day long
   })
 );

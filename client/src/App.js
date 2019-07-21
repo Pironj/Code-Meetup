@@ -13,6 +13,7 @@ function App() {
   <Navigation />
   <Switch>
     <Route exact path='/' component={HomePage}></Route>
+    <Route exact path='/logout' component={HomePage}></Route>
     <Route exact path='/books' component={Books}></Route>
     <Route exact path='/books/:id' component={Detail}></Route>
     <Route component={NoMatch} />
