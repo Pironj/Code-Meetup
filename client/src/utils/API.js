@@ -147,10 +147,9 @@ export default {
   },
 
   /**
-   * Delete event by id (Also deletes all UserEvent docs with an event_id === id)
    * @param {string} commentid
    */
-  deleteDelete: (commentid) => {
+  deleteCommentById: (commentid) => {
     return axios.delete(`${COMMENT_API_URL}/${commentid}`);
   },
 

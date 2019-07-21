@@ -15,6 +15,7 @@ router.get('/logout', (req, res) => {
   req.logout();
   return res.redirect(req.rawListeners[11]);
 });
+
 // auth with google+
 router.get('/auth', (req, res, next) => {
   console.log("RETURN TO VALUE: ", req.headers.referer);

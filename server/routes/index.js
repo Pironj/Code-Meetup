@@ -5,18 +5,17 @@ const apiRoutes = require('./api');
 
 // const authRoutes = require('./api/authRoutes');
 
-router.get("/", function(req, res) {
-  console.log("THIS IS MY REDIRECT REQUEST", req.rawHeaders[11]);
+router.get('/', function(req, res) {
+  console.log('THIS IS MY REDIRECT REQUEST', req.rawHeaders[11]);
   const redir = req.rawHeaders[11];
-res.redirect(redir);
-})
+  res.redirect(redir);
+});
 
 // API Routes
 router.use('/api', apiRoutes);
+
+// Auth Routes
 router.use(authRoutes);
-
-
-
 
 
 // If no API routes are hit, send the React app
