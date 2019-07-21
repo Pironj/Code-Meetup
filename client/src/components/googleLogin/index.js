@@ -1,8 +1,17 @@
-import React from 'react';
-import { GoogleLogin } from 'react-google-login';
-require("dotenv").config();
-function Login() {
+// import React from 'react';
+// import { GoogleLogin } from 'react-google-login';
+// require("dotenv").config();
+// function Login() {
 
+<<<<<<< HEAD
+//   const responseGoogle = (response) => {
+//     console.log(response);
+  
+//   }
+//   return (
+//     <GoogleLogin
+//       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+=======
   const responseGoogle = (response) => {
     console.log("Google Response: \n", response);
     console.log("Google Profile Object: \n", response.profileObj);
@@ -70,17 +79,18 @@ function Login() {
   return (
     <GoogleLogin
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+>>>>>>> 019e7811182debae909f0e3e83f1078b6b4204df
 
-      buttonText="Login"
-      onSuccess={responseGoogle}
-      onFailure={responseGoogle}
-      cookiePolicy={'single_host_origin'}
-    />
-  );
-}
+//       buttonText="Login"
+//       onSuccess={responseGoogle}
+//       onFailure={responseGoogle}
+//       cookiePolicy={'single_host_origin'}
+//     />
+//   );
+// }
 
 
 
  
 
-export default Login
+// export default Login

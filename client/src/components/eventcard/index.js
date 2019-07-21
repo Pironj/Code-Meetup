@@ -1,11 +1,15 @@
 import React from 'react';
 import './style.css';
 import {Card, Button} from 'react-bootstrap';
+import {EditEventBtn, DeleteBtn, attendBtn,} from '../btn';
+import { PromiseProvider } from 'mongoose';
 
 
 const EventCard = (props) => {
-  const clickHandler = () => {
-    props.updateSelectedEventId(props.id)
+  const editHandler = (id) => {
+    props.editEvent(props.id)
+    props.deleteEvent(props.id)
+    props.attendEvent(props.id)
   };
 
   return (
@@ -17,7 +21,14 @@ const EventCard = (props) => {
       <Card.Text>
        {props.eventContent}}
       </Card.Text>
-      <Button className="attendBtn" variant="outline-dark" onClick={() => props.attendEvent(props.id)}>Attend</Button>
+      <EditEventBtn editEvent = {props.editEvent}
+                    id = {props.id} />
+      <DeleteBtn deleteEvent = {props.deleteEvent}
+                    id = {props.id}
+      />
+      <AttendBtn attendEvent = {props.attendEvent}
+                    id = {props.id}
+      />
     </Card.Body>
   </Card>
   );
