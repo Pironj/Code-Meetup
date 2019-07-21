@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import './style.css';
 
-export const attendBtn = (props) => {
+export const AttendBtn = (props) => {
   const clickHandler = () => {
 
   }
@@ -10,7 +10,7 @@ export const attendBtn = (props) => {
     <div className="attendBtn"
     onClick={clickHandler}
     >
-      <Button variant="dark">Primary</Button>
+      <Button variant="dark">Attend</Button>
     </div>
   )
 }
