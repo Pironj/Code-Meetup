@@ -42,9 +42,9 @@ if (process.env.NODE_ENV === 'production') {
   
 // Add routes, both API and view
 const routes = require('./server/routes');
-const authRoutes = require('./server/routes/api/authRoutes');
+// const authRoutes = require('./server/routes/api/authRoutes');
 app.use(routes);
-app.use('/auth', authRoutes);
+// app.use('/auth', authRoutes);
 
 
 // Connect to the Mongo DB
