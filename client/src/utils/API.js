@@ -20,8 +20,13 @@ export default {
     /**
    * @param {string} userId
    */
-  findUserById: (userId) => {
-    return axios.get(`${USER_API_URL}/${userId}`)
+  findUserById: async (userId) => {
+    try {
+      return await axios.get(`${USER_API_URL}/${userId}`)
+    } catch (err) {
+      return err
+    }
+    
   },
 
   updateUser: (user) => {

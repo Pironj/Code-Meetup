@@ -9,10 +9,10 @@ class User extends React.Component {
   componentDidMount() {
     API.findUserById(this.props.match.params.id)
     .then(res => {
-      console.log(res.data)
-      this.setState({user: res.data})
+      // console.log(res.data)
+      // this.setState({user: res.data})
     }).catch(err => {
-      console.log(err)
+      // console.log(err)
     })
   }
 
