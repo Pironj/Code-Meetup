@@ -1,19 +1,19 @@
 const path = require('path');
-const authRoutes = require('../routes/api/authRoutes');
+// const authRoutes = require('../routes/api/authRoutes');
 const router = require('express').Router();
 const apiRoutes = require('./api');
 
 // const authRoutes = require('./api/authRoutes');
 
-router.get("/", function(req, res) {
-  console.log("THIS IS MY REDIRECT REQUEST", req.rawHeaders[11]);
-  const redir = req.rawHeaders[11];
-res.redirect(redir);
-})
+// router.get("/", function(req, res) {
+//   console.log("THIS IS MY REDIRECT REQUEST", req.rawHeaders[11]);
+//   const redir = req.rawHeaders[11];
+// res.redirect(redir);
+// })
 
 // API Routes
 router.use('/api', apiRoutes);
-router.use(authRoutes);
+// router.use(authRoutes);
 
 
 
