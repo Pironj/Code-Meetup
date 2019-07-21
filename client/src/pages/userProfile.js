@@ -7,11 +7,13 @@ import Axios from "axios";
 import { Col, Row, Container } from "../components/Grid";
 
 class UserProfile extends React.Component{
+    //create state
     state = {
         user:{},
         events: [],
-    }
+    };
 
+    //when this component mounts it grabs the user by their user id
     componentDidMount() {
         API.findUserById(this.props.match.params.id)
         .then(res => {
@@ -21,7 +23,8 @@ class UserProfile extends React.Component{
           console.log(err)
         });
 
-        Axios.get("/api/events")
+        //and gets all the event's in the database that user created
+       API.getAllUserEvents(this.props.match.params.id)
         .then(res =>{
             console.log(res.data);
             this.setState({events:res.data})
