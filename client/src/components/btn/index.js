@@ -18,9 +18,10 @@ export const attendBtn = (props) => {
 export const deleteBtn = (props) => {
   const clickHandler = () => {
 
+
   }
   return (
-    <div className="attendBtn"
+    <div className="deleteBtn"
     onClick={ClickHandler}>
 
       <Button variant="dark"></Button>
