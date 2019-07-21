@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import API from "../utils/API";
 import EventCard from "../components/eventcard";
+import Navigation from "../components/Nav";
+import { Nav } from 'react-bootstrap';
 
 
 class UserEvents extends Component {
@@ -58,7 +60,7 @@ class UserEvents extends Component {
   render() {
     return (
       <div>
-
+      <Navigation />
       <h1> This is User Events</h1>
       {this.state.success ? <p>Event Added</p> : null }
       {this.renderEvents()}
