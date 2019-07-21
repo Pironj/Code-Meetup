@@ -7,11 +7,7 @@ export const AttendBtn = (props) => {
 
   }
   return (
-    <div className="attendBtn"
-    onClick={clickHandler}
-    >
-      <Button variant="dark">Primary</Button>
-    </div>
+    <Button variant="dark" onClick={() => props.editEvent(props.id)}>Attend</Button>
   )
 }
 
@@ -30,11 +26,8 @@ export const createEventBtn = (props) => {
 
   }
   return (
-    <div className="attendBtn"
-    onClick={clickHandler}>
+    <Button variant="dark" onClick={() => props.editEvent(props.id)}>Create Event</Button>
 
-      <Button variant="dark"></Button>
-    </div>
   )
 }
 
@@ -53,11 +46,8 @@ export const cancelBtn = (props) => {
 
   }
   return (
-    <div className="attendBtn"
-    onClick={clickHandler}>
+    <Button variant="dark" onClick={() => props.editEvent(props.id)}> Cancel Event</Button>
 
-      <Button variant="dark"></Button>
-    </div>
   )
 }
 
