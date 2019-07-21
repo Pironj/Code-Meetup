@@ -14,7 +14,7 @@ const db = require('../models');
 const usersSeed = require('../scripts/usersSeed.json');
 
 
-chai.use(chaiHttp);
+// chai.use(chaiHttp);
 
 const google_id = '123456';
 const user = {
@@ -43,7 +43,7 @@ describe('User', () => {
       const res = await request(server).get('/api/users');
       res.should.have.status(200);
       res.body.should.be.a('array');
-      res.body.length.should.be.eql(7);
+      res.body.length.should.be.eql(6);
     });
   });
 
