@@ -72,6 +72,24 @@ class UserProfile extends React.Component {
                         </Col>
                     </Row>
                 </Container>
+
+                <Container>
+                 <Col size="8">
+                        <h3>Events You're Attending:</h3>
+                        <Row>
+                            <Col>
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            </Col>
+                            <Col>
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            </Col>
+                            <Col>
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            </Col>
+                        </Row>
+                    </Col>
+                    
+                </Container>
             </Container>
         )
     }
