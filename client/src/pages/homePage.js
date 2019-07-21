@@ -1,8 +1,9 @@
 import React from "react";
 import API from "../utils/API";
-// import Btn from "../components/btn";
+import {AttendBtn} from "../components/btn";
+import Navigation from "../components/Nav";
 import EventCard from "../components/eventcard";
-import FooterPage from "../components/footer"
+import FooterComponent from "../components/footer";
 import Axios from "axios";
 import {Jumbotron, Container, Row, Col} from "react-bootstrap";
 
@@ -35,6 +36,7 @@ class HomePage extends React.Component {
     return (
       <div>
       <div>
+        <Navigation />
               <Jumbotron fluid>
           <Container className="jumbotron">
             <h1>
@@ -51,16 +53,18 @@ class HomePage extends React.Component {
       <div>
       <Row>
     <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    {this.state.events.map(event=>(<EventCard id={event._id[0]} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    {/* <AttendBtn /> */}
     </Col>
     <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    {/* {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))} */}
     </Col>
     <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    {/* {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))} */}
     </Col>
   </Row>
    </div>
+      <FooterComponent />
       </div>
 
 

@@ -3,34 +3,25 @@
 // require("dotenv").config();
 // function Login() {
 
-<<<<<<< HEAD
-//   const responseGoogle = (response) => {
-//     console.log(response);
-  
-//   }
-//   return (
-//     <GoogleLogin
-//       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-=======
-  const responseGoogle = (response) => {
-    console.log("Google Response: \n", response);
-    console.log("Google Profile Object: \n", response.profileObj);
-    console.log(response.Zi.id_token);
+  // const responseGoogle = (response) => {
+  //   console.log("Google Response: \n", response);
+  //   console.log("Google Profile Object: \n", response.profileObj);
+  //   console.log(response.Zi.id_token);
 
-    const userData = response.profileObj;
-    const googleDBId = userData.googleId;
-    const user = {
-      google_id: userData.googleId,
-      first_name: userData.givenName,
-      last_name: userData.familyName,
-      picture: userData.imageURL,
-      email: userData.email,
-      token: response.Zi.id_token
-     };
-     console.log('\n\n<===================== USER DATA ======================>\n');
+  //   const userData = response.profileObj;
+  //   const googleDBId = userData.googleId;
+  //   const user = {
+  //     google_id: userData.googleId,
+  //     first_name: userData.givenName,
+  //     last_name: userData.familyName,
+  //     picture: userData.imageURL,
+  //     email: userData.email,
+  //     token: response.Zi.id_token
+  //    };
+  //    console.log('\n\n<===================== USER DATA ======================>\n');
 
-     console.log(user);
-     console.log('\n========================================================\n\n')
+  //    console.log(user);
+  //    console.log('\n========================================================\n\n')
 
   //  ====== TODO: HOOK UP TO BACKEND utils/API ======
 
@@ -74,12 +65,11 @@
   //       console.log('Did not find user in DB error: ', err);
   //     });
 
-  }
+  // }
 
-  return (
-    <GoogleLogin
-      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
->>>>>>> 019e7811182debae909f0e3e83f1078b6b4204df
+  // return (
+  //   <GoogleLogin
+  //     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 
 //       buttonText="Login"
 //       onSuccess={responseGoogle}
