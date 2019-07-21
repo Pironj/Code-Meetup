@@ -29,7 +29,15 @@ class UserProfile extends React.Component{
             console.log(res.data);
             this.setState({events:res.data})
         }).catch(err=>console.log(err))
-    }
+
+        //gets all event's user has saved to attend from the db
+
+        API.findEventsForUser(this.props.match.params.id)
+        .then(res => {
+            console.log(res.data);
+            this.setState({events:res.data})
+        }).catch(err=>console.log(err))
+    };
 
     renderEventCards = () => {
         this.state.events.map(event => (<EventCard eventTitle={event.Title} eventContent={event.description} key={event._id}/>))
