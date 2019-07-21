@@ -33,7 +33,13 @@ class UserProfile extends React.Component{
     }
 
     render() {
-        
+        return (
+            <Container fluid>
+                <Row>
+                    <Col size = ""></Col>
+                </Row>
+            </Container>
+        )
     }
 
 }
