@@ -1,5 +1,5 @@
 const express = require('express');
-// const passport = require('passport');
+const passport = require('passport');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 //require passport for authentication
@@ -15,16 +15,17 @@ const cookieSession = require('cookie-session');
 // Set up session cookies
 app.use(
   cookieSession({
-    name: 'session', // key name for our cookie to reference later for our logged in user foreign id
-    keys: ['123'], // key encryption
+    name: "session", // key name for our cookie to reference later for our logged in user foreign id
+    keys: ["123"], // key encryption
+    resave: false
     // maxAge: 24 * 60 * 60 * 1000, //encrypt cookie make sure it is a day long
   })
 );
 app.use(cookieParser()); // Lets us easily get cookie data as request
 
 // Initialize passport
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 const mongodbUrl = process.env.MONGODB_URI || 'mongodb://localhost/codemeetup';
 
