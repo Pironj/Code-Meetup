@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 import {Card, Button} from 'react-bootstrap';
-import {EditEventBtn, DeleteBtn, attendBtn,} from '../btn';
+import {EditEventBtn, DeleteBtn, AttendBtn,} from '../btn';
 import { PromiseProvider } from 'mongoose';
 
 
