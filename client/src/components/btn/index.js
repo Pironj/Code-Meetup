@@ -2,29 +2,22 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import './style.css';
 
-export const attendBtn = (props) => {
+export const AttendBtn = (props) => {
   const clickHandler = () => {
 
   }
   return (
-    <div className="attendBtn"
-    onClick={clickHandler}
-    >
-      <Button variant="dark">Primary</Button>
-    </div>
+    <Button variant="dark" onClick={() => props.editEvent(props.id)}>Attend</Button>
   )
 }
 
-export const deleteBtn = (props) => {
+export const DeleteBtn = (props) => {
   const clickHandler = () => {
+
 
   }
   return (
-    <div className="attendBtn"
-    onClick={ClickHandler}>
-
-      <Button variant="dark"></Button>
-    </div>
+      <Button variant="dark" onClick={() => props.deleteEvent(props.id)} >Delete</Button>
   )
 }
 
@@ -33,24 +26,18 @@ export const createEventBtn = (props) => {
 
   }
   return (
-    <div className="attendBtn"
-    onClick={ClickHandler}>
+    <Button variant="dark" onClick={() => props.editEvent(props.id)}>Create Event</Button>
 
-      <Button variant="dark"></Button>
-    </div>
   )
 }
 
-export const editEventBtn = (props) => {
+export const EditEventBtn = (props) => {
   const clickHandler = () => {
 
   }
   return (
-    <div className="attendBtn"
-    onClick={ClickHandler}>
-
-      <Button variant="dark"></Button>
-    </div>
+      <Button variant="dark" onClick={() => props.editEvent(props.id)}>Edit Event</Button>
+  
   )
 }
 
@@ -59,10 +46,8 @@ export const cancelBtn = (props) => {
 
   }
   return (
-    <div className="attendBtn"
-    onClick={ClickHandler}>
+    <Button variant="dark" onClick={() => props.editEvent(props.id)}> Cancel Event</Button>
 
-      <Button variant="dark"></Button>
-    </div>
   )
 }
+
