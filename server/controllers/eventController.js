@@ -38,7 +38,10 @@ module.exports = {
   remove: function (req, res) {
     db.Event
       .findByIdAndDelete(req.params.id)
-      .then(dbModel => res.json(dbModel))
+      .then(async dbModel => {
+        await db.UserEvent.deleteMany({event_id: dbModel._id}); // Delete all UserEvent documents for the deleted event
+        return res.json(dbModel);
+      })
       .catch(err => res.status(422).json(err));
   }
 };
