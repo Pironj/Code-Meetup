@@ -16,9 +16,9 @@ export default function LetterAvatars() {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center" alignItems="center">
+
       <Avatar className={classes.avatar}>H</Avatar>
-    </Grid>
+    
   );
 };
 

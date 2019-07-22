@@ -5,6 +5,7 @@ import API from "../utils/API";
 //import Btn from "../components/btn";
 import Nav from "../components/Nav";
 import EventCard from "../components/eventcard";
+import Grid from '@material-ui/core/Grid';
 
 
 class UserProfile extends React.Component {
@@ -47,16 +48,25 @@ class UserProfile extends React.Component {
 
     render() {
         return (
-
-            <div className="container-fluid">
+            <div>
                 <Nav />
+            
+                <Grid item md={4}container direction="column" justify="center" alignItems="center">
+                    <div>
+                        <Grid container direction="row" justify="center" alignItems="center">
+                            <LettersAvatar />
+                        </Grid>
+                        <Grid container direction="row" justify="center" alignItems="center">
+                            <SimpleCard />
+                        </Grid>
+                    </div>
 
-                <div className="row">
-                    <LettersAvatar />
-                </div>
-                <div className="row">
-                    <SimpleCard />
-                </div>
+                </Grid>
+            </div>
+
+
+            <div>
+                
                 <div className="row">
                     <h3>Event's You've Created</h3>
                     <div className="col-md-8">
@@ -70,7 +80,10 @@ class UserProfile extends React.Component {
                     </div>
 
                 </div>
+            </div>
 
+
+            <div className="container__wrap">
                 <div className="row">
                     <h3>Event's You're Attending</h3>
                     <div className="col-md-8">
@@ -85,8 +98,10 @@ class UserProfile extends React.Component {
                 </div>
 
             </div>
-        )   
-    }    
+
+            </div >
+        )
+    }
 }
 
 export default UserProfile;
