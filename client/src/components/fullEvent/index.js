@@ -14,6 +14,7 @@ return (
   <p>Location: {props.eventLocation}</p>
   <p>Host: {props.eventHost}</p>
   <p>Attendees: </p>
+
   </Jumbotron>
   
 )
