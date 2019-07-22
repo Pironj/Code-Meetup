@@ -11,6 +11,9 @@ router.route('/:id')
   .get(userController.findById)
   .put(userController.update)
   .delete(userController.remove);
-
+// .. Matches with "/api/users/:id/verify"
+router.route('/:id/verify')
+  .get(userController.verifyLogin)
+  .post(userController.create)
 
 module.exports = router;

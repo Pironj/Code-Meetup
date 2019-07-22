@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
+import  API from '../../utils/API';
 require("dotenv").config();
 function Login() {
 
@@ -14,7 +15,7 @@ function Login() {
       google_id: userData.googleId,
       first_name: userData.givenName,
       last_name: userData.familyName,
-      picture: userData.imageURL,
+      picture: userData.imageUrl,
       email: userData.email,
       token: response.Zi.id_token
      };
@@ -22,6 +23,7 @@ function Login() {
 
      console.log(user);
      console.log('\n========================================================\n\n')
+     API.verifyLogin(user.google_id, user.token);
 
   //  ====== TODO: HOOK UP TO BACKEND utils/API ======
 
