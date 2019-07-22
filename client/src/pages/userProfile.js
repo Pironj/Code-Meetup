@@ -1,6 +1,6 @@
 import React from "react";
-import UserCard from "../components/usercard";
-import UserAvater from "../components/useravatar";
+import SimpleCard from "../components/usercard";
+import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 //import Btn from "../components/btn";
 import Nav from "../components/Nav";
@@ -52,10 +52,10 @@ class UserProfile extends React.Component {
                 <Nav />
 
                 <div className="row">
-                    <UserAvater />
+                    <LettersAvatar />
                 </div>
                 <div className="row">
-                    <UserCard />
+                    <SimpleCard />
                 </div>
                 <div className="row">
                     <h3>Event's You've Created</h3>

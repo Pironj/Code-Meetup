@@ -18,10 +18,7 @@ export default function LetterAvatars() {
   return (
     <Grid container justify="center" alignItems="center">
       <Avatar className={classes.avatar}>H</Avatar>
-      <Avatar className={classes.orangeAvatar}>N</Avatar>
-      <Avatar className={classes.purpleAvatar}>OP</Avatar>
     </Grid>
   );
-}
+};
 
-export default UserAvatar;

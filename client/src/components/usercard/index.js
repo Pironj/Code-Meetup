@@ -41,4 +41,3 @@ export default function SimpleCard() {
     );
 };
 
-export default UserCard;
