@@ -5,7 +5,7 @@ import CommentBox from "../components/commentbox";
 import EventCard from "../components/eventcard";
 import FooterComponent from "../components/footer";
 import Axios from "axios";
-import {Jumbotron, Container, Row, Col} from "react-bootstrap";
+import {Container, Row, Col} from "react-bootstrap";
 
 
 
@@ -31,14 +31,16 @@ class EventDetailsPage extends React.Component {
 
     return (
       <div>
-      <div>
-      <h1>Event Card Section</h1>
+      <Container>
+      <Row style={{marginTop: '5rem'}}> 
       <EventCard />
-      </div>
+      </Row>
 
-      <div> 
+      <Row style={{marginTop: '1rem'}}> 
       <CommentBox />
-      </div>
+      </Row>
+      </Container>
+      <FooterComponent />
       
       </div>
 
