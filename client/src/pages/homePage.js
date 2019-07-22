@@ -1,8 +1,6 @@
 import React from "react";
 import API from "../utils/API";
-import {AttendBtn} from "../components/btn";
 import EventCard from "../components/eventcard";
-import Navigation from "../components/Nav";
 import FooterComponent from "../components/footer";
 import Axios from "axios";
 import {Jumbotron, Container, Row, Col} from "react-bootstrap";
@@ -36,7 +34,6 @@ class HomePage extends React.Component {
     return (
       <div>
       <div>
-      <Navigation />
               <Jumbotron fluid>
           <Container className="jumbotron">
             <h1>
