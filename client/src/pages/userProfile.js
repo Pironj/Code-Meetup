@@ -45,12 +45,12 @@ class UserProfile extends React.Component {
     render() {
         return (
             
-                <Container fluid>
+                <Container fluid className="container">
                     <Nav />
-                </Container>    
-                <Container>
+                
+                
                     <Row>
-                        <Col size="4">
+                        <Col size="md-4">
                             <image>User Img Here</image>
                             <React.Fragment>
                                 <td>Name: </td>
@@ -58,7 +58,7 @@ class UserProfile extends React.Component {
                             </React.Fragment>
 
                         </Col>
-                        <Col size="8">
+                        <Col size="md-8">
                             <h3>Event's You've Created</h3>
                             <Row>
                                 <Col>
@@ -73,10 +73,10 @@ class UserProfile extends React.Component {
                             </Row>
                         </Col>
                     </Row>
-                </Container>
+                
 
-                <Container>
-                 <Col size="8">
+                
+                 <Col size="md-8">
                         <h3>Events You're Attending:</h3>
                         <Row>
                             <Col>
