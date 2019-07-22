@@ -7,7 +7,11 @@ function Navigation() {
   return (
     <div>
           <Navbar bg="info" expand="lg">
-        <Navbar.Brand href="#home">rendezvous</Navbar.Brand>
+        <Navbar.Brand href="#home">
+            <span>&#60;</span>
+            rendezvous 
+            <span>&#8725;</span>
+            <span>&#62;</span></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
