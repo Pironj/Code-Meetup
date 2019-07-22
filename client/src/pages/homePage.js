@@ -1,7 +1,5 @@
 import React from "react";
 import API from "../utils/API";
-import {AttendBtn} from "../components/btn";
-import Navigation from "../components/Nav";
 import EventCard from "../components/eventcard";
 import FooterComponent from "../components/footer";
 import Axios from "axios";
@@ -53,7 +51,7 @@ class HomePage extends React.Component {
       <div>
       <Row>
     <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id[0]} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
     {/* <AttendBtn /> */}
     </Col>
     <Col>
@@ -63,6 +61,7 @@ class HomePage extends React.Component {
     {/* {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))} */}
     </Col>
   </Row>
+    <FooterComponent />
    </div>
       <FooterComponent />
       </div>
