@@ -26,7 +26,7 @@ export const createEventBtn = (props) => {
 
   }
   return (
-    <Button variant="dark" onClick={() => props.editEvent(props.id)}>Create Event</Button>
+    <Button variant="dark" onClick={() => props.createEvent(props.id)}>Create Event</Button>
 
   )
 }
@@ -46,7 +46,7 @@ export const cancelBtn = (props) => {
 
   }
   return (
-    <Button variant="dark" onClick={() => props.editEvent(props.id)}> Cancel Event</Button>
+    <Button variant="dark" onClick={() => props.cancelEvent(props.id)}> Cancel Event</Button>
 
   )
 }

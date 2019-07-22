@@ -1,3 +1,8 @@
 #commentboxBtn {
 float: left;
 }
+
+.mb-3 {
+  height: auto;
+  width: 350px;
+}
