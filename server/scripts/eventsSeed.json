@@ -1,14 +1,17 @@
 [
   {
     "title": "Interview Questions",
-    "description": "Practice interviewQuestions"
+    "description": "Practice interviewQuestions",
+    "creator": ""
   },
   {
     "title": "Study Time!",
-    "description": "Time to work on projects."
+    "description": "Time to work on projects.",
+    "creator": ""
   },
   {
     "title": "Interview a dev",
-    "description": "Get some insight in the industry"
+    "description": "Get some insight in the industry",
+    "creator": ""
   }
 ]

@@ -1,24 +1,23 @@
+/**
+ * This file empties all collections and populates DB
+ **/
+
 const mongoose = require('mongoose');
 
 const db = require('../models');
 const userSeed = require('./usersSeed.json');
 const eventsSeed = require('./eventsSeed.json');
-// This file empties the all collections and populates DB
+const utils = require('./utils');
+
 
 mongoose.connect(
   process.env.MONGODB_URI ||
   'mongodb://localhost/codemeetup'
 );
 
-async function asyncForEach(array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index);
-  }
-}
-
-createEvent = async (body) =>{
+createEvent = async (body) => {
   const event = await db.Event.create(body);
-  await db.UserEvent.create({user_id: event.creator, event_id: event._id});
+  await db.UserEvent.create({ user_id: event.creator, event_id: event._id });
 };
 
 const assignUsersToEvents = async (tuple) => {
@@ -30,12 +29,11 @@ const assignUsersToEvents = async (tuple) => {
 };
 
 const populateDB = async () => {
-  await db.User.remove({});
-  await db.Event.remove({});
-  await db.UserEvent.remove({});
+  await utils.dropAllCollections();
+
   await db.User.collection.insertMany(userSeed);
 
-  await asyncForEach(eventsSeed, async (item, index) => {
+  await utils.asyncForEach(eventsSeed, async (item, index) => {
     const savedUser = await db.User.find({ google_id: userSeed[index].google_id });
     user = savedUser[0];
     const event = item;
@@ -44,7 +42,7 @@ const populateDB = async () => {
   });
 
   // Tuple indices represent: (user, event)
-  await asyncForEach([[0, 1], [0, 2], [1, 0], [3, 0]], async (tuple, index) => {
+  await utils.asyncForEach([[0, 1], [0, 2], [1, 0], [3, 0]], async (tuple, index) => {
     console.log(index);
     await assignUsersToEvents(tuple);
   });
