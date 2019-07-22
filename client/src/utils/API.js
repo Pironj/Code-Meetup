@@ -125,7 +125,15 @@ export default {
    * @param {string} event_id
    */
   deleteUserEventByUserIdEventId: (user_id, event_id) => {
-    return axios.delete(`${USER_EVENT_API_URL}/delete/${user_id}/${event_id}`);
+    return axios.delete(`${USER_EVENT_API_URL}/${user_id}/${event_id}`);
+  },
+
+  /**
+   * @param {string} user_id
+   * @param {string} event_id
+   */
+  findUserEventByUserIdEventId: (user_id, event_id) => {
+    return axios.get(`${USER_EVENT_API_URL}/${user_id}/${event_id}`);
   },
 
   // Comments

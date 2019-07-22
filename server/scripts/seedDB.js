@@ -5,7 +5,7 @@
 const mongoose = require('mongoose');
 
 const db = require('../models');
-const userSeed = require('./usersSeed.json');
+const usersSeed = require('./usersSeed.json');
 const eventsSeed = require('./eventsSeed.json');
 const utils = require('./utils');
 
@@ -21,7 +21,7 @@ createEvent = async (body) => {
 };
 
 const assignUsersToEvents = async (tuple) => {
-  const user = await db.User.findOne({ google_id: userSeed[tuple[0]].google_id });
+  const user = await db.User.findOne({ google_id: usersSeed[tuple[0]].google_id });
   const event = await db.Event.findOne({ title: eventsSeed[tuple[1]].title });
 
   const userEvent = new db.UserEvent({ user_id: user._id, event_id: event._id });
@@ -30,12 +30,11 @@ const assignUsersToEvents = async (tuple) => {
 
 const populateDB = async () => {
   await utils.dropAllCollections();
-
-  await db.User.collection.insertMany(userSeed);
+  await db.User.collection.insertMany(usersSeed);
 
   await utils.asyncForEach(eventsSeed, async (item, index) => {
-    const savedUser = await db.User.find({ google_id: userSeed[index].google_id });
-    user = savedUser[0];
+    const savedUser = await db.User.find({ google_id: usersSeed[index].google_id });
+    const user = savedUser[0];
     const event = item;
     event.creator = user._id;
     await createEvent(event);

@@ -108,6 +108,7 @@ DELETE  | /api/userEvents/:id     | Delete UserEvent by id
 GET  | /api/userEvents/user/:user_id | Find all events for a user id
 GET  | /api/userEvents/event/:event_id | Find all users for an event id
 DELETE | api/userEvents/delete/:user_id/:event_id | Delete UserEvent with user id and event id
+GET | api/userEvents/:user_id/:event_id | find UserEvent by User id and event id
 
 ## Comments
 

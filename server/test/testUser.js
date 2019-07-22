@@ -35,15 +35,14 @@ describe('User', () => {
     it('it should GET all the users', async () => {
       const res = await request(server).get('/api/users');
       expect(res.status).to.equal(200);
-      res.body.should.be.a('array');
+      expect(res.body).to.be.a('array');
       expect(res.body.length).to.equal(6);
     });
   });
 
   describe('GET /api/users/:id', () => {
     it('it should GET a User by the given id', async () => {
-      const newUser = new db.User(user);
-      const savedUser = await newUser.save();
+      const savedUser = await db.User.create(user);
       const res = await request(server).get(`/api/users/${savedUser._id}`);
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('first_name');
