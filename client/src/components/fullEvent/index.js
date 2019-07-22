@@ -15,10 +15,8 @@ return (
   <p>Host: {props.eventHost}</p>
   <p>Attendees: </p>
 
-  <AttendBtn attendEvent = {props.attendEvent}
-              id = {props.id} s
-  />
   </Jumbotron>
+  
 )
 
 }
