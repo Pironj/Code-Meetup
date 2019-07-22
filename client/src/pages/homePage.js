@@ -34,9 +34,8 @@ class HomePage extends React.Component {
     return (
       <div>
       <div>
-        <Navigation />
-              <Jumbotron fluid>
-          <Container className="jumbotron">
+              <Jumbotron className="jumbotron__homepage" fluid>
+          <Container className="jumbotron__homepage">
             <h1>
             <span>&#60;</span>
              rendezvous 
@@ -61,7 +60,6 @@ class HomePage extends React.Component {
     {/* {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))} */}
     </Col>
   </Row>
-    <FooterComponent />
    </div>
       <FooterComponent />
       </div>
