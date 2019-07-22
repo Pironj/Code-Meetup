@@ -23,49 +23,9 @@ function Login() {
 
      console.log(user);
      console.log('\n========================================================\n\n')
+     // hit API route to our backend passing in user token
      API.verifyLogin(user.google_id, user.token);
 
-  //  ====== TODO: HOOK UP TO BACKEND utils/API ======
-
-  //     // check if user already exists in our own db
-  //     User.findOne({ google_id: googleDBId })
-  //     .then((currentUser) => {
-  //       if(currentUser){
-  //         // already have this user
-  //         console.log(
-  //           '<=============== FOUND CURRENT USER IN DB ==============>\nCurrent user is:\n\n',
-  //           currentUser._id,
-  //           '\n========================================================\n\n'
-  //           );
-  //             return ({
-  //               id: currentUser._id,
-  //               token: response.Zi.id_token
-  //             });
-  //       } else {
-  //         //create user in our db
-  //         const newUser = {
-  //           google_id: user.google_id,
-  //           first_name: user.first_name,
-  //           last_name: user.last_name,
-  //           picture: user.picture,
-  //           email: user.email
-  //         };
-  //         User.create(newUser)
-  //           .then(mongoResponse => {
-  //             console.log('created new user: ', mongoResponse);
-  //             return ({
-  //               id: newUser._id,
-  //               token: response.Zi.id_token
-  //             });
-  //           })
-  //           .catch(err => {
-  //             console.log('\nFAILED TO CREATE NEW USER: ', err, '\n\n');
-  //           });
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log('Did not find user in DB error: ', err);
-  //     });
 
   }
 
