@@ -23,7 +23,7 @@ describe('Event', () => {
   beforeEach(async () => { // Before each test we empty the database
     await db.Event.deleteMany({});
     await db.User.deleteMany({});
-    // await db.User.collection.insertMany(usersSeed);
+    await db.User.collection.insertMany(usersSeed);
   });
 
   after(async () => {
