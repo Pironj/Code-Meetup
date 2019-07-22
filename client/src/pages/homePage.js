@@ -8,7 +8,6 @@ import {Jumbotron, Container, Row, Col} from "react-bootstrap";
 class HomePage extends React.Component {
   state = {
     events: [],
-
   }
 
   componentDidMount() {
@@ -20,7 +19,11 @@ class HomePage extends React.Component {
   }
 
   renderEventCards = () => {
-    this.state.events.map(event=>(<EventCard eventTitle={event.title} eventContent={event.description} key={event._id} />))
+    this.state.events.map(event=>
+      (<EventCard 
+      eventTitle={event.title} 
+      eventContent={event.description} 
+      key={event._id} />))
   }
 
   attendEvent = (id) => {
@@ -50,16 +53,14 @@ class HomePage extends React.Component {
       <div>
       <Row>
     <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-    {/* <AttendBtn /> */}
+    {this.state.events.map(event=>
+    (<EventCard id={event._id} 
+      attendEvent={this.attendEvent} 
+      eventTitle={event.title} 
+      eventContent={event.description} 
+      key={event._id} />))}
     </Col>
-    <Col>
-    {/* {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))} */}
-    </Col>
-    <Col>
-    {/* {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))} */}
-    </Col>
-  </Row>
+    </Row>
    </div>
       <FooterComponent />
       </div>

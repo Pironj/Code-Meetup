@@ -47,7 +47,7 @@ const eventSeed = [
   {
     'title': 'Interview a dev', // 9101
     'description': 'Get some insight in the industry',
-  }
+  },
 ];
 
 createEvent = async (body) =>{
