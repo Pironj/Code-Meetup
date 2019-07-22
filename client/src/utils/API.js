@@ -66,7 +66,7 @@ export default {
   },
 
   /**
-   * Delete event by id (Also deletes all UserEvent docs with an event_id === id)
+   * Delete event by id (Also deletes all UserEvent docs with an event_id === eventId)
    * @param {string} eventId
    */
   deleteEvent: (eventId) => {

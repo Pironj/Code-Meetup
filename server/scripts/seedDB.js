@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const db = require('../models');
 const userSeed = require('./usersSeed.json');
-const eventsSeed = require('./eventsSeed.json')
+const eventsSeed = require('./eventsSeed.json');
 // This file empties the all collections and populates DB
 
 mongoose.connect(
