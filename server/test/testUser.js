@@ -7,6 +7,7 @@ const server = require('../../server');
 const request = require('supertest');
 const db = require('../models');
 const usersSeed = require('../scripts/usersSeed.json');
+const utils = require('../scripts/utils');
 
 const expect = chai.expect;
 
@@ -22,13 +23,12 @@ const user = {
 describe('User', () => {
 
   beforeEach(async () => { // Before each test we empty the database
-    await db.User.deleteMany({}); // Seed DB with users
+    await utils.dropAllCollections(); // Seed DB with users
     await db.User.collection.insertMany(usersSeed);
   });
 
   after(async () => {
-    await db.User.deleteMany({});
-    // process.exit(0);
+    await utils.dropAllCollections();
   });
 
   describe('/GET /api/users', () => {
@@ -52,14 +52,15 @@ describe('User', () => {
       expect(res.body).to.have.property('_id', savedUser._id.toString());
     });
 
-    it('it should raise a 404 error with an invalid user id', async () => {
+    it('it should raise a 422 error with an invalid user id', async () => {
       const res = await request(server).get('/api/users/1');
-      expect(res.status).to.equal(404);
+      expect(res.status).to.equal(422);
     });
 
     it('it should return null if user is not found with a valid user id', async () => {
       const res = await request(server).get('/api/users/111111111111111111111111');
       expect(res.status).to.equal(200);
+      expect(res.body).to.be.null;
     });
   });
 

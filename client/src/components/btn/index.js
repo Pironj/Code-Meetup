@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'react-bootstrap/Button';
 import './style.css';
 
 export const AttendBtn = (props) => {
@@ -51,3 +51,14 @@ export const cancelBtn = (props) => {
   )
 }
 
+
+
+export const viewBtn = (props) => {
+  const clickHandler = () => {
+
+  }
+  return (
+    <Button variant="dark" onClick={() => props.viewEvent(props.id)}> View </Button>
+
+  )
+}

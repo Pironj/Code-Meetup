@@ -24,7 +24,7 @@ class EventDetailsPage extends React.Component {
       })
       .catch (err => console.log(err))
 
-  };
+  }
 
 
   render() {
@@ -47,7 +47,6 @@ class EventDetailsPage extends React.Component {
       <CommentBox />
       </Row>
       </Container>
-      <FooterComponent />
       
       </div>
 
