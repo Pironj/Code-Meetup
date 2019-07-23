@@ -16,24 +16,24 @@ module.exports = {
     db.User
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(404).json(err));
   },
 
   // AUTH ROUTE
   // Route to verify and create a user to our DB if not already present
   verifyLogin: function (req, res) {
-    const jwt = req.headers.authorization.slice(7)
+    const jwt = req.headers.authorization.slice(7);
     // console.log(req.headers.authorization.slice(7));
     axios.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + jwt)
       .then(res => {
         console.log(res.data);
-        const userInfo = res.data
+        const userInfo = res.data;
         const checkEmail = res.data.email;
         console.log('THIS IS YOUR EMAIL: ', checkEmail);
         // CHECK If THE USER IN DB
         // passing in our checkEmail varibale from our token data response and checks is User that logged in email is equal to a user in DB
         db.User
-          .findOne({"email": checkEmail})
+          .findOne({'email': checkEmail})
           .then((currentUser) => {
             if(currentUser) {
               console.log(
@@ -55,12 +55,12 @@ module.exports = {
                 .create(newUser)
                 .then(mongoResponse => {
                   console.log('created new user: ', mongoResponse);
-                  return newUser
+                  return newUser;
                 })
                 .catch(err => {
                   console.log('\nFAILED TO CREATE NEW USER: ', err, '\n\n');
                 });
-            
+
             }
           })
           .catch(err => {
@@ -70,6 +70,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
 
   },
+
   create: function (req, res) {
     db.User
       .create(req.body)

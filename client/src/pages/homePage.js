@@ -1,8 +1,6 @@
 import React from "react";
 import API from "../utils/API";
-import {AttendBtn} from "../components/btn";
 import EventCard from "../components/eventcard";
-import Navigation from "../components/Nav";
 import FooterComponent from "../components/footer";
 import Axios from "axios";
 import {Jumbotron, Container, Row, Col} from "react-bootstrap";
@@ -10,7 +8,6 @@ import {Jumbotron, Container, Row, Col} from "react-bootstrap";
 class HomePage extends React.Component {
   state = {
     events: [],
-
   }
 
   componentDidMount() {
@@ -22,7 +19,11 @@ class HomePage extends React.Component {
   }
 
   renderEventCards = () => {
-    this.state.events.map(event=>(<EventCard eventTitle={event.title} eventContent={event.description} key={event._id} />))
+    this.state.events.map(event=>
+      (<EventCard 
+      eventTitle={event.title} 
+      eventContent={event.description} 
+      key={event._id} />))
   }
 
   attendEvent = (id) => {
@@ -36,9 +37,8 @@ class HomePage extends React.Component {
     return (
       <div>
       <div>
-      <Navigation />
-              <Jumbotron fluid>
-          <Container className="jumbotron">
+              <Jumbotron className="jumbotron__homepage" fluid>
+          <Container className="jumbotron__homepage">
             <h1>
             <span>&#60;</span>
              rendezvous 
@@ -53,18 +53,16 @@ class HomePage extends React.Component {
       <div>
       <Row>
     <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-    {/* <AttendBtn /> */}
+    {this.state.events.map(event=>
+    (<EventCard id={event._id} 
+      attendEvent={this.attendEvent} 
+      eventTitle={event.title} 
+      eventContent={event.description} 
+      key={event._id} />))}
     </Col>
-    <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-    </Col>
-    <Col>
-    {this.state.events.map(event=>(<EventCard id={event._id} attendEvent={this.attendEvent} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-    </Col>
-  </Row>
-    <FooterComponent />
+    </Row>
    </div>
+      <FooterComponent />
       </div>
 
 
