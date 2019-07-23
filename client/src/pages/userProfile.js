@@ -59,7 +59,7 @@ class UserProfile extends React.Component {
     render() {
         return (
             <div>
-                <Nav />
+                
                 <div>
                     <Grid  item md={1} container direction="column" justify="center" alignItems="center">
                         <div>

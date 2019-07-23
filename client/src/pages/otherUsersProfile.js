@@ -1,13 +1,14 @@
 import React from "react";
-import UserAvatar from "../components/useravatar";
-import UserCard from "../components/usercard";
+import SimpleCard from "../components/usercard";
+import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 //import Btn from "../components/btn";
 import Nav from "../components/Nav";
 import EventCard from "../components/eventcard";
+import Grid from '@material-ui/core/Grid';
 
 
-class UserProfile extends React.Component {
+class OtherUsersProfile extends React.Component {
   //create state
   state = {
     user: {},
@@ -42,42 +43,46 @@ class UserProfile extends React.Component {
   render() {
     return (
 
-      <div className="container-fluid">
-        <Nav />
-        <div className="container__wrap">
-          <div className="col-md-4">
-            <div className="row">
-              <UserAvatar>
-                {this.state.user._id}
-              </UserAvatar>
+      <div>
+       
+        <div>
+          <Grid item md={1} container direction="column" justify="center" alignItems="center">
+            <div>
+              <Grid container direction="row" justify="center" alignItems="center">
+                <LettersAvatar />
+              </Grid>
+              <Grid container direction="row" justify="center" alignItems="center">
+                <SimpleCard />
+              </Grid>
             </div>
-            <div className="row">
-              <UserCard />
-            </div>
-          </div>
-
+          </Grid>
         </div>
-        <div className="container__wrap">
-          <div className="col-md-8">
-            <div className="row">
-              <h3>User's Events</h3>
-              <div className="col-md-8">
-                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-              </div>
-              <div className="col-md-8">
-                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-              </div>
-              <div className="col-md-8">
-                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-              </div>
+        <Grid item md={12} container direction="row" justify="center" alignItems="center">
+          <h3>Created Events</h3>
+          <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+              {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
 
-            </div>
+            </Grid>
           </div>
-        </div>
-
+          <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+              {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+            </Grid>
+          </div>
+          <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+              {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+            </Grid>
+          </div>
+        </Grid>
 
 
       </div>
+
+
     )
   }
-}    
+};
+
+export default OtherUsersProfile;
