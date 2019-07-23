@@ -62,29 +62,62 @@ describe('Event', () => {
 
   describe('GET /api/userEvent/user/:id', () => {
 
-    // it('it should GET all UserEvents for a user id', async () => {
-    //   const savedUser = await db.User.create(user);
-    //   event.creator = savedUser._id.toString();
-    //   await request(server)
-    //     .post('/api/events')
-    //     .send(event);
-    //   const res = await request(server).get(`/api/userEvents/user/${savedUser._id.toString()}`);
-    //   expect(res.status).to.equal(200);
-    //   expect(res.body).to.be.a('array');
-    //   expect(res.body.length).to.equal(1);
-    //   console.log()
-    // expect(res.body).to.have.property('description');
-    // expect(res.body).to.have.property('title');
-    // expect(res.body).to.have.property('_id', savedEvent._id.toString());
-    // });
+    it('it should GET all UserEvent docs for a user id', async () => {
+      const savedUser = await db.User.create(user);
+      event.creator = savedUser._id.toString();
+
+      const savedEvent = await request(server)
+        .post('/api/events')
+        .send(event);
+
+      // Add user to one more event that is not the event first created
+      const otherEvent = await db.Event.findOne({ _id: { $ne: savedEvent._id } });
+      db.UserEvent.create({ user_id: savedUser._id.toString(), event_id: otherEvent._id });
+
+      const res = await request(server).get(`/api/userEvents/user/${savedUser._id.toString()}`);
+      expect(res.status).to.equal(200);
+      expect(res.body).to.be.a('array');
+      expect(res.body.length).to.equal(2);
+    });
 
     it('it should raise a 422 error with an invalid event id', async () => {
-      const res = await request(server).get('/api/events/1');
+      const res = await request(server).get('/api/userEvents/users/1');
       expect(res.status).to.equal(422);
     });
 
     it('it should return null if event is not found with a valid event id', async () => {
-      const res = await request(server).get('/api/events/111111111111111111111111');
+      const res = await request(server).get('/api/userEvents/user/111111111111111111111111');
+      expect(res.status).to.equal(200);
+    });
+  });
+
+  describe('GET /api/userEvent/event/:id', () => {
+
+    it('it should GET all UserEvent docs for an event id', async () => {
+      const savedUser = await db.User.create(user);
+      event.creator = savedUser._id.toString();
+
+      const savedEvent = await request(server)
+        .post('/api/events')
+        .send(event);
+
+      // Add another to event that is not the user first created
+      const otherUser = await db.Event.findOne({ _id: { $ne: savedUser._id.toString() } });
+      db.UserEvent.create({ user_id: otherUser._id.toString(), event_id: savedEvent.body._id });
+
+      const res = await request(server).get(`/api/userEvents/event/${savedEvent.body._id}`);
+      expect(res.status).to.equal(200);
+      expect(res.body).to.be.a('array');
+      expect(res.body.length).to.equal(2);
+    });
+
+    it('it should raise a 422 error with an invalid event id', async () => {
+      const res = await request(server).get('/api/userEvents/event/1');
+      expect(res.status).to.equal(422);
+    });
+
+    it('it should return null if event is not found with a valid event id', async () => {
+      const res = await request(server).get('/api/userEvents/event/111111111111111111111111');
       expect(res.status).to.equal(200);
     });
   });
@@ -111,11 +144,8 @@ describe('Event', () => {
         .post('/api/events')
         .send(event);
       const res = await request(server)
-        .post('/api/userEvents')
+        .post('/api/userEvents/')
         .send({ event_id: newEvent.body._id.toString(), user_id: savedUser._id.toString() });
-      console.log(savedUser);
-      console.log(newEvent.body);
-      console.log(res.body);
       expect(res.status).to.be.eql(400);
       expect(res.body).to.have.property('message');
     });
