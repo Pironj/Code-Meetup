@@ -27,7 +27,7 @@ function Login() {
      API.verifyLogin(user.google_id, user.token);
 
 
-  // }
+  }
 
   return (
     <GoogleLogin

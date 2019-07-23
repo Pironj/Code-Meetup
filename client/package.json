@@ -4,8 +4,10 @@
   "private": true,
   "proxy": "http://localhost:4500/",
   "dependencies": {
+    "@material-ui/core": "^4.2.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "mdbreact": "^4.18.0",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-dom": "^16.8.6",

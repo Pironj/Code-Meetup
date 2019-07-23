@@ -73,7 +73,7 @@ describe('Event', () => {
       expect(res.body).to.have.property('_id', savedEvent._id.toString());
     });
 
-    it('it should raise a 404 error with an invalid event id', async () => {
+    it('it should raise a 422 error with an invalid event id', async () => {
       const res = await request(server).get('/api/events/1');
       expect(res.status).to.equal(422);
     });
@@ -121,38 +121,54 @@ describe('Event', () => {
     });
   });
 
+  describe('PUT /:id', () => {
+    it('should update the existing event and return 200', async () => {
+      const savedUser = await db.User.create(user);
+      event.creator = savedUser._id.toString();
 
-  // describe('PUT /:id', () => {
-  //   it('should update the existing order and return 200', async () => {
-  //     const newUser = new db.User(user);
-  //     await newUser.save();
+      const newEvent = new db.Event(event);
+      await newEvent.save();
 
-  //     const res = await request(server)
-  //       .put('/api/users/' + newUser._id)
-  //       .send({
-  //         first_name: 'newTest',
-  //         email: 'newemail@gmail.com',
-  //       });
+      const res = await request(server)
+        .put('/api/events/' + newEvent._id)
+        .send({
+          description: 'descTest',
+          title: 'titleTest',
+        });
 
-  //     expect(res.status).to.equal(200);
-  //     expect(res.body).to.have.property('first_name', 'newTest');
-  //   });
-  // });
+      expect(res.status).to.equal(200);
+      expect(res.body).to.have.property('description', 'descTest');
+    });
+  });
 
-  // describe('DELETE /:id', () => {
-  //   it('should delete requested id and return response 200', async () => {
-  //     const newUser = new db.User(user);
-  //     await newUser.save();
+  describe('DELETE /:id', () => {
+    it('should delete requested id and return response 200', async () => {
+      const newEvent = new db.Event(event);
+      await newEvent.save();
 
-  //     const res = await request(server).delete('/api/users/' + newUser._id);
-  //     expect(res.status).to.be.equal(200);
-  //   });
+      const res = await request(server).delete('/api/events/' + newEvent._id);
+      expect(res.status).to.be.equal(200);
+    });
 
-  //   it('should return null when deleted user does not exist', async () => {
+    it('should delete requested id, delete all UserEvents with field event_id === id, and return response 200', async () => {
+      const event = await db.Event.findOne({});
 
-  //     res = await request(server).get('/api/users/111111111111111111111111');
-  //     expect(res.status).to.be.equal(200);
-  //     expect(res.body).to.be.null;
-  //   });
-  // });
+      await request(server).delete('/api/events/' + event._id);
+      const founduserEvents = await db.UserEvent.find({event_id: event.id});
+      expect(founduserEvents.length).to.be.equal(0);
+    });
+
+    it('should raise 422 when deleted event id is not a valid _id', async () => {
+
+      res = await request(server).get('/api/events/1');
+      expect(res.status).to.be.equal(422);
+    });
+
+    it('should return null when deleted event does not exist', async () => {
+
+      res = await request(server).get('/api/events/111111111111111111111111');
+      expect(res.status).to.be.equal(200);
+      expect(res.body).to.be.null;
+    });
+  });
 });
