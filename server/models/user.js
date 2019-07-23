@@ -6,7 +6,8 @@ const userSchema = new Schema(
     google_id: {
       type: String,
       unique: true,
-      required: true
+      required: true,
+      select: false,
     },
     first_name: {
       type: String,

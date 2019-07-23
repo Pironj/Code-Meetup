@@ -20,8 +20,13 @@ export default {
     /**
    * @param {string} userId
    */
-  findUserById: (userId) => {
-    return axios.get(`${USER_API_URL}/${userId}`)
+  findUserById: async (userId) => {
+    try {
+      return await axios.get(`${USER_API_URL}/${userId}`)
+    } catch (err) {
+      return err
+    }
+    
   },
  
   // check to see if user is logged in ---protected route
@@ -68,7 +73,7 @@ export default {
   },
 
   /**
-   * Delete event by id (Also deletes all UserEvent docs with an event_id === id)
+   * Delete event by id (Also deletes all UserEvent docs with an event_id === eventId)
    * @param {string} eventId
    */
   deleteEvent: (eventId) => {
@@ -120,7 +125,15 @@ export default {
    * @param {string} event_id
    */
   deleteUserEventByUserIdEventId: (user_id, event_id) => {
-    return axios.delete(`${USER_EVENT_API_URL}/delete/${user_id}/${event_id}`);
+    return axios.delete(`${USER_EVENT_API_URL}/${user_id}/${event_id}`);
+  },
+
+  /**
+   * @param {string} user_id
+   * @param {string} event_id
+   */
+  findUserEventByUserIdEventId: (user_id, event_id) => {
+    return axios.get(`${USER_EVENT_API_URL}/${user_id}/${event_id}`);
   },
 
   // Comments
@@ -149,10 +162,9 @@ export default {
   },
 
   /**
-   * Delete event by id (Also deletes all UserEvent docs with an event_id === id)
    * @param {string} commentid
    */
-  deleteDelete: (commentid) => {
+  deleteCommentById: (commentid) => {
     return axios.delete(`${COMMENT_API_URL}/${commentid}`);
   },
 

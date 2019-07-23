@@ -12,13 +12,17 @@
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "fix": "eslint --fix server/** && cd client && npm run fix"
+    "fix": "eslint --fix server/** && cd client && npm run fix",
+    "test": "mocha ./server/test --timeout 15000 --exit"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
     "concurrently": "^4.1.0",
-    "nodemon": "^1.18.7"
+    "mocha": "^6.2.0",
+    "nodemon": "^1.18.7",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "axios": "^0.18.0",
