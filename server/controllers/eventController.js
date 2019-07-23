@@ -40,7 +40,7 @@ module.exports = {
 
   update: function (req, res) {
     db.Event
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id }, req.body, {new: true})
       .then(dbModel => {
         if (!dbModel) { // Check if event existed
           return res.status(404).json({ message: `Event with id ${req.params.id} does not exist.` });
