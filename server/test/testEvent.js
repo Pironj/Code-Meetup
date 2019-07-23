@@ -48,8 +48,7 @@ describe('Event', () => {
   });
 
   after(async () => {
-    await db.User.deleteMany({});
-    // process.exit(0);
+    await utils.dropAllCollections();
   });
 
   describe('/GET /api/events', () => {
@@ -57,33 +56,33 @@ describe('Event', () => {
       const res = await request(server).get('/api/events');
       expect(res.status).to.equal(200);
       expect(res.body).to.be.a('array');
-      expect(res.body.length).to.equal(3);
+      expect(res.body.length).to.equal(6);
     });
   });
 
-  // describe('GET /api/users/:id', () => {
-  //   it('it should GET a User by the given id', async () => {
-  //     const newUser = new db.User(user);
-  //     const savedUser = await newUser.save();
-  //     const res = await request(server).get(`/api/users/${savedUser._id}`);
-  //     expect(res.status).to.equal(200);
-  //     expect(res.body).to.have.property('first_name');
-  //     expect(res.body).to.have.property('last_name');
-  //     expect(res.body).to.have.property('email');
-  //     expect(res.body).to.have.property('picture');
-  //     expect(res.body).to.have.property('_id', savedUser._id.toString());
-  //   });
+  describe('GET /api/events/:id', () => {
 
-  //   it('it should raise a 404 error with an invalid user id', async () => {
-  //     const res = await request(server).get('/api/users/1');
-  //     expect(res.status).to.equal(404);
-  //   });
+    it('it should GET an Event by the given id', async () => {
+      const savedUser = await db.User.create(user);
+      event.creator = savedUser._id.toString();
+      const savedEvent = await db.Event.create(event);
+      const res = await request(server).get(`/api/events/${savedEvent._id.toString()}`);
+      expect(res.status).to.equal(200);
+      expect(res.body).to.have.property('description');
+      expect(res.body).to.have.property('title');
+      expect(res.body).to.have.property('_id', savedEvent._id.toString());
+    });
 
-  //   it('it should return null if user is not found with a valid user id', async () => {
-  //     const res = await request(server).get('/api/users/111111111111111111111111');
-  //     expect(res.status).to.equal(200);
-  //   });
-  // });
+    it('it should raise a 404 error with an invalid event id', async () => {
+      const res = await request(server).get('/api/events/1');
+      expect(res.status).to.equal(422);
+    });
+
+    it('it should return null if event is not found with a valid event id', async () => {
+      const res = await request(server).get('/api/events/111111111111111111111111');
+      expect(res.status).to.equal(200);
+    });
+  });
 
   describe('POST /api/events', async () => {
 
@@ -101,16 +100,14 @@ describe('Event', () => {
 
     it('should not create a Event document if user does not exist', async () => {
       event.creator = '111111111111111111111111';
-
       const res = await request(server)
         .post('/api/events')
         .send(event);
-
       expect(res.status).to.be.eql(404);
       expect(res.body).to.have.property('message');
     });
 
-    it('should create a UserEvent document', async () => {
+    it('should create a UserEvent document after the event is created successfully', async () => {
       const savedUser = await db.User.create(user);
       event.creator = savedUser._id.toString();
 
@@ -124,7 +121,6 @@ describe('Event', () => {
     });
   });
 
-  //   // add more tests to validate request body accordingly eg, make sure name is more than 3 characters etc
 
   // describe('PUT /:id', () => {
   //   it('should update the existing order and return 200', async () => {

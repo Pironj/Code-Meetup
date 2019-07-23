@@ -11,22 +11,21 @@ import DeleteEvent from "./pages/deleteEvent";
 
 function App() {
   return (
-     <Router>
-<div>
-  <Navigation />
-  <Switch>
-    <Route exact path='/' component={HomePage}></Route>
-    <Route exact path='/events' component={EventDetailPage}></Route>
-    <Route exact path='/userEvents' component={UserEvents}></Route>
-    <Route exact path='/createEvent' component={CreateEvent}></Route>
-    <Route exact path='/deleteEvent' component={DeleteEvent}></Route>
-    <Route exact path='/users/:id' component={User}></Route>
-    <Route component={NoMatch} />
-  </Switch>
-  
-</div>
-</Router>
+    <Router>
+      <div>
+        <Navigation />
+        <Switch>
+          <Route exact path='/' component={HomePage}></Route>
+          <Route exact path='/events' component={EventDetailPage}></Route>
+          <Route exact path='/userEvents' component={UserEvents}></Route>
+          <Route exact path='/createEvent' component={CreateEvent}></Route>
+          <Route exact path='/deleteEvent' component={DeleteEvent}></Route>
+          <Route exact path='/users/:id' component={User}></Route>
+          <Route component={NoMatch} />
+        </Switch>
 
+      </div>
+    </Router>
   );
 }
 
