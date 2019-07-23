@@ -8,6 +8,7 @@ import User from './pages/users';
 import UserEvents from './pages/userEvents';
 import CreateEvent from "./pages/createEvent";
 import DeleteEvent from "./pages/deleteEvent";
+import FooterComponent from './components/footer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
     <Route exact path='/deleteEvent' component={DeleteEvent}></Route>
     <Route exact path='/users/:id' component={User}></Route>
     <Route component={NoMatch} />
+  <FooterComponent />
   </Switch>
   
 </div>

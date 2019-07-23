@@ -47,7 +47,6 @@ class EventDetailsPage extends React.Component {
       <CommentBox />
       </Row>
       </Container>
-      <FooterComponent />
       
       </div>
 
