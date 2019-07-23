@@ -19,7 +19,7 @@ const EventCard = (props) => {
     <Card.Body>
       <Card.Title>{props.eventTitle}</Card.Title>
       <Card.Text>
-       {props.eventContent}}
+       {props.eventContent}
       </Card.Text>
       {/* <EditEventBtn editEvent = {props.editEvent}
                     id = {props.id} />

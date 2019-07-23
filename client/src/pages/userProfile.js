@@ -10,16 +10,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { DeleteBtn, createEventBtn, EditEventBtn, cancelBtn } from "../components/btn";
 
-const useStyles=makeStyles({
+const useStyles = makeStyles({
     container: {
-    
-      backgroundColor: grey [400]
+
+        backgroundColor: grey[400]
     }
 });
 
 
 class UserProfile extends React.Component {
-    
+
     //create state
     state = {
         user: {},
@@ -60,9 +60,9 @@ class UserProfile extends React.Component {
     render() {
         return (
             <div>
-                
+
                 <div>
-                    <Grid  item md={1} container direction="column" justify="center" alignItems="center">
+                    <Grid item md={1} container direction="column" justify="center" alignItems="center">
                         <div>
                             <Grid container direction="row" justify="center" alignItems="center">
                                 <LettersAvatar />
@@ -75,60 +75,60 @@ class UserProfile extends React.Component {
                 </div>
                 <div>
                     <Grid item md={12} container direction="row" justify="center" alignItems="center">
-                        <createEventBtn/>
+                        <createEventBtn />
                     </Grid>
                 </div>
                 <Grid item md={12} container direction="row" justify="center" alignItems="center">
                     <h3>Event's You've Created</h3>
                     <Grid item md={12} container direction="row" justify="center" alignItems="center">
-                        
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <EditEventBtn/> 
-                                <DeleteBtn/>
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <EditEventBtn/> 
-                                <DeleteBtn/>
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <EditEventBtn/> 
-                                <DeleteBtn/>
-                            </Grid>
-                        </div>
-                    </Grid>    
-                </Grid>
 
-                <div>
-                    <Grid item md={12} container direction="row" justify="center" alignItems="center">
-                        <h3>Event's You're Attending</h3>
                         <div>
-                            <Grid container direction="column" justify="center" alignItems="center" >
+                            <Grid container direction="column" justify="center" alignItems="center">
                                 {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <cancelBtn/>
+                                <EditEventBtn />
+                                <DeleteBtn />
                             </Grid>
                         </div>
                         <div>
                             <Grid container direction="column" justify="center" alignItems="center">
                                 {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <cancelBtn/>
+                                <EditEventBtn />
+                                <DeleteBtn />
                             </Grid>
                         </div>
                         <div>
                             <Grid container direction="column" justify="center" alignItems="center">
                                 {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <cancelBtn/>
+                                <EditEventBtn />
+                                <DeleteBtn />
                             </Grid>
                         </div>
                     </Grid>
-                </div>
+                </Grid>
+
+
+                <Grid item md={12} container direction="row" justify="center" alignItems="center">
+                    <h3>Event's You're Attending</h3>
+                    <div>
+                        <Grid container direction="column" justify="center" alignItems="center" >
+                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            <cancelBtn />
+                        </Grid>
+                    </div>
+                    <div>
+                        <Grid container direction="column" justify="center" alignItems="center">
+                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            <cancelBtn />
+                        </Grid>
+                    </div>
+                    <div>
+                        <Grid container direction="column" justify="center" alignItems="center">
+                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            <cancelBtn />
+                        </Grid>
+                    </div>
+                </Grid>
+
 
             </div>
 
