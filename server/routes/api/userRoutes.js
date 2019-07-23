@@ -14,6 +14,6 @@ router.route('/:id')
 // .. Matches with "/api/users/:id/verify"
 router.route('/:id/verify')
   .get(userController.verifyLogin)
-  .post(userController.create)
+  .post(userController.create);
 
 module.exports = router;

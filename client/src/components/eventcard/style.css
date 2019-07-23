@@ -41,7 +41,7 @@
   margin-left: 160px;
 }
 
-.jumbotron {
+.jumbotron__homepage {
   text-align: center;
   background-color: black;
   color: white;
@@ -49,5 +49,6 @@
 
 .eventCard {
   float: left;
+  margin-left: 40px;
 }
 

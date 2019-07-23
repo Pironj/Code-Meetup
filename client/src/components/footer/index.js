@@ -44,7 +44,7 @@ const FooterComponent = () => {
              rendezvous 
              <span>&#8725;</span>
             <span>&#62;</span>
-             
+            
         </MDBContainer>
       </div>
 

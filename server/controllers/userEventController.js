@@ -29,7 +29,18 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  create: function (req, res) { // Creates document with userid, event_id
+  /**
+   * Creates document with user_id, event_id
+   */
+  create: async (req, res) => {
+    const [user, event] = await Promise.all([db.User.findById(req.body.user_id), db.Event.findById(req.body.event_id)]);
+    if (!user) { // Check if user exists
+      return res.status(404).json({ message: `User with id ${req.body.user_id} does not exist.` });
+    }
+    if (!event) { // Check if event exists
+      return res.status(404).json({ message: `Event with id ${req.body.event_id} does not exist.` });
+    }
+    // Both user and event exist. Proceed to create a UserEvent
     db.UserEvent
       .create(req.body)
       .then(dbModel => res.json(dbModel))
@@ -55,5 +66,13 @@ module.exports = {
       .findOneAndDelete({ user_id: req.params.user_id, event_id: req.params.event_id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+
+  findByUserAndEventId: (req, res) => {
+    db.UserEvent
+      .findOne({ user_id: req.params.user_id, event_id: req.params.event_id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+
   }
 };
