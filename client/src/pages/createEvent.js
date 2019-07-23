@@ -33,10 +33,11 @@ class CreateEvent extends React.Component {
   render() {
 
     return (
-      <div>
+      <div className="createEvent">
+      Event Details
       <Row>
-          <FullEvent/>
-          <AttendBtn/>
+      <FullEvent/>
+      <AttendBtn/>
       </Row>
       <div>
     <FooterComponent />
