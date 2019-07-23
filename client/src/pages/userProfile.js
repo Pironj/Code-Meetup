@@ -2,13 +2,23 @@ import React from "react";
 import SimpleCard from "../components/usercard";
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
-//import Btn from "../components/btn";
+//import Btn  from "../components/btn";
 import Nav from "../components/Nav";
 import EventCard from "../components/eventcard";
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
+
+const useStyles=makeStyles({
+    container: {
+    
+      backgroundColor: grey [400]
+    }
+});
 
 
 class UserProfile extends React.Component {
+    
     //create state
     state = {
         user: {},
@@ -50,56 +60,62 @@ class UserProfile extends React.Component {
         return (
             <div>
                 <Nav />
-            
-                <Grid item md={4}container direction="column" justify="center" alignItems="center">
-                    <div>
-                        <Grid container direction="row" justify="center" alignItems="center">
-                            <LettersAvatar />
-                        </Grid>
-                        <Grid container direction="row" justify="center" alignItems="center">
-                            <SimpleCard />
-                        </Grid>
-                    </div>
-
-                </Grid>
-            </div>
-
-
-            <div>
-                
-                <div className="row">
+                <div>
+                    <Grid  item md={1} container direction="column" justify="center" alignItems="center">
+                        <div>
+                            <Grid container direction="row" justify="center" alignItems="center">
+                                <LettersAvatar />
+                            </Grid>
+                            <Grid container direction="row" justify="center" alignItems="center">
+                                <SimpleCard />
+                            </Grid>
+                        </div>
+                    </Grid>
+                </div>
+                <Grid item md={12} container direction="row" justify="center" alignItems="center">
                     <h3>Event's You've Created</h3>
-                    <div className="col-md-8">
-                        {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                    <div>
+                        <Grid container direction="column" justify="center" alignItems="center">
+                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                           
+                        </Grid>
                     </div>
-                    <div className="col-md-8">
-                        {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                    <div>
+                        <Grid container direction="column" justify="center" alignItems="center">
+                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                        </Grid>
                     </div>
-                    <div className="col-md-8">
-                        {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                    <div>
+                        <Grid container direction="column" justify="center" alignItems="center">
+                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                        </Grid>
                     </div>
-
+                </Grid>
+                <div>
+                    <Grid item md={12} container direction="row" justify="center" alignItems="center">
+                        <h3>Event's You're Attending</h3>
+                        <div>
+                            <Grid container direction="column" justify="center" alignItems="center" >
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container direction="column" justify="center" alignItems="center">
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container direction="column" justify="center" alignItems="center">
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                            </Grid>
+                        </div>
+                    </Grid>
                 </div>
+
             </div>
 
 
-            <div className="container__wrap">
-                <div className="row">
-                    <h3>Event's You're Attending</h3>
-                    <div className="col-md-8">
-                        {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                    </div>
-                    <div className="col-md-8">
-                        {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                    </div>
-                    <div className="col-md-8">
-                        {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                    </div>
-                </div>
 
-            </div>
-
-            </div >
         )
     }
 }

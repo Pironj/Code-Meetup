@@ -30,8 +30,8 @@ export default function SimpleCard() {
                 <CardContent>
                     <Typography variant="h5" component="h2">
                         <React.Fragment>
-                            <td>Name: </td>
-                            <td>Email: </td>
+                            <p>Name: </p>
+                            <p>Email: </p>
                         </React.Fragment>
                     </Typography>
                 </CardContent>
