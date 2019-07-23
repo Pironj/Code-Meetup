@@ -13,5 +13,20 @@
     "title": "Interview a dev",
     "description": "Get some insight in the industry",
     "creator": ""
+  },
+  {
+    "title": "Goof off time",
+    "description": "Goof off",
+    "creator": ""
+  },
+  {
+    "title": "Meetup",
+    "description": "Meetup with devs",
+    "creator": ""
+  },
+  {
+    "title": "Networking",
+    "description": "Network for days",
+    "creator": ""
   }
 ]
