@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const pointSchema = require('./point');
+
 const eventSchema = new Schema(
   {
     creator: {
@@ -24,11 +26,11 @@ const eventSchema = new Schema(
     date: {
       type: Date,
       default: Date.now,
+    },
+    location: {
+      type: pointSchema,
+      required: false
     }
-    // location: { // TODO
-    //   type: pointSchema,
-    //   required: true
-    // }
   },
   {
     timestamps: true // Assigns createdAt and updatedAt fields
