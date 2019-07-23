@@ -52,21 +52,13 @@ export const cancelBtn = (props) => {
 }
 
 
-// export const App = () => {
-//   const [modalShow, setModalShow] = React.useState(false);
- 
-//   return (
-//     <ButtonToolbar>
-//       <Button variant="primary" onClick={() => setModalShow(true)}>
-//         Details
-//       </Button>
- 
-//       <App
-//         show={modalShow}
-//         onHide={() => setModalShow(false)}
-//       />
-//     </ButtonToolbar>
-//   );
-// } 
- 
 
+export const viewBtn = (props) => {
+  const clickHandler = () => {
+
+  }
+  return (
+    <Button variant="dark" onClick={() => props.viewEvent(props.id)}> View </Button>
+
+  )
+}
