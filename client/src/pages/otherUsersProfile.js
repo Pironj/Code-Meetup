@@ -6,6 +6,7 @@ import API from "../utils/API";
 import Nav from "../components/Nav";
 import EventCard from "../components/eventcard";
 import Grid from '@material-ui/core/Grid';
+import { AttendBtn } from "../components/btn";
 
 
 class OtherUsersProfile extends React.Component {
@@ -44,7 +45,7 @@ class OtherUsersProfile extends React.Component {
     return (
 
       <div>
-       
+
         <div>
           <Grid item md={1} container direction="column" justify="center" alignItems="center">
             <div>
@@ -59,22 +60,26 @@ class OtherUsersProfile extends React.Component {
         </div>
         <Grid item md={12} container direction="row" justify="center" alignItems="center">
           <h3>Created Events</h3>
-          <div>
-            <Grid container direction="column" justify="center" alignItems="center">
-              {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-
-            </Grid>
-          </div>
-          <div>
-            <Grid container direction="column" justify="center" alignItems="center">
-              {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-            </Grid>
-          </div>
-          <div>
-            <Grid container direction="column" justify="center" alignItems="center">
-              {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-            </Grid>
-          </div>
+          <Grid item md={12} container direction="row" justify="center" alignItems="center">
+            <div>
+              <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
+                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                <AttendBtn />
+              </Grid>
+            </div>
+            <div>
+              <Grid container direction="column" justify="center" alignItems="center">
+                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                <AttendBtn />
+              </Grid>
+            </div>
+            <div>
+              <Grid container direction="column" justify="center" alignItems="center">
+                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                <AttendBtn />
+              </Grid>
+            </div>
+          </Grid>
         </Grid>
 
 
