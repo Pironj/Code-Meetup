@@ -62,21 +62,21 @@ describe('Event', () => {
 
   describe('GET /api/userEvent/user/:id', () => {
 
-    it('it should GET all UserEvents for a user id', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
-      await request(server)
-        .post('/api/events')
-        .send(event);
-      const res = await request(server).get(`/api/userEvents/user/${savedUser._id.toString()}`);
-      expect(res.status).to.equal(200);
-      expect(res.body).to.be.a('array');
-      expect(res.body.length).to.equal(1);
-      console.log()
-      // expect(res.body).to.have.property('description');
-      // expect(res.body).to.have.property('title');
-      // expect(res.body).to.have.property('_id', savedEvent._id.toString());
-    });
+    // it('it should GET all UserEvents for a user id', async () => {
+    //   const savedUser = await db.User.create(user);
+    //   event.creator = savedUser._id.toString();
+    //   await request(server)
+    //     .post('/api/events')
+    //     .send(event);
+    //   const res = await request(server).get(`/api/userEvents/user/${savedUser._id.toString()}`);
+    //   expect(res.status).to.equal(200);
+    //   expect(res.body).to.be.a('array');
+    //   expect(res.body.length).to.equal(1);
+    //   console.log()
+    // expect(res.body).to.have.property('description');
+    // expect(res.body).to.have.property('title');
+    // expect(res.body).to.have.property('_id', savedEvent._id.toString());
+    // });
 
     it('it should raise a 422 error with an invalid event id', async () => {
       const res = await request(server).get('/api/events/1');
@@ -113,9 +113,9 @@ describe('Event', () => {
       const res = await request(server)
         .post('/api/userEvents')
         .send({ event_id: newEvent.body._id.toString(), user_id: savedUser._id.toString() });
-        console.log(savedUser)
-        console.log(newEvent.body)
-      console.log(res.body)
+      console.log(savedUser);
+      console.log(newEvent.body);
+      console.log(res.body);
       expect(res.status).to.be.eql(400);
       expect(res.body).to.have.property('message');
     });

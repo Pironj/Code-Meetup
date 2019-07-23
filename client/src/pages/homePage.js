@@ -1,7 +1,7 @@
 import React from "react";
 import API from "../utils/API";
+import App from "../components/eventDetailModal";
 import EventCard from "../components/eventcard";
-import FooterComponent from "../components/footer";
 import Axios from "axios";
 import {Jumbotron, Container, Row, Col} from "react-bootstrap";
 
@@ -13,9 +13,18 @@ class HomePage extends React.Component {
   componentDidMount() {
     Axios.get('/api/events')
     .then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       this.setState({events:res.data})})
     .catch(err=>console.log(err))
+  }
+
+  renderEventDetailModalInfo() {
+    this.state.events.map(details=>
+      (<App 
+      eventTitle={details.title}
+      eventContent={details.description}
+      key={details._id} />
+      ))
   }
 
   renderEventCards = () => {
@@ -23,11 +32,12 @@ class HomePage extends React.Component {
       (<EventCard 
       eventTitle={event.title} 
       eventContent={event.description} 
-      key={event._id} />))
+      key={event._id} />
+      ))
   }
 
   attendEvent = (id) => {
-    console.log(id);
+    // console.log(id);
     
   }
 
@@ -62,7 +72,6 @@ class HomePage extends React.Component {
     </Col>
     </Row>
    </div>
-      <FooterComponent />
       </div>
 
 
