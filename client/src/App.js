@@ -11,6 +11,7 @@ import UserProfile from "./pages/userProfile";
 import UserEvents from './pages/userEvents';
 import CreateEvent from "./pages/createEvent";
 import DeleteEvent from "./pages/deleteEvent";
+import FooterComponent from './components/footer';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
     <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route>
     <Route exact path= '/userProfile/:id' component={UserProfile}></Route>
     <Route component={NoMatch} />
+  <FooterComponent />
   </Switch>
   
 </div>
