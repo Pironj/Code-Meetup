@@ -50,28 +50,28 @@ class CreateEvent extends React.Component {
             <Col>
               
             </Col>
-            <Col xs={8}>
-            <h1>Create New Event</h1>
+            <Col xs={4}>
+            <h3 style={{marginRight:'.5rem'}} >Create New Event</h3>
         <form onSubmit={this.onSubmit.bind(this)}>
 
         <div className="input-field">
             <input type="text" name="creator" ref="creator" />
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Creator</label>
+            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Creator</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="title" ref="title" />
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Title</label>
+            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Title</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="description" ref="description" />
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Description</label>
+            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Description</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="date" ref="date" />
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Date</label>
+            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Date</label>
           </div>
           <Button variant="dark" type="submit" value="Save" className="btns">Save</Button>
           {/* <input variant="dark" type="submit" value="Save" className="btn" /> */}
