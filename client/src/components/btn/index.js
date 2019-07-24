@@ -21,12 +21,12 @@ export const DeleteBtn = (props) => {
   )
 }
 
-export const createEventBtn = (props) => {
+export const CreateEventBtn = (props) => {
   const clickHandler = () => {
 
   }
   return (
-    <Button variant="dark" onClick={() => props.createEvent(props.id)}>Create Event</Button>
+    <Button variant="dark" > Create Event </Button>
 
   )
 }
