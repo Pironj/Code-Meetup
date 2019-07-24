@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import API from "../../utils/API";
 
 const useStyles = makeStyles({
     card: {
@@ -40,3 +41,4 @@ export default function SimpleCard() {
         </div>    
     );
 };
+
