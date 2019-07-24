@@ -23,7 +23,7 @@ function App() {
     <Route exact path='/events' component={EventDetailPage}></Route>
     <Route exact path='/userEvents' component={UserEvents}></Route>
     <Route exact path='/createEvent' component={CreateEvent}></Route>
-    <Route exact path='/editEvent' component={EditEvent}></Route>
+    <Route exact path='/editEvent/:id' component={EditEvent}></Route>
     <Route exact path='/users/:id' component={User}></Route>
     <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route>
     <Route exact path= '/userProfile/:id' component={UserProfile}></Route>
