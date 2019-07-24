@@ -6,7 +6,7 @@ import Axios from "axios";
 import {Jumbotron, Container, Row, Col} from "react-bootstrap";
 import { DeleteBtn } from "../components/btn";
 
-class DeleteEvent extends React.Component {
+class EditEvent extends React.Component {
   state = {
     events: [],
 
@@ -56,4 +56,4 @@ class DeleteEvent extends React.Component {
 }
 
 
-export default DeleteEvent;
+export default EditEvent;
