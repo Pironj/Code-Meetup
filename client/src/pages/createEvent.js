@@ -1,9 +1,8 @@
 import React from "react";
 import API from "../utils/API";
 import FullEvent from "../components/fullEvent";
-import FooterComponent from "../components/footer";
 import axios from "axios";
-import {Jumbotron, Container, Row, Col} from "react-bootstrap";
+import {Jumbotron, Button, Container, Row, Col} from "react-bootstrap";
 import { CreateBtn } from "../components/btn";
 
 class CreateEvent extends React.Component {
@@ -42,31 +41,43 @@ class CreateEvent extends React.Component {
     return (
    
       <div>
-
-        <h1>Create New Event</h1>
+        <Container>
+        <Row style={{marginTop: '5rem'}}>
+            <Col>
+              
+            </Col>
+            <Col xs={8}>
+            <h1>Create New Event</h1>
         <form onSubmit={this.onSubmit.bind(this)}>
 
         <div className="input-field">
             <input type="text" name="creator" ref="creator" />
-            <label htmlFor="name">Creator</label>
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Creator</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="title" ref="title" />
-            <label htmlFor="name">Title</label>
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Title</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="description" ref="description" />
-            <label htmlFor="name">Description</label>
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Description</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="date" ref="date" />
-            <label htmlFor="name">Date</label>
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Date</label>
           </div>
-          <input type="submit" value="Save" className="btn" />
+          <Button variant="dark" type="submit" value="Save" className="btns">Save</Button>
+          {/* <input variant="dark" type="submit" value="Save" className="btn" /> */}
         </form>
+            </Col>
+            <Col>
+
+            </Col>
+          </Row>
+        </Container>
       </div>
 
 

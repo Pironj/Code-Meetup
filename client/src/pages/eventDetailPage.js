@@ -32,7 +32,7 @@ class EventDetailsPage extends React.Component {
     return (
       <div>
       <Container>
-      <Row style={{marginTop: '.5rem'}}>
+      <Row style={{marginTop: '2rem'}}>
     <Col>
     <FullEvent />
     </Col>

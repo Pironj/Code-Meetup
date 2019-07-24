@@ -1,7 +1,7 @@
 import React from 'react';
 import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
-// import Login from '..//googleLogin';
-// import Logout from '..//googleLogout';
+import Login from '..//googleLogin';
+import Logout from '..//googleLogout';
 
 function Navigation() {
   return (
@@ -16,10 +16,10 @@ function Navigation() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            {/* <Login />
-            <Logout /> */}
-            {/* <Nav.Link href="http://localhost:4500/auth">Login/Sign up</Nav.Link>
-            <Nav.Link href="/logout">Logout</Nav.Link> */}
+             <Login />
+            <Logout /> 
+            <Nav.Link href="http://localhost:4500/auth">Login/Sign up</Nav.Link>
+            <Nav.Link href="/logout">Logout</Nav.Link>
             <NavDropdown title="More" id="basic-nav-dropdown">
               <NavDropdown.Item href="/">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/events">Events</NavDropdown.Item>
