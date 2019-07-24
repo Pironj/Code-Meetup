@@ -2,59 +2,78 @@ import React from "react";
 import API from "../utils/API";
 import FullEvent from "../components/fullEvent";
 import FooterComponent from "../components/footer";
-import Axios from "axios";
+import axios from "axios";
 import {Jumbotron, Container, Row, Col} from "react-bootstrap";
-import { AttendBtn } from "../components/btn";
+import { CreateBtn } from "../components/btn";
 
 class CreateEvent extends React.Component {
-  state = {
-    events: [],
-
+  createEvent(newEvent) {
+    console.log(newEvent)
   }
 
-  componentDidMount() {
-    Axios.get('/api/events')
-    .then(res=>{
-      console.log(res.data);
-      this.setState({events:res.data})})
-    .catch(err=>console.log(err))
+  onSubmit(e) {
+    e.preventDefault();
+   const newEvent = {
+     creator: this.refs.creator.value,
+     title: this.refs.title.value,
+     description: this.refs.description.value,
+     date: this.refs.date.value
+   }
+
+   console.log(newEvent);
+
+   e.preventDefault();
+   this.createEvent(newEvent);
   }
 
-  renderfullEvent = () => {
-    this.state.events.map(event=>(<FullEvent eventTitle={event.title} eventContent={event.description} key={event._id} />))
+  
+
+  createEvent(newEvent) {
+    API.createEvent(newEvent)
+    .then(response => {
+      this.props.history.push('/utils/API')
+      console.log(response)
+    }).catch(err => console.log(err));
   }
 
-  attendEvent = (id) => {
-    console.log(id);
-    
-  }
-
-
+  
   render() {
-
+    
     return (
-      <div className="createEvent">
-      Event Details
-      <Row>
-      <FullEvent/>
-      <AttendBtn/>
-      </Row>
+   
       <div>
-    <FooterComponent />
-   </div>
+
+        <h1>Create New Event</h1>
+        <form onSubmit={this.onSubmit.bind(this)}>
+
+        <div className="input-field">
+            <input type="text" name="creator" ref="creator" />
+            <label htmlFor="name">Creator</label>
+          </div>
+
+          <div className="input-field">
+            <input type="text" name="title" ref="title" />
+            <label htmlFor="name">Title</label>
+          </div>
+
+          <div className="input-field">
+            <input type="text" name="description" ref="description" />
+            <label htmlFor="name">Description</label>
+          </div>
+
+          <div className="input-field">
+            <input type="text" name="date" ref="date" />
+            <label htmlFor="name">Date</label>
+          </div>
+          <input type="submit" value="Save" className="btn" />
+        </form>
       </div>
 
 
     )
-
+  }
   }
 
-
-
-
-
-
-}
 
 
 export default CreateEvent;
