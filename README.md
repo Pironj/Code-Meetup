@@ -1,4 +1,4 @@
-# Code Meetup `<rendezvous />`?
+# Code Meetup  / \<rendezvous \/\> ??
 
 ## Description
 TODO
@@ -20,6 +20,10 @@ npm run start
 ```
 npm run seed
 ```
+### Run Tests
+```
+npm run test
+```
 
 ### Lint Code
 Make sure to install eslint first:
@@ -28,5 +32,7 @@ npm install -g eslint
 ```
 #### Run in root 
 ```
-npm run fix
+npm run fix-server
+npm run fix-client
+npm run fix-all
 ```

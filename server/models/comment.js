@@ -16,10 +16,6 @@ const commentSchema = new Schema(
       required: false,
       trim: true,
     },
-    // location: { // TODO
-    //   type: pointSchema,
-    //   required: true
-    // }
   },
   {
     timestamps: true // Assigns createdAt and updatedAt fields
