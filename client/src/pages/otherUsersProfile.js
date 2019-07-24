@@ -63,20 +63,20 @@ class OtherUsersProfile extends React.Component {
           <Grid item md={12} container direction="row" justify="center" alignItems="center">
             <div>
               <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
-                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                <AttendBtn />
+                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} attendEvent = {this.handleAttendEvent} />))}
+                
               </Grid>
             </div>
             <div>
               <Grid container direction="column" justify="center" alignItems="center">
-                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                <AttendBtn />
+                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} attendEvent = {this.handleAttendEvent} />))}
+                
               </Grid>
             </div>
             <div>
               <Grid container direction="column" justify="center" alignItems="center">
-                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                <AttendBtn />
+                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} attendEvent = {this.handleAttendEvent} />))}
+                
               </Grid>
             </div>
           </Grid>
