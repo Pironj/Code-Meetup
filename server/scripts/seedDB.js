@@ -32,10 +32,12 @@ const populateDB = async () => {
   await utils.dropAllCollections();
   await db.User.collection.insertMany(usersSeed);
 
+  const seattle = { type: 'Point', coordinates: [-122.335746, 47.608987] };
   await utils.asyncForEach(eventsSeed, async (item, index) => {
     const savedUser = await db.User.find({ google_id: usersSeed[index].google_id });
     const user = savedUser[0];
     const event = item;
+    event.location = seattle;
     event.creator = user._id;
     await createEvent(event);
   });
@@ -45,6 +47,12 @@ const populateDB = async () => {
     console.log(index);
     await assignUsersToEvents(tuple);
   });
+
+  // console.log(await db.Event.find({
+  //   location: {
+  //     $geoIntersects: { $geometry: seattle }
+  //   }
+  // }))
 
   process.exit(0);
 };

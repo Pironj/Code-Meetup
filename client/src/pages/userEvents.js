@@ -23,7 +23,7 @@ class UserEvents extends Component {
       })
       .catch (err => console.log(err))
 
-  };
+  }
 
   handleAttendEvent = (id) => {
     console.log(id);
@@ -68,6 +68,6 @@ class UserEvents extends Component {
       </div>
     )
   }
-};
+}
 
 export default UserEvents;

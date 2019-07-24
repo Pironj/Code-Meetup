@@ -12,7 +12,9 @@
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "fix": "eslint --fix server/** && cd client && npm run fix",
+    "fix-server": "eslint --fix server/**",
+    "fix-client": "cd client && npm run fix",
+    "fix-all": "eslint --fix server/** && cd client && npm run fix",
     "test": "mocha ./server/test --timeout 15000 --exit"
   },
   "author": "",

@@ -4,32 +4,34 @@ import  API from '../../utils/API';
 require("dotenv").config();
 function Login() {
 
-  // const responseGoogle = (response) => {
-  //   console.log("Google Response: \n", response);
-  //   console.log("Google Profile Object: \n", response.profileObj);
-  //   console.log(response.Zi.id_token);
+  const responseGoogle = (response) => {
+    console.log("Google Response: \n", response);
+    console.log("Google Profile Object: \n", response.profileObj);
+    console.log(response.Zi.id_token);
 
-  //   const userData = response.profileObj;
-  //   const googleDBId = userData.googleId;
-  //   const user = {
-  //     google_id: userData.googleId,
-  //     first_name: userData.givenName,
-  //     last_name: userData.familyName,
-  //     picture: userData.imageURL,
-  //     email: userData.email,
-  //     token: response.Zi.id_token
-  //    };
-  //    console.log('\n\n<===================== USER DATA ======================>\n');
+    const userData = response.profileObj;
+    const googleDBId = userData.googleId;
+    const user = {
+      google_id: userData.googleId,
+      first_name: userData.givenName,
+      last_name: userData.familyName,
+      picture: userData.imageUrl,
+      email: userData.email,
+      token: response.Zi.id_token
+     };
+     console.log('\n\n<===================== USER DATA ======================>\n');
 
-  //    console.log(user);
-  //    console.log('\n========================================================\n\n')
+     console.log(user);
+     console.log('\n========================================================\n\n')
+     // hit API route to our backend passing in user token
+     API.verifyLogin(user.google_id, user.token);
 
 
-  // }
+  }
 
-  // return (
-  //   <GoogleLogin
-  //     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+  return (
+    <GoogleLogin
+      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 
       buttonText="Login"
       onSuccess={responseGoogle}
