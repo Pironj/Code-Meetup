@@ -48,6 +48,12 @@ const populateDB = async () => {
     await assignUsersToEvents(tuple);
   });
 
+  // console.log(await db.Event.find({
+  //   location: {
+  //     $geoIntersects: { $geometry: seattle }
+  //   }
+  // }))
+
   process.exit(0);
 };
 

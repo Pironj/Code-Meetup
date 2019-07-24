@@ -29,7 +29,7 @@ const eventSchema = new Schema(
     },
     location: {
       type: pointSchema,
-      required: false
+      required: false,
     }
   },
   {
