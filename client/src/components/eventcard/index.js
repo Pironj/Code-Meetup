@@ -25,7 +25,7 @@ const EventCard = (props) => {
       <Card.Text>
        {props.eventContent}
       </Card.Text>
-      <Button href="/events" variant="dark">Details</Button>
+      <Button href="/event/fulldetails" variant="dark">Details</Button>
     {/* <App 
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}

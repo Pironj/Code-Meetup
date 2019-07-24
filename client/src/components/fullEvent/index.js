@@ -11,9 +11,9 @@ const FullEvent = (props) => {
     <Jumbotron className="fullEvent">
       <p>Title: {props.eventTitle}</p>
       <p>Description: {props.eventDescription}</p>
-      <p>Location: {props.eventLocation}</p>
-      <p>Host: {props.eventHost}</p>
-      <p>Attendees: </p>
+      {/* <p>Location: {props.eventLocation}</p> */}
+      <p>Host: {props.creator}</p>
+      {/* <p>Attendees: </p> */}
 
     </Jumbotron>
 
