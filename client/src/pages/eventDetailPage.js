@@ -5,7 +5,7 @@ import CommentBox from "../components/commentbox";
 import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import Axios from "axios";
-import {Container, Row, Col} from "react-bootstrap";
+import {Container, Row, Col, Button} from "react-bootstrap";
 
 
 
@@ -13,6 +13,14 @@ class EventDetailsPage extends React.Component {
   state = {
     events: []
   }
+
+    onDelete = (props) => {
+    let eventId = this.state.events;
+    API.deleteEvent(`http://localhost:3000/api/events/${eventId}`)
+    .then(response => {
+      this.props.history.push('/')
+    }).catch(err => console.log(err));
+   }
 
   componentDidMount() {
     API.getAllUserEvents()
@@ -25,6 +33,8 @@ class EventDetailsPage extends React.Component {
       .catch (err => console.log(err))
 
   }
+
+
 
 
   render() {
@@ -44,7 +54,9 @@ class EventDetailsPage extends React.Component {
       </Row>
 
       <Row style={{marginTop: '1rem', marginLeft: '.5rem'}}> 
-      <CommentBox />
+      {/* <CommentBox /> */}
+      <Button onClick={this.onDelete()} variant="dark">Delete</Button>
+
       </Row>
       </Container>
       
