@@ -29,7 +29,11 @@ class CreateEvent extends React.Component {
   
 
   createEvent(newEvent) {
-    API.createEvent(newEvent)
+    axios.request({
+      method:'put',
+      url: 'http://localhost:3000/utils/api/events/',
+      data: newEvent
+    })
     .then(response => {
       this.props.history.push('/utils/API')
       console.log(response)
