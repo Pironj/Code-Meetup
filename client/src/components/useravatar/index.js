@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles({
   avatar: {
     margin: 10,
+    padding: 40,
     color: '#fff',
     backgroundColor: indigo [500]
   }
@@ -17,7 +18,7 @@ export default function LetterAvatars() {
 
   return (
 
-      <Avatar className={classes.avatar}>H</Avatar>
+      <Avatar className={classes.avatar}>User</Avatar>
     
   );
 };

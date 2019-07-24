@@ -2,8 +2,6 @@ import React from "react";
 import SimpleCard from "../components/usercard";
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
-//import Btn  from "../components/btn";
-import Nav from "../components/Nav";
 import EventCard from "../components/eventcard";
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -84,23 +82,20 @@ class UserProfile extends React.Component {
 
                         <div>
                             <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <EditEventBtn />
-                                <DeleteBtn />
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} editEvent = {this.handleEditEvent} deleteEvent = {this.handleDeleteEvent} />))}
+                                
                             </Grid>
                         </div>
                         <div>
                             <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <EditEventBtn />
-                                <DeleteBtn />
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} editEvent = {this.handleEditEvent} deleteEvent = {this.handleDeleteEvent} />))}
+                                
                             </Grid>
                         </div>
                         <div>
                             <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <EditEventBtn />
-                                <DeleteBtn />
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} editEvent = {this.handleEditEvent} deleteEvent = {this.handleDeleteEvent}/>))}
+                           
                             </Grid>
                         </div>
                     </Grid>
@@ -109,24 +104,26 @@ class UserProfile extends React.Component {
 
                 <Grid item md={12} container direction="row" justify="center" alignItems="center">
                     <h3>Event's You're Attending</h3>
-                    <div>
-                        <Grid container direction="column" justify="center" alignItems="center" >
-                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                            <cancelBtn />
-                        </Grid>
-                    </div>
-                    <div>
-                        <Grid container direction="column" justify="center" alignItems="center">
-                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                            <cancelBtn />
-                        </Grid>
-                    </div>
-                    <div>
-                        <Grid container direction="column" justify="center" alignItems="center">
-                            {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                            <cancelBtn />
-                        </Grid>
-                    </div>
+                    <Grid item md={12} container direction="row" justify="center" alignItems="center"> 
+                        <div>
+                            <Grid container direction="column" justify="center" alignItems="center" >
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                                <cancelBtn />
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container direction="column" justify="center" alignItems="center">
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                                <cancelBtn />
+                            </Grid>
+                        </div>
+                        <div>
+                            <Grid container direction="column" justify="center" alignItems="center">
+                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
+                                <cancelBtn />
+                            </Grid>
+                        </div>
+                    </Grid>    
                 </Grid>
 
 
