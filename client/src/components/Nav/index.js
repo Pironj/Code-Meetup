@@ -21,7 +21,7 @@ function Navigation() {
             {/* <Nav.Link href="http://localhost:4500/auth">Login/Sign up</Nav.Link>
             <Nav.Link href="/logout">Logout</Nav.Link> */}
             <NavDropdown title="More" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/userProfile/:id">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/events">Events</NavDropdown.Item>
               <NavDropdown.Item href="/createEvent">Create Event</NavDropdown.Item>
               <NavDropdown.Divider />

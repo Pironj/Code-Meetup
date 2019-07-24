@@ -12,7 +12,7 @@ export default {
     return axios.get(`${USER_API_URL}`)
   },
 
-  createuser: (user) => {
+  createUser: (user) => {
     // TODO Get user info first
     return axios.post(`${USER_API_URL}`, user);
   },
@@ -26,7 +26,6 @@ export default {
     } catch (err) {
       return err
     }
-    
   },
  
   // check to see if user is logged in ---protected route

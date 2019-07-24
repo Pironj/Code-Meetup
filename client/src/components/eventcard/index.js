@@ -29,12 +29,12 @@ const EventCard = (props) => {
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}
     />
-    {/* <EditEventBtn editEvent = {props.editEvent}
+    <EditEventBtn editEvent = {props.editEvent}
                     id = {props.id} />
     <DeleteBtn deleteEvent = {props.deleteEvent}
                     id = {props.id} /> 
     <AttendBtn attendEvent = {props.attendEvent}
-                    id = {props.id} /> */}
+                    id = {props.id} />
     </Card.Body>
   </Card>
     </div>
