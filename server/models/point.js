@@ -1,3 +1,5 @@
+// A schema for GeoJSON coordinates. Use for location coordinates in models
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -15,7 +17,5 @@ const pointSchema = new Schema({
   }
 });
 
-// const Point = mongoose.model('Point', pointSchema);
 
-// module.exports = Point;
 module.exports = pointSchema;

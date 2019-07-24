@@ -24,10 +24,10 @@ User Schema:
       type: String,
       required: false,
     },
-    // location: { // TODO
-    //   type: pointSchema,
-    //   required: true
-    // }
+    location: {
+      type: pointSchema,
+      required: false
+    }
   },
 ```
 
@@ -66,10 +66,10 @@ Event Schema
       type: Date,
       default: Date.now,
     }
-    // location: { // TODO
-    //   type: pointSchema,
-    //   required: true
-    // }
+    location: { 
+      type: pointSchema,
+      required: false
+    }
   },
   ```
 | Method | URL | Description |
@@ -128,10 +128,6 @@ Comment Schema
       required: false,
       trim: true,
     },
-    // location: { // TODO
-    //   type: pointSchema,
-    //   required: true
-    // }
   },
   ```
 | Method | URL | Description |
@@ -144,3 +140,18 @@ DELETE  | /api/comments/:id | Delete comment by id
 GET  | /api/comments/user/:user_id | Find comments for user id
 GET  | /api/comments/event/:event_id | Find comments for event id
 
+## Point
+Point Schema
+```javascript
+   type: {
+    type: String,
+    enum: ['Point'],
+    required: true
+  },
+  coordinates: {
+    type: [Number], // NOTE!! -> GeoJSON stores coordinate as [longitude, latitude]
+    default: [-1, -1],
+    required: true
+  }
+  },
+  ```
