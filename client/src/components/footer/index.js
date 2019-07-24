@@ -1,5 +1,6 @@
 import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import './style.css';
+import { MDBContainer } from "mdbreact";
 
 const FooterComponent = () => {
   return (
@@ -37,7 +38,7 @@ const FooterComponent = () => {
            </MDBCol>
          </MDBRow>
        </MDBContainer> */}
-      <div className="footer-copyright text-center py-3">
+      <div className="footer-copyright text-center footer">
         <MDBContainer fluid>
           &copy; {new Date().getFullYear()} Copyright: 
           <span>&#60;</span>

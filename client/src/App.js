@@ -28,8 +28,9 @@ function App() {
     <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route>
     <Route exact path= '/userProfile/:id' component={UserProfile}></Route>
     <Route component={NoMatch} />
-  <FooterComponent />
   </Switch>
+  <FooterComponent />
+
   
 </div>
 </Router>
