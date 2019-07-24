@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const pointSchema = require('./point');
+
 const userSchema = new Schema(
   {
     google_id: {
@@ -19,16 +21,16 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: false,
+      required: false, // TODO change to true
     },
     picture: {
       type: String,
       required: false,
+    },
+    location: {
+      type: pointSchema,
+      required: false
     }
-    // location: { // TODO
-    //   type: pointSchema,
-    //   required: true
-    // }
   },
   {
     timestamps: true // Assigns createdAt and updatedAt fields

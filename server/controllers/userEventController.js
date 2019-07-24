@@ -38,7 +38,7 @@ module.exports = {
         [
           db.User.findById(req.body.user_id),
           db.Event.findById(req.body.event_id),
-          db.UserEvent.findOne({ user_id: req.params.user_id, event_id: req.params.event_id })
+          db.UserEvent.findOne({ user_id: req.body.user_id, event_id: req.body.event_id })
         ]
       );
       if (!user) { // Check if user exists
