@@ -5,15 +5,16 @@ const authController = require('../../controllers/authController');
 router.route('/')
   .get(userController.findAll)
   .post(userController.create);
-
+  
+// .. Matches with "/api/users/:id/verify"
+router.route('/verify')
+  // .get(authController.verifyLogin)
+  .get(authController.verifyLogin)
+  .post(userController.create);
 // // Matches with "/api/users/:id"
 router.route('/:id')
   .get(userController.findById)
   .put(userController.update)
   .delete(userController.remove);
-// .. Matches with "/api/users/:id/verify"
-router.route('/:id/verify')
-  .get(authController.verifyLogin, authController.checkToken)
-  .post(userController.create);
 
 module.exports = router;

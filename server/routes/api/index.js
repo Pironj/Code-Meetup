@@ -3,6 +3,7 @@ const userRoutes = require('./userRoutes');
 const commentRoutes = require('./commentRoutes');
 const eventRoutes = require('./eventRoutes');
 const userEventRoutes = require('./userEventRoutes');
+const middleware = require('../../middleware/middleware');
 
 
 // // User routes
