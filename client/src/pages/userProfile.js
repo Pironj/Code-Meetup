@@ -26,6 +26,7 @@ class UserProfile extends React.Component {
 
     //when this component mounts it grabs the user by their user id
     componentDidMount() {
+        
 
         API.findUserById(this.props.match.params.id)
             .then(res => {
@@ -49,6 +50,8 @@ class UserProfile extends React.Component {
                 console.log(res.data);
                 this.setState({ events: res.data })
             }).catch(err => console.log(err))
+            
+            
     };
 
     renderEventCards = () => {
