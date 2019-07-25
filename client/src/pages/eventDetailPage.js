@@ -46,7 +46,7 @@ class EventDetailsPage extends React.Component {
       title={this.state.event.title} 
       description={this.state.event.description} 
       key={this.state.event._id}
-      creator={this.state.event.creator} 
+      creator={this.state.event.creator._id} 
         
       />
     )

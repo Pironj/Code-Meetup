@@ -1,20 +1,38 @@
 [
   {
-    "google_id": "0234"
+    "google_id": "0234",
+    "first_name": "Billy",
+    "last_name": "Bob",
+    "email": "billbob@gmail.com"
   },
   {
-    "google_id": "5678"
+    "google_id": "5678",
+    "first_name": "Anna",
+    "last_name": "Bobana",
+    "email": "anna@gmail.com"
   },
   {
-    "google_id": "9101"
+    "google_id": "9101",
+    "first_name": "John",
+    "last_name": "Smith",
+    "email": "johnsmith@gmail.com"
   },
   {
-    "google_id": "1213"
+    "google_id": "1213",
+    "first_name": "Jane",
+    "last_name": "Austen",
+    "email": "janeausten@gmail.com"
   },
   {
-    "google_id": "1415"
+    "google_id": "1415",
+    "first_name": "Tonni",
+    "last_name": "Morrison",
+    "email": "tonnimorrison@gmail.com"
   },
   {
-    "google_id": "1617"
+    "google_id": "1617",
+    "first_name": "Gayle",
+    "last_name": "McDowell",
+    "email": "gaylemcdowell@gmail.com"
   }
 ]
