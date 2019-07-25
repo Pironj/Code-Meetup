@@ -20,7 +20,8 @@ module.exports = {
           first_name: authUser.given_name,
           last_name: authUser.family_name,
           picture: authUser.picture,
-          email: authUser.email
+          email: authUser.email,
+          token: jwt
         }        
         // CHECK If THE USER IN DB
         // passing in our google authenticated token data response and checks their corresponding google_id & email is equal to a user in DB
