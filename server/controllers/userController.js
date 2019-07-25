@@ -20,8 +20,15 @@ module.exports = {
 
   create: function (req, res) {
     console.log('authObj', req);
+    newUser = {
+      google_id: req.google_id,
+      first_name: req.first_name,
+      last_name: req.last_name,
+      picture: req.picture,
+      email: req.email
+    }
     db.User
-      .create(req)
+      .create(newUser)
       .then(dbModel => {
         console.log('created new user: ', dbModel);
         return res.json(dbModel);
