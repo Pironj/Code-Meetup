@@ -16,7 +16,6 @@ class EventDetailsPage extends React.Component {
   }
 
     onDelete = (response) => {
-    // let eventId = this.state.event;
     API.deleteEvent(this.state.id)
     .then(response => {
       this.props.history.push('/')
@@ -46,7 +45,7 @@ class EventDetailsPage extends React.Component {
       title={this.state.event.title} 
       description={this.state.event.description} 
       key={this.state.event._id}
-      creator={this.state.event.creator._id} 
+      creator={this.state.event.creator.first_name} 
         
       />
     )

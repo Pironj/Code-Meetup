@@ -32,14 +32,16 @@ const populateDB = async () => {
   await utils.dropAllCollections();
   await db.User.collection.insertMany(usersSeed);
 
-  const seattle = { type: 'Point', coordinates: [-122.335746, 47.608987] };
   await utils.asyncForEach(eventsSeed, async (item, index) => {
     const savedUser = await db.User.find({ google_id: usersSeed[index].google_id });
     const user = savedUser[0];
     const event = item;
-    event.location = seattle;
     event.creator = user._id;
-    await createEvent(event);
+    try {
+      await createEvent(event);
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   // Tuple indices represent: (user, event)

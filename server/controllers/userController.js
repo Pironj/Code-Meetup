@@ -26,7 +26,7 @@ module.exports = {
       last_name: req.last_name,
       picture: req.picture,
       email: req.email
-    }
+    };
     db.User
       .create(newUser)
       .then(dbModel => {

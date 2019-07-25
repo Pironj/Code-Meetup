@@ -43,6 +43,7 @@ userSchema.virtual('events', {
   foreignField: 'user_id'
 });
 
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

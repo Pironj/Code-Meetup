@@ -1,3 +1,7 @@
+/**
+ * A record of a user attending an event
+ */
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
