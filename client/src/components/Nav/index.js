@@ -1,8 +1,10 @@
 import React from 'react';
+import './style.css';
 import {Nav, Navbar, NavDropdown, Form, FormControl, Button} from 'react-bootstrap';
+import {Link} from "react-router-dom";
 import Login from '..//googleLogin';
 
-function Navigation() {
+function Navigation(props) {
   return (
     <div>
           <Navbar bg="info" expand="lg">
@@ -17,11 +19,13 @@ function Navigation() {
             <Nav.Link href="/">Home</Nav.Link>
             <Login />
             <NavDropdown title="More" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/userProfile/:id">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="/events">Events</NavDropdown.Item>
-              <NavDropdown.Item href="/createEvent">Create Event</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              <Link style={{marginLeft: ".5rem", color: "black"}} className="navLink" to={`/userProfile/${props.id}`}>Profile</Link>
+              <br></br>
+              <Link style={{marginLeft: ".5rem", color: "black"}} className="navLink" to="/event">Events</Link>
+              <br></br>
+              <Link style={{marginLeft: ".5rem", color: "black"}} className="navLink" to="/createEvent">Create Event</Link>
+              {/* <NavDropdown.Divider /> */}
+              {/* <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
             </NavDropdown>
           </Nav>
           <Form inline>
