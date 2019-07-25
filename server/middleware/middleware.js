@@ -23,13 +23,13 @@ module.exports = {
 //   console.log("JWT HEADER TOKEN\n", jwt.req.headers.authorization);
 //   console.log("\n======= HEADERS =======\n\n", req);
 //   const header = jwt.req.headers.authorization;
-  
+
 //   if(typeof header !== 'undefined') {
 //     // const bearer = header.split(' ');
 //     // const token = bearer[1];
 //     const token = jwt.req.headers.authorization.slice(7);
-    
-    
+
+
 //     if (token === req) {
 //       console.log("<============= TOKEN VERIFIED =============>")
 //       return res.sendStatus(200)
@@ -46,7 +46,7 @@ module.exports = {
 
 // // middleware function for protected routes
 // let checkToken = (req, res, next) => {
-  //   console.log('\n================ MIDDLEWARE FUNCTION ===============\n', req)
+//   console.log('\n================ MIDDLEWARE FUNCTION ===============\n', req)
 //   let token = req.headers.x-access-token || req.headers.authorization; // Express headers are auto converted to lowercase
 //   console.log(token);
 //   if (token.startsWith('Bearer ')) {
@@ -55,10 +55,10 @@ module.exports = {
 //   }
 
 //   if (token) {
-  //     jwt.verify(token, config.secret, (err, decoded) => {
+//     jwt.verify(token, config.secret, (err, decoded) => {
 //       console.log('========= TOKEN VERIFIED =========');
 //       if (err) {
-  //         return res.json({
+//         return res.json({
 //           success: false,
 //           message: 'Token is not valid'
 //         });
@@ -69,7 +69,7 @@ module.exports = {
 //     });
 //   } else {
 //     return res.json({
-  //       success: false,
+//       success: false,
 //       message: 'Auth token is not supplied'
 //     });
 //   }
