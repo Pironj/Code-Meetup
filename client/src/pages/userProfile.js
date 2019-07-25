@@ -60,7 +60,7 @@ class UserProfile extends React.Component {
             <div>
 
                 <div>
-                    <Grid item md={1} container direction="column" justify="center" alignItems="center">
+                    <Grid style={{marginTop: '2rem'}} item md={1} container direction="column" justify="center" alignItems="center">
                         <div>
                             <Grid container direction="row" justify="center" alignItems="center">
                                 <LettersAvatar />
@@ -76,7 +76,7 @@ class UserProfile extends React.Component {
                         <createEventBtn />
                     </Grid>
                 </div>
-                <Grid item md={12} container direction="row" justify="center" alignItems="center">
+                <Grid style={{marginTop: '5rem', marginBottom: '5rem'}} item md={12} container direction="row" justify="center" alignItems="center">
                     <h3>Event's You've Created</h3>
                     <Grid item md={12} container direction="row" justify="center" alignItems="center">
 

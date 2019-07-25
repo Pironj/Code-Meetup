@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import {Card} from 'react-bootstrap';
+import {Card, Button} from 'react-bootstrap';
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
@@ -25,10 +25,11 @@ const EventCard = (props) => {
       <Card.Text>
        {props.eventContent}
       </Card.Text>
-    <App 
+      <Button href="/events" variant="dark">Details</Button>
+    {/* <App 
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}
-    />
+    /> */}
     {/* <EditEventBtn editEvent = {props.editEvent}
                     id = {props.id} />
     <DeleteBtn deleteEvent = {props.deleteEvent}
