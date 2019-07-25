@@ -13,7 +13,7 @@ class HomePage extends React.Component {
   componentDidMount() {
     Axios.get('/api/events')
     .then(res=>{
-      // console.log(res.data);
+       console.log(res.data);
       this.setState({events:res.data})})
     .catch(err=>console.log(err))
   }

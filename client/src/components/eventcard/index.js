@@ -30,7 +30,7 @@ const EventCard = (props) => {
     {/* <App 
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}
-    /> */}
+    />
     {/* <EditEventBtn editEvent = {props.editEvent}
                     id = {props.id} />
     <DeleteBtn deleteEvent = {props.deleteEvent}

@@ -4,6 +4,9 @@ import FullEvent from "../components/fullEvent";
 import axios from "axios";
 import {Jumbotron, Button, Container, Row, Col} from "react-bootstrap";
 import { CreateBtn } from "../components/btn";
+import { Form, Input, FormBtn, TextArea}from "../components/Form";
+import { List, ListItem } from "../components/List";
+import { Link } from "react-router-dom";
 
 class CreateEvent extends React.Component {
   state = {
@@ -63,6 +66,7 @@ class CreateEvent extends React.Component {
  render() {
     return (
       <Container fluid>
+      {this.state.title + this.state.description}
         <Row>
           <Col size="md-6">
             <Jumbotron>
@@ -81,12 +85,6 @@ class CreateEvent extends React.Component {
                 name="description"
                 placeholder=" Description (required)"
               />
-              <TextArea
-                value={this.state.date}
-                onChange={this.handleInputChange}
-                name="date"
-                placeholder="Date"
-              />
               <FormBtn
                 disabled={!(this.state.description  && this.state.title)}
                 onClick={this.handleFormSubmit}
@@ -96,10 +94,10 @@ class CreateEvent extends React.Component {
             </form>
           </Col>
           <Col size="md-6 sm-12">
-            <Jumbotron>
+            {/* <Jumbotron>
               <h1>My Events</h1>
-            </Jumbotron>
-            {this.state.events.length ? (
+            </Jumbotron> */}
+            {/* {this.state.events.length ? (
               <List>
                 {this.state.events.map(event => (
                   <ListItem key={eventNames._id}>
@@ -108,13 +106,12 @@ class CreateEvent extends React.Component {
                         {event.title} by {event.author}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteEvent(event._id)} />
                   </ListItem>
                 ))}
               </List>
             ) : (
               <h3>No Results to Display</h3>
-            )}
+            )} */}
           </Col>
         </Row>
       </Container>
