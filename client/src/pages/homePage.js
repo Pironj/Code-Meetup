@@ -30,9 +30,12 @@ class HomePage extends React.Component {
   renderEventCards = () => {
     this.state.events.map(event=>
       (<EventCard 
-      eventTitle={event.title} 
-      eventContent={event.description} 
-      key={event._id} />
+      title={event.title} 
+      description={event.description} 
+      key={event._id}
+      creator={event.creator} 
+        
+      />
       ))
   }
 
@@ -65,9 +68,10 @@ class HomePage extends React.Component {
     <Col>
     {this.state.events.map(event=>
     (<EventCard id={event._id} 
-      attendEvent={this.attendEvent} 
-      eventTitle={event.title} 
-      eventContent={event.description} 
+      id={event._id}
+      // attendEvent={this.attendEvent} 
+      title={event.title} 
+      description={event.description} 
       key={event._id} />))}
     </Col>
     </Row>

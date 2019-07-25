@@ -8,7 +8,6 @@ import { Form, Input, FormBtn, TextArea}from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 
-
 class CreateEvent extends React.Component {
   state = {
     creator: '5d38f663f1fa3633a0109f70',
@@ -17,7 +16,29 @@ class CreateEvent extends React.Component {
     // date: '',
 };
 
+  createEvent(newEvent) {
+    console.log(newEvent)
+  }
 
+  onSubmit(e) {
+    e.preventDefault();
+   const newEvent = {
+     creator: this.refs.creator.value,
+     title: this.refs.title.value,
+     description: this.refs.description.value,
+    //  date: this.refs.date.value
+
+   }
+
+   API.createEvent(newEvent)
+   .then(response => {
+   
+    const eventId = response.data._id
+    this.props.history.push('/events/' + eventId)
+   })
+
+ 
+  }
 
 
   handleInputChange = event => {
@@ -29,25 +50,17 @@ class CreateEvent extends React.Component {
 
 
   handleFormSubmit = event => {
-
-    const newEvent = {
-      creator: this.refs.creator.value,
-      title: this.refs.title.value,
-      description: this.refs.description.value,
-     //  date: this.refs.date.value
- 
-    }
     event.preventDefault();
-    if (this.state.title && this.state.description) {
-      API.createEvent(newEvent)
-      .then(response => {
-       const eventId = response.data._id
-       this.props.history.push('/events/' + eventId)
+    if (this.state.title && this.state.author) {
+      API.saveEvent({
+        title: this.state.title,
+        author: this.state.description,
+        creator: this.state.creator
       })
-  }
-  
-}
-
+        .then(res => this.loadBooks())
+        .catch(err => console.log(err));
+    }
+  };
 
   
  render() {
