@@ -3,7 +3,7 @@ import API from "../utils/API";
 import FullEvent from "../components/fullEvent";
 import FooterComponent from "../components/footer";
 import axios from "axios";
-import {Jumbotron, Container, Row, Col} from "react-bootstrap";
+import {Jumbotron, Container, Row, Col, Button} from "react-bootstrap";
 import { CreateBtn } from "../components/btn";
 
 class EditEvent extends React.Component {
@@ -78,38 +78,49 @@ class EditEvent extends React.Component {
     return (
    
       <div>
+      <Row>
+      <Col>
 
-        <h1>Edit Event</h1>
-        <form onSubmit={this.onSubmit.bind(this)}>
+      </Col>
+      <Col xs={3}>
+
+        <h1 style={{marginTop: '2rem'}} >Edit Event</h1>
+        <form style={{marginRight: '2rem'}} onSubmit={this.onSubmit.bind(this)}>
 
         <div className="input-field">
             <input type="text" name="creator" ref="creator" value={this.state.creator} 
                     onChange={this.handleInputChange.bind(this)} />
-            <label htmlFor="name">Creator</label>
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Creator</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="title" ref="title" value={this.state.title}
                   onChange={this.handleInputChange.bind(this)} />
-            />
-            <label htmlFor="name">Title</label>
+            
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Title</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="description" ref="description" value={this.state.description}
                   onChange={this.handleInputChange.bind(this)} />
-            />
-            <label htmlFor="name">Description</label>
+            
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Description</label>
           </div>
 
           <div className="input-field">
             <input type="text" name="date" ref="date" value={this.state.date}
                   onChange={this.handleInputChange.bind(this)} />
-            />
-            <label htmlFor="name">Date</label>
+          
+            <label style={{marginLeft: '.5rem'}} htmlFor="name">Date</label>
           </div>
-          <input type="submit" value="Save" className="btn" />
+          <Button type="submit" value="Save" className="btn" variant="dark">Save</Button>
+          {/* <input type="submit" value="Save" className="btn" /> */}
         </form>
+      </Col>
+      <Col>
+
+      </Col>
+      </Row>
       </div>
 
 

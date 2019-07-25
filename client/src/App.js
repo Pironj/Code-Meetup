@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NoMatch from './pages/NoMatch';
 import Navigation from './components/Nav';
 import HomePage from './pages/homePage';
-import EventDetailPage from './pages/eventDetailPage';
+import EventDetailsPage from './pages/eventDetailPage';
 import User from './pages/users';
 import otherUsersProfile from './pages/otherUsersProfile';
 import UserProfile from "./pages/userProfile";
@@ -20,7 +20,7 @@ function App() {
   <Navigation />
   <Switch>
     <Route exact path='/' component={HomePage}></Route>
-    <Route exact path='/events' component={EventDetailPage}></Route>
+    <Route exact path='/event/:id' component={EventDetailsPage}></Route>
     <Route exact path='/userEvents' component={UserEvents}></Route>
     <Route exact path='/createEvent' component={CreateEvent}></Route>
     <Route exact path='/editEvent/:id' component={EditEvent}></Route>
@@ -28,8 +28,9 @@ function App() {
     <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route>
     <Route exact path= '/userProfile/:id' component={UserProfile}></Route>
     <Route component={NoMatch} />
-  <FooterComponent />
   </Switch>
+  {/* <FooterComponent /> */}
+
   
 </div>
 </Router>
