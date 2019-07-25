@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { DeleteBtn, createEventBtn, EditEventBtn, cancelBtn } from "../components/btn";
+import {Col, Row } from 'react-bootstrap';
 
 const useStyles = makeStyles({
     container: {
@@ -21,14 +22,20 @@ class UserProfile extends React.Component {
     //create state
     state = {
         user: {},
-        events: [],
+        userId: [],
+        events: []
     };
+
+
+    componentWillMount() {
+        this.setState({userId: this.props.match.params.id})
+    }
 
     //when this component mounts it grabs the user by their user id
     componentDidMount() {
-        
+       
 
-        API.findUserById(this.props.match.params.id)
+        API.findUserById(this.state.userId)
             .then(res => {
                 console.log(res.data)
                 this.setState({ user: res.data })
@@ -37,15 +44,15 @@ class UserProfile extends React.Component {
             });
 
         //and gets all the event's in the database that user created
-        API.getAllUserEvents(this.props.match.params.id)
-            .then(res => {
-                console.log(res.data);
-                this.setState({ events: res.data })
-            }).catch(err => console.log(err))
+        // API.getAllUserEvents(this.props.match.params.id)
+        //     .then(res => {
+        //         console.log(res.data);
+        //         this.setState({ events: res.data })
+        //     }).catch(err => console.log(err))
 
         //gets all event's user has saved to attend from the db
 
-        API.findEventsForUser(this.props.match.params.id)
+        API.findEventsForUser(this.state.userId)
             .then(res => {
                 console.log(res.data);
                 this.setState({ events: res.data })
@@ -79,56 +86,17 @@ class UserProfile extends React.Component {
                         <createEventBtn />
                     </Grid>
                 </div>
-                <Grid style={{marginTop: '5rem', marginBottom: '5rem'}} item md={12} container direction="row" justify="center" alignItems="center">
-                    <h3>Event's You've Created</h3>
-                    <Grid item md={12} container direction="row" justify="center" alignItems="center">
-
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} editEvent = {this.handleEditEvent} deleteEvent = {this.handleDeleteEvent} />))}
-                                
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} editEvent = {this.handleEditEvent} deleteEvent = {this.handleDeleteEvent} />))}
-                                
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} editEvent = {this.handleEditEvent} deleteEvent = {this.handleDeleteEvent}/>))}
-                           
-                            </Grid>
-                        </div>
-                    </Grid>
-                </Grid>
-
-
-                <Grid item md={12} container direction="row" justify="center" alignItems="center">
-                    <h3>Event's You're Attending</h3>
-                    <Grid item md={12} container direction="row" justify="center" alignItems="center"> 
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center" >
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <cancelBtn />
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <cancelBtn />
-                            </Grid>
-                        </div>
-                        <div>
-                            <Grid container direction="column" justify="center" alignItems="center">
-                                {this.state.events.map(event => (<EventCard id={event._id} eventTitle={event.title} eventContent={event.description} key={event._id} />))}
-                                <cancelBtn />
-                            </Grid>
-                        </div>
-                    </Grid>    
-                </Grid>
-
+                <Row>
+    <Col>
+    {this.state.events.map(userEvent=>
+    (<EventCard id={userEvent.event_id._id} 
+      id={userEvent.event_id._id}
+      // attendEvent={this.attendEvent} 
+      title={userEvent.event_id.title} 
+      description={userEvent.event_id.description} 
+      key={userEvent.event_id._id} />))}
+    </Col>
+    </Row>
 
             </div>
 

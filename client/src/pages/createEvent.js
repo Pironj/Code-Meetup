@@ -16,30 +16,6 @@ class CreateEvent extends React.Component {
     // date: '',
 };
 
-  createEvent(newEvent) {
-    console.log(newEvent)
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-   const newEvent = {
-     creator: this.refs.creator.value,
-     title: this.refs.title.value,
-     description: this.refs.description.value,
-    //  date: this.refs.date.value
-
-   }
-
-   API.createEvent(newEvent)
-   .then(response => {
-   
-    const eventId = response.data._id
-    this.props.history.push('/events/' + eventId)
-   })
-
- 
-  }
-
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -51,13 +27,13 @@ class CreateEvent extends React.Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveEvent({
+    if (this.state.title && this.state.description) {
+      API.createEvent({
         title: this.state.title,
-        author: this.state.description,
+        description: this.state.description,
         creator: this.state.creator
       })
-        .then(res => this.loadBooks())
+        .then(event => console.log(event))
         .catch(err => console.log(err));
     }
   };
