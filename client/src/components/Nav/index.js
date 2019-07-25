@@ -12,7 +12,7 @@ function Navigation(props) {
           <Navbar.Brand>
             <span>&#60;</span>
             rendezvous
-            <span>&#8725;</span>
+            <span> &#8725;</span>
             <span>&#62;</span>
           </Navbar.Brand>
         </Link>

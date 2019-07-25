@@ -48,7 +48,7 @@ export default {
 
   // Event
 
-  getAllEvents: () => {
+  findAllEvents: () => {
     return axios.get(`${EVENT_API_URL}`);
   },
 
