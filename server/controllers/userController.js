@@ -19,10 +19,18 @@ module.exports = {
   },
 
   create: function (req, res) {
+    console.log('authObj', req);
     db.User
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .create(req)
+      .then(dbModel => {
+        console.log('created new user: ', dbModel);
+        return res
+      })
+      .catch(err => {
+        console.log('\nFAILED TO CREATE NEW USER: ', err, '\n\n');
+      });
+      // .then(dbModel => res.json(dbModel))
+      // .catch(err => res.status(422).json(err));
   },
 
   update: function(req, res) {

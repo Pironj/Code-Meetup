@@ -1,4 +1,25 @@
 
+
+
+module.exports = {
+
+  authChecker: function (req, res, next) {
+    const userToken = JSON.parse(localStorage.getItem('currentUser'));
+    if (userToken) {
+      next();
+    } else {
+      res.redirect("/");
+    }
+  }
+
+}
+
+
+
+
+
+
+
 // Check to make sure header is not undefined, if so, return Forbidden (403)
 // const checkToken = (req, res, jwt) => {
 //   console.log("JWT HEADER TOKEN\n", jwt.req.headers.authorization);
