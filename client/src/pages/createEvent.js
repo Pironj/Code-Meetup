@@ -4,91 +4,107 @@ import FullEvent from "../components/fullEvent";
 import axios from "axios";
 import {Jumbotron, Button, Container, Row, Col} from "react-bootstrap";
 import { CreateBtn } from "../components/btn";
+import { Form, Input, FormBtn, TextArea}from "../components/Form";
+import { List, ListItem } from "../components/List";
+import { Link } from "react-router-dom";
+
 
 class CreateEvent extends React.Component {
-  createEvent(newEvent) {
-    console.log(newEvent)
+  state = {
+    creator: '5d38f663f1fa3633a0109f70',
+    title: '',
+    description: '',
+    // date: '',
+};
+
+
+
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+
+  handleFormSubmit = event => {
+
+    const newEvent = {
+      creator: this.refs.creator.value,
+      title: this.refs.title.value,
+      description: this.refs.description.value,
+     //  date: this.refs.date.value
+ 
+    }
+    event.preventDefault();
+    if (this.state.title && this.state.description) {
+      API.createEvent(newEvent)
+      .then(response => {
+       const eventId = response.data._id
+       this.props.history.push('/events/' + eventId)
+      })
   }
+  
+}
 
-  onSubmit(e) {
-    e.preventDefault();
-   const newEvent = {
-     creator: this.refs.creator.value,
-     title: this.refs.title.value,
-     description: this.refs.description.value,
-     date: this.refs.date.value
-   }
-
-   console.log(newEvent);
-
-   e.preventDefault();
-   this.createEvent(newEvent);
-  }
 
   
-
-  createEvent(newEvent) {
-    axios.request({
-      method:'put',
-      url: 'http://localhost:3000/utils/api/events/',
-      data: newEvent
-    })
-    .then(response => {
-      this.props.history.push('/utils/API')
-      console.log(response)
-    }).catch(err => console.log(err));
-  }
-
-  
-  render() {
-    
+ render() {
     return (
-   
-      <div>
-        <Container>
-        <Row style={{marginTop: '5rem'}}>
-            <Col>
-              
-            </Col>
-            <Col xs={4}>
-            <h3 style={{marginRight:'.5rem'}} >Create New Event</h3>
-        <form onSubmit={this.onSubmit.bind(this)}>
-
-        <div className="input-field">
-            <input type="text" name="creator" ref="creator" />
-            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Creator</label>
-          </div>
-
-          <div className="input-field">
-            <input type="text" name="title" ref="title" />
-            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Title</label>
-          </div>
-
-          <div className="input-field">
-            <input type="text" name="description" ref="description" />
-            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Description</label>
-          </div>
-
-          <div className="input-field">
-            <input type="text" name="date" ref="date" />
-            <label style={{marginLeft: '.5rem', marginRight: '5rem'}} htmlFor="name">Date</label>
-          </div>
-          <Button variant="dark" type="submit" value="Save" className="btns">Save</Button>
-          {/* <input variant="dark" type="submit" value="Save" className="btn" /> */}
-        </form>
-            </Col>
-            <Col>
-
-            </Col>
-          </Row>
-        </Container>
-      </div>
-
-
-    )
+      <Container fluid>
+      {this.state.title + this.state.description}
+        <Row>
+          <Col size="md-6">
+            <Jumbotron>
+              <h1>Create an Event</h1>
+            </Jumbotron>
+            <form>
+              <Input
+                value={this.state.title}
+                onChange={this.handleInputChange}
+                name="title"
+                placeholder="Title (required)"
+              />
+              <Input
+                value={this.state.description}
+                onChange={this.handleInputChange}
+                name="description"
+                placeholder=" Description (required)"
+              />
+              <FormBtn
+                disabled={!(this.state.description  && this.state.title)}
+                onClick={this.handleFormSubmit}
+              >
+                Submit Event
+              </FormBtn>
+            </form>
+          </Col>
+          <Col size="md-6 sm-12">
+            {/* <Jumbotron>
+              <h1>My Events</h1>
+            </Jumbotron> */}
+            {/* {this.state.events.length ? (
+              <List>
+                {this.state.events.map(event => (
+                  <ListItem key={eventNames._id}>
+                    <Link to={"/events/" + event._id}>
+                      <strong>
+                        {event.title} by {event.author}
+                      </strong>
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )} */}
+          </Col>
+        </Row>
+      </Container>
+    );
   }
-  }
-
+}
 
 
 export default CreateEvent;
