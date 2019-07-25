@@ -11,27 +11,45 @@ import {Container, Row, Col, Button} from "react-bootstrap";
 
 class EventDetailsPage extends React.Component {
   state = {
-    events: []
+    event: {},
+    id: ''
   }
 
-    onDelete = (props) => {
-    let eventId = this.state.events;
-    API.deleteEvent(`http://localhost:3000/api/events/${eventId}`)
+    onDelete = (response) => {
+    // let eventId = this.state.event;
+    API.deleteEvent(this.state.id)
     .then(response => {
       this.props.history.push('/')
     }).catch(err => console.log(err));
    }
 
+   componentWillMount() {
+     this.setState({
+       id: this.props.match.params.id
+      });
+   }
+
   componentDidMount() {
-    API.getAllUserEvents()
-      .then(data => {console.log(data
+    API.findEventById(this.state.id)
+      .then(data => {console.log(data.data
         )
           this.setState({
-            events: data.data
+            event: data.data
           })
       })
       .catch (err => console.log(err))
 
+  }
+
+  renderFullEvent = () => {
+    return(<FullEvent 
+      title={this.state.event.title} 
+      description={this.state.event.description} 
+      key={this.state.event._id}
+      creator={this.state.event.creator} 
+        
+      />
+    )
   }
 
 
@@ -44,7 +62,7 @@ class EventDetailsPage extends React.Component {
       <Container>
       <Row style={{marginTop: '2rem'}}>
     <Col>
-    <FullEvent />
+      {this.state.event ? this.renderFullEvent(): <p>This event does not exist</p>}
     </Col>
     <Col>
 
@@ -55,7 +73,7 @@ class EventDetailsPage extends React.Component {
 
       <Row style={{marginTop: '1rem', marginLeft: '.5rem'}}> 
       {/* <CommentBox /> */}
-      <Button onClick={this.onDelete()} variant="dark">Delete</Button>
+      <Button onClick={this.onDelete} variant="dark">Delete</Button>
 
       </Row>
       </Container>
