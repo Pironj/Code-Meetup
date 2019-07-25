@@ -20,7 +20,7 @@ function App() {
   <Navigation />
   <Switch>
     <Route exact path='/' component={HomePage}></Route>
-    <Route exact path='/events' component={EventDetailsPage}></Route>
+    <Route exact path='/events/:id' component={EventDetailsPage}></Route>
     <Route exact path='/userEvents' component={UserEvents}></Route>
     <Route exact path='/createEvent' component={CreateEvent}></Route>
     <Route exact path='/editEvent/:id' component={EditEvent}></Route>
@@ -29,7 +29,7 @@ function App() {
     <Route exact path= '/userProfile/:id' component={UserProfile}></Route>
     <Route component={NoMatch} />
   </Switch>
-  <FooterComponent />
+  {/* <FooterComponent /> */}
 
   
 </div>
