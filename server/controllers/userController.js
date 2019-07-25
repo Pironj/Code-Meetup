@@ -26,28 +26,28 @@ module.exports = {
       last_name: req.last_name,
       picture: req.picture,
       email: req.email
-    }
+    };
     db.User
       .create(newUser)
       .then(dbModel => {
         console.log('created new user: ', dbModel);
-        return res
+        return res.json(dbModel);
       })
       .catch(err => {
         console.log('\nFAILED TO CREATE NEW USER: ', err, '\n\n');
       });
-      // .then(dbModel => res.json(dbModel))
-      // .catch(err => res.status(422).json(err));
+    // .then(dbModel => res.json(dbModel))
+    // .catch(err => res.status(422).json(err));
   },
 
-  update: function(req, res) {
+  update: function (req, res) {
     db.User
-      .findByIdAndUpdate(req.params.id, req.body, {new: true})
+      .findByIdAndUpdate(req.params.id, req.body, { new: true })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
-  remove: function(req, res) {
+  remove: function (req, res) {
     db.User
       .findByIdAndDelete(req.params.id)
       .then(dbModel => res.json(dbModel))

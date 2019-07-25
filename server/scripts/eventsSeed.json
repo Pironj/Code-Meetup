@@ -2,31 +2,73 @@
   {
     "title": "Interview Questions",
     "description": "Practice interviewQuestions",
-    "creator": ""
+    "creator": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.335746,
+        47.608987
+      ]
+    }
   },
   {
     "title": "Study Time!",
     "description": "Time to work on projects.",
-    "creator": ""
+    "creator": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.335746,
+        47.608987
+      ]
+    }
   },
   {
     "title": "Interview a dev",
     "description": "Get some insight in the industry",
-    "creator": ""
+    "creator": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.335746,
+        47.608987
+      ]
+    }
   },
   {
     "title": "Goof off time",
     "description": "Goof off",
-    "creator": ""
+    "creator": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.335746,
+        47.608987
+      ]
+    }
   },
   {
     "title": "Meetup",
     "description": "Meetup with devs",
-    "creator": ""
+    "creator": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.335746,
+        47.608987
+      ]
+    }
   },
   {
     "title": "Networking",
     "description": "Network for days",
-    "creator": ""
+    "creator": "",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        -122.335746,
+        47.608987
+      ]
+    }
   }
 ]

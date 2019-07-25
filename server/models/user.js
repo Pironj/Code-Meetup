@@ -9,7 +9,7 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
-      // select: false,
+      select: false,
     },
     first_name: {
       type: String,
@@ -21,7 +21,7 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: false, // TODO change to true
+      required: true,
     },
     picture: {
       type: String,
@@ -42,6 +42,7 @@ userSchema.virtual('events', {
   localField: '_id',
   foreignField: 'user_id'
 });
+
 
 const User = mongoose.model('User', userSchema);
 
