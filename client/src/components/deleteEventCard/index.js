@@ -1,17 +1,16 @@
 import React from 'react';
 import './style.css';
-import {Link} from 'react-router-dom';
-import {Card, Button} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
 
 
-const EventCard = (props) => {
+const DeleteEventCard = (props) => {
   const editHandler = (id) => {
-    // props.editEvent(props.id)
-    // props.deleteEvent(props.id)
-    // props.attendEvent(props.id)
+    props.editEvent(props.id)
+    props.deleteEvent(props.id)
+    props.attendEvent(props.id)
   };
   // console.log("event card props");
   
@@ -22,15 +21,14 @@ const EventCard = (props) => {
         <Card className="eventCard" border="dark" style={{ width: '18rem' }}>
     <Card.Header>Popular Events</Card.Header>
     <Card.Body>
-      <Card.Title>{props.title}</Card.Title>
+      <Card.Title>{props.eventTitle}</Card.Title>
       <Card.Text>
-       {props.description}
+       {props.eventContent}
       </Card.Text>
-      <Link to={`/events/${props.id}`} variant="dark">Details</Link>
-    {/* <App 
+    <DeleteModal 
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}
-    /> */}
+    />
     {/* <EditEventBtn editEvent = {props.editEvent}
                     id = {props.id} />
     <DeleteBtn deleteEvent = {props.deleteEvent}
@@ -44,4 +42,4 @@ const EventCard = (props) => {
 }
 
  
-export default EventCard;
+export default DeleteEventCard;
