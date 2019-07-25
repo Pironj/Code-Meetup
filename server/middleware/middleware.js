@@ -1,17 +1,15 @@
-
+const router = require('express').Router();
 
 
 module.exports = {
-
-  authChecker: function (req, res, next) {
-    const userToken = JSON.parse(localStorage.getItem('currentUser'));
-    if (userToken) {
+  authChecker: function() {
+    router.get('/user/:id', function (req, res, next) {
+      console.log('\nMIDDLEWARE REQUEST: \n', req)
+      console.log('\nMIDDLEWARE RESPONSE: \n', res)
       next();
-    } else {
-      res.redirect("/");
-    }
-  }
 
+    })
+  }
 }
 
 
