@@ -19,6 +19,7 @@ module.exports = {
   findById: function (req, res) {
     db.Event
       .findById(req.params.id)
+      .populate('creator', 'first_name last_name')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
