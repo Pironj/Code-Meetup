@@ -12,6 +12,7 @@ import UserEvents from './pages/userEvents';
 import CreateEvent from "./pages/createEvent";
 import EditEvent from "./pages/editEvent";
 import FooterComponent from './components/footer';
+import Map from './pages/mapsTemp';
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
     <Route exact path='/users/:id' component={User}></Route>
     <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route>
     <Route exact path= '/userProfile/:id' component={UserProfile}></Route>
+    
+    {/* Temporary map */}
+    <Route exact path= '/tempmap' component={Map}></Route> 
+
     <Route component={NoMatch} />
   </Switch>
   {/* <FooterComponent /> */}
