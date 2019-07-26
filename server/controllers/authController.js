@@ -11,9 +11,9 @@ module.exports = {
     const jwt = req.headers.authorization.slice(7);
     // console.log(req.headers.authorization.slice(7));
     axios.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + jwt)
-      .then(res => {
+      .then(googleResponse => {
 
-        const authUser = res.data;
+        const authUser = googleResponse.data;
         console.log(authUser);
         const authObj = {
           google_id: authUser.sub,
@@ -35,10 +35,14 @@ module.exports = {
                 currentUser,
                 '\n========================================================\n\n'
               );
+              // TODO <- send found user to client
 
             } else {
               // console.log(authObj);
-              createUser.create(authObj);
+              createUser.create(authObj).then(user => {
+                console.log(user);
+                // return res.json(user); // <- raises error. Need to send newcreated user to client
+              });
             }
           })
           .catch(err => {
