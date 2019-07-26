@@ -16,6 +16,11 @@ function Navigation(props) {
             <span>&#62;</span>
           </Navbar.Brand>
         </Link>
+        <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/tempmap'}>
+          <Navbar.Brand>
+            Map
+          </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

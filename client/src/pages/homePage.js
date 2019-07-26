@@ -34,6 +34,7 @@ class HomePage extends React.Component {
         title={event.title}
         description={event.description}
         key={event._id}
+        id={event._id}
         creator={event.creator}
       />
     ))
