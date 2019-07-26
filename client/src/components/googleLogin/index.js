@@ -1,16 +1,17 @@
 import React from 'react';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import  API from '../../utils/API';
 require("dotenv").config();
-function Login() {
 
+function Login() {
+  
   const responseGoogle = (response) => {
+
     console.log("Google Response: \n", response);
     console.log("Google Profile Object: \n", response.profileObj);
-    console.log(response.Zi.id_token);
+    // console.log(response.Zi.id_token);
 
     const userData = response.profileObj;
-    const googleDBId = userData.googleId;
     const user = {
       google_id: userData.googleId,
       first_name: userData.givenName,
@@ -19,25 +20,51 @@ function Login() {
       email: userData.email,
       token: response.Zi.id_token
      };
+    //  localStorage.setItem('currentUser', JSON.stringify(`${user.token}`));
+  
+      // const userToken = JSON.parse(localStorage.getItem('currentUser'));
+      // console.log(userToken);
+      // console.log(JSON.parse(localStorage.getItem('currentUser')));
+
      console.log('\n\n<===================== USER DATA ======================>\n');
 
      console.log(user);
      console.log('\n========================================================\n\n')
-     // hit API route to our backend passing in user token
-     API.verifyLogin(user.google_id, user.token);
-
-
+    return API.verifyLogin(user.token);
+    
   }
 
-  return (
-    <GoogleLogin
-      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
 
-      buttonText="Login"
-      onSuccess={responseGoogle}
-      onFailure={responseGoogle}
-      cookiePolicy={'single_host_origin'}
-    />
+  const logout = () => {
+    // document.cookie = "loginSuccess=" + "expires=Thu, 01 Jan 1970 00:00:00 UTC" + "path=/";
+    const userToken = JSON.parse(localStorage.getItem('currentUser'));
+    
+    localStorage.removeItem('currentUser');
+    // console.log(userToken);
+    
+    return null
+    
+    
+  }
+  
+  return (
+    <div>
+
+      <GoogleLogin
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        // onRequest={init}
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={'single_host_origin'}
+      />
+      <GoogleLogout
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        buttonText="Logout"
+        onLogoutSuccess={logout}
+      >
+      </GoogleLogout>
+    </div>
   );
 }
 

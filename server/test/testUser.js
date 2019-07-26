@@ -64,18 +64,18 @@ describe('User', () => {
     });
   });
 
-  describe('POST /api/users', () => {
-    it('should return user when the all request body is valid', async () => {
-      const res = await request(server)
-        .post('/api/users')
-        .send(user);
-      expect(res.status).to.equal(200);
-      expect(res.body).to.have.property('google_id', user.google_id);
-      expect(res.body).to.have.property('first_name', 'first');
-    });
+  // describe('POST /api/users', () => {
+  //   it('should return user when the all request body is valid', async () => {
+  //     const res = await request(server)
+  //       .post('/api/users')
+  //       .send(user);
+  //     expect(res.status).to.equal(200);
+  //     expect(res.body).to.have.property('google_id', user.google_id);
+  //     expect(res.body).to.have.property('first_name', 'first');
+  //   });
 
-    // add more tests to validate request body accordingly eg, make sure name is more than 3 characters etc
-  });
+  //   // add more tests to validate request body accordingly eg, make sure name is more than 3 characters etc
+  // });
 
   describe('PUT /:id', () => {
     it('should update the existing order and return 200', async () => {
