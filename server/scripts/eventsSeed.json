@@ -3,6 +3,7 @@
     "title": "Interview Questions",
     "description": "Practice interviewQuestions",
     "creator": "",
+    "date": "2019-12-17T17:30:00",
     "location": {
       "type": "Point",
       "coordinates": [
@@ -15,11 +16,12 @@
     "title": "Study Time!",
     "description": "Time to work on projects.",
     "creator": "",
+    "date": "2019-08-19T18:30:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.34447956085205,
+        47.64908423333931
       ]
     }
   },
@@ -27,23 +29,25 @@
     "title": "Interview a dev",
     "description": "Get some insight in the industry",
     "creator": "",
+    "date": "2019-07-30T16:30:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.38619327545166,
+        47.583719518310026
       ]
     }
   },
   {
     "title": "Goof off time",
-    "description": "Goof off",
+    "description": "Let's Goof off! Meet at the Starbucks in the West Seattle Admiral district",
     "creator": "",
+    "date": "2019-07-26T17:00:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.3841118812561,
+        47.58101291105401
       ]
     }
   },
@@ -51,6 +55,7 @@
     "title": "Meetup",
     "description": "Meetup with devs",
     "creator": "",
+    "date": "2019-11-27T18:00:00",
     "location": {
       "type": "Point",
       "coordinates": [
@@ -63,6 +68,7 @@
     "title": "Networking",
     "description": "Network for days",
     "creator": "",
+    "date": "2019-10-17T17:30:00",
     "location": {
       "type": "Point",
       "coordinates": [

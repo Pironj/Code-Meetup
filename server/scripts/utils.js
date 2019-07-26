@@ -14,5 +14,4 @@ module.exports = {
       await callback(array[index], index);
     }
   }
-
 };

@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -36,6 +37,14 @@ const eventSchema = new Schema(
     timestamps: true // Assigns createdAt and updatedAt fields
   }
 );
+
+eventSchema.set('toJSON', { virtuals: true });
+
+eventSchema
+  .virtual('dateFormatted')
+  .get(function() {
+    return moment(this.date).format('MMMM Do, YYYY, h:mm a');
+  });
 
 eventSchema.virtual('attendees', {
   ref: 'UserEvent',
