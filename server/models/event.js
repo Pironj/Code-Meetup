@@ -42,7 +42,7 @@ eventSchema.set('toJSON', { virtuals: true });
 
 eventSchema
   .virtual('dateFormatted')
-  .get(function() {
+  .get(function () {
     return moment(this.date).format('MMMM Do, YYYY, h:mm a');
   });
 
@@ -51,6 +51,8 @@ eventSchema.virtual('attendees', {
   localField: '_id',
   foreignField: 'event_id'
 });
+
+eventSchema.index({ location: '2dsphere' });
 
 const Event = mongoose.model('Event', eventSchema);
 
