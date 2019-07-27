@@ -79,6 +79,7 @@ POST | /api/events     | Create event (Also creates a UserEvent document for the
 GET  | /api/events/:id | Find event by id
 PUT  | /api/events/:id | Update event by id
 DELETE  | /api/events/:id | Delete event by id (Also deletes all UserEvent docs with an event_id === id)
+GET | /api/events/near/:latitude/:longitude | Find all events within a (currently hard coded distance) from a coordinate
 
 ## UserEvents
 UserEvent entries are a record of a user attending an event.

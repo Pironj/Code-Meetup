@@ -58,8 +58,17 @@ export default {
 
   // Event
 
-  getAllEvents: () => {
+  findAllEvents: () => {
     return axios.get(`${EVENT_API_URL}`);
+  },
+
+/**
+ *  Find all events within a (currently hard coded distance of 10,000 meters) from a coordinate
+ * @param {int} longitude 
+ * @param {int} latitude 
+ */
+  findEventsNear: (latitude, longitude) => {
+    return axios.get(`${EVENT_API_URL}/${latitude}/${longitude}`);
   },
 
   /**
