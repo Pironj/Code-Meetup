@@ -1,18 +1,15 @@
-
+const router = require('express').Router();
 
 
 module.exports = {
+  authChecker: function() {
+    // router.get('/user/:id', function (req, res, next) {
+    //   const token = 
+    //   next();
 
-  authChecker: function (req, res, next) {
-    const userToken = JSON.parse(localStorage.getItem('currentUser'));
-    if (userToken) {
-      next();
-    } else {
-      res.redirect('/');
-    }
+    // })
   }
-
-};
+}
 
 
 

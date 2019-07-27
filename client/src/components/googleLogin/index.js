@@ -5,7 +5,7 @@ require("dotenv").config();
 
 function Login() {
   
-  const responseGoogle = (response) => {
+  const responseGoogle = async (response) => {
 
     console.log("Google Response: \n", response);
     console.log("Google Profile Object: \n", response.profileObj);
@@ -30,23 +30,24 @@ function Login() {
 
      console.log(user);
      console.log('\n========================================================\n\n')
-    return API.verifyLogin(user.token);
+    return await API.verifyLogin(user.token);
     
   }
 
 
-  const logout = () => {
+  const logout = (response) => {
+    console.log(response);
     // document.cookie = "loginSuccess=" + "expires=Thu, 01 Jan 1970 00:00:00 UTC" + "path=/";
-    const userToken = JSON.parse(localStorage.getItem('currentUser'));
+    // const userToken = JSON.parse(localStorage.getItem('currentUser'));
     
-    localStorage.removeItem('currentUser');
+    // localStorage.removeItem('currentUser');
     // console.log(userToken);
     
-    return null
+    return response;
     
     
   }
-  
+
   return (
     <div>
 

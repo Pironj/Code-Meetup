@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
-import { Link } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap';
-import { EditEventBtn, DeleteBtn, AttendBtn } from '../btn';
+import {Link} from 'react-router-dom';
+import {Card, Button, Container} from 'react-bootstrap';
+import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
 import Moment from "react-moment";
@@ -45,6 +45,16 @@ const EventCard = (props) => {
           </Card.Text>
           <Link to={`/events/${props.id}`} variant="dark">Details</Link>
           {/* <App 
+      <Container>
+        <Card className="eventCard" border="dark" style={{ width: '20rem', height: '100%', marginTop: '3rem'}}>
+    <Card.Header>Popular Events</Card.Header>
+    <Card.Body>
+      <Card.Title>{props.title}</Card.Title>
+      <Card.Text>
+       {props.description.substring(0,100) + "..."}
+      </Card.Text>
+      <Link to={`/events/${props.id}`} variant="dark">Details</Link>
+    {/* <App 
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}
     />
@@ -54,8 +64,9 @@ const EventCard = (props) => {
                     id = {props.id} /> 
     <AttendBtn attendEvent = {props.attendEvent}
                     id = {props.id} /> */}
-        </Card.Body>
-      </Card>
+    </Card.Body>
+  </Card>
+  </Container>
     </div>
   );
 }

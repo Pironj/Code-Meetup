@@ -19,12 +19,13 @@ module.exports = {
   },
 
   create: async function (newUser) {
-    console.log('authObj', newUser);
+    console.log('\n===== authObj =====\n', newUser);
     try {
       const createdUser = await db.User.create(newUser);
       return createdUser;
     } catch (err) {
-      console.log('\nFAILED TO CREATE NEW USER: ', err, '\n\n');
+      console.log('\n===== FAILED TO CREATE NEW USER =====\n', err, '\n\n');
+      return;
     }
   },
 
