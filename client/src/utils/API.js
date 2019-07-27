@@ -39,6 +39,10 @@ export default {
         console.log("res.data", res.data)
         let authUser = JSON.stringify(res.data);
         localStorage.setItem('authUser', authUser);
+        const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
+        const token = parseUserObj.token
+        console.log("parsed user localstorage obj: ", token);
+
       })
       .catch(err => {
         console.log(err)

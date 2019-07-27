@@ -3,12 +3,11 @@ const router = require('express').Router();
 
 module.exports = {
   authChecker: function() {
-    router.get('/user/:id', function (req, res, next) {
-      console.log('\nMIDDLEWARE REQUEST: \n', req)
-      console.log('\nMIDDLEWARE RESPONSE: \n', res)
-      next();
+    // router.get('/user/:id', function (req, res, next) {
+    //   const token = 
+    //   next();
 
-    })
+    // })
   }
 }
 
