@@ -1,6 +1,7 @@
 import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
 import { AttendBtn } from '../btn';
+// import SimpleMap from '../googleMaps/Xindex'
 
 const FullEvent = (props) => {
   const editHandler = (id) => {
@@ -14,7 +15,14 @@ const FullEvent = (props) => {
       {/* <p>Location: {props.eventLocation}</p> */}
       <p>Host: {props.creator}</p>
       {/* <p>Attendees: </p> */}
-      
+
+      {/* <div style={{ width: '100%', height: '400px' }}>
+        <SimpleMap
+          latitude={props.latitude}
+          longitude={props.longitude}
+        />
+      </div> */}
+
 
 
     </Jumbotron>

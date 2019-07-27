@@ -31,6 +31,7 @@ class EventDetailsPage extends React.Component {
   componentDidMount() {
     API.findEventById(this.state.eventId)
       .then(data => {
+        console.log(data.data)
         this.setState({
           event: data.data
         })
@@ -39,12 +40,15 @@ class EventDetailsPage extends React.Component {
   }
 
   renderFullEvent = () => {
-    return (<FullEvent
-      title={this.state.event.title}
-      description={this.state.event.description}
-      key={this.state.event._id}
-      creator={this.state.event.creator.first_name}
-    />
+    return (
+      <FullEvent
+        title={this.state.event.title}
+        description={this.state.event.description}
+        key={this.state.event._id}
+        creator={this.state.event.creator.first_name}
+        latitude={this.state.event.location.coordinates[0]}
+        longitude={this.state.event.location.coordinates[1]}
+      />
     )
   }
 
