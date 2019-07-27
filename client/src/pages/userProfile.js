@@ -23,7 +23,9 @@ class UserProfile extends React.Component {
     state = {
         user: {},
         userId: [],
-        events: []
+        events: [], 
+        name: {}, 
+        email: {},
     };
 
 
@@ -76,7 +78,7 @@ class UserProfile extends React.Component {
                                 <LettersAvatar />
                             </Grid>
                             <Grid container direction="row" justify="center" alignItems="center">
-                                <SimpleCard />
+                                <SimpleCard  {...this.props.name && this.props.email}/>
                             </Grid>
                         </div>
                     </Grid>
