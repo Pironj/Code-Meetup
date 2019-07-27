@@ -5,6 +5,7 @@ import {Card, Button} from 'react-bootstrap';
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
+import Moment from "react-moment";
 
 
 const EventCard = (props) => {
