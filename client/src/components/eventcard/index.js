@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
-import {Link} from 'react-router-dom';
-import {Card, Button} from 'react-bootstrap';
-import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
+import { Link } from 'react-router-dom';
+import { Card, Button } from 'react-bootstrap';
+import { EditEventBtn, DeleteBtn, AttendBtn } from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
 import Moment from "react-moment";
@@ -15,27 +15,36 @@ const EventCard = (props) => {
     // props.attendEvent(props.id)
   };
   // console.log("event card props");
-  
-  // console.log(props)
 
+  // console.log(props)
+  const calendarStrings = {
+    lastDay: '[Yesterday at] LT',
+    sameDay: '[Today at] LT',
+    nextDay: '[Tomorrow at] LT',
+    lastWeek: '[last] dddd [at] LT',
+    nextWeek: 'dddd [at] LT',
+    sameElse: 'L'
+  };
   //const dateToFormat = (props);
-  
+
+
+
 
   return (
-    
+
     <div>
-        <Card className="eventCard" border="dark" style={{ width: '18rem' }}>
-    <Card.Header>Popular Events</Card.Header>
-    <Card.Body>
-      <Card.Title>{props.title}</Card.Title>
-      <Card.Text>
-       {props.description}
-      </Card.Text>
-      <Card.Text>
-        <Moment>{props.date}</Moment>
-      </Card.Text>
-      <Link to={`/events/${props.id}`} variant="dark">Details</Link>
-    {/* <App 
+      <Card className="eventCard" border="dark" style={{ width: '18rem' }}>
+        <Card.Header>Popular Events</Card.Header>
+        <Card.Body>
+          <Card.Title>{props.title}</Card.Title>
+          <Card.Text>
+            {props.description}
+          </Card.Text>
+          <Card.Text>
+            <Moment calendar={calendarStrings}>{props.date}</Moment>
+          </Card.Text>
+          <Link to={`/events/${props.id}`} variant="dark">Details</Link>
+          {/* <App 
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}
     />
@@ -45,11 +54,11 @@ const EventCard = (props) => {
                     id = {props.id} /> 
     <AttendBtn attendEvent = {props.attendEvent}
                     id = {props.id} /> */}
-    </Card.Body>
-  </Card>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
 
- 
+
 export default EventCard;

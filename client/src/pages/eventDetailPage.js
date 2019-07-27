@@ -38,12 +38,13 @@ class EventDetailsPage extends React.Component {
       .catch(err => console.log(err))
   }
 
-  renderFullEvent = () => {
+  renderFullEvent = (props) => {
     return (<FullEvent
       title={this.state.event.title}
       description={this.state.event.description}
       key={this.state.event._id}
       creator={this.state.event.creator.first_name}
+      date = {this.state.event.date}
     />
     )
   }

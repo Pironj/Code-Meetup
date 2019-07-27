@@ -1,6 +1,7 @@
 import React from 'react';
 // import './style.css';
 import {Modal, Button, ButtonToolbar} from "react-bootstrap";
+import Moment from "react-moment";
 
 const EventDetailModal = (props) => {
     // console.log("creating event detail modal")
@@ -21,6 +22,7 @@ const EventDetailModal = (props) => {
         <Modal.Body>
           <p>
           {props.eventContent}
+          <Moment>{props.eventDate}</Moment>
           </p>
         </Modal.Body>
         <Modal.Footer>
@@ -43,6 +45,7 @@ const EventDetailModal = (props) => {
         <EventDetailModal
           eventTitle={props.eventTitle}
           eventContent={props.eventContent}
+          eventDate={props.eventDate}
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
