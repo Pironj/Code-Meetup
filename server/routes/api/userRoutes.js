@@ -5,7 +5,7 @@ const authController = require('../../controllers/authController');
 // // Matches with "/api/users"
 router.route('/')
   .get(userController.findAll);
-  // .post(userController.create);
+// .post(userController.create);
 
 // // Matches with "/api/users/:id/verify"
 router.route('/verify')

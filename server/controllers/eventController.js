@@ -24,6 +24,33 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  findNear: (req, res) => {
+    db.Event.aggregate(
+      [
+        {
+          '$geoNear': {
+            'near': {
+              'type': 'Point',
+              'coordinates': [
+                parseFloat(req.params.longitude),
+                parseFloat(req.params.latitude)
+              ]
+            },
+            'distanceField': 'distance',
+            'spherical': true,
+            'maxDistance': 10000
+          }
+        }
+      ],
+      function (err, results) {
+        if (err) {
+          return res.json(err);
+        }
+        return res.json(results);
+      }
+    );
+  },
+
   create: async function (req, res) {
     try {
       const user = await db.User.findById(req.body.creator); // Check if user exists
@@ -41,9 +68,9 @@ module.exports = {
 
   update: function (req, res) {
     db.Event
-      .findOneAndUpdate({ _id: req.params.id }, req.body, {new: true})
+      .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       .then(dbModel => {
-        if (!dbModel) { // Check if event existed
+        if (!dbModel) { // Check if event exists
           return res.status(404).json({ message: `Event with id ${req.params.id} does not exist.` });
         }
         return res.json(dbModel);
@@ -55,7 +82,7 @@ module.exports = {
     db.Event
       .findByIdAndDelete(req.params.id)
       .then(async dbModel => {
-        if (!dbModel) { // Check if event existed
+        if (!dbModel) { // Check if event exists
           return res.status(404).json({ message: `Event with id ${req.params.id} does not exist.` });
         }
         await db.UserEvent.deleteMany({ event_id: dbModel._id }); // Delete all UserEvent documents for the deleted event
