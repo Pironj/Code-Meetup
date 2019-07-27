@@ -35,7 +35,11 @@ export default {
     try {
       axios.get(`${USER_API_URL}/verify`, {headers: {Authorization:`Bearer ${token}`}})
       // authorized user data sent from our server after google authorization response
-      .then(res => console.log("res.data", res.data))
+      .then(res => {
+        console.log("res.data", res.data)
+        let authUser = JSON.stringify(res.data);
+        localStorage.setItem('authUser', authUser);
+      })
       .catch(err => {
         console.log(err)
       })
