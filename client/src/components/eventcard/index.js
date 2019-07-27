@@ -18,7 +18,11 @@ const EventCard = (props) => {
   
   // console.log(props)
 
+  const dateToFormat = "1976-04-19T12:59-0500";
+  
+
   return (
+    
     <div>
         <Card className="eventCard" border="dark" style={{ width: '18rem' }}>
     <Card.Header>Popular Events</Card.Header>
@@ -26,6 +30,9 @@ const EventCard = (props) => {
       <Card.Title>{props.title}</Card.Title>
       <Card.Text>
        {props.description}
+      </Card.Text>
+      <Card.Text>
+        <Moment>{dateToFormat}</Moment>
       </Card.Text>
       <Link to={`/events/${props.id}`} variant="dark">Details</Link>
     {/* <App 
