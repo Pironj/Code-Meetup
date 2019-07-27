@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -37,11 +38,21 @@ const eventSchema = new Schema(
   }
 );
 
+eventSchema.set('toJSON', { virtuals: true });
+
+eventSchema
+  .virtual('dateFormatted')
+  .get(function () {
+    return moment(this.date).format('MMMM Do, YYYY, h:mm a');
+  });
+
 eventSchema.virtual('attendees', {
   ref: 'UserEvent',
   localField: '_id',
   foreignField: 'event_id'
 });
+
+eventSchema.index({ location: '2dsphere' });
 
 const Event = mongoose.model('Event', eventSchema);
 

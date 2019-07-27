@@ -1,73 +1,79 @@
 [
   {
     "title": "Interview Questions",
-    "description": "Practice interviewQuestions",
+    "description": "Practice interview questions with us! We will grill each other for fun. Meet at the Freemont Brewing Company",
     "creator": "",
+    "date": "2019-12-17T17:30:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.344531,
+        47.649927
       ]
     }
   },
   {
     "title": "Study Time!",
-    "description": "Time to work on projects.",
+    "description": "Time to work on projects. Meet at El Diablo Coffee in Queen Anne",
     "creator": "",
+    "date": "2019-08-19T18:30:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.357354,
+        47.635744
       ]
     }
   },
   {
     "title": "Interview a dev",
-    "description": "Get some insight in the industry",
+    "description": "Get some insight in the industry. Meet at Cafe Fiore in West Seattle",
     "creator": "",
+    "date": "2019-07-30T16:30:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.386185,
+        47.583752
       ]
     }
   },
   {
     "title": "Goof off time",
-    "description": "Goof off",
+    "description": "Let's Goof off! Meet at the Starbucks in the West Seattle Admiral district",
     "creator": "",
+    "date": "2019-07-26T17:00:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.3841118812561,
+        47.58101291105401
       ]
     }
   },
   {
     "title": "Meetup",
-    "description": "Meetup with devs",
+    "description": "Meetup with devs. Meet at Bellden Cafe in Bellevue",
     "creator": "",
+    "date": "2019-11-27T18:00:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.197973,
+        47.610752
       ]
     }
   },
   {
     "title": "Networking",
-    "description": "Network for days",
+    "description": "Network for days. Meet at Kelly Latte's in Kent",
     "creator": "",
+    "date": "2019-10-17T17:30:00",
     "location": {
       "type": "Point",
       "coordinates": [
-        -122.335746,
-        47.608987
+        -122.161530,
+        47.386380
       ]
     }
   }
