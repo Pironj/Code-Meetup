@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:4500/",
   "dependencies": {
+    "@lls/react-light-calendar": "^2.0.6",
     "@material-ui/core": "^4.2.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
