@@ -1,6 +1,7 @@
 import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
 import { AttendBtn } from '../btn';
+import Moment from "react-moment";
 
 const FullEvent = (props) => {
   const editHandler = (id) => {
@@ -14,6 +15,10 @@ const FullEvent = (props) => {
       {/* <p>Location: {props.eventLocation}</p> */}
       <p>Host: {props.creator}</p>
       {/* <p>Attendees: </p> */}
+      <Moment>
+      <p>Time:{props.date}</p>
+      </Moment>
+     
       
 
 

@@ -18,7 +18,7 @@ const EventCard = (props) => {
   
   // console.log(props)
 
-  const dateToFormat = "1976-04-19T12:59-0500";
+  //const dateToFormat = (props);
   
 
   return (
@@ -32,7 +32,7 @@ const EventCard = (props) => {
        {props.description}
       </Card.Text>
       <Card.Text>
-        <Moment>{dateToFormat}</Moment>
+        <Moment>{props.date}</Moment>
       </Card.Text>
       <Link to={`/events/${props.id}`} variant="dark">Details</Link>
     {/* <App 
