@@ -31,8 +31,18 @@ export default {
   // check to see if user is logged in ---protected route
   // create our verify url and passing in an Authorization header in headers
   // passing in the token value with ${token} from our utils API call on our googleLogin component
-  verifyLogin: (token) => {
-    return axios.get(`${USER_API_URL}/verify`, {headers: {Authorization:`Bearer ${token}`}})
+  verifyLogin: async (token) => {
+    try {
+      axios.get(`${USER_API_URL}/verify`, {headers: {Authorization:`Bearer ${token}`}})
+      // authorized user data sent from our server after google authorization response
+      .then(res => console.log("res.data", res.data))
+      .catch(err => {
+        console.log(err)
+      })
+    } catch (err) {
+      console.log(err);
+      return err
+    }
   },
 
   updateUser: (user) => {

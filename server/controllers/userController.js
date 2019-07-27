@@ -18,26 +18,15 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  create: function (req, res) {
-    console.log('authObj', req);
-    newUser = {
-      google_id: req.google_id,
-      first_name: req.first_name,
-      last_name: req.last_name,
-      picture: req.picture,
-      email: req.email
-    };
-    db.User
-      .create(newUser)
-      .then(dbModel => {
-        console.log('created new user: ', dbModel);
-        return res.json(dbModel);
-      })
-      .catch(err => {
-        console.log('\nFAILED TO CREATE NEW USER: ', err, '\n\n');
-      });
-    // .then(dbModel => res.json(dbModel))
-    // .catch(err => res.status(422).json(err));
+  create: async function (newUser) {
+    console.log('\n===== authObj =====\n', newUser);
+    try {
+      const createdUser = await db.User.create(newUser);
+      return createdUser;
+    } catch (err) {
+      console.log('\n===== FAILED TO CREATE NEW USER =====\n', err, '\n\n');
+      return;
+    }
   },
 
   update: function (req, res) {
