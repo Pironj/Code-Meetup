@@ -12,7 +12,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 class EventDetailsPage extends React.Component {
   state = {
     event: {},
-    eventId: ''
+    eventId: '',
   }
 
   onDelete = (response) => {
@@ -29,8 +29,10 @@ class EventDetailsPage extends React.Component {
   }
 
   componentDidMount() {
-    API.findEventById(this.state.eventId)
+    API.findEventById(this.props.match.params.id)
       .then(data => {
+        // console.log('We are on the events details page')
+        // console.log(data.data);
         this.setState({
           event: data.data
         })
@@ -39,13 +41,16 @@ class EventDetailsPage extends React.Component {
   }
 
   renderFullEvent = () => {
+    console.log(this.state.event);
+
     return (<FullEvent
       title={this.state.event.title}
       description={this.state.event.description}
       key={this.state.event._id}
-      creator={this.state.event.creator.first_name}
+      creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
     />
     )
+  
   }
 
   render() {
@@ -54,8 +59,8 @@ class EventDetailsPage extends React.Component {
       <div>
         <Container>
           <Row style={{ marginTop: '2rem' }}>
-            <Col>
-              {this.state.event._id ? this.renderFullEvent() : <p>This event does not exist</p>}
+            <Col> 
+              {this.state.event ? this.renderFullEvent() : <p>This event does not exist</p>}
             </Col>
             <Col>
 
@@ -64,10 +69,16 @@ class EventDetailsPage extends React.Component {
           <Row >
           </Row>
 
-          <Row style={{ marginTop: '1rem', marginLeft: '.5rem' }}>
+          <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
             <Button onClick={this.onDelete} variant="dark">Delete</Button>
+
           </Row>
+
+          <Row style={{marginTop: '2rem', marginLeft: '.5rem'}}>  
+        
+          </Row>
+          <CommentBox />
         </Container>
 
       </div>

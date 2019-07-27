@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 import {Link} from 'react-router-dom';
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Container} from 'react-bootstrap';
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
@@ -19,12 +19,13 @@ const EventCard = (props) => {
 
   return (
     <div>
-        <Card className="eventCard" border="dark" style={{ width: '18rem' }}>
+      <Container>
+        <Card className="eventCard" border="dark" style={{ width: '20rem', height: '100%', marginTop: '3rem'}}>
     <Card.Header>Popular Events</Card.Header>
     <Card.Body>
       <Card.Title>{props.title}</Card.Title>
       <Card.Text>
-       {props.description}
+       {props.description.substring(0,100) + "..."}
       </Card.Text>
       <Link to={`/events/${props.id}`} variant="dark">Details</Link>
     {/* <App 
@@ -39,6 +40,7 @@ const EventCard = (props) => {
                     id = {props.id} /> */}
     </Card.Body>
   </Card>
+  </Container>
     </div>
   );
 }
