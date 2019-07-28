@@ -23,6 +23,7 @@ class HomePage extends React.Component {
       <App
         eventTitle={details.title}
         eventContent={details.description}
+        eventDate = {details.date}
         key={details._id}
       />
     ))
@@ -33,6 +34,7 @@ class HomePage extends React.Component {
       <EventCard
         title={event.title}
         description={event.description}
+        date={event.date}
         key={event._id}
         id={event._id}
         creator={event.creator}

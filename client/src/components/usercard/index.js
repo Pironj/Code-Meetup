@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleCard() {
+export default function SimpleCard(props) {
     const classes = useStyles();
 
     return (
@@ -31,8 +31,8 @@ export default function SimpleCard() {
                 <CardContent>
                     <Typography variant="h5" component="h2">
                         <React.Fragment>
-                            <p>Name: </p>
-                            <p>Email: </p>
+                            <p>Name: {props.Name} </p>
+                            <p>Email: {props.Email} </p>
                         </React.Fragment>
                     </Typography>
                 </CardContent>
