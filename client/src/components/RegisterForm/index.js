@@ -34,6 +34,7 @@ class RegisterForm extends React.Component {
           fields["password"] = "";
           this.setState({fields:fields});
           alert("Form submitted");
+        // TODO send user to signup form
       }
 
     }

@@ -27,6 +27,7 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.3.0",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.6",
     "cookie-parser": "^1.4.4",
