@@ -4,8 +4,7 @@ const auth = require('../../controllers/authController')
 
 // // Matches with "/api/users"
 router.route('/')
-  .get(userController.findAll)
-  .post(userController.create)
+  .get(userController.findAll);
 
 // // Matches with "/api/users/:id"
 router.route('/:id')

@@ -6,9 +6,9 @@ const User = require('../models/user');
 // require('dotenv').config()
 const path = require('path');
 
-require('dotenv').config({ path: path.join(__dirname, '../../../.env') })
-console.log(__dirname)
-console.log(process.env.JWT_SECRET)
+require('dotenv').config({ path: path.join(__dirname, '../../.env') })
+
+
 // import { Request, Response, NextFunction } from 'express';
 // import * as jwt from "jsonwebtoken";
 // import * as passport from "passport";
@@ -21,9 +21,7 @@ console.log(process.env.JWT_SECRET)
 // import { ValidationError } from "joi";
 // require('joi')
 
-// const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_SECRET = '123456'
-
+const JWT_SECRET = process.env.JWT_SECRET
 
 authenticate = (callback) => {
   return passport.authenticate("jwt", { session: false, failWithError: true }, callback);
@@ -34,7 +32,7 @@ genToken = (user) => {
   const expires = moment().utc().add({ days: 7 }).unix();
   const body = {
     _id: user._id,
-    username: user.username,
+    first_name: user.first_name,
     email: user.email,
   };
   //Sign the JWT token and populate the payload with the user email and id
@@ -76,8 +74,7 @@ class Auth {
         }
       }
       next();
-    })
-      (req, res, next);
+    })(req, res, next);
   }
 
   authorizeUser(req, res, next) {
@@ -92,10 +89,10 @@ class Auth {
           return res.status(401).json({ message: info.message });
         }
       }
-      console.log(String(user._id))
-      console.log(res.locals.userIdLocation)
+      
+      // Check if user details in token is the same as in the desired protected route
       if (String(user._id) !== res.locals.userIdLocation) {
-        return res.status(401).json({ message: "userId in request body does not match user id in JWT" });
+        return res.status(401).json({ message: "User id in request body does not match user id in JWT" });
       }
       return next()
     })(req, res, next);
@@ -114,25 +111,17 @@ class Auth {
 
   // // Signup authentication
   async signup(req, res, next) {
-    // const { error } = validate.validateCreateUser(req.body);
-    // if (error) {
-    //   return res.status(400).json(error.details[0]);
-    // }
-
     try {
       // Determine if username or email already exists
-      const result = await Promise.all(
-        [
-          User.findOne({ email: req.body.email }),
-          User.findOne({ username: req.body.username }),
-        ]
-      );
-      if (result[0] || result[1]) {
-        return res.json({ message: "Username or email already exists." });
+      const result = await User.findOne({ email: req.body.email })
+       
+      if (result) {
+        return res.json({ message: "Email already exists." });
       } else {
         // Success. Create new user
         const user = new User({
-          username: req.body.username,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
           email: req.body.email,
           password: req.body.password
         });
@@ -140,9 +129,10 @@ class Auth {
         const populatedUser = await User.findById(savedUser._id)
         if (populatedUser) {
           const authSuccess = this.genToken(populatedUser);
+          console.log(authSuccess)
           return res.json(authSuccess);
         }
-        throw new Error(`User with id ${savedUser._id} does not exist`);
+        throw new Error(`User with id ${savedUser._id} does not save correctly`);
       }
     } catch (error) {
       return res.json(error);

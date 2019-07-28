@@ -18,17 +18,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  create: async function (req, res) {
-    console.log('\n===== authObj =====\n', req.body);
-    try {
-      const createdUser = await db.User.create(req.body);
-      return res.json(createdUser);
-    } catch (err) {
-      console.log('\n===== FAILED TO CREATE NEW USER =====\n', err, '\n\n');
-      return res.json(err);
-    }
-  },
-
   update: function (req, res) {
     db.User
       .findByIdAndUpdate(req.params.id, req.body, { new: true })

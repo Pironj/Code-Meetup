@@ -8,19 +8,13 @@ const saltRounds = 12;
 
 const userSchema = new Schema(
   {
-    google_id: {
-      type: String,
-      unique: true,
-      required: false,
-      select: false,
-    },
     first_name: {
       type: String,
-      required: false
+      required: true
     },
     last_name: {
       type: String,
-      required: false,
+      required: true,
     },
     email: {
       type: String,
@@ -30,7 +24,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       select: false,
-      minlength: 3,
+      minlength: 4,
       maxlength: 255,
       trim: true,
     },
