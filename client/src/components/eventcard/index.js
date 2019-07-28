@@ -66,7 +66,7 @@ const EventCard = (props) => {
                     id = {props.id} /> */}
     </Card.Body>
   </Card>
-  </Container>
+  {/* </Container> */}
     </div>
   );
 }
