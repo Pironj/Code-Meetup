@@ -3,8 +3,12 @@ const passport = require('passport');
 const moment = require('moment');
 const passportJWT = require('passport-jwt');
 const User = require('../models/user');
-require('dotenv').config()
+// require('dotenv').config()
+const path = require('path');
 
+require('dotenv').config({ path: path.join(__dirname, '../../../.env') })
+console.log(__dirname)
+console.log(process.env.JWT_SECRET)
 // import { Request, Response, NextFunction } from 'express';
 // import * as jwt from "jsonwebtoken";
 // import * as passport from "passport";
@@ -49,8 +53,6 @@ class Auth {
     this.authorizeUserParams = this.authorizeUserParams.bind(this)
     this.authorizeUser = this.authorizeUser.bind(this)
   }
-
-
 
   initialize() {
     passport.use("jwt", this.getStrategy());
