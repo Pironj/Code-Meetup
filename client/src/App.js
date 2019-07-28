@@ -13,6 +13,8 @@ import CreateEvent from "./pages/createEvent";
 import EditEvent from "./pages/editEvent";
 import FooterComponent from './components/footer';
 import Map from './pages/mapsTemp';
+import RegisterForm from "./components/RegisterForm";
+
 
 function App() {
   return (
