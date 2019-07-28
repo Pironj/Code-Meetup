@@ -5,6 +5,7 @@ import {Card, Button, Container} from 'react-bootstrap';
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
+import Moment from "react-moment";
 
 
 const EventCard = (props) => {
@@ -14,11 +15,36 @@ const EventCard = (props) => {
     // props.attendEvent(props.id)
   };
   // console.log("event card props");
-  
+
   // console.log(props)
+  const calendarStrings = {
+    lastDay: '[Yesterday at] LT',
+    sameDay: '[Today at] LT',
+    nextDay: '[Tomorrow at] LT',
+    lastWeek: '[last] dddd [at] LT',
+    nextWeek: 'dddd [at] LT',
+    sameElse: 'L'
+  };
+  //const dateToFormat = (props);
+
+
+
 
   return (
+
     <div>
+      <Card className="eventCard" border="dark" style={{ width: '18rem' }}>
+        <Card.Header>Popular Events</Card.Header>
+        <Card.Body>
+          <Card.Title>{props.title}</Card.Title>
+          <Card.Text>
+            {props.description}
+          </Card.Text>
+          <Card.Text>
+            <Moment calendar={calendarStrings}>{props.date}</Moment>
+          </Card.Text>
+          <Link to={`/events/${props.id}`} variant="dark">Details</Link>
+          {/* <App 
       <Container>
         <Card className="eventCard" border="dark" style={{ width: '20rem', height: '100%', marginTop: '3rem'}}>
     <Card.Header>Popular Events</Card.Header>
@@ -45,5 +71,5 @@ const EventCard = (props) => {
   );
 }
 
- 
+
 export default EventCard;
