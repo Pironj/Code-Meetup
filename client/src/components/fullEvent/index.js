@@ -27,11 +27,11 @@ const FullEvent = (props) => {
       <p>Host: {props.creator}</p>
       {/* <p>Attendees: </p> */}
 
-      <GoogleApiWrapper
+      {/* <GoogleApiWrapper
         key={props.id}
         latitude={props.latitude}
         longitude={props.longitude}
-      />
+      /> */}
 
       <p>Time: <Moment calendar={calendarStrings}>{props.date}</Moment></p>
 

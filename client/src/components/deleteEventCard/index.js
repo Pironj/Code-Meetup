@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import {Card} from 'react-bootstrap';
+import DeleteModal from '../deleteModal'
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';

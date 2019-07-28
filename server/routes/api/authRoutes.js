@@ -1,12 +1,6 @@
 const router = require('express').Router();
 const authController = require('../../controllers/authController');
 
-<<<<<<< HEAD
-// // Matches with "/api/auth/verify"
-router.route('/verify')
-  .get(authController.verifyLogin)
-  .post(userController.create);
-=======
 
 
 
@@ -19,4 +13,3 @@ router.route('/test')
 
 
 module.exports = router;
->>>>>>> 466eb4ab707f1ca88901a632ffab4bb533edbf4f

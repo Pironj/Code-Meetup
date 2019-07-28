@@ -36,7 +36,7 @@ function Navigation(props) {
             <NavDropdown title="More" id="basic-nav-dropdown">
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/" onClick={linkResponse}>Test Route</Link>
               <br></br>
-              <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to={`/userProfile/${props.id}`}>Profile</Link>
+              <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to={`/users/${props.id}`}>Profile</Link>
               <br></br>
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/event">Events</Link>
               <br></br>
