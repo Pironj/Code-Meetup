@@ -2,11 +2,12 @@ import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
 import { AttendBtn } from '../btn';
 import Moment from "react-moment";
+import GoogleApiWrapper from '../googleMaps';
 
 const FullEvent = (props) => {
   const editHandler = (id) => {
 
-    
+
 
   };
   const calendarStrings = {
@@ -25,11 +26,17 @@ const FullEvent = (props) => {
       {/* <p>Location: {props.eventLocation}</p> */}
       <p>Host: {props.creator}</p>
       {/* <p>Attendees: </p> */}
-      
+
+      <GoogleApiWrapper
+        key={props.id}
+        latitude={props.latitude}
+        longitude={props.longitude}
+      />
+
       <p>Time: <Moment calendar={calendarStrings}>{props.date}</Moment></p>
-      
-     
-      
+
+
+
 
 
     </Jumbotron>

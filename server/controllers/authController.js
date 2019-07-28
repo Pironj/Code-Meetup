@@ -76,15 +76,19 @@ module.exports = {
                 console.log("\n====== HEADERS ERROR =======",err)
                 return err;
               })
+                .catch(err => {
+                  console.log("\n====== HEADERS ERROR =======", err)
+                  return err;
+                })
             }
           })
           .catch(err => {
             console.log('Did not find user in DB error: ', err);
             return err;
           });
-      return googleResponse;
-     })
-    //  res.json(currentUser)
-     .catch(err => res.status(422).json(err));
-    },
-  };
+        return googleResponse;
+      })
+      //  res.json(currentUser)
+      .catch(err => res.status(422).json(err));
+  },
+};

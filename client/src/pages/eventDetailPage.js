@@ -43,15 +43,19 @@ class EventDetailsPage extends React.Component {
   renderFullEvent = () => {
     console.log(this.state.event);
 
-    return (<FullEvent
-      title={this.state.event.title}
-      description={this.state.event.description}
-      key={this.state.event._id}
-      date = {this.state.event.date}
-      creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
-    />
+    return (
+      <FullEvent
+        title={this.state.event.title}
+        description={this.state.event.description}
+        key={this.state.event._id}
+        id={this.state.event._id}
+        date={this.state.event.date}
+        creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
+        latitude={this.state.event.location.coordinates[1]}
+        longitude={this.state.event.location.coordinates[0]}
+      />
     )
-  
+
   }
 
   render() {
@@ -60,8 +64,11 @@ class EventDetailsPage extends React.Component {
       <div>
         <Container>
           <Row style={{ marginTop: '2rem' }}>
-            <Col> 
-              {this.state.event ? this.renderFullEvent() : <p>This event does not exist</p>}
+            <Col>
+
+              {/* TODO -> Need to change this conditional */}
+              {this.state.event._id ? this.renderFullEvent() : <p>This event does not exist</p>}
+
             </Col>
             <Col>
 
@@ -76,8 +83,8 @@ class EventDetailsPage extends React.Component {
 
           </Row>
 
-          <Row style={{marginTop: '2rem', marginLeft: '.5rem'}}>  
-        
+          <Row style={{ marginTop: '2rem', marginLeft: '.5rem' }}>
+
           </Row>
           <CommentBox />
         </Container>
