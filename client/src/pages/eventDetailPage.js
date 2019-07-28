@@ -47,6 +47,7 @@ class EventDetailsPage extends React.Component {
       title={this.state.event.title}
       description={this.state.event.description}
       key={this.state.event._id}
+      date = {this.state.event.date}
       creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
     />
     )

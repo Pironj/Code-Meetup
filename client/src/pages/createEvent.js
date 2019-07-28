@@ -13,7 +13,7 @@ class CreateEvent extends React.Component {
     creator: '5d38f663f1fa3633a0109f70',
     title: '',
     description: '',
-    // date: '',
+    date: '',
 };
 
 
