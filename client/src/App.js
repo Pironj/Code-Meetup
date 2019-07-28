@@ -22,12 +22,11 @@ function App() {
   <Switch>
     <Route exact path='/' component={HomePage}></Route>
     <Route exact path='/events/:id' component={EventDetailsPage}></Route>
-    <Route exact path='/userEvents' component={UserEvents}></Route>
-    <Route exact path='/createEvent' component={CreateEvent}></Route>
-    <Route exact path='/editEvent/:id' component={EditEvent}></Route>
-    <Route exact path='/users/:id' component={User}></Route>
-    <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route>
-    <Route exact path= '/userProfile/:id' component={UserProfile}></Route>
+    {/* <Route exact path='/events' component={UserEvents}></Route> */}
+    <Route exact path='/events/create' component={CreateEvent}></Route>
+    <Route exact path='/events/:id/edit' component={EditEvent}></Route>
+    <Route exact path='/users/:id' component={UserProfile}></Route>
+    {/* <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route> */}
     
     {/* Temporary map */}
     <Route exact path= '/tempmap' component={Map}></Route> 
