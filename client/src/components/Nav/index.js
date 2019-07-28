@@ -3,8 +3,15 @@ import './style.css';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import Login from '..//googleLogin';
+import API from '../../utils/API';
 
 function Navigation(props) {
+
+  const linkResponse = async () => {
+    return await API.protectedRoute();
+  }
+
+
   return (
     <div>
       <Navbar bg="info" expand="lg">
@@ -27,6 +34,8 @@ function Navigation(props) {
             <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/'}>Home</Link>
             <Login />
             <NavDropdown title="More" id="basic-nav-dropdown">
+              <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/" onClick={linkResponse}>Test Route</Link>
+              <br></br>
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to={`/userProfile/${props.id}`}>Profile</Link>
               <br></br>
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/event">Events</Link>

@@ -57,6 +57,8 @@ class UserProfile extends React.Component {
                 console.log(res.data);
                 this.setState({ events: res.data })
             }).catch(err => console.log(err))
+            
+            
     };
 
     renderEventCards = () => {

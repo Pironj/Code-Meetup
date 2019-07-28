@@ -3,7 +3,8 @@ import axios from 'axios';
 const USER_API_URL = '/api/users';
 const EVENT_API_URL = '/api/events';
 const USER_EVENT_API_URL = '/api/userEvents';
-const COMMENT_API_URL= '/api/comments'
+const COMMENT_API_URL= '/api/comments';
+const AUTH_URL= '/auth';
 
 export default {
   // User
@@ -31,18 +32,19 @@ export default {
   // check to see if user is logged in ---protected route
   // create our verify url and passing in an Authorization header in headers
   // passing in the token value with ${token} from our utils API call on our googleLogin component
-  verifyLogin: async (token) => {
+  authorize: async (token) => {
     try {
-      axios.get(`${USER_API_URL}/verify`, {headers: {Authorization:`Bearer ${token}`}})
+      axios.get(`${AUTH_URL}/verify`, {headers: {Authorization:`Bearer ${token}`}})
       // authorized user data sent from our server after google authorization response
       .then(res => {
+        // console.log(res);
         console.log("res.data", res.data)
         let authUser = JSON.stringify(res.data);
         localStorage.setItem('authUser', authUser);
         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
         const token = parseUserObj.token
-        console.log("parsed user localstorage obj: ", token);
-
+        console.log("parsed user localstorage token: ", token);
+        return;
       })
       .catch(err => {
         console.log(err)
@@ -50,6 +52,22 @@ export default {
     } catch (err) {
       console.log(err);
       return err
+    }
+  },
+
+  // function for protected route to get the token from local storage
+  protectedRoute: async (req, res) => {
+    try {
+      // grabbing the stored token from local storage
+      const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
+      const token = parseUserObj.token
+      axios.get(`/auth/test`, {headers: {Authorization:`Bearer ${token}`}}) // passing in stored token here
+      .then(res => console.log(res))
+      .then(alert("Authorized User token Access Granted!"))
+      .catch(err => console.log(err))
+    } catch (err) {
+      console.log(err);
+      alert("Please Login to access that page");
     }
   },
 

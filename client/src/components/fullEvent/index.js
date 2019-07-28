@@ -1,11 +1,21 @@
 import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
 import { AttendBtn } from '../btn';
-// import SimpleMap from '../googleMaps/Xindex'
+import Moment from "react-moment";
 
 const FullEvent = (props) => {
   const editHandler = (id) => {
 
+    
+
+  };
+  const calendarStrings = {
+    lastDay: '[Yesterday at] LT',
+    sameDay: '[Today at] LT',
+    nextDay: '[Tomorrow at] LT',
+    lastWeek: '[last] dddd [at] LT',
+    nextWeek: 'dddd [at] LT',
+    sameElse: 'L'
   };
 
   return (
@@ -15,14 +25,11 @@ const FullEvent = (props) => {
       {/* <p>Location: {props.eventLocation}</p> */}
       <p>Host: {props.creator}</p>
       {/* <p>Attendees: </p> */}
-
-      {/* <div style={{ width: '100%', height: '400px' }}>
-        <SimpleMap
-          latitude={props.latitude}
-          longitude={props.longitude}
-        />
-      </div> */}
-
+      
+      <p>Time: <Moment calendar={calendarStrings}>{props.date}</Moment></p>
+      
+     
+      
 
 
     </Jumbotron>
