@@ -4,17 +4,42 @@ const createUser = require('./userController');
 
 module.exports = {
 
+  test: (req, res, next) => {
+    console.log("\nAuthorization headers test:\n",req.headers.authorization)
+    const jwt = req.headers.authorization.slice(7);
+    axios.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + jwt)
+    .then(res => {
+      console.log("\n RESPONSE TEST\n", res.data);
+      if (res) {
+        next();
+      } else {
+        return next({
+          'type':'error',
+          'httpCode':400,
+          'message': {
+            'errCode': 'e402',
+            'text': 'Not name specified'
+          }
+        });
+      }
+      
+    }).catch(err => {
+      console.log("\n ERROR \n", err)
+    })
+    return res.json('protected')
+  },
+
 
  // AUTH ROUTE
  // Route to verify and create a user to our DB if not already present
- verifyLogin: function (req, res) {
+ authorize: function (req, res) {
    console.log("\n======= VERIFY LOGIN RESPONSE =======\n", res);
   //  console.log("\nRequest\n", req.body);
    const jwt = req.headers.authorization.slice(7);
    // console.log(req.headers.authorization.slice(7));
    axios.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + jwt)
      .then((googleResponse) => {
-        // console.log("Checking for headers",googleResponse);
+        console.log("Checking for headers",googleResponse);
        const authUser = googleResponse.data;
        console.log("\n======== AUTHORIZED GOOGLE RESPONSE ========\n", authUser);
        const authObj = {
@@ -23,7 +48,7 @@ module.exports = {
          last_name: authUser.family_name,
          picture: authUser.picture,
          email: authUser.email,
-         token: authUser.jti
+         token: jwt
        };
       //  CHECK If THE USER IN DB
        // passing in our google authenticated token data response and checks their corresponding google_id & email is equal to a user in DB
@@ -45,7 +70,7 @@ module.exports = {
                 // user = sendServerUser;
                 console.log("CURRENT CREATED USER:", currentUser);
                 // res.body = currentUser
-                return res.json(currentUser); // <- raises error. Need to send newcreated user to client
+                return res.json(currentUser, authObj.token); // <- raises error. Need to send newcreated user to client
               })
               .catch(err => {
                 console.log("\n====== HEADERS ERROR =======",err)
