@@ -31,12 +31,8 @@ class EventDetailsPage extends React.Component {
   componentDidMount() {
     API.findEventById(this.props.match.params.id)
       .then(data => {
-<<<<<<< HEAD
-        console.log(data.data)
-=======
         // console.log('We are on the events details page')
         // console.log(data.data);
->>>>>>> 466eb4ab707f1ca88901a632ffab4bb533edbf4f
         this.setState({
           event: data.data
         })
@@ -47,15 +43,17 @@ class EventDetailsPage extends React.Component {
   renderFullEvent = () => {
     console.log(this.state.event);
 
-    return (<FullEvent
-      title={this.state.event.title}
-      description={this.state.event.description}
-      key={this.state.event._id}
-      date={this.state.event.date}
-      creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
-      latitude={this.state.event.location.coordinates[0]}
-      longitude={this.state.event.location.coordinates[1]}
-    />
+    return (
+      <FullEvent
+        title={this.state.event.title}
+        description={this.state.event.description}
+        key={this.state.event._id}
+        id={this.state.event._id}
+        date={this.state.event.date}
+        creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
+        latitude={this.state.event.location.coordinates[1]}
+        longitude={this.state.event.location.coordinates[0]}
+      />
     )
 
   }
@@ -67,7 +65,10 @@ class EventDetailsPage extends React.Component {
         <Container>
           <Row style={{ marginTop: '2rem' }}>
             <Col>
-              {this.state.event ? this.renderFullEvent() : <p>This event does not exist</p>}
+
+              {/* TODO -> Need to change this conditional */}
+              {this.state.event._id ? this.renderFullEvent() : <p>This event does not exist</p>}
+
             </Col>
             <Col>
 
