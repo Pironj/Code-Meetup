@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const auth = require("./server/controllers/authController");
+const auth = require('./server/controllers/authController');
 
 const routes = require('./server/routes');
 
