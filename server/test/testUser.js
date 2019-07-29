@@ -17,7 +17,7 @@ describe('User', () => {
 
   beforeEach(async () => { // Before each test we empty the database
     // Seed DB with users
-    await utils.dropAllCollections(); 
+    await utils.dropAllCollections();
     // Add all users
     await testUtils.seedUsers(usersSeed);
   });

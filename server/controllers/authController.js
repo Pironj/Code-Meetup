@@ -128,12 +128,12 @@ class Auth {
       );
 
       if (!user) {
-        throw new Error('User not found');
+        return res.status(401).json({ 'message': 'User not found'});
       }
 
       const success = await user.isValidPassword(req.body.password);
       if (!success) {
-        throw new Error('Invalid password');
+        return res.status(401).json({ 'message': 'Invalid password' });
       }
       // Remove password
       user.password = null;
