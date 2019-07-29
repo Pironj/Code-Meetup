@@ -43,23 +43,6 @@ const userSchema = new Schema(
 );
 
 
-// userSchema.pre('save', async function save(next) {
-//   if (!this.isModified('password')) return next();
-//   try {
-//     const salt = await bcrypt.genSalt(SALT_ROUNDS);
-//     this.password = await bcrypt.hash(this.password, salt);
-//     return next();
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
-
-// userSchema.methods.isValidPassword = async function validatePassword(data) {
-//   console.log(this)
-//   console.log(data, this.password)
-//   return await bcrypt.compare(data, this.password);
-// };
-
 userSchema.pre('save', async function (next) {
   try {
     // Hash password on save document

@@ -4,6 +4,26 @@ const moment = require('moment');
 const passportJWT = require('passport-jwt');
 const User = require('../models/user');
 const path = require('path');
+
+// const bcrypt = require('bcrypt');
+
+require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+
+
+// import { Request, Response, NextFunction } from 'express';
+// import * as jwt from "jsonwebtoken";
+// import * as passport from "passport";
+// import * as moment from "moment";
+// import { Strategy, ExtractJwt } from "passport-jwt";
+
+// import { IUser, User } from "../models/user";
+// import { Image } from '../models/image';
+// import * as validate from '../validation/validation';
+// import { ValidationError } from "joi";
+// require('joi')
+
+const JWT_SECRET = process.env.JWT_SECRET || 'SECRET';
+
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 
@@ -42,6 +62,11 @@ class Auth {
     passport.use('jwt', this.getStrategy());
     return passport.initialize();
   }
+
+  protected(req, res) {
+    return res.json('I\'m protected!');
+  }
+
 
   validateJWT(req, res, next) {
     return authenticate((err, user, info) => {
@@ -108,6 +133,7 @@ class Auth {
           password: req.body.password
         });
         const savedUser = await user.save();
+
         const populatedUser = await User.findById(savedUser._id);
         if (populatedUser) {
           const authSuccess = genToken(populatedUser);
@@ -121,6 +147,7 @@ class Auth {
   }
 
   async login(req, res) {
+
     try {
 
       const user = await User.findOne({ 'email': req.body.email }).select(
@@ -131,12 +158,14 @@ class Auth {
         return res.status(401).json({ 'message': 'User not found'});
       }
 
+      // const success = await user.isValidPassword(req.body.password, bcrypt.compare(User.password));
       const success = await user.isValidPassword(req.body.password);
+
       if (!success) {
         return res.status(401).json({ 'message': 'Invalid password' });
       }
       // Remove password
-      user.password = null;
+
 
       const authSuccess = genToken(user);
       return res.status(200).json(authSuccess);
