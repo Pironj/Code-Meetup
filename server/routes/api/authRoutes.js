@@ -1,22 +1,20 @@
 const router = require('express').Router();
-const authController = require('../../controllers/authController');
-
-<<<<<<< HEAD
-// // Matches with "/api/auth/verify"
-router.route('/verify')
-  .get(authController.verifyLogin)
-  .post(userController.create);
-=======
+const auth = require('../../controllers/authController');
 
 
+router.route('/validate')
+  .post(auth.validateJWT, (req, res) => {
+    res.json({ message: 'token is valid' });
+  });
 
-// // Matches with "/api/users/:id/verify"
-router.route('/verify')
-  .get(authController.authorize)
+router.route('/signup')
+  .post(auth.signup);
 
-router.route('/test')
-  .get(authController.test);
+router.route('/login')
+  .post(auth.login);
 
+// For testing
+router.route('/protected/:id')
+  .get(auth.authorizeUserParams, auth.protected);
 
 module.exports = router;
->>>>>>> 466eb4ab707f1ca88901a632ffab4bb533edbf4f

@@ -2,7 +2,7 @@ import React from "react";
 import SimpleCard from "../components/usercard";
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
-import EventCard from "../components/eventcard";
+import UserEventCard from "../components/userEventCard";
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
@@ -15,6 +15,8 @@ const useStyles = makeStyles({
         backgroundColor: grey[400]
     }
 });
+
+
 
 
 class UserProfile extends React.Component {
@@ -61,8 +63,16 @@ class UserProfile extends React.Component {
             
     };
 
+        onDelete = (id) => {
+        API.deleteEvent(id)
+          .then(response => {
+            this.props.history.push('/users/:id')
+            console.log(response)
+          }).catch(err => console.log(err));
+      }
+
     renderEventCards = () => {
-        this.state.events.map(event => (<EventCard eventTitle={event.Title} eventContent={event.description} key={event._id} />))
+        this.state.events.map(event => (<UserEventCard eventTitle={event.Title} eventContent={event.description} key={event._id} />))
     }
 
     render() {
@@ -89,8 +99,9 @@ class UserProfile extends React.Component {
                 <Row>
     <Col>
     {this.state.events.map(userEvent=>
-    (<EventCard id={userEvent.event_id._id} 
+    (<UserEventCard id={userEvent.event_id._id} 
       id={userEvent.event_id._id}
+      onDelete={this.onDelete}
       // attendEvent={this.attendEvent} 
       title={userEvent.event_id.title} 
       description={userEvent.event_id.description} 

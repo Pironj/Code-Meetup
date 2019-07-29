@@ -2,14 +2,15 @@ import React from 'react';
 import './style.css';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import Login from '..//googleLogin';
+// import Login from '..//googleLogin';
+import RegisterForm from '../RegisterForm';
 import API from '../../utils/API';
 
 function Navigation(props) {
 
-  const linkResponse = async () => {
-    return await API.protectedRoute();
-  }
+  // const linkResponse = async () => {
+  //   return await API.protectedRoute();
+  // }
 
 
   return (
@@ -32,10 +33,11 @@ function Navigation(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/'}>Home</Link>
-            <Login />
+            <RegisterForm />
+            {/* <Login /> */}
             <NavDropdown title="More" id="basic-nav-dropdown">
-              <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/" onClick={linkResponse}>Test Route</Link>
-              <br></br>
+              {/* <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/" onClick={linkResponse}>Test Route</Link>
+              <br></br> */}
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to={`/userProfile/${props.id}`}>Profile</Link>
               <br></br>
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/event">Events</Link>
