@@ -6,7 +6,7 @@ const User = require('../models/user');
 // require('dotenv').config()
 const path = require('path');
 
-require('dotenv').config({ path: path.join(__dirname, '../../.env') })
+require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 
 // import { Request, Response, NextFunction } from 'express';
@@ -21,10 +21,10 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') })
 // import { ValidationError } from "joi";
 // require('joi')
 
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET;
 
 authenticate = (callback) => {
-  return passport.authenticate("jwt", { session: false, failWithError: true }, callback);
+  return passport.authenticate('jwt', { session: false, failWithError: true }, callback);
 };
 
 genToken = (user) => {
@@ -43,22 +43,22 @@ genToken = (user) => {
     expires: moment.unix(expires).format(),
     user,
   };
-}
+};
 
 class Auth {
 
   constructor() {
-    this.authorizeUserParams = this.authorizeUserParams.bind(this)
-    this.authorizeUser = this.authorizeUser.bind(this)
+    this.authorizeUserParams = this.authorizeUserParams.bind(this);
+    this.authorizeUser = this.authorizeUser.bind(this);
   }
 
   initialize() {
-    passport.use("jwt", this.getStrategy());
+    passport.use('jwt', this.getStrategy());
     return passport.initialize();
   }
 
   protected(req, res) {
-    return res.json("I'm protected!")
+    return res.json('I\'m protected!');
   }
 
   validateJWT(req, res, next) {
@@ -67,8 +67,8 @@ class Auth {
         return next(err);
       }
       if (!user) {
-        if (info.name === "TokenExpiredError") {
-          return res.status(401).json({ message: "Your token has expired. Please generate a new one" });
+        if (info.name === 'TokenExpiredError') {
+          return res.status(401).json({ message: 'Your token has expired. Please generate a new one' });
         } else {
           return res.status(401).json({ message: info.message });
         }
@@ -83,18 +83,18 @@ class Auth {
         return next(err);
       }
       if (!user) {
-        if (info.name === "TokenExpiredError") {
-          return res.status(401).json({ message: "Your token has expired. Please generate a new one" });
+        if (info.name === 'TokenExpiredError') {
+          return res.status(401).json({ message: 'Your token has expired. Please generate a new one' });
         } else {
           return res.status(401).json({ message: info.message });
         }
       }
-      
+
       // Check if user details in token is the same as in the desired protected route
       if (String(user._id) !== res.locals.userIdLocation) {
-        return res.status(401).json({ message: "User id in request body does not match user id in JWT" });
+        return res.status(401).json({ message: 'User id in request body does not match user id in JWT' });
       }
-      return next()
+      return next();
     })(req, res, next);
   }
 
@@ -112,11 +112,11 @@ class Auth {
   // // Signup authentication
   async signup(req, res, next) {
     try {
-      // Determine if username or email already exists
-      const result = await User.findOne({ email: req.body.email })
-       
+      // Determine if email already exists
+      const result = await User.findOne({ email: req.body.email });
+
       if (result) {
-        return res.json({ message: "Email already exists." });
+        return res.json({ message: 'Email already exists.' });
       } else {
         // Success. Create new user
         const user = new User({
@@ -126,10 +126,9 @@ class Auth {
           password: req.body.password
         });
         const savedUser = await user.save();
-        const populatedUser = await User.findById(savedUser._id)
+        const populatedUser = await User.findById(savedUser._id).select('-password');
         if (populatedUser) {
-          const authSuccess = this.genToken(populatedUser);
-          console.log(authSuccess)
+          const authSuccess = genToken(populatedUser);
           return res.json(authSuccess);
         }
         throw new Error(`User with id ${savedUser._id} does not save correctly`);
@@ -141,24 +140,24 @@ class Auth {
 
   async login(req, res, next) {
     try {
-      // const { error } = validate.validateAuthenticateUser(req.body);
-      // if (error) {
-      //   return res.status(400).json(error.details[0]);
-      // }
 
-      const user = await User.findOne({ "email": req.body.email })
+      const user = await User.findOne({ 'email': req.body.email }).select('-password');
 
-      if (!user) throw new Error("User not found");
+      if (!user) {
+        throw new Error('User not found');
+      }
 
       const success = await user.isValidPassword(req.body.password);
-      if (!success) throw new Error("Invalid password");
-
+      console.log(success);
+      if (!success) {
+        throw new Error('Invalid password');
+      }
 
       const authSuccess = genToken(user);
       return res.status(200).json(authSuccess);
     } catch (err) {
       console.log(err);
-      return res.status(401).json({ "message": "Invalid credentials", "errors": err });
+      return res.status(401).json({ 'message': 'Invalid credentials', 'errors': err });
     }
   }
 
@@ -170,16 +169,16 @@ class Auth {
     };
 
     return new passportJWT.Strategy(params, (req, payload, done) => {
-      User.findOne({ "_id": payload.user._id }, (err, user) => {
+      User.findOne({ '_id': payload.user._id }, (err, user) => {
         if (err) {
           return done(err);
         }
 
         if (user === null) {
-          return done(null, false, { message: "The user in the token was not found" });
+          return done(null, false, { message: 'The user in the token was not found' });
         }
 
-        return done(null, { _id: user._id, username: user.username });
+        return done(null, { _id: user._id, first_name: user.first_name });
       })
         .catch(err => {
           console.log('err', err);
