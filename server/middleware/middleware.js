@@ -4,12 +4,12 @@ const router = require('express').Router();
 module.exports = {
   authChecker: function() {
     // router.get('/user/:id', function (req, res, next) {
-    //   const token = 
+    //   const token =
     //   next();
 
     // })
   }
-}
+};
 
 
 
