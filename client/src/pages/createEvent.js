@@ -7,6 +7,8 @@ import { CreateBtn } from "../components/btn";
 import { Form, Input, FormBtn, TextArea}from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
+import Calendar from "../components/Calendar";
+
 
 class CreateEvent extends React.Component {
   state = {
