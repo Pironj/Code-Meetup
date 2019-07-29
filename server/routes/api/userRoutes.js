@@ -8,7 +8,7 @@ router.route('/')
 
 // // Matches with "/api/users/:id"
 router.route('/:id')
-  .get(auth.authorizeUserParams,userController.findById)
+  .get(auth.authorizeUserParams, userController.findById)
   .put(userController.update)
   .delete(userController.remove);
 

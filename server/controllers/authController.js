@@ -99,18 +99,18 @@ class Auth {
   }
 
   authorizeUserBody(req, res, next) {
-    res.locals.userIdLocation = req.body.userId;
+    res.locals.userIdLocation = req.body.id;
     return this.authorizeUser(req, res, next);
   }
 
   authorizeUserParams(req, res, next) {
-    res.locals.userIdLocation = req.params.userId;
+    res.locals.userIdLocation = req.params.id;
     return this.authorizeUser(req, res, next);
   }
 
 
   // // Signup authentication
-  async signup(req, res, next) {
+  async signup(req, res) {
     try {
       // Determine if email already exists
       const result = await User.findOne({ email: req.body.email });
@@ -138,7 +138,7 @@ class Auth {
     }
   }
 
-  async login(req, res, next) {
+  async login(req, res) {
     try {
 
       const user = await User.findOne({ 'email': req.body.email }).select('-password');
