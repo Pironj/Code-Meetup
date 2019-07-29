@@ -8,19 +8,13 @@ const saltRounds = 12;
 
 const userSchema = new Schema(
   {
-    google_id: {
-      type: String,
-      unique: true,
-      required: false,
-      select: false,
-    },
     first_name: {
       type: String,
-      required: false
+      required: true
     },
     last_name: {
       type: String,
-      required: false,
+      required: true,
     },
     email: {
       type: String,
@@ -29,8 +23,8 @@ const userSchema = new Schema(
     password: { // Encrypted using bcrypt
       type: String,
       required: true,
-      select: false,
-      minlength: 3,
+      select: true,
+      minlength: 4,
       maxlength: 255,
       trim: true,
     },
@@ -48,7 +42,7 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   try {
     // Hash password on save document
     const hash = await bcrypt.hash(this.password, saltRounds);
@@ -68,13 +62,11 @@ userSchema.methods.isValidPassword = async function (password) {
   }
 };
 
-
 userSchema.virtual('events', {
   ref: 'UserEvent',
   localField: '_id',
   foreignField: 'user_id'
 });
-
 
 const User = mongoose.model('User', userSchema);
 
