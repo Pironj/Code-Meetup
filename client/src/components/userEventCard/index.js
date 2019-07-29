@@ -5,9 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
 import Fab from '@material-ui/core/Fab';
 // import NavigationIcon from '@material-ui/icons/Navigation';
-import {Card, Container} from 'react-bootstrap';
+import {Card, Col, Row, Container} from 'react-bootstrap';
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
+import API from "../../utils/API";
 import { PromiseProvider } from 'mongoose';
 import Moment from "react-moment";
 
@@ -20,9 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
-const EventCard = (props) => {
+const UserEventCard = (props) => {
   const color = teal[500]
   const classes = useStyles();
   // const editHandler = (id) => {
@@ -48,20 +47,50 @@ const EventCard = (props) => {
           {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}
         <Container>
           <Card className="eventCard" border="dark" style={{ width: '20rem', height: 'auto', marginTop: '3rem'}}>
-      <Card.Header>Popular Events</Card.Header>
+      <Card.Header>Your Event</Card.Header>
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
         <Card.Text>
-        {props.description.substring(0,100) + "..."}
+        {props.description}
         </Card.Text>
         <Card.Text>
                   <Moment 
                   style={{fontWeight: 'bold'}}
                   calendar={calendarStrings}>{props.date}</Moment>
+                  <hr></hr>
                 </Card.Text>
         
-        
+      
+      <Row style={{marginLeft: '8rem'}}>
+      <Fab
+          variant="extended"
+          size="small"
+          color="secondary"
+          aria-label="add"
+          component={RouterLink}
+          to={`/events/${props.id}/edit`}
+          className={classes.margin}
+        >
+          Edit
+        </Fab>
        <Fab
+          variant="extended"
+          size="small"
+          color="secondary"
+          aria-label="add"
+          component={RouterLink}
+          // to={`/events/${props.id}`}
+          className={classes.margin}
+          onClick={() => props.onDelete(props.id) }
+
+
+        >
+          Delete
+        </Fab>
+
+
+
+       {/* <Fab
           variant="extended"
           size="small"
           color="secondary"
@@ -69,11 +98,14 @@ const EventCard = (props) => {
           component={RouterLink}
           to={`/events/${props.id}`}
           className={classes.margin}
-          style={{marginLeft: '13rem'}}
         >
           {/* <NavigationIcon className={classes.extendedIcon} /> */}
-          Details
-        </Fab>
+          {/* Details
+        </Fab> */} 
+
+      </Row>
+      
+
       {/* <App 
       @@ -39,6 +40,7 @@ const EventCard = (props) => {
                       id = {props.id} /> */}
@@ -86,4 +118,4 @@ const EventCard = (props) => {
    
 
 
-export default EventCard;
+export default UserEventCard;

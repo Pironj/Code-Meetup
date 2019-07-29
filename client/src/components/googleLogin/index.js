@@ -5,7 +5,7 @@ require("dotenv").config();
 
 function Login() {
   
-  const responseGoogle = (response) => {
+  const responseGoogle = async (response) => {
 
     console.log("Google Response: \n", response);
     console.log("Google Profile Object: \n", response.profileObj);
@@ -30,29 +30,22 @@ function Login() {
 
      console.log(user);
      console.log('\n========================================================\n\n')
-    return API.verifyLogin(user.token);
+    return await API.authorize(user.token);
     
   }
 
 
-  const logout = () => {
-    // document.cookie = "loginSuccess=" + "expires=Thu, 01 Jan 1970 00:00:00 UTC" + "path=/";
-    const userToken = JSON.parse(localStorage.getItem('currentUser'));
-    
-    localStorage.removeItem('currentUser');
-    // console.log(userToken);
-    
-    return null
-    
-    
+  const logout = (response) => {
+    console.log(response);
+    localStorage.removeItem('authUser');
+    return response;
   }
-  
+
   return (
     <div>
 
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        // onRequest={init}
         buttonText="Login"
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
