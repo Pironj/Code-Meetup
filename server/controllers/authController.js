@@ -5,6 +5,7 @@ const passportJWT = require('passport-jwt');
 const User = require('../models/user');
 // require('dotenv').config()
 const path = require('path');
+// const bcrypt = require('bcrypt');
 
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
@@ -139,6 +140,7 @@ class Auth {
   }
 
   async login(req, res) {
+    console.log(req.body)
     try {
 
       const user = await User.findOne({ 'email': req.body.email }).select('-password');
@@ -147,6 +149,7 @@ class Auth {
         throw new Error('User not found');
       }
 
+      // const success = await user.isValidPassword(req.body.password, bcrypt.compare(User.password));
       const success = await user.isValidPassword(req.body.password);
       console.log(success);
       if (!success) {
