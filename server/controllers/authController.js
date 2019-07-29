@@ -140,16 +140,13 @@ class Auth {
   }
 
   async login(req, res) {
-    console.log(req.body)
     try {
 
-      const user = await User.findOne({ 'email': req.body.email }).select('-password');
-
+      const user = await User.findOne({ 'email': req.body.email });
+      console.log("user: ", user);
       if (!user) {
         throw new Error('User not found');
       }
-
-      // const success = await user.isValidPassword(req.body.password, bcrypt.compare(User.password));
       const success = await user.isValidPassword(req.body.password);
       console.log(success);
       if (!success) {
