@@ -53,7 +53,7 @@ module.exports = {
 
   create: async function (req, res) {
     try {
-      const user = await db.User.findById(req.body.creator).select('-password'); // Check if user exists
+      const user = await db.User.findById(req.body.creator); // Check if user exists
       if (!user) {
         return res.status(404).json({ message: `User with id ${req.body.creator} does not exist.` });
       }

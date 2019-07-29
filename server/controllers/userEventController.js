@@ -36,7 +36,7 @@ module.exports = {
     try {
       const [user, event, userEvent] = await Promise.all(
         [
-          db.User.findById(req.body.user_id).select('-password'),
+          db.User.findById(req.body.user_id),
           db.Event.findById(req.body.event_id),
           db.UserEvent.findOne({ user_id: req.body.user_id, event_id: req.body.event_id })
         ]

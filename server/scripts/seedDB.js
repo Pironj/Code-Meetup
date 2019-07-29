@@ -33,7 +33,6 @@ const populateDB = async () => {
   // Add all users
   await utils.asyncForEach(usersSeed, async (item, index) => {
     console.log(index);
-
     try {
       await db.User.create(item);
     } catch (err) {

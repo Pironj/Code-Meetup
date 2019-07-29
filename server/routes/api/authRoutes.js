@@ -15,6 +15,8 @@ router.route('/login')
 
 // For testing
 router.route('/protected/:id')
-  .get(auth.authorizeUserParams, auth.protected);
+  .get(auth.authorizeUserParams, (req, res) => {
+    return res.json('I\'m protected!');
+  });
 
 module.exports = router;
