@@ -8,23 +8,12 @@ const request = require('supertest');
 const db = require('../models');
 const usersSeed = require('../scripts/usersSeed.json');
 const eventsSeed = require('../scripts/eventsSeed.json');
+const testUtils = require('./testUtils');
 const utils = require('../scripts/utils');
 
 const expect = chai.expect;
 
-const event = {
-  title: 'Test title',
-  description: 'Test Description',
-  creator: '',
-};
 
-const user = {
-  google_id: '123456',
-  first_name: 'first',
-  last_name: 'last',
-  picture: 'pictureUrl',
-  email: 'user@email.com'
-};
 
 createEvent = async (body) => {
   const event = await db.Event.create(body);
@@ -35,15 +24,23 @@ createEvent = async (body) => {
 describe('Event', () => {
 
   beforeEach(async () => { // Before each test we empty the database
+    // Seed DB with users
     await utils.dropAllCollections();
-    await db.User.collection.insertMany(usersSeed);
+    // Add all users
+    await testUtils.seedUsers(usersSeed);
 
+    const savedUsers = await db.User.find();
+
+    // Add all events
     await utils.asyncForEach(eventsSeed, async (item, index) => {
-      const savedUser = await db.User.find({ google_id: usersSeed[index].google_id });
-      const user = savedUser[0];
+      const user = savedUsers[index];
       const event = item;
       event.creator = user._id;
-      await createEvent(event);
+      try {
+        await createEvent(event);
+      } catch (err) {
+        console.log(err);
+      }
     });
   });
 
@@ -63,12 +60,12 @@ describe('Event', () => {
   describe('GET /api/userEvent/user/:id', () => {
 
     it('it should GET all UserEvent docs for a user id', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
 
       const savedEvent = await request(server)
         .post('/api/events')
-        .send(event);
+        .send(testUtils.event);
 
       // Add user to one more event that is not the event first created
       const otherEvent = await db.Event.findOne({ _id: { $ne: savedEvent._id } });
@@ -94,12 +91,12 @@ describe('Event', () => {
   describe('GET /api/userEvent/event/:id', () => {
 
     it('it should GET all UserEvent docs for an event id', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
 
       const savedEvent = await request(server)
         .post('/api/events')
-        .send(event);
+        .send(testUtils.event);
 
       // Add another to event that is not the user first created
       const otherUser = await db.Event.findOne({ _id: { $ne: savedUser._id.toString() } });
@@ -125,9 +122,9 @@ describe('Event', () => {
   describe('POST /api/userEvents', async () => {
 
     it('should return the UserEvent when the all request body is valid', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
-      const newEvent = await db.Event.create(event);
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
+      const newEvent = await db.Event.create(testUtils.event);
 
       const res = await request(server)
         .post('/api/userEvents')
@@ -138,11 +135,11 @@ describe('Event', () => {
     });
 
     it('should not create a UserEvent document if user is already atttending event', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
       const newEvent = await request(server)
         .post('/api/events')
-        .send(event);
+        .send(testUtils.event);
       const res = await request(server)
         .post('/api/userEvents/')
         .send({ event_id: newEvent.body._id.toString(), user_id: savedUser._id.toString() });
