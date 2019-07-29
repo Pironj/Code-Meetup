@@ -96,30 +96,30 @@ class EditEvent extends React.Component {
         <form style={{marginRight: '2rem'}} onSubmit={this.onSubmit.bind(this)}>
 
         <div className="input-field">
+          <label style={{marginLeft: '.5rem'}} htmlFor="name">Creator</label>
             <input type="text" name="creator" ref="creator" value={this.state.creator} 
                     onChange={this.handleInputChange.bind(this)} />
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Creator</label>
           </div>
 
           <div className="input-field">
+          <label style={{marginLeft: '.5rem'}} htmlFor="name">Title</label>
             <input type="text" name="title" ref="title" value={this.state.title}
                   onChange={this.handleInputChange.bind(this)} />
-            
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Title</label>
+          
           </div>
 
           <div className="input-field">
+          <label style={{marginLeft: '.5rem'}} htmlFor="name">Description</label>
+
             <input type="text" name="description" ref="description" value={this.state.description}
                   onChange={this.handleInputChange.bind(this)} />
-            
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Description</label>
-          </div>
+                      </div>
 
           <div className="input-field">
+          <label style={{marginLeft: '.5rem'}} htmlFor="name">Date</label>
             <input type="text" name="date" ref="date" value={this.state.date}
                   onChange={this.handleInputChange.bind(this)} />
           
-            <label style={{marginLeft: '.5rem'}} htmlFor="name">Date</label>
           </div>
           <Button type="submit" value="Save" className="btn" variant="dark">Save</Button>
           {/* <input type="submit" value="Save" className="btn" /> */}
