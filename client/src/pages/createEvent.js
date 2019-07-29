@@ -7,7 +7,7 @@ import { CreateBtn } from "../components/btn";
 import { Form, Input, FormBtn, TextArea}from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/calendar";
 
 
 class CreateEvent extends React.Component {
@@ -63,6 +63,9 @@ class CreateEvent extends React.Component {
                 name="description"
                 placeholder=" Description (required)"
               />
+              <Input>
+                <Calendar/>
+              </Input>
               <FormBtn
                 disabled={!(this.state.description  && this.state.title)}
                 onClick={this.handleFormSubmit}
