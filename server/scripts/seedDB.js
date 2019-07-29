@@ -20,9 +20,8 @@ createEvent = async (body) => {
   await db.UserEvent.create({ user_id: event.creator, event_id: event._id });
 };
 
-const assignUsersToEvents = async (tuple) => {
-  const user = await db.User.findOne({ google_id: usersSeed[tuple[0]].google_id });
-  const event = await db.Event.findOne({ title: eventsSeed[tuple[1]].title });
+const assignUsersToEvents = async (user, index) => {
+  const event = await db.Event.findOne({ title: eventsSeed[index].title });
 
   const userEvent = new db.UserEvent({ user_id: user._id, event_id: event._id });
   await userEvent.save();
@@ -30,11 +29,23 @@ const assignUsersToEvents = async (tuple) => {
 
 const populateDB = async () => {
   await utils.dropAllCollections();
-  await db.User.collection.insertMany(usersSeed);
 
+  // Add all users
+  await utils.asyncForEach(usersSeed, async (item, index) => {
+    console.log(index);
+
+    try {
+      await db.User.create(item);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  const savedUsers = await db.User.find();
+
+  // Add all events
   await utils.asyncForEach(eventsSeed, async (item, index) => {
-    const savedUser = await db.User.find({ google_id: usersSeed[index].google_id });
-    const user = savedUser[0];
+    const user = savedUsers[index];
     const event = item;
     event.creator = user._id;
     try {
@@ -45,16 +56,9 @@ const populateDB = async () => {
   });
 
   // Tuple indices represent: (user, event)
-  await utils.asyncForEach([[0, 1], [0, 2], [1, 0], [3, 0]], async (tuple, index) => {
-    console.log(index);
-    await assignUsersToEvents(tuple);
+  await utils.asyncForEach(savedUsers, async (user, index) => {
+    await assignUsersToEvents(user, 5 - index);
   });
-
-  // console.log(await db.Event.find({
-  //   location: {
-  //     $geoIntersects: { $geometry: seattle }
-  //   }
-  // }))
 
   process.exit(0);
 };
