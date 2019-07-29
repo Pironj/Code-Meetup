@@ -22,7 +22,7 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 // import { ValidationError } from "joi";
 // require('joi')
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || 'SECRET';
 
 authenticate = (callback) => {
   return passport.authenticate('jwt', { session: false, failWithError: true }, callback);

@@ -15,7 +15,6 @@ class CommentBox extends React.Component {
 
     };
   }
-<<<<<<< HEAD
   
   render () {
     const comments = this._getComments();
@@ -44,10 +43,6 @@ class CommentBox extends React.Component {
   } // end render
   
   _addComment(creator, body) {
-=======
-
-  _addComment(author, body) {
->>>>>>> 7cbe8e041329a27d3239538d4d3e6a5feb6959de
     const comment = {
       id: this.state.comments.length + 1,
       creator,
@@ -170,15 +165,12 @@ class CommentForm extends React.Component {
     );
   } // end render
   
-<<<<<<< HEAD
   _handleSubmit(event) { 
     event.preventDefault();   // prevents page from reloading on submit
     let creator = this._creator;
     let body = this._body;
     this.props.addComment(creator.value, body.value);
   }
-=======
->>>>>>> 7cbe8e041329a27d3239538d4d3e6a5feb6959de
 } // end CommentForm component
 
 

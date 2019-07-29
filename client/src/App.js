@@ -15,7 +15,6 @@ import FooterComponent from './components/footer';
 import Map from './pages/mapsTemp';
 // import RegisterForm from "./components/RegisterForm";
 
-
 function App() {
   return (
      <Router>
