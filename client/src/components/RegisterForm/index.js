@@ -2,6 +2,7 @@
 
 
 import React, { Component } from "react";
+import {Form, Button} from 'react-bootstrap';
 import './style.css';
 import API from "../../utils/API";
 
@@ -14,6 +15,7 @@ class RegisterForm extends Component {
     password: ""
   };
 
+  // const [validated, setValidated] = useState(false);
   // handle any changes to the input fields
   handleInputChange = event => {
     // Pull the name and value properties off of the event.target (the element which triggered the event)
@@ -36,8 +38,14 @@ class RegisterForm extends Component {
     return API.authorizeSignup(user);
   };
   // When the form is submitted, prevent the default event
+  
   handleFormSubmitLogin = event => {
     event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
     // alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     this.setState({email: "", password: "" });
     console.log(this.state);
@@ -48,14 +56,17 @@ class RegisterForm extends Component {
     const user = loginUserObj;
     // TODO return API call to server to validate user
     return API.authorizeLogin(user);
+    
   };
+
+  
 
   render() {
     return (
-      <form id="register">
+      <Form id="register">
         {/* <p>Username: {this.state.username}</p>
         <p>Password: {this.state.password}</p> */}
-        <input
+        <Form.Control
           type="text"
           placeholder="First Name"
           name="first_name"
@@ -63,7 +74,7 @@ class RegisterForm extends Component {
           onChange={this.handleInputChange}
         />
         <br></br>
-        <input
+        <Form.Control
           type="text"
           placeholder="Last Name"
           name="last_name"
@@ -71,25 +82,28 @@ class RegisterForm extends Component {
           onChange={this.handleInputChange}
         />
         <br></br>
-        <input
+        <Form.Control
+          required
           type="email"
           placeholder="name@example.com"
           name="email"
           value={this.state.email}
           onChange={this.handleInputChange}
         />
+        <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
         <br></br>
-        <input
+        <Form.Control
           type="password"
           placeholder="Password"
           name="password"
           value={this.state.password}
           onChange={this.handleInputChange}
         />
+        {/* <Form.Control.Feedback>Looks Good!</Form.Control.Feedback> */}
         <br></br>
-        <button onClick={this.handleFormSubmitLogin}>Login</button>
-        <button onClick={this.handleFormSubmitSignup}>Signup</button>
-      </form>
+        <Button onClick={this.handleFormSubmitLogin}>Login</Button>
+        <Button style={{marginLeft: "3%"}} onClick={this.handleFormSubmitSignup}>Signup</Button>
+      </Form>
     );
   }
 }
