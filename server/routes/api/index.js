@@ -3,20 +3,19 @@ const userRoutes = require('./userRoutes');
 const commentRoutes = require('./commentRoutes');
 const eventRoutes = require('./eventRoutes');
 const userEventRoutes = require('./userEventRoutes');
-const middleware = require('../../middleware/middleware');
-
+const auth = require('../../controllers/authController');
 
 // // User routes
-router.use('/users', userRoutes);
+router.use('/users', userRoutes); // add auth routes auth.authorizeUser
 
 // Event routes
 router.use('/events', eventRoutes);
 
 // Comment routes
-router.use('/comments', commentRoutes);
+router.use('/comments', commentRoutes); // add auth routes auth.authorizeUser
 
 // userEvent routes
-router.use('/userEvents', userEventRoutes);
+router.use('/userEvents', userEventRoutes); // add auth routes auth.authorizeUser
 
 
 module.exports = router;
