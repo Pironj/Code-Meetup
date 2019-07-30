@@ -2,35 +2,11 @@ import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 require('dotenv').config()
 
-const mapContainerStyle = {
-  position: 'relative',
-  // left: '30vw',
-  // bottom: '20vw'
-
-
-
-}
 
 const mapStyles = {
-  // height: '100%',
   position: 'relative',
-  // width: '100%',
-  // left: '40vw',
-  // bottom: '10vw'
   width: '40vw',
   height: '40vh',
-  // marginLeft: 'auto',
-  // marginRight: 'auto'
-  // color: 'white',
-
-  // background: 'grey',
-  // padding: '15px 10px',
-  // display: 'inline-flex',
-  // textAlign: 'center',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  // borderRadius: '100%',
-  // transform: 'translate(50%, -50%)'
 };
 
 class MapContainer extends React.Component {
@@ -68,10 +44,7 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    console.log({ lat: parseFloat(this.props.latitude), lng: parseFloat(this.props.longitude) })
     return (
-      // <div className='mapContainer' style={mapContainerStyle}>
-      
         <Map
           google={this.props.google}
           zoom={14}
@@ -80,9 +53,6 @@ class MapContainer extends React.Component {
         >
           {this.displayMarkers()}
         </Map>
-
-      // </div>
-
     );
   }
 }
