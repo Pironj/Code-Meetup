@@ -4,30 +4,11 @@ const moment = require('moment');
 const passportJWT = require('passport-jwt');
 const User = require('../models/user');
 const path = require('path');
-
-// const bcrypt = require('bcrypt');
-
-require('dotenv').config({ path: path.join(__dirname, '../../.env') });
-
-
-// import { Request, Response, NextFunction } from 'express';
-// import * as jwt from "jsonwebtoken";
-// import * as passport from "passport";
-// import * as moment from "moment";
-// import { Strategy, ExtractJwt } from "passport-jwt";
-
-// import { IUser, User } from "../models/user";
-// import { Image } from '../models/image';
-// import * as validate from '../validation/validation';
-// import { ValidationError } from "joi";
-// require('joi')
-
-const JWT_SECRET = process.env.JWT_SECRET || 'SECRET';
-
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 
 const JWT_SECRET = process.env.JWT_SECRET;
+
 
 authenticate = (callback) => {
   return passport.authenticate('jwt', { session: false, failWithError: true }, callback);
@@ -158,7 +139,6 @@ class Auth {
         return res.status(401).json({ 'message': 'User not found'});
       }
 
-      // const success = await user.isValidPassword(req.body.password, bcrypt.compare(User.password));
       const success = await user.isValidPassword(req.body.password);
 
       if (!success) {
