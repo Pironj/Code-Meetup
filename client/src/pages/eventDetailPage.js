@@ -6,6 +6,10 @@ import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import Axios from "axios";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link as RouterLink } from 'react-router-dom';
+
+
+
 
 
 
@@ -15,6 +19,9 @@ class EventDetailsPage extends React.Component {
     eventId: '',
   }
 
+  
+  
+ 
   onDelete = (response) => {
     API.deleteEvent(this.state.eventId)
       .then(response => {
@@ -58,6 +65,8 @@ class EventDetailsPage extends React.Component {
 
   }
 
+  
+
   render() {
 
     return (
@@ -80,6 +89,7 @@ class EventDetailsPage extends React.Component {
           <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
             <Button onClick={this.onDelete} variant="dark">Delete</Button>
+         
 
           </Row>
 
