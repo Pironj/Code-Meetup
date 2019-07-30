@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const pointSchema = require('./point');
 
-const saltRounds = 12;
+const SALT_ROUNDS = 12;
 
 const userSchema = new Schema(
   {
@@ -23,7 +23,7 @@ const userSchema = new Schema(
     password: { // Encrypted using bcrypt
       type: String,
       required: true,
-      select: true,
+      select: false,
       minlength: 4,
       maxlength: 255,
       trim: true,
@@ -45,7 +45,7 @@ const userSchema = new Schema(
 userSchema.pre('save', async function (next) {
   try {
     // Hash password on save document
-    const hash = await bcrypt.hash(this.password, saltRounds);
+    const hash = await bcrypt.hash(this.password, SALT_ROUNDS);
     this.password = hash;
     next();
   } catch (error) {

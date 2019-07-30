@@ -3,26 +3,12 @@ const passport = require('passport');
 const moment = require('moment');
 const passportJWT = require('passport-jwt');
 const User = require('../models/user');
-// require('dotenv').config()
 const path = require('path');
-// const bcrypt = require('bcrypt');
-
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 
-// import { Request, Response, NextFunction } from 'express';
-// import * as jwt from "jsonwebtoken";
-// import * as passport from "passport";
-// import * as moment from "moment";
-// import { Strategy, ExtractJwt } from "passport-jwt";
-
-// import { IUser, User } from "../models/user";
-// import { Image } from '../models/image';
-// import * as validate from '../validation/validation';
-// import { ValidationError } from "joi";
-// require('joi')
-
 const JWT_SECRET = process.env.JWT_SECRET;
+
 
 authenticate = (callback) => {
   return passport.authenticate('jwt', { session: false, failWithError: true }, callback);
@@ -62,6 +48,7 @@ class Auth {
     return res.json('I\'m protected!');
   }
 
+
   validateJWT(req, res, next) {
     return authenticate((err, user, info) => {
       if (err) {
@@ -100,7 +87,7 @@ class Auth {
   }
 
   authorizeUserBody(req, res, next) {
-    res.locals.userIdLocation = req.body.id;
+    res.locals.userIdLocation = req.body.usedId;
     return this.authorizeUser(req, res, next);
   }
 
@@ -127,7 +114,8 @@ class Auth {
           password: req.body.password
         });
         const savedUser = await user.save();
-        const populatedUser = await User.findById(savedUser._id).select('-password');
+
+        const populatedUser = await User.findById(savedUser._id);
         if (populatedUser) {
           const authSuccess = genToken(populatedUser);
           return res.json(authSuccess);
@@ -140,18 +128,23 @@ class Auth {
   }
 
   async login(req, res) {
+
     try {
 
-      const user = await User.findOne({ 'email': req.body.email });
-      console.log("user: ", user);
+      const user = await User.findOne({ 'email': req.body.email }).select(
+        'first_name last_name email password'
+      );
+
       if (!user) {
-        throw new Error('User not found');
+        return res.status(401).json({ 'message': 'User not found'});
       }
       const success = await user.isValidPassword(req.body.password);
-      console.log(success);
+
       if (!success) {
-        throw new Error('Invalid password');
+        return res.status(401).json({ 'message': 'Invalid password' });
       }
+      // Remove password
+
 
       const authSuccess = genToken(user);
       return res.status(200).json(authSuccess);

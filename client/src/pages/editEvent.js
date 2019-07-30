@@ -21,8 +21,10 @@ class EditEvent extends React.Component {
   
  
 
-  componentWillMount() {
-    this.getEventDetails();
+  componentDidMount() {
+    console.log(this.props.match.params);
+    this.editEvent(this.props.match.params.id);
+    // this.getEventDetails();
   }
 
   getEventDetails() {
@@ -40,14 +42,20 @@ class EditEvent extends React.Component {
 
   }
 
-  editEvent(newEvent) {
+  editEvent(id) {
+    console.log(this.state.id);
     axios.request({
-      method:'put',
-      url: 'http://localhost:3000/utils/api/events/${this.state.id}',
-      data: newEvent
+      method:'GET',
+      url: `http://localhost:3000/api/events/${id}`,
     })
     .then(response => {
-      this.props.history.push('/utils/API')
+      // this.props.history.push('/utils/API')
+      this.setState({
+          title: response.data.title,
+          creator: response.data.creator.first_name + " " + response.data.creator.last_name,
+          description: response.data.description,
+          date: response.data.date,
+      }) 
       console.log(response)
     }).catch(err => console.log(err));
   }
