@@ -25,9 +25,10 @@ function App() {
   <MenuAppBar />
   <Switch>
     <Route exact path='/' component={HomePage}></Route>
+    <Route exact path='/events/create' component={CreateEvent}></Route>
     <Route exact path='/events/:id' component={EventDetailsPage}></Route>
     {/* <Route exact path='/events' component={UserEvents}></Route> */}
-    <Route exact path='/events/create' component={CreateEvent}></Route>
+    
     <Route exact path='/events/:id/edit' component={EditEvent}></Route>
     <Route exact path='/users/:id' component={UserProfile}></Route>
     {/* <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route> */}

@@ -63,9 +63,9 @@ class CreateEvent extends React.Component {
                 name="description"
                 placeholder=" Description (required)"
               />
-              <Input>
-                <Calendar/>
-              </Input>
+              
+              <Calendar/>
+            
               <FormBtn
                 disabled={!(this.state.description  && this.state.title)}
                 onClick={this.handleFormSubmit}

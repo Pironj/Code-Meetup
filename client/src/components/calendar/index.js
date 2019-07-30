@@ -11,15 +11,16 @@ class Calendar extends Component {
     // Get initial startDate and endDate
     this.state = {
       startDate: props.startDate,
-      endDate: props.endDate
+      endDate: props.endDate,
+      displayTime: props.displayTime
     }
   }
 
-  onChange = (startDate, endDate) =>
-    this.setState({ startDate, endDate })
+  onChange = (startDate, endDate, displayTime) =>
+    this.setState({ startDate, endDate, displayTime })
 
   render = () => {
-    const { startDate, endDate } = this.state
+    const { startDate, endDate, displayTime } = this.state
 
     return (
       <ReactLightCalendar
@@ -29,6 +30,7 @@ class Calendar extends Component {
         {...this.props} // Add parent's additionnal props
         startDate={startDate}
         endDate={endDate}
+        displayTime={displayTime}
       />
     )
   }
