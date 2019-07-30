@@ -32,13 +32,35 @@ export default {
   // check to see if user is logged in ---protected route
   // create our verify url and passing in an Authorization header in headers
   // passing in the token value with ${token} from our utils API call on our googleLogin component
-  authorize: async (token) => {
+  authorizeSignup: async (user) => {
+    console.log(user);
     try {
-      axios.get(`${AUTH_URL}/verify`, {headers: {Authorization:`Bearer ${token}`}})
+      axios.post(`${AUTH_URL}/signup`, user)
       // authorized user data sent from our server after google authorization response
       .then(res => {
-        // console.log(res);
-        console.log("res.data", res.data)
+        console.log(res);
+        let authUser = JSON.stringify(res.data);
+        localStorage.setItem('authUser', authUser);
+        const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
+        const token = parseUserObj.token
+        console.log("parsed user localstorage token: ", token);
+        return;
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    } catch (err) {
+      console.log(err);
+      return err
+    }
+  },
+
+  authorizeLogin: async (user) => {
+    try {
+      axios.post(`${AUTH_URL}/login`, user)
+      // authorized user data sent from our server after google authorization response
+      .then(res => {
+        console.log(res);
         let authUser = JSON.stringify(res.data);
         localStorage.setItem('authUser', authUser);
         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
