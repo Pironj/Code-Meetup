@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
 const EventCard = (props) => {
   const color = teal[500]
   const classes = useStyles();
@@ -56,6 +55,7 @@ const EventCard = (props) => {
         </Card.Text>
         <Card.Text>
                   <Moment 
+                  format="MM/DD/YYYY"
                   style={{fontWeight: 'bold'}}
                   calendar={calendarStrings}>{props.date}</Moment>
                 </Card.Text>

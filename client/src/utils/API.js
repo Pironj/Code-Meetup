@@ -135,6 +135,7 @@ export default {
   },
 
   updateEvent: (event) => {
+    console.log(event);
     return axios.put(`${EVENT_API_URL}/${event.id}`, event);
   },
 
