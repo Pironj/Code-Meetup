@@ -6,7 +6,7 @@ import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import Axios from "axios";
 import { Container, Row, Col, Button } from "react-bootstrap";
-
+import GoogleApiWrapper from '../components/googleMaps'
 
 
 class EventDetailsPage extends React.Component {
@@ -15,24 +15,22 @@ class EventDetailsPage extends React.Component {
     eventId: '',
   }
 
-  onDelete = (response) => {
-    API.deleteEvent(this.state.eventId)
-      .then(response => {
-        this.props.history.push('/')
-      }).catch(err => console.log(err));
-  }
-
   componentWillMount() {
     this.setState({
       eventId: this.props.match.params.id
     });
   }
 
+  onDelete = () => {
+    API.deleteEvent(this.state.eventId)
+      .then(response => {
+        this.props.history.push('/')
+      }).catch(err => console.log(err));
+  }
+
   componentDidMount() {
     API.findEventById(this.props.match.params.id)
       .then(data => {
-        // console.log('We are on the events details page')
-        // console.log(data.data);
         this.setState({
           event: data.data
         })
@@ -71,6 +69,15 @@ class EventDetailsPage extends React.Component {
 
             </Col>
             <Col>
+              {
+                this.state.event._id ? (
+                  <GoogleApiWrapper
+                    key={this.state.event._id}
+                    latitude={this.state.event.location.coordinates[1]}
+                    longitude={this.state.event.location.coordinates[0]}
+                  />
+                ) : <p>Loading map...</p>
+              }
 
             </Col>
           </Row>

@@ -44,11 +44,6 @@ class Auth {
     return passport.initialize();
   }
 
-  protected(req, res) {
-    return res.json('I\'m protected!');
-  }
-
-
   validateJWT(req, res, next) {
     return authenticate((err, user, info) => {
       if (err) {
@@ -145,7 +140,7 @@ class Auth {
         return res.status(401).json({ 'message': 'Invalid password' });
       }
       // Remove password
-
+      user.password = null;
 
       const authSuccess = genToken(user);
       return res.status(200).json(authSuccess);
