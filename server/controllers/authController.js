@@ -133,7 +133,6 @@ class Auth {
       if (!user) {
         return res.status(401).json({ 'message': 'User not found'});
       }
-
       const success = await user.isValidPassword(req.body.password);
 
       if (!success) {
