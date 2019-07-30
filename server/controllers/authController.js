@@ -44,11 +44,6 @@ class Auth {
     return passport.initialize();
   }
 
-  protected(req, res) {
-    return res.json('I\'m protected!');
-  }
-
-
   validateJWT(req, res, next) {
     return authenticate((err, user, info) => {
       if (err) {
