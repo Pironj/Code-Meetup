@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
 import Navigation from './components/Nav';
+import MenuAppBar from './components/nav2';
 import HomePage from './pages/homePage';
 import EventDetailsPage from './pages/eventDetailPage';
 import User from './pages/users';
@@ -13,14 +14,15 @@ import CreateEvent from "./pages/createEvent";
 import EditEvent from "./pages/editEvent";
 import FooterComponent from './components/footer';
 import Map from './pages/mapsTemp';
-import RegisterForm from "./components/RegisterForm";
+// import RegisterForm from "./components/RegisterForm";
 
 
 function App() {
   return (
      <Router>
 <div>
-  <Navigation />
+  {/* <Navigation /> */}
+  <MenuAppBar />
   <Switch>
     <Route exact path='/' component={HomePage}></Route>
     <Route exact path='/events/:id' component={EventDetailsPage}></Route>
@@ -35,7 +37,7 @@ function App() {
 
     <Route component={NoMatch} />
   </Switch>
-  {/* <FooterComponent /> */}
+  <FooterComponent />
 
   
 </div>

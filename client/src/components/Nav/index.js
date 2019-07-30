@@ -33,9 +33,9 @@ function Navigation(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/'}>Home</Link>
-            <RegisterForm />
             {/* <Login /> */}
             <NavDropdown title="More" id="basic-nav-dropdown">
+              <RegisterForm />
               {/* <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/" onClick={linkResponse}>Test Route</Link>
               <br></br> */}
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to={`/userProfile/${props.id}`}>Profile</Link>
@@ -47,10 +47,10 @@ function Navigation(props) {
               {/* <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
             </NavDropdown>
           </Nav>
-          <Form inline>
+          {/* <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-dark">Search</Button>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Navbar>
     </div>

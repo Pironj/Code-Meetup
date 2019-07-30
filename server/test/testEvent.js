@@ -8,23 +8,11 @@ const request = require('supertest');
 const db = require('../models');
 const usersSeed = require('../scripts/usersSeed.json');
 const eventsSeed = require('../scripts/eventsSeed.json');
+const testUtils = require('./testUtils');
 const utils = require('../scripts/utils');
 
 const expect = chai.expect;
 
-const event = {
-  title: 'Test title',
-  description: 'Test Description',
-  creator: '',
-};
-
-const user = {
-  google_id: '123456',
-  first_name: 'first',
-  last_name: 'last',
-  picture: 'pictureUrl',
-  email: 'user@email.com'
-};
 
 createEvent = async (body) => {
   const event = await db.Event.create(body);
@@ -35,15 +23,23 @@ createEvent = async (body) => {
 describe('Event', () => {
 
   beforeEach(async () => { // Before each test we empty the database
+    // Seed DB with users
     await utils.dropAllCollections();
-    await db.User.collection.insertMany(usersSeed);
+    // Add all users
+    await testUtils.seedUsers(usersSeed);
 
+    const savedUsers = await db.User.find();
+
+    // Add all events
     await utils.asyncForEach(eventsSeed, async (item, index) => {
-      const savedUser = await db.User.find({ google_id: usersSeed[index].google_id });
-      const user = savedUser[0];
+      const user = savedUsers[index];
       const event = item;
       event.creator = user._id;
-      await createEvent(event);
+      try {
+        await createEvent(event);
+      } catch (err) {
+        console.log(err);
+      }
     });
   });
 
@@ -63,9 +59,9 @@ describe('Event', () => {
   describe('GET /api/events/:id', () => {
 
     it('it should GET an Event by the given id', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
-      const savedEvent = await db.Event.create(event);
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
+      const savedEvent = await db.Event.create(testUtils.event);
       const res = await request(server).get(`/api/events/${savedEvent._id.toString()}`);
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('description');
@@ -87,46 +83,46 @@ describe('Event', () => {
   describe('POST /api/events', async () => {
 
     it('should return event when the all request body is valid', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
 
       const res = await request(server)
         .post('/api/events')
-        .send(event);
+        .send(testUtils.event);
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('creator', savedUser._id.toString());
-      expect(res.body).to.have.property('title', event.title);
+      expect(res.body).to.have.property('title', testUtils.event.title);
     });
 
     it('should not create a Event document if user does not exist', async () => {
-      event.creator = '111111111111111111111111';
+      testUtils.event.creator = '111111111111111111111111';
       const res = await request(server)
         .post('/api/events')
-        .send(event);
+        .send(testUtils.event);
       expect(res.status).to.be.eql(404);
       expect(res.body).to.have.property('message');
     });
 
     it('should create a UserEvent document after the event is created successfully', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
 
       const eventRes = await request(server)
         .post('/api/events')
-        .send(event);
+        .send(testUtils.event);
       const userEventRes = await request(server)
         .get(`/api/userEvents/${savedUser._id.toString()}/${eventRes.body._id}`)
-        .send(event);
+        .send(testUtils.event);
       expect(userEventRes.body).to.have.property('_id');
     });
   });
 
   describe('PUT /:id', () => {
     it('should update the existing event and return 200', async () => {
-      const savedUser = await db.User.create(user);
-      event.creator = savedUser._id.toString();
+      const savedUser = await db.User.create(testUtils.user);
+      testUtils.event.creator = savedUser._id.toString();
 
-      const newEvent = new db.Event(event);
+      const newEvent = new db.Event(testUtils.event);
       await newEvent.save();
 
       const res = await request(server)
@@ -143,7 +139,7 @@ describe('Event', () => {
 
   describe('DELETE /:id', () => {
     it('should delete requested id and return response 200', async () => {
-      const newEvent = new db.Event(event);
+      const newEvent = new db.Event(testUtils.event);
       await newEvent.save();
 
       const res = await request(server).delete('/api/events/' + newEvent._id);
@@ -154,7 +150,7 @@ describe('Event', () => {
       const event = await db.Event.findOne({});
 
       await request(server).delete('/api/events/' + event._id);
-      const founduserEvents = await db.UserEvent.find({event_id: event.id});
+      const founduserEvents = await db.UserEvent.find({ event_id: event.id });
       expect(founduserEvents.length).to.be.equal(0);
     });
 

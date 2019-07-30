@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import teal from '@material-ui/core/colors/teal';
 import Fab from '@material-ui/core/Fab';
-// import NavigationIcon from '@material-ui/icons/Navigation';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import {Card, Container} from 'react-bootstrap';
 import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
@@ -69,9 +69,9 @@ const EventCard = (props) => {
           component={RouterLink}
           to={`/events/${props.id}`}
           className={classes.margin}
-          style={{marginLeft: '13rem'}}
+          style={{marginLeft: '11rem'}}
         >
-          {/* <NavigationIcon className={classes.extendedIcon} /> */}
+          <NavigationIcon className={classes.extendedIcon} />
           Details
         </Fab>
       {/* <App 
