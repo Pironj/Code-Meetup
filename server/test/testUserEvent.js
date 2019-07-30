@@ -14,7 +14,6 @@ const utils = require('../scripts/utils');
 const expect = chai.expect;
 
 
-
 createEvent = async (body) => {
   const event = await db.Event.create(body);
   await db.UserEvent.create({ user_id: event.creator, event_id: event._id });

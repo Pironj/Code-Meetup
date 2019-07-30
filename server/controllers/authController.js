@@ -9,6 +9,7 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+
 authenticate = (callback) => {
   return passport.authenticate('jwt', { session: false, failWithError: true }, callback);
 };
@@ -42,6 +43,11 @@ class Auth {
     passport.use('jwt', this.getStrategy());
     return passport.initialize();
   }
+
+  protected(req, res) {
+    return res.json('I\'m protected!');
+  }
+
 
   validateJWT(req, res, next) {
     return authenticate((err, user, info) => {
@@ -108,6 +114,7 @@ class Auth {
           password: req.body.password
         });
         const savedUser = await user.save();
+
         const populatedUser = await User.findById(savedUser._id);
         if (populatedUser) {
           const authSuccess = genToken(populatedUser);
@@ -121,6 +128,7 @@ class Auth {
   }
 
   async login(req, res) {
+
     try {
 
       const user = await User.findOne({ 'email': req.body.email }).select(
@@ -132,11 +140,12 @@ class Auth {
       }
 
       const success = await user.isValidPassword(req.body.password);
+
       if (!success) {
         return res.status(401).json({ 'message': 'Invalid password' });
       }
       // Remove password
-      user.password = null;
+
 
       const authSuccess = genToken(user);
       return res.status(200).json(authSuccess);
