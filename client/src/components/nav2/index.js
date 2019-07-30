@@ -12,6 +12,8 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
+import RegisterForm from '../RegisterForm';
+import {NavDropdown} from 'react-bootstrap';
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +35,13 @@ export default function MenuAppBar(props) {
   const open = Boolean(anchorEl);
 
   function handleChange(event) {
-    setAuth(event.target.checked);
+
+    console.log(event.target.checked);
+    setAuth(event.target.checked)
+      if (event.target.checked === false) {
+        localStorage.removeItem('authUser');
+      }
+
   }
 
   function handleMenu(event) {
@@ -47,10 +55,15 @@ export default function MenuAppBar(props) {
   return (
     <div className={classes.root}>
       <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
+        <span>
+          <FormControlLabel
+            control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
+            label={auth ? 'Login' : 'Logout'}
+          />
+            <NavDropdown title="Login" id="basic-nav-dropdown">
+              <RegisterForm />
+            </NavDropdown>
+        </span>
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
