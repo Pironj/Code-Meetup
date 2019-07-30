@@ -39,9 +39,13 @@ class RegisterForm extends Component {
   handleFormSubmitLogin = event => {
     event.preventDefault();
     // alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-    this.setState({ first_name: "", last_name: "", email: "", password: "" });
+    this.setState({email: "", password: "" });
     console.log(this.state);
-    const user = this.state;
+    const loginUserObj = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    const user = loginUserObj;
     // TODO return API call to server to validate user
     return API.authorizeLogin(user);
   };

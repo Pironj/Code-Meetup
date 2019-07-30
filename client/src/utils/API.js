@@ -60,8 +60,8 @@ export default {
       axios.post(`${AUTH_URL}/login`, user)
       // authorized user data sent from our server after google authorization response
       .then(res => {
-        console.log(res);
-        let authUser = JSON.stringify(res.data);
+        console.log(res.data.user._id, res.data.user.email, res.data.token);
+        let authUser = JSON.stringify({id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token});
         localStorage.setItem('authUser', authUser);
         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
         const token = parseUserObj.token
