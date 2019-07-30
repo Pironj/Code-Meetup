@@ -2,15 +2,31 @@ import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 require('dotenv').config()
 
+const mapContainerStyle = {
+  position: 'relative',
+  // right: 0
+
+
+}
 
 const mapStyles = {
-  // width: '100%',
-  // height: '100%',
-  // position: 'relative',
+  height: '100%', 
+  position: 'relative', 
+  width: '100%',
   // width: '50vw',
-  // height: '75vh',
+  // height: '50vh',
   // marginLeft: 'auto',
   // marginRight: 'auto'
+  // color: 'white',
+
+  // background: 'grey',
+  // padding: '15px 10px',
+  // display: 'inline-flex',
+  // textAlign: 'center',
+  // alignItems: 'center',
+  // justifyContent: 'center',
+  // borderRadius: '100%',
+  // transform: 'translate(50%, -50%)'
 };
 
 class MapContainer extends React.Component {
@@ -36,15 +52,20 @@ class MapContainer extends React.Component {
     //     onClick={() => console.log("You clicked me!")} />
     // })
 
-    return <Marker key={this.props.key} id={this.props.key} position={{
-      lat: this.props.latitude,
-      lng: this.props.longitude
-    }}
-      onClick={() => console.log("You clicked me!")} />
+    return <Marker
+      key={this.props.key}
+      id={this.props.key}
+      position={{
+        lat: this.props.latitude,
+        lng: this.props.longitude
+      }}
+    // onClick={() => console.log("You clicked me!")} 
+    />
   }
 
   render() {
     return (
+      // <div className='mapContainer' style={mapContainerStyle}>
       <Map
         google={this.props.google}
         zoom={14}
@@ -53,6 +74,9 @@ class MapContainer extends React.Component {
       >
         {this.displayMarkers()}
       </Map>
+
+      // </div>
+
     );
   }
 }

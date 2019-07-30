@@ -140,7 +140,7 @@ class Auth {
         return res.status(401).json({ 'message': 'Invalid password' });
       }
       // Remove password
-
+      user.password = null;
 
       const authSuccess = genToken(user);
       return res.status(200).json(authSuccess);
