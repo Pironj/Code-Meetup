@@ -58,10 +58,14 @@ export default function MenuAppBar(props) {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6" className={classes.title}>
+          <Link to="/" style={{color: "White", textDecoration: 'none'}} >
+            <div>
             <span>&#60;</span>
             rendezvous
             <span> &#8725;</span>
             <span>&#62;</span>
+            </div>
+            </Link>
           </Typography>
           {auth && (
             <div>

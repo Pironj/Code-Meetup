@@ -18,10 +18,14 @@ function Navigation(props) {
       <Navbar bg="info" expand="lg">
         <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/'}>
           <Navbar.Brand>
+          <Link to="/">
+            <div>
             <span>&#60;</span>
             rendezvous
             <span> &#8725;</span>
             <span>&#62;</span>
+            </div>
+            </Link>
           </Navbar.Brand>
         </Link>
         <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/tempmap'}>
