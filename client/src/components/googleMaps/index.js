@@ -4,17 +4,21 @@ require('dotenv').config()
 
 const mapContainerStyle = {
   position: 'relative',
-  // right: 0
+  // left: '30vw',
+  // bottom: '20vw'
+
 
 
 }
 
 const mapStyles = {
-  height: '100%', 
-  position: 'relative', 
-  width: '100%',
-  // width: '50vw',
-  // height: '50vh',
+  // height: '100%',
+  position: 'relative',
+  // width: '100%',
+  // left: '40vw',
+  // bottom: '10vw'
+  width: '40vw',
+  height: '40vh',
   // marginLeft: 'auto',
   // marginRight: 'auto'
   // color: 'white',
@@ -59,21 +63,23 @@ class MapContainer extends React.Component {
         lat: this.props.latitude,
         lng: this.props.longitude
       }}
-    // onClick={() => console.log("You clicked me!")} 
+      onClick={() => console.log("You clicked me!")}
     />
   }
 
   render() {
+    console.log({ lat: parseFloat(this.props.latitude), lng: parseFloat(this.props.longitude) })
     return (
       // <div className='mapContainer' style={mapContainerStyle}>
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{ lat: parseFloat(this.props.latitude), lng: parseFloat(this.props.longitude) }}
-      >
-        {this.displayMarkers()}
-      </Map>
+      
+        <Map
+          google={this.props.google}
+          zoom={14}
+          style={mapStyles}
+          initialCenter={{ lat: parseFloat(this.props.latitude), lng: parseFloat(this.props.longitude) }}
+        >
+          {this.displayMarkers()}
+        </Map>
 
       // </div>
 
