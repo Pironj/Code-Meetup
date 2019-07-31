@@ -87,6 +87,8 @@ class Auth {
   }
 
   authorizeUserParams(req, res, next) {
+    // console.log('======== REQ ========\n', req);
+    // console.log('\n\n======== RES ========\n', res);
     res.locals.userIdLocation = req.params.id;
     return this.authorizeUser(req, res, next);
   }
