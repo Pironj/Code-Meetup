@@ -23,11 +23,6 @@ export default {
     return axios.get(`${USER_API_URL}`)
   },
 
-  createUser: (user) => {
-    // TODO Get user info first
-    return axios.post(`${USER_API_URL}`, user);
-  },
-
     /**
    * @param {string} userId
    */
