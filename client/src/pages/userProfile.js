@@ -35,7 +35,10 @@ class UserProfile extends React.Component {
 
     //when this component mounts it grabs the user by their user id
     componentDidMount() {
-       
+        // const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
+        // const token = parseUserObj.token;
+        // console.log('\nfindbyid token: ', token);
+    
 
         API.findUserById(this.state.userId)
             .then(res => {

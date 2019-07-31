@@ -11,13 +11,13 @@ router.route('/:id')
   .delete(userEventController.removeById);
 
 router.route('/user/:user_id')
-  .get(userEventController.findEventsForUserId);
+  .get(userEventController.findEventsForUserId); // to protect in auth.authorizeUserParams
 
 router.route('/event/:event_id')
-  .get(userEventController.findUsersForEventId);
+  .get(userEventController.findUsersForEventId); // to protect in auth.authorizeUserParams
 
 router.route('/:user_id/:event_id')
-  .get(userEventController.findByUserAndEventId)
+  .get(userEventController.findByUserAndEventId) // to protect in auth.authorizeUserParams
   .delete (userEventController.removeByUserAndEventId);
 
 

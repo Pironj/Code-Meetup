@@ -6,7 +6,17 @@ const USER_EVENT_API_URL = '/api/userEvents';
 const COMMENT_API_URL= '/api/comments';
 const AUTH_URL= '/auth';
 
+// Helper function to get token from local storage pass this function to our protected routes to create auth headers
+const getToken = () => {
+  const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
+  const token = parseUserObj.token
+  const headers = {headers: {Authorization:`Bearer ${token}`}}
+  return headers;
+}
 export default {
+  
+  // Get JWT from local storage
+
   // User
 
   getAllUsers: () => {
@@ -21,9 +31,15 @@ export default {
     /**
    * @param {string} userId
    */
+  
   findUserById: async (userId) => {
+    // const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
+    // const token = parseUserObj.token
     try {
-      return await axios.get(`${USER_API_URL}/${userId}`)
+      axios.get(`${USER_API_URL}/${userId}`) // to protect add getToken() function as param to get req
+      .then(res => {
+        console.log('======= TEST RESPONSE =======\n', res);
+      }) 
     } catch (err) {
       return err
     }
@@ -39,7 +55,7 @@ export default {
       // authorized user data sent from our server after google authorization response
       .then(res => {
         console.log(res);
-        let authUser = JSON.stringify(res.data);
+        let authUser = JSON.stringify({id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token});
         localStorage.setItem('authUser', authUser);
         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
         const token = parseUserObj.token
@@ -60,8 +76,9 @@ export default {
       axios.post(`${AUTH_URL}/login`, user)
       // authorized user data sent from our server after google authorization response
       .then(res => {
-        console.log(res);
-        let authUser = JSON.stringify(res.data);
+        console.log("========= RESPONSE ========\n", res);
+        console.log(res.data.user._id, res.data.user.email, res.data.token);
+        let authUser = JSON.stringify({id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token});
         localStorage.setItem('authUser', authUser);
         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
         const token = parseUserObj.token
@@ -101,7 +118,7 @@ export default {
    * @param {string} userId
    */
   deleteUser: (userId) => {
-    return axios.delete(`${USER_API_URL}/${userId}`);
+    return axios.delete(`${USER_API_URL}/${userId}`); // to protect add getToken() function as param to get req
   },
 
   // Event
@@ -116,7 +133,7 @@ export default {
  * @param {int} latitude 
  */
   findEventsNear: (latitude, longitude) => {
-    return axios.get(`${EVENT_API_URL}/${latitude}/${longitude}`);
+    return axios.get(`${EVENT_API_URL}/${latitude}/${longitude}`); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -131,11 +148,11 @@ export default {
    * @param {string} eventId 
    */
   findEventById(eventId) {
-    return axios.get(`${EVENT_API_URL}/${eventId}`);
+    return axios.get(`${EVENT_API_URL}/${eventId}`); // to protect add getToken() function as param to get req
   },
 
   updateEvent: (event) => {
-    return axios.put(`${EVENT_API_URL}/${event.id}`, event);
+    return axios.put(`${EVENT_API_URL}/${event.id}`, event); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -143,47 +160,47 @@ export default {
    * @param {string} eventId
    */
   deleteEvent: (eventId) => {
-    return axios.delete(`${EVENT_API_URL}/${eventId}`);
+    return axios.delete(`${EVENT_API_URL}/${eventId}`); // to protect add getToken() function as param to get req
   },
 
   // UserEvent
 
 
   getAllUserEvents: () => {
-    return axios.get(`${USER_EVENT_API_URL}`)
+    return axios.get(`${USER_EVENT_API_URL}`) // to protect add getToken() function as param to get req
   },
 
   createUserEvent: (userEvent) => {
     // TODO Get user info first
-    return axios.post(`${USER_EVENT_API_URL}`, userEvent);
+    return axios.post(`${USER_EVENT_API_URL}`, userEvent); // to protect add getToken() function as param to get req
   },
 
   /**
    * @param {string} userEventId
    */
   findUserEventsById: (userEventId) => {
-    return axios.get(`${USER_EVENT_API_URL}/${userEventId}`)
+    return axios.get(`${USER_EVENT_API_URL}/${userEventId}`) // to protect add getToken() function as param to get req
   },
 
   /**
    * @param {string} userEventId
    */
   deleteUserEvent: (userEventId) => {
-    return axios.delete(`${USER_EVENT_API_URL}/${userEventId}`);
+    return axios.delete(`${USER_EVENT_API_URL}/${userEventId}`); // to protect add getToken() function as param to get req
   },
 
    /**
    * @param {string} user_id
    */
   findEventsForUser: (user_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}`)
+    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}`) // to protect add getToken() function as param to get req
   },
 
    /**
    * @param {string} event_id
    */
   findUsersForEvent: (event_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/event/${event_id}`)
+    return axios.get(`${USER_EVENT_API_URL}/event/${event_id}`) // to protect add getToken() function as param to get req
   },
 
    /**
@@ -191,7 +208,7 @@ export default {
    * @param {string} event_id
    */
   deleteUserEventByUserIdEventId: (user_id, event_id) => {
-    return axios.delete(`${USER_EVENT_API_URL}/${user_id}/${event_id}`);
+    return axios.delete(`${USER_EVENT_API_URL}/${user_id}/${event_id}`); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -199,13 +216,13 @@ export default {
    * @param {string} event_id
    */
   findUserEventByUserIdEventId: (user_id, event_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/${user_id}/${event_id}`);
+    return axios.get(`${USER_EVENT_API_URL}/${user_id}/${event_id}`); // to protect add getToken() function as param to get req
   },
 
   // Comments
 
   getAllComments: () => {
-    return axios.get(`${COMMENT_API_URL}/`);
+    return axios.get(`${COMMENT_API_URL}/`); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -213,39 +230,39 @@ export default {
    */
   createComment: (comment) => {
     // TODO Get event info first
-    return axios.post(`${COMMENT_API_URL}/`, comment);
+    return axios.post(`${COMMENT_API_URL}/`, comment); // to protect add getToken() function as param to get req
   },
 
   /**
    * @param {string} commentId 
    */
   findCommentById(commentId) {
-    return axios.get(`${COMMENT_API_URL}/${commentId}`);
+    return axios.get(`${COMMENT_API_URL}/${commentId}`); // to protect add getToken() function as param to get req
   },
 
   updateComment: (comment) => {
-    return axios.put(`${COMMENT_API_URL}/${comment.id}`, comment);
+    return axios.put(`${COMMENT_API_URL}/${comment.id}`, comment); // to protect add getToken() function as param to get req
   },
 
   /**
    * @param {string} commentid
    */
   deleteCommentById: (commentid) => {
-    return axios.delete(`${COMMENT_API_URL}/${commentid}`);
+    return axios.delete(`${COMMENT_API_URL}/${commentid}`); // to protect add getToken() function as param to get req
   },
 
   /**
    * @param {string} userId 
    */
   findCommentsForUserId(userId) {
-    return axios.get(`${COMMENT_API_URL}/user/${userId}`);
+    return axios.get(`${COMMENT_API_URL}/user/${userId}`); // to protect add getToken() function as param to get req
   },
 
    /**
    * @param {string} eventId 
    */
   findCommentsForEventId(eventId) {
-    return axios.get(`${COMMENT_API_URL}/event/${eventId}`);
+    return axios.get(`${COMMENT_API_URL}/event/${eventId}`); // to protect add getToken() function as param to get req
   },
 
 };
