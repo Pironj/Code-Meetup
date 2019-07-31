@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const eventController = require('../../controllers/eventController');
+const auth = require('../../controllers/authController');
 
 // // Matches with "/api/events"
 router.route('/')
@@ -8,7 +9,7 @@ router.route('/')
 
 // // Matches with "/api/events/:id"
 router.route('/:id')
-  .get(eventController.findById)
+  .get(eventController.findById) // to protect in auth.authorizeUserParams
   .put(eventController.update)
   .delete(eventController.remove);
 
