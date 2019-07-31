@@ -9,7 +9,7 @@ router.route('/')
 
 // // Matches with "/api/events/:id"
 router.route('/:id')
-  .get(eventController.findById) 
+  .get(eventController.findById)
   .put(eventController.update) // to protect in auth.authorizeUserParams
   .delete(eventController.remove); // to protect in auth.authorizeUserParams
 
