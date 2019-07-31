@@ -7,6 +7,7 @@ import { CreateBtn } from "../components/btn";
 import { Form, Input, FormBtn, TextArea}from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
+import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
 
 class CreateEvent extends React.Component {
   state = {
@@ -61,6 +62,7 @@ class CreateEvent extends React.Component {
                 name="description"
                 placeholder=" Description (required)"
               />
+              <LocationSearchInput></LocationSearchInput>
               <FormBtn
                 disabled={!(this.state.description  && this.state.title)}
                 onClick={this.handleFormSubmit}

@@ -44,11 +44,6 @@ class Auth {
     return passport.initialize();
   }
 
-  protected(req, res) {
-    return res.json('I\'m protected!');
-  }
-
-
   validateJWT(req, res, next) {
     return authenticate((err, user, info) => {
       if (err) {
@@ -92,6 +87,8 @@ class Auth {
   }
 
   authorizeUserParams(req, res, next) {
+    // console.log('======== REQ ========\n', req);
+    // console.log('\n\n======== RES ========\n', res);
     res.locals.userIdLocation = req.params.id;
     return this.authorizeUser(req, res, next);
   }
@@ -145,7 +142,7 @@ class Auth {
         return res.status(401).json({ 'message': 'Invalid password' });
       }
       // Remove password
-
+      user.password = null;
 
       const authSuccess = genToken(user);
       return res.status(200).json(authSuccess);

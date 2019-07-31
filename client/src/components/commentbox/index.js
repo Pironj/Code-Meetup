@@ -155,8 +155,8 @@ class CommentForm extends React.Component {
     return (
       <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
         <div className="comment-form-fields">
-          <input placeholder="Name" required ref={(input) => this._creator = input}></input><br />
-          <textarea placeholder="Comment" rows="4" required ref={(textarea) => this._body = textarea}></textarea>
+          <input placeholder="Name" style={{ paddingRight: '10rem'}} required ref={(input) => this._creator = input}></input><br />
+          <textarea placeholder="Comment" style={{ paddingRight: '10rem'}} rows="3" required ref={(textarea) => this._body = textarea}></textarea>
         </div>
         <div className="comment-form-actions">
           <button onClick={this.handleFormSubmit} type="submit">Post Comment</button>

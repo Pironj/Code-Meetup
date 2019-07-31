@@ -1,17 +1,16 @@
+/* global google */
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+
 require('dotenv').config()
 
 
 const mapStyles = {
-  // width: '100%',
-  // height: '100%',
-  // position: 'relative',
-  // width: '50vw',
-  // height: '75vh',
-  // marginLeft: 'auto',
-  // marginRight: 'auto'
+  position: 'relative',
+  width: '40vw',
+  height: '40vh',
 };
+
 
 class MapContainer extends React.Component {
   // constructor(props) {
@@ -36,23 +35,31 @@ class MapContainer extends React.Component {
     //     onClick={() => console.log("You clicked me!")} />
     // })
 
-    return <Marker key={this.props.key} id={this.props.key} position={{
-      lat: this.props.latitude,
-      lng: this.props.longitude
-    }}
-      onClick={() => console.log("You clicked me!")} />
+    return <Marker
+      key={this.props.key}
+      id={this.props.key}
+      position={{
+        lat: this.props.latitude,
+        lng: this.props.longitude
+      }}
+      onClick={() => console.log("You clicked me!")}
+    />
   }
 
   render() {
     return (
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{ lat: parseFloat(this.props.latitude), lng: parseFloat(this.props.longitude) }}
-      >
-        {this.displayMarkers()}
-      </Map>
+      <React.Fragment>
+        <Map
+          google={this.props.google}
+          zoom={14}
+          style={mapStyles}
+          initialCenter={{ lat: parseFloat(this.props.latitude), lng: parseFloat(this.props.longitude) }}
+        >
+          {this.displayMarkers()}
+        </Map>
+
+      </React.Fragment>
+
     );
   }
 }

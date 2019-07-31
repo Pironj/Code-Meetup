@@ -2,6 +2,15 @@
 
 ## (Work in progress)
 
+## Authentication and Authorization
+
+| Method | URL | Description |
+| ---    | --- | ---         |
+POST  | /auth/validate     | Validate token
+POST  | /auth/signup | Create new user / Signup
+POST  | /auth/login | Login and authenticate existing user
+GET | /auth/protected/:id | Test protected route
+
 ## Users
 
 User Schema: 
@@ -34,7 +43,6 @@ User Schema:
 | Method | URL | Description |
 | ---    | --- | ---         |
 GET  | /api/users     | Find all users
-POST | /api/users     | Create user
 GET  | /api/users/:id | Find user by id
 PUT  | /api/users/:id | Update user by id
 DELETE | /api/users/:id | Delete user by id

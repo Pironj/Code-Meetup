@@ -66,7 +66,7 @@ class HomePage extends React.Component {
           </Jumbotron>
         </div>
         <div>
-          <Row>
+          <Row style={{marginBottom: '5rem'}}>
             <Col>
               {this.renderEventCards()}
             </Col>
