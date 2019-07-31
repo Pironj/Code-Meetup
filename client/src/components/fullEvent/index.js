@@ -20,7 +20,7 @@ const FullEvent = (props) => {
   };
 
   return (
-    <Jumbotron className="fullEvent">
+    <Jumbotron style={{paddingBottom: '2rem'}} className="fullEvent">
       <p>Title: {props.title}</p>
       <p>Description: {props.description}</p>
       {/* <p>Location: {props.eventLocation}</p> */}
