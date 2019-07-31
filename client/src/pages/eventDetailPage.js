@@ -6,6 +6,8 @@ import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import Axios from "axios";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import CommentForm from "../components/commentform";
+import Comment from "../components/comment";
 
 
 
@@ -86,7 +88,10 @@ class EventDetailsPage extends React.Component {
           <Row style={{ marginTop: '2rem', marginLeft: '.5rem' }}>
 
           </Row>
-          <CommentBox />
+          <CommentBox>
+            <CommentForm/>
+            <Comment/>  
+          </CommentBox> 
         </Container>
 
       </div>
