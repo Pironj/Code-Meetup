@@ -35,11 +35,13 @@ export default function MenuAppBar(props) {
   const open = Boolean(anchorEl);
 
   function handleChange(event) {
+
     console.log(event.target.checked);
     setAuth(event.target.checked)
       if (event.target.checked === false) {
         localStorage.removeItem('authUser');
       }
+
   }
 
   function handleMenu(event) {
@@ -68,14 +70,16 @@ export default function MenuAppBar(props) {
           {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton> */}
-            <Typography variant="h6" className={classes.title}>
-              <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/'}>
-              <span>&#60;</span>
-              rendezvous
-              <span> &#8725;</span>
-              <span>&#62;</span>
-              </Link>
-            </Typography>
+          <Typography variant="h6" className={classes.title}>
+          <Link to="/" style={{color: "White", textDecoration: 'none'}} >
+            <div>
+            <span>&#60;</span>
+            rendezvous
+            <span> &#8725;</span>
+            <span>&#62;</span>
+            </div>
+            </Link>
+          </Typography>
           {auth && (
             <div>
               <IconButton
