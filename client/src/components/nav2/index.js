@@ -13,7 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import RegisterForm from '../RegisterForm';
-import {NavDropdown} from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
+import { getFullAuthenticationState } from '../../utils/localStorageHelper'
 
 
 const useStyles = makeStyles(theme => ({
@@ -38,9 +39,9 @@ export default function MenuAppBar(props) {
 
     console.log(event.target.checked);
     setAuth(event.target.checked)
-      if (event.target.checked === false) {
-        localStorage.removeItem('authUser');
-      }
+    if (event.target.checked === false) {
+      localStorage.removeItem('authUser');
+    }
 
   }
 
@@ -54,15 +55,20 @@ export default function MenuAppBar(props) {
 
   return (
     <div className={classes.root}>
+      (Temporary for testing) Logged in as: {
+        getFullAuthenticationState() ? getFullAuthenticationState().first_name
+          :
+          'Not logged in'
+      }
       <FormGroup>
         <span>
           <FormControlLabel
             control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
             label={auth ? 'Login' : 'Logout'}
           />
-            <NavDropdown title="Login" id="basic-nav-dropdown">
-              <RegisterForm />
-            </NavDropdown>
+          <NavDropdown title="Login" id="basic-nav-dropdown">
+            <RegisterForm />
+          </NavDropdown>
         </span>
       </FormGroup>
       <AppBar position="static">
@@ -71,13 +77,13 @@ export default function MenuAppBar(props) {
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6" className={classes.title}>
-          <Link to="/" style={{color: "White", textDecoration: 'none'}} >
-            <div>
-            <span>&#60;</span>
-            rendezvous
+            <Link to="/" style={{ color: "White", textDecoration: 'none' }} >
+              <div>
+                <span>&#60;</span>
+                rendezvous
             <span> &#8725;</span>
-            <span>&#62;</span>
-            </div>
+                <span>&#62;</span>
+              </div>
             </Link>
           </Typography>
           {auth && (
@@ -106,25 +112,25 @@ export default function MenuAppBar(props) {
                 open={open}
                 onClose={handleClose}
               >
-                <Link 
-                style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                to={`/userProfile/${props.id}`}
-                onClick={handleClose}>
-                Profile
+                <Link
+                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                  to={`/userProfile/${props.id}`}
+                  onClick={handleClose}>
+                  Profile
                 </Link>
                 <br></br>
                 <Link
-                style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                to="/event" 
-                onClick={handleClose}>
-                Events
+                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                  to="/event"
+                  onClick={handleClose}>
+                  Events
                 </Link>
                 <br></br>
-                <Link 
-                style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                to="/createEvent"
-                onClick={handleClose}>
-                Create Event
+                <Link
+                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                  to="/createEvent"
+                  onClick={handleClose}>
+                  Create Event
                 </Link>
               </Menu>
             </div>

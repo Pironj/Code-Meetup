@@ -13,36 +13,31 @@ import UserEvents from './pages/userEvents';
 import CreateEvent from "./pages/createEvent";
 import EditEvent from "./pages/editEvent";
 import FooterComponent from './components/footer';
-import Map from './pages/mapsTemp';
 // import RegisterForm from "./components/RegisterForm";
 
 
 function App() {
   return (
-     <Router>
-<div>
-  {/* <Navigation /> */}
-  <MenuAppBar />
-  <Switch>
-    <Route exact path='/' component={HomePage}></Route>
-    <Route exact path='/events/:id' component={EventDetailsPage}></Route>
-    {/* <Route exact path='/events' component={UserEvents}></Route> */}
-    <Route exact path='/events/create' component={CreateEvent}></Route>
-    <Route exact path='/events/:id/edit' component={EditEvent}></Route>
-    <Route exact path='/users/:id' component={UserProfile}></Route>
-    {/* <Route exact path = '/otherusers/:id' component={otherUsersProfile}></Route> */}
-    
-    {/* Temporary map */}
-    <Route exact path= '/tempmap' component={Map}></Route> 
+    <Router>
+      <div>
+        {/* <Navigation /> */}
+        <MenuAppBar />
+        <Switch>
+          <Route exact path='/' component={HomePage}></Route>
+          <Route exact path='/events' component={HomePage}></Route>
+          <Route exact path='/events/:id' component={EventDetailsPage}></Route>
+          <Route exact path='/create-event' component={CreateEvent}></Route>
+          <Route exact path='/events/:id/edit' component={EditEvent}></Route>
 
-    <Route component={NoMatch} />
-  </Switch>
-  <FooterComponent />
+          {/* TODO: Change route for /users/ */}
+          <Route exact path='/users' component={NoMatch}></Route>
 
-  
-</div>
-</Router>
-
+          <Route exact path='/users/:id' component={UserProfile}></Route>
+          <Route component={NoMatch} />
+        </Switch>
+        <FooterComponent />
+      </div>
+    </Router>
   );
 }
 
