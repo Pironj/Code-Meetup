@@ -1,7 +1,5 @@
 import React from 'react';
 import API from '../../utils/API'
-import Comment from "../comment";
-import CommentForm from "../commentform";
 
 class CommentBox extends React.Component {
   constructor() {
@@ -129,78 +127,69 @@ class CommentBox extends React.Component {
   
 } // end CommentBox component
 
-// class CommentForm extends React.Component {
+class CommentForm extends React.Component {
 
 
-//   // handleFormSubmit = comment => {
-//   //   comment.preventDefault();
-//   //   if (this.state.event && this.state.body && this.state.creator) {
-//   //     API.createComment({
-//   //       event: this.state.event,
-//   //       body: this.state.body,
-//   //       creator: this.state.creator
-//   //     })
-//   //       .then(comment => console.log(comment))
-//   //       .catch(err => console.log(err));
-//   //   }
-//   // };
+  // handleFormSubmit = comment => {
+  //   comment.preventDefault();
+  //   if (this.state.event && this.state.body && this.state.creator) {
+  //     API.createComment({
+  //       event: this.state.event,
+  //       body: this.state.body,
+  //       creator: this.state.creator
+  //     })
+  //       .then(comment => console.log(comment))
+  //       .catch(err => console.log(err));
+  //   }
+  // };
 
 
-//   _handleSubmit(comment) { 
-//     comment.preventDefault();   // prevents page from reloading on submit
-//     if (this.state.event && this.state.body && this.state.creator){
-//       API.createComment({
-//         event: this.state.event,
-//         body: this.state.body,
-//         creator: this.state.creator
-//       })
-//       .then(comment => console.log(comment))
-//       .catch(err => console.log(err));
-//     }
-//     // let author = this._author;
-//     // let body = this._body;
-//     // this.props.addComment(author.value, body.value);
-//   }
+  _handleSubmit(event) { 
+    event.preventDefault();   // prevents page from reloading on submit
+    let author = this._author;
+    let body = this._body;
+    this.props.addComment(author.value, body.value);
+  }
 
-//   render() {
-//     return (
-//       <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
-//         <div className="comment-form-fields">
-//           <input placeholder="Name" required ref={(input) => this._creator = input}></input><br />
-//           <textarea placeholder="Comment" rows="4" required ref={(textarea) => this._body = textarea}></textarea>
-//         </div>
-//         <div className="comment-form-actions">
-//           <button onClick={this.handleFormSubmit} type="submit">Post Comment</button>
-//         </div>
-//       </form>
-//     );
-//   } // end render
+  render() {
+    return (
+      <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+        <div className="comment-form-fields">
+          <input placeholder="Name" required ref={(input) => this._creator = input}></input><br />
+          <textarea placeholder="Comment" rows="4" required ref={(textarea) => this._body = textarea}></textarea>
+        </div>
+        <div className="comment-form-actions">
+          <button onClick={this.handleFormSubmit} type="submit">Post Comment</button>
+        </div>
+      </form>
+    );
+  } // end render
   
-//   _handleSubmit(event) { 
-//     event.preventDefault();   // prevents page from reloading on submit
-//     let creator = this._creator;
-//     let body = this._body;
-//     this.props.addComment(creator.value, body.value);
-//   }
-// } // end CommentForm component
+  _handleSubmit(event) { 
+    event.preventDefault();   // prevents page from reloading on submit
+    let creator = this._creator;
+    let body = this._body;
+    this.props.addComment(creator.value, body.value);
+  }
+} // end CommentForm component
 
 
 
-// class Comment extends React.Component {
-//   render () {
-//     return(
-//       <div className="comment">
-//         <p className="comment-header">{this.props.creator}</p>
-//         <p className="comment-body">- {this.props.body}</p>
-//         <div className="comment-footer">
-//           <a href="#" className="comment-footer-delete" onClick={this._deleteComment}>Delete Comment</a>
-//         </div>
-//       </div>
-//     );
-//   }
-//   _deleteComment() {
-//     alert("-- DELETE Comment Functionality COMMING SOON...");
-//   }
-// }
+class Comment extends React.Component {
+  render () {
+    return(
+      <div className="comment">
+        <p className="comment-header">{this.props.creator}</p>
+        <p className="comment-body">- {this.props.body}</p>
+        <div className="comment-footer">
+          <a href="#" className="comment-footer-delete" onClick={this._deleteComment}>Delete Comment</a>
+        </div>
+      </div>
+    );
+  }
+  _deleteComment() {
+    alert("-- DELETE Comment Functionality COMMING SOON...");
+  }
+}
 
 export default CommentBox;

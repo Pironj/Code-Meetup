@@ -93,10 +93,8 @@ class EventDetailsPage extends React.Component {
           <Row style={{ marginTop: '2rem', marginLeft: '.5rem' }}>
 
           </Row>
-          <CommentBox>
-            <CommentForm/>
-            <Comment/>  
-          </CommentBox> 
+          <CommentBox/>
+           
         </Container>
 
       </div>

@@ -8,7 +8,7 @@ import { Form, Input, FormBtn, TextArea}from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 import Calendar from '../components/calendar'
-import '@lls/react-light-calendar/dist/index.css'
+// import '@lls/react-light-calendar/dist/index.css'
 
 
 class CreateEvent extends React.Component {

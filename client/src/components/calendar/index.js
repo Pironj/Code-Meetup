@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactLightCalendar from '@lls/react-light-calendar'
-import '@lls/react-light-calendar/dist/index.css';
+//import '@lls/react-light-calendar/dist/index.css';
+import "./index.css"
 
 const DAY_LABELS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 const MONTH_LABELS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
