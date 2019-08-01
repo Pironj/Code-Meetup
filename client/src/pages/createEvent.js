@@ -103,12 +103,10 @@ class CreateEvent extends React.Component {
                 name="description"
                 placeholder=" Description (required)"
               />
-<<<<<<< HEAD
               
               <Calendar startDate={new Date().getTime()} displayTime />
             
               <LocationSearchInput></LocationSearchInput>
-=======
 
               {/* Google Location autocomplete search */}
               {this.state.address}
@@ -118,7 +116,6 @@ class CreateEvent extends React.Component {
                 onSelect={this.handleLocationSearchSelect}
               />
 
->>>>>>> b35a2ea2067e9dc400aa9ed81ac6ebca0a79e292
               <FormBtn
                 disabled={!(this.state.description && this.state.title)}
                 onClick={this.handleFormSubmit}
