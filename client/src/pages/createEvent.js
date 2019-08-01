@@ -2,24 +2,31 @@ import React from "react";
 import API from "../utils/API";
 import FullEvent from "../components/fullEvent";
 import axios from "axios";
-import {Jumbotron, Button, Container, Row, Col} from "react-bootstrap";
+import { Jumbotron, Button, Container, Row, Col } from "react-bootstrap";
 import { CreateBtn } from "../components/btn";
-import { Form, Input, FormBtn, TextArea}from "../components/Form";
+import { Form, Input, FormBtn, TextArea } from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 import Calendar from '../components/calendar'
 //import '@lls/react-light-calendar/dist/index.css'
 
 import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
+import {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+
+
 
 class CreateEvent extends React.Component {
   state = {
-    creator: '5d38f663f1fa3633a0109f70',
+    creator: '5d42469179ae427c10e6d2ed',
     title: '',
     description: '',
     date: '',
-};
-
+    address: '',
+    latLng: {},
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -28,49 +35,92 @@ class CreateEvent extends React.Component {
     });
   };
 
-
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.description) {
+    if (
+      this.state.title && 
+      this.state.description &&
+      this.state.address
+      ) {
       API.createEvent({
         title: this.state.title,
         description: this.state.description,
-        creator: this.state.creator
+        creator: this.state.creator,
+        street_address: this.state.address,
+        location: {
+          type: 'Point',
+          coordinates: [
+            this.state.latLng.lng,
+            this.state.latLng.lat
+          ]
+        }
       })
         .then(event => console.log(event))
         .catch(err => console.log(err));
     }
   };
 
-  
- render() {
+  handleLocationSearchChange = address => {
+    this.setState({ address });
+  };
+
+  handleLocationSearchSelect = async address => {
+    await this.setState({ address })
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(async latLng => {
+        console.log(latLng)
+        await this.setState({ latLng })
+      })
+      .catch(error => console.error('Error', error));
+  };
+
+  render() {
     return (
       <Container fluid>
-      {this.state.title + this.state.description}
+        {this.state.title + this.state.description}
         <Row>
           <Col size="md-6">
+
             <Jumbotron>
               <h1>Create an Event</h1>
             </Jumbotron>
+
             <form>
+
+              {/* Event title */}
               <Input
                 value={this.state.title}
                 onChange={this.handleInputChange}
                 name="title"
                 placeholder="Title (required)"
               />
+
+              {/* Event description */}
               <Input
                 value={this.state.description}
                 onChange={this.handleInputChange}
                 name="description"
                 placeholder=" Description (required)"
               />
+<<<<<<< HEAD
               
               <Calendar startDate={new Date().getTime()} displayTime />
             
               <LocationSearchInput></LocationSearchInput>
+=======
+
+              {/* Google Location autocomplete search */}
+              {this.state.address}
+              <LocationSearchInput
+                value={this.state.address}
+                onChange={this.handleLocationSearchChange}
+                onSelect={this.handleLocationSearchSelect}
+              />
+
+>>>>>>> b35a2ea2067e9dc400aa9ed81ac6ebca0a79e292
               <FormBtn
-                disabled={!(this.state.description  && this.state.title)}
+                disabled={!(this.state.description && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
                 Submit Event
