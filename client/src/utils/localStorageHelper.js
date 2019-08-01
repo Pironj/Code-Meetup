@@ -3,7 +3,7 @@
  */
 
 // Helper function to get user details and token from local storage
-export const getFullAuthenticationState = () => {
+export const getAuthState = () => {
   return JSON.parse(localStorage.getItem('authUser'));
 }
 
@@ -11,7 +11,7 @@ export const getJWTToken = () => {
   return getFullAuthenticationState().token;
 }
 
-export const setAuthenticaionState = (authorizedUser) => {
+export const setAuthState = (authorizedUser) => {
   const authUser = JSON.stringify(
     {
       id: authorizedUser._id,
@@ -24,7 +24,7 @@ export const setAuthenticaionState = (authorizedUser) => {
   localStorage.setItem('authUser', authUser);
 }
 
-export const deleteAuthenticationState = () => {
+export const deleteAuthState = () => {
   localStorage.removeItem('authUser');
 }
 

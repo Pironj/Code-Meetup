@@ -1,0 +1,34 @@
+import { 
+  // ADD_TODO, TOGGLE_TODO, SET_FILTER,
+   SET_AUTH_STATE, DELETE_AUTH_STATE } from "../actionTypes";
+
+
+export const setAuthState = auth => ({
+  type: SET_AUTH_STATE,
+  payload: auth
+})
+
+export const deleteAuthState = () => ({
+  type: DELETE_AUTH_STATE,
+})
+
+
+
+
+
+// let nextTodoId = 0;
+
+// export const addTodo = content => ({
+//   type: ADD_TODO,
+//   payload: {
+//     id: ++nextTodoId,
+//     content
+//   }
+// });
+
+// export const toggleTodo = id => ({
+//   type: TOGGLE_TODO,
+//   payload: { id }
+// });
+
+// export const setFilter = filter => ({ type: SET_FILTER, payload: { filter } });
