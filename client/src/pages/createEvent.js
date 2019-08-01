@@ -79,7 +79,7 @@ class CreateEvent extends React.Component {
   render() {
     return (
       <Container fluid>
-        {this.state.title + this.state.description}
+        {/* {this.state.title + this.state.description} */}
         <Row>
           <Col size="md-6">
 
@@ -107,7 +107,7 @@ class CreateEvent extends React.Component {
               
               <Calendar startDate={new Date().getTime()} displayTime />
             
-              <LocationSearchInput></LocationSearchInput>
+              {/* <LocationSearchInput></LocationSearchInput> */}
 
               {/* Google Location autocomplete search */}
               {this.state.address}
