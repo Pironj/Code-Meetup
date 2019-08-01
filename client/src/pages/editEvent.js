@@ -77,10 +77,11 @@ class EditEvent extends React.Component {
         id: this.state.id,
         title: this.state.title,
         description: this.state.description,
-        creator: this.state.creator
       })
         .then(event => console.log(event))
         .catch(err => console.log(err));
+        this.props.history.push('/');
+
     }
     console.log(this.state);
   // };

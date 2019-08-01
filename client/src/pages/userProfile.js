@@ -24,7 +24,7 @@ class UserProfile extends React.Component {
     //create state
     state = {
         user: {},
-        userId: [],
+        userId: '',
         events: []
     };
 

@@ -112,6 +112,12 @@ export default function MenuAppBar(props) {
                 open={open}
                 onClose={handleClose}
               >
+               <Link
+                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                  to={`/todo`}
+                  onClick={handleClose}>
+                  Sssshhhh TODO
+                </Link>
                 <Link
                   style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
                   to={`/userProfile/${props.id}`}

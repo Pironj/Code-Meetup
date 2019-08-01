@@ -6,6 +6,7 @@ import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import Axios from "axios";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link as RouterLink } from 'react-router-dom';
 import GoogleApiWrapper from '../components/googleMaps'
 
 
@@ -13,6 +14,8 @@ class EventDetailsPage extends React.Component {
   state = {
     event: {},
     eventId: '',
+    userId: '5d42544d51f7690b3b4c3b36',
+    comments: []
   }
 
   componentWillMount() {
@@ -21,12 +24,21 @@ class EventDetailsPage extends React.Component {
     });
   }
 
-  onDelete = () => {
-    API.deleteEvent(this.state.eventId)
-      .then(response => {
-        this.props.history.push('/')
+  onAttend = () => {
+    console.log(this.state);
+    API.createUserEvent({event_id:this.state.eventId,
+                         user_id: this.state.userId})
+      .then( data => {
+        this.setState({
+          event_id: data.data,
+          user_id: data.data,
+          comments: [],
+        })
       }).catch(err => console.log(err));
   }
+
+
+
 
   componentDidMount() {
     API.findEventById(this.props.match.params.id)
@@ -55,6 +67,8 @@ class EventDetailsPage extends React.Component {
     )
 
   }
+
+  
 
   render() {
 
@@ -86,7 +100,8 @@ class EventDetailsPage extends React.Component {
 
           {/* <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
-            {/* <Button onClick={this.onDelete} variant="dark">Delete</Button> */}
+            <Button onClick={this.onAttend} variant="dark">Attend</Button>
+         
 
           {/* </Row> */}
 

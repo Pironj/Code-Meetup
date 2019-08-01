@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Calendar from '../components/calendar'
 import "../components/calendar/index.css"
 //import '@lls/react-light-calendar/dist/index.css'
+import "../components/calendar/index.css"
 
 import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
 import {
@@ -78,17 +79,24 @@ class CreateEvent extends React.Component {
 
   render() {
     return (
-      <Container fluid>
-        {/* {this.state.title + this.state.description} */}
-        <Row>
-          <Col size="md-6">
 
-            <Jumbotron>
+      <Container fluid>
+      <Row>
+        {/* {this.state.title + this.state.description} */}
+        <Col size="sm-1" />
+          <Col size="md-10">
+
+            <Jumbotron style={{textAlign: 'center', width: '40rem', marginTop: '3rem'}}>
               <h1>Create an Event</h1>
             </Jumbotron>
+          </Col>
+          <Col size="sm-1" />
 
+        </Row>
+        <Row style={{marginBottom: '5rem'}}>
+        <Col size="sm-1" />
+        <Col size="md-5">
             <form>
-
               {/* Event title */}
               <Input
                 value={this.state.title}
@@ -118,14 +126,18 @@ class CreateEvent extends React.Component {
               />
 
               <FormBtn
+                style={{width: "10rem"}}
                 disabled={!(this.state.description && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
-                Submit Event
+                Create Event
               </FormBtn>
             </form>
           </Col>
-          <Col size="md-6 sm-12">
+          <Col size="md-5">
+              <Calendar startDate={new Date().getTime()} displayTime />
+          </Col>
+          <Col size="sm-1" />
             {/* <Jumbotron>
               <h1>My Events</h1>
             </Jumbotron> */}
@@ -144,7 +156,6 @@ class CreateEvent extends React.Component {
             ) : (
               <h3>No Results to Display</h3>
             )} */}
-          </Col>
         </Row>
       </Container>
     );
