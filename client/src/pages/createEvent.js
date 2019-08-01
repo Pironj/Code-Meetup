@@ -111,7 +111,11 @@ class CreateEvent extends React.Component {
                 name="description"
                 placeholder=" Description (required)"
               />
+              
+              <Calendar startDate={new Date().getTime()} displayTime />
             
+              <LocationSearchInput></LocationSearchInput>
+
               {/* Google Location autocomplete search */}
               {this.state.address}
               <LocationSearchInput
