@@ -1,5 +1,7 @@
+/* global google */
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+
 require('dotenv').config()
 
 
@@ -8,6 +10,7 @@ const mapStyles = {
   width: '40vw',
   height: '40vh',
 };
+
 
 class MapContainer extends React.Component {
   // constructor(props) {
@@ -45,6 +48,7 @@ class MapContainer extends React.Component {
 
   render() {
     return (
+      <React.Fragment>
         <Map
           google={this.props.google}
           zoom={14}
@@ -53,6 +57,9 @@ class MapContainer extends React.Component {
         >
           {this.displayMarkers()}
         </Map>
+
+      </React.Fragment>
+
     );
   }
 }

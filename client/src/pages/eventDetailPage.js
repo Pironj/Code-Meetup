@@ -84,11 +84,11 @@ class EventDetailsPage extends React.Component {
           <Row >
           </Row>
 
-          <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
+          {/* <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
-            <Button onClick={this.onDelete} variant="dark">Delete</Button>
+            {/* <Button onClick={this.onDelete} variant="dark">Delete</Button> */}
 
-          </Row>
+          {/* </Row> */}
 
           <Row style={{ marginTop: '2rem', marginLeft: '.5rem' }}>
 
