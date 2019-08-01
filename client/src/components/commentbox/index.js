@@ -30,7 +30,7 @@ class CommentBox extends React.Component {
       <div className="comment-box">
         <h2>Join the Discussion!</h2>
         <CommentForm addComment={this._addComment.bind(this)}/>
-        <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
+        <button  id="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
         <h3>Comments</h3>
@@ -110,12 +110,11 @@ class CommentBox extends React.Component {
     
     return(
       <div className="comment-box">
-        <h2>Join the Discussion!</h2>
         <CommentForm addComment={this._addComment.bind(this)}/>
-        <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
+        <button style={{marginBottom: '2rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} id="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
-        <h3>Comments</h3>
+        <h4>Comments</h4>
         <h4 className="comment-count">
           {this._getCommentsTitle(comments.length)}
         </h4>
@@ -155,11 +154,11 @@ class CommentForm extends React.Component {
     return (
       <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
         <div className="comment-form-fields">
-          <input placeholder="Name" style={{ paddingRight: '10rem'}} required ref={(input) => this._creator = input}></input><br />
-          <textarea placeholder="Comment" style={{ paddingRight: '10rem'}} rows="3" required ref={(textarea) => this._body = textarea}></textarea>
+          <textarea placeholder="Name" style={{paddingLeft: '.25rem', paddingRight: '10rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} required ref={(input) => this._creator = input}></textarea><br />
+          <textarea placeholder="Comment" style={{paddingLeft: '.25rem', paddingRight: '10rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} rows="3" required ref={(textarea) => this._body = textarea}></textarea>
         </div>
         <div className="comment-form-actions">
-          <button onClick={this.handleFormSubmit} type="submit">Post Comment</button>
+          <button style={{borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', marginBottom: '.50rem'}} onClick={this.handleFormSubmit} type="submit">Post Comment</button>
         </div>
       </form>
     );
@@ -187,9 +186,9 @@ class Comment extends React.Component {
       </div>
     );
   }
-  _deleteComment() {
-    alert("-- DELETE Comment Functionality COMMING SOON...");
-  }
+  // _deleteComment() {
+  //   alert("-- DELETE Comment Functionality COMMING SOON...");
+  // }
 }
 
 export default CommentBox;

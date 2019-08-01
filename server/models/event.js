@@ -11,7 +11,6 @@ const eventSchema = new Schema(
       ref: 'User',
       required: true,
     },
-
     title: {
       type: String,
       required: true,
@@ -31,6 +30,11 @@ const eventSchema = new Schema(
     location: {
       type: pointSchema,
       required: false,
+    },
+    street_address: {
+      type: String,
+      required: false,
+      trim: true,
     }
   },
   {
