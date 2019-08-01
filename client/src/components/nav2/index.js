@@ -121,14 +121,14 @@ export default function MenuAppBar(props) {
                 <br></br>
                 <Link
                   style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to="/event"
+                  to="/events"
                   onClick={handleClose}>
                   Events
                 </Link>
                 <br></br>
                 <Link
                   style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to="/createEvent"
+                  to="/create-event"
                   onClick={handleClose}>
                   Create Event
                 </Link>
