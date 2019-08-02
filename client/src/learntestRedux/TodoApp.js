@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
     first_name: state.authState.first_name,
     last_name: state.authState.last_name,
     email: state.authState.email,
-    jwt: state.authState.jwt,
+    token: state.authState.token,
   };
 }
 
@@ -33,7 +33,7 @@ const TodoApp = (props) => {
       <p>{'first_name => ' + props.first_name}</p>
       <p>{'last_name => ' + props.last_name}</p>
       <p>{'email => ' + props.email}</p>
-      <p>{'jwt => ' + props.jwt}</p>
+      <p>{'token => ' + props.token}</p>
       <button onClick={() => props.setNewAuthState({first_name: 'asdf', last_name: 'last'})}>change state</button>
 
 

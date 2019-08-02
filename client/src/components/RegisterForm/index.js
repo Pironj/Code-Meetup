@@ -6,6 +6,28 @@ import {Form, Button} from 'react-bootstrap';
 import './style.css';
 import API from "../../utils/API";
 
+
+import {connect} from 'react-redux';
+import {setAuthState} from '../../learnredux/actions';
+
+// const mapStateToProps = (state) => {
+//   return {
+//     id: state.authState.id,
+//     first_name: state.authState.first_name,
+//     last_name: state.authState.last_name,
+//     email: state.authState.email,
+//     token: state.authState.token,
+//   };
+// }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logIn: (authState) => {
+      dispatch(setAuthState(authState))
+    }
+  }
+}
+
 class RegisterForm extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
@@ -15,23 +37,23 @@ class RegisterForm extends Component {
     password: "",
     errors: {}
   };
-
+  
   validateSignup = () => {
     const errors = {};
     if (!this.state.first_name) {
       errors.first_name = "*Please enter your first name.";
     }
-
+    
     if (typeof this.state.first_name !== "undefined") {
       if (!this.state.first_name.match(/^[a-zA-Z ]*$/)) {
         errors.first_name = "*Please enter alphabet characters only.";
       }
     }
-
+    
     if (!this.state.last_name) {
       errors.last_name = "*Please enter your last name.";
     }
-
+    
     if (typeof this.state.last_name !== "undefined") {
       if (!this.state.last_name.match(/^[a-zA-Z ]*$/)) {
         errors.last_name = "*Please enter alphabet characters only.";
@@ -41,7 +63,7 @@ class RegisterForm extends Component {
     if (!this.state.email) {
       errors.email = "*Please enter your email.";
     }
-
+    
     if (typeof this.state.email !== "undefined") {
       //regular expression for email validation
       var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -89,17 +111,23 @@ class RegisterForm extends Component {
       return console.log(Object.keys(errors));
     }
 
-      console.log(user);
-      user.errors = {}
-      this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {}});
-      return API.authorizeSignup(user);
+    console.log(user);
+    user.errors = {}
+    this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {}});
+    return API.authorizeSignup(user)
+    .then(res => {
+      let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });
+      console.log("========= RESPONSE ========\n", authUser);
+      localStorage.setItem('authUser', authUser);
+      return ; // unable to get props here to call logIn to render state
+    })
     
-    // TODO return API call to server to validate user
+  
   };
   // When the form is submitted, prevent the default event
   
   handleFormSubmitLogin = event => {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({email: "", password: "" });
     console.log(this.state);
     const loginUserObj = {
@@ -107,12 +135,14 @@ class RegisterForm extends Component {
       password: this.state.password
     }
     const user = loginUserObj;
-    // TODO return API call to server to validate user
-    return API.authorizeLogin(user);
-    
-  };
-
-  
+    return API.authorizeLogin(user)
+    .then(res => {
+      let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });
+      console.log("========= RESPONSE ========\n", authUser);
+      localStorage.setItem('authUser', authUser);
+      return ; // unable to get props here to call logIn to render state
+    })
+  }
 
   render() {
     return (
@@ -165,4 +195,6 @@ class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+
+
+export default connect(null, mapDispatchToProps)(RegisterForm)

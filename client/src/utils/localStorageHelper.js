@@ -8,7 +8,7 @@ export const getAuthState = () => {
 }
 
 export const getJWTToken = () => {
-  return getFullAuthenticationState().token;
+  return getAuthState().token;
 }
 
 export const setAuthState = (authorizedUser) => {
