@@ -14,7 +14,7 @@ import CreateEvent from "./pages/createEvent";
 import EditEvent from "./pages/editEvent";
 import FooterComponent from './components/footer';
 // import RegisterForm from "./components/RegisterForm";
-import TODOAPP from './testRedux/TodoApp';
+import TODOAPP from './learntestRedux/TodoApp';
 
 function App() {
   return (
