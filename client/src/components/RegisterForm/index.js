@@ -114,9 +114,15 @@ class RegisterForm extends Component {
     console.log(user);
     user.errors = {}
     this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {}});
-    return API.authorizeSignup(user);
+    return API.authorizeSignup(user)
+    .then(res => {
+      let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });
+      console.log("========= RESPONSE ========\n", authUser);
+      localStorage.setItem('authUser', authUser);
+      return ; // unable to get props here to call logIn to render state
+    })
     
-    // TODO return API call to server to validate user
+  
   };
   // When the form is submitted, prevent the default event
   
@@ -129,7 +135,6 @@ class RegisterForm extends Component {
       password: this.state.password
     }
     const user = loginUserObj;
-    // TODO return API call to server to validate user
     return API.authorizeLogin(user)
     .then(res => {
       let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });

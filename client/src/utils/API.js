@@ -23,27 +23,29 @@ export default {
   // create our verify url and passing in an Authorization header in headers
   // passing in the token value with ${token} from our utils API call on our googleLogin component
   authorizeSignup: (user) => {
-    console.log(user);
-    try {
-      axios.post(`${AUTH_URL}/signup`, user)
-        // authorized user data sent from our server after google authorization response
-        .then(res => {
-          console.log(res);
-          let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });
-          localStorage.setItem('authUser', authUser);
-          const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
-          const token = parseUserObj.token
-          console.log("parsed user localstorage token: ", token);
-          return;
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    } catch (err) {
-      console.log(err);
-      return err
-    }
+    return axios.post(`${AUTH_URL}/signup`, user)
   },
+  //   console.log(user);
+  //   try {
+  //     axios.post(`${AUTH_URL}/signup`, user)
+  //       // authorized user data sent from our server after google authorization response
+  //       .then(res => {
+  //         console.log(res);
+  //         let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });
+  //         localStorage.setItem('authUser', authUser);
+  //         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
+  //         const token = parseUserObj.token
+  //         console.log("parsed user localstorage token: ", token);
+  //         return;
+  //       })
+  //       .catch(err => {
+  //         console.log(err)
+  //       })
+  //   } catch (err) {
+  //     console.log(err);
+  //     return err
+  //   }
+  // },
 
   authorizeLogin: (user) => {
     return axios.post(`${AUTH_URL}/login`, user)
