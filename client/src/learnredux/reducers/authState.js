@@ -6,7 +6,7 @@ const initialState = {
   first_name: '',
   last_name: '',
   email: '',
-  jwt: '',
+  token: '',
 };
 
 export default function (state = initialState, action) {
@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
         first_name: content.first_name,
         last_name: content.last_name,
         email: content.email,
-        jwt: content.jwt,
+        token: content.token,
       }
     }
 
@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
         first_name: '',
         last_name: '',
         email: '',
-        jwt: '',
+        token: '',
       }
     }
     default:
