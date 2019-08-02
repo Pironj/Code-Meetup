@@ -17,17 +17,32 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 
+import {connect} from 'react-redux';
 
+
+const mapStateToProps = (state) => {
+  return {
+    id: state.authState.id,
+    first_name: state.authState.first_name,
+    last_name: state.authState.last_name,
+    email: state.authState.email,
+    token: state.authState.token,
+  };
+}
 
 class CreateEvent extends React.Component {
   state = {
-    creator: '5d42469179ae427c10e6d2ed',
+    creator: '',
     title: '',
     description: '',
     date: '',
     address: '',
     latLng: {},
   };
+
+  componentDidMount() {
+    this.setState({creator: this.props.id})
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -80,6 +95,7 @@ class CreateEvent extends React.Component {
     return (
 
       <Container fluid>
+      {'(testing) creator id: ' + this.props.id }
       <Row>
         {/* {this.state.title + this.state.description} */}
         <Col size="sm-1" />
@@ -113,8 +129,6 @@ class CreateEvent extends React.Component {
               />
               
               <Calendar startDate={new Date().getTime()} displayTime />
-            
-              <LocationSearchInput></LocationSearchInput>
 
               {/* Google Location autocomplete search */}
               {this.state.address}
@@ -162,4 +176,4 @@ class CreateEvent extends React.Component {
 }
 
 
-export default CreateEvent;
+export default connect(mapStateToProps)(CreateEvent);
