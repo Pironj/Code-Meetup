@@ -7,11 +7,7 @@ class CommentBox extends React.Component {
     
     this.state = {
       showComments: true,
-      comments: [
-        {id: 1, creator: "landiggity", body: "This is my first comment on this forum so don't be a dick"},
-        {id: 2, creator: "scarlett-jo", body: "That's a mighty fine comment you've got there my good looking fellow..."},
-        {id: 3, creator: "rosco", body: "What is the meaning of all of this 'React' mumbo-jumbo?"}
-      ],
+      comments: [],
       body: '',
       creator: "41224d776a326fb40f000001",
       title:"",
@@ -49,8 +45,8 @@ class CommentBox extends React.Component {
       <div className="comment-box">
         <h2>Join the Discussion!</h2>
         {/* <CommentForm addComment={this._addComment.bind(this)}/> */}
-        <input name="title" value={this.state.title} onChange={this.handleChange} />
-        <textarea name="body" value={this.state.body} onChange={this.handleChange} />
+        <input style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}}name="title" value={this.state.title} onChange={this.handleChange} />
+        <textarea style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} name="body" value={this.state.body} onChange={this.handleChange} />
         <button onClick={this._addComment}>
         submit
         </button>
