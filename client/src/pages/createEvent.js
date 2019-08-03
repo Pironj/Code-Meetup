@@ -8,6 +8,7 @@ import { Form, Input, FormBtn, TextArea } from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 import Calendar from '../components/calendar'
+import "../components/calendar/index.css"
 //import '@lls/react-light-calendar/dist/index.css'
 import "../components/calendar/index.css"
 
@@ -128,7 +129,7 @@ class CreateEvent extends React.Component {
                 placeholder=" Description (required)"
               />
               
-              <Calendar startDate={new Date().getTime()} displayTime />
+              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
 
               {/* Google Location autocomplete search */}
               {this.state.address}
@@ -137,7 +138,9 @@ class CreateEvent extends React.Component {
                 onChange={this.handleLocationSearchChange}
                 onSelect={this.handleLocationSearchSelect}
               />
-
+              <div>
+                <br></br><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+              </div>
               <FormBtn
                 style={{width: "10rem"}}
                 disabled={!(this.state.description && this.state.title)}
