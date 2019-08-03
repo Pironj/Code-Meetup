@@ -8,6 +8,7 @@ import { Form, Input, FormBtn, TextArea } from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
 import Calendar from '../components/calendar'
+import "../components/calendar/index.css"
 //import '@lls/react-light-calendar/dist/index.css'
 import "../components/calendar/index.css"
 
@@ -32,7 +33,7 @@ const mapStateToProps = (state) => {
 
 class CreateEvent extends React.Component {
   state = {
-    creator: '',
+    creator: '5d44a5164e3a0c393d1e0836',
     title: '',
     description: '',
     date: '',
@@ -52,16 +53,19 @@ class CreateEvent extends React.Component {
   };
 
   handleFormSubmit = event => {
+    console.log(this.state);
     event.preventDefault();
     if (
       this.state.title &&
       this.state.description &&
-      this.state.address
-    ) {
+      this.state.address &&
+      this.state.date
+      ) {
       API.createEvent({
         title: this.state.title,
         description: this.state.description,
         creator: this.state.creator,
+        date: this.state.date,
         street_address: this.state.address,
         location: {
           type: 'Point',
@@ -95,10 +99,10 @@ class CreateEvent extends React.Component {
     return (
 
       <Container fluid>
-        {'(testing) creator id: ' + this.props.id}
-        <Row>
-          {/* {this.state.title + this.state.description} */}
-          <Col size="sm-1" />
+      {/* {'(testing) creator id: ' + this.props.id } */}
+      <Row>
+        {/* {this.state.title + this.state.description} */}
+        <Col size="sm-1" />
           <Col size="md-10">
 
             <Jumbotron style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
@@ -121,14 +125,15 @@ class CreateEvent extends React.Component {
               />
 
               {/* Event description */}
-              <Input
+              <TextArea
+                style={{height: '300px'}}
                 value={this.state.description}
                 onChange={this.handleInputChange}
                 name="description"
                 placeholder=" Description (required)"
               />
-
-              <Calendar startDate={new Date().getTime()} displayTime />
+              
+              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
 
               {/* Google Location autocomplete search */}
               {this.state.address}
@@ -137,7 +142,7 @@ class CreateEvent extends React.Component {
                 onChange={this.handleLocationSearchChange}
                 onSelect={this.handleLocationSearchSelect}
               />
-
+              <div>   <br></br>         </div>
               <FormBtn
                 style={{ width: "10rem" }}
                 disabled={!(this.state.description && this.state.title)}
@@ -148,7 +153,13 @@ class CreateEvent extends React.Component {
             </form>
           </Col>
           <Col size="md-5">
-            <Calendar startDate={new Date().getTime()} displayTime />
+          <div className="input-field">
+                <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
+                <input type="text" name="date" ref="date" value={this.state.date}
+                  onChange={this.handleInputChange.bind(this)} />
+
+              </div>
+              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
           </Col>
           <Col size="sm-1" />
           {/* <Jumbotron>
