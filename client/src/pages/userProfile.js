@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleCard from "../components/usercard";
+import UserCard from "../components/usercard";
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 import UserEventCard from "../components/userEventCard";
@@ -93,7 +93,8 @@ class UserProfile extends React.Component {
                                 <LettersAvatar />
                             </Grid>
                             <Grid container direction="row" justify="center" alignItems="center">
-                                <SimpleCard />
+                                <UserCard user={this.state.user} />
+                                
                             </Grid>
                         </div>
                     </Grid>
