@@ -6,11 +6,11 @@ const LocationSearchInput = (props) => {
 
   return (
     <PlacesAutocomplete
-      {...props}
+      {...props} 
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>
-          <input
+          <input style={{width: '25rem'}}
             {...getInputProps({
               placeholder: 'Search Places ...',
               className: 'location-search-input',
