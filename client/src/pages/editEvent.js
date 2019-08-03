@@ -38,16 +38,13 @@ class EditEvent extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
-
-
   async componentDidMount() {
     await this.setState({
       id: this.props.match.params.id,
-      creator: this.id,
+      creator: this.props.id,
     })
-    console.log(this.state.id);
     this.populateEvent();
-    API.findEventById(this.state.id);
+    // API.findEventById(this.state.id);
     // this.getEventDetails();
   }
 
@@ -94,7 +91,7 @@ class EditEvent extends React.Component {
     event.preventDefault();
     if (this.state.title && this.state.description) {
       API.updateEvent({
-        id: this.state.id,
+        id: this.state.id, // Event id
         title: this.state.title,
         description: this.state.description,
         date: this.state.date,
@@ -107,10 +104,12 @@ class EditEvent extends React.Component {
           ]
         }
       })
-        .then(event => console.log(event))
-        .catch(err => console.log(err));
-      this.props.history.push('/');
-
+      .then(res => {
+        console.log(res)
+        this.props.history.push(`/events/${res.data._id}`);
+        
+      })
+      .catch(err => console.log(err));
     }
     console.log(this.state);
     // };

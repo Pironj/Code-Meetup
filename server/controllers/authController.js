@@ -36,6 +36,7 @@ class Auth {
 
   constructor() {
     this.authorizeUserParams = this.authorizeUserParams.bind(this);
+    this.authorizeUserBody = this.authorizeUserBody.bind(this);
     this.authorizeUser = this.authorizeUser.bind(this);
   }
 
@@ -82,7 +83,8 @@ class Auth {
   }
 
   authorizeUserBody(req, res, next) {
-    res.locals.userIdLocation = req.body.usedId;
+    console.log(req.body)
+    res.locals.userIdLocation = req.body.user_id;
     return this.authorizeUser(req, res, next);
   }
 

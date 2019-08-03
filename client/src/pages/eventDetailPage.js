@@ -14,7 +14,7 @@ class EventDetailsPage extends React.Component {
   state = {
     event: {},
     eventId: '',
-    userId: '5d42544d51f7690b3b4c3b36',
+    userId: '',
     comments: []
   }
 
