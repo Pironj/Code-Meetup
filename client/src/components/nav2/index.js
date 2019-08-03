@@ -140,7 +140,7 @@ const MenuAppBar = (props) => {
                 </Link>
                 <Link
                   style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to={`/userProfile/${props.id}`}
+                  to={`/users/${props.id}`}
                   onClick={handleClose}>
                   Profile
                 </Link>
