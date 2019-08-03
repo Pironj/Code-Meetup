@@ -51,6 +51,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const MenuAppBar = (props) => {
+
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -140,7 +141,7 @@ const MenuAppBar = (props) => {
                 </Link>
                 <Link
                   style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to={`/userProfile/${props.id}`}
+                  to={`/users/${props.id}`}
                   onClick={handleClose}>
                   Profile
                 </Link>
