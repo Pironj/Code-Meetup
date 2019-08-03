@@ -5,8 +5,13 @@ import FooterComponent from "../components/footer";
 import axios from "axios";
 import { Jumbotron, Container, Row, Col, Button } from "react-bootstrap";
 import { CreateBtn } from "../components/btn";
-
+import LocationSearchInput from "../components/googleMapsSearchAutocomplete";
 import { connect } from 'react-redux';
+import {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+
 
 
 const mapStateToProps = (state) => {
@@ -28,6 +33,7 @@ class EditEvent extends React.Component {
       creator: '',
       description: '',
       date: '',
+      location: '',
     }
     this.handleInputChange = this.handleInputChange.bind(this)
   }
@@ -91,6 +97,15 @@ class EditEvent extends React.Component {
         id: this.state.id,
         title: this.state.title,
         description: this.state.description,
+        date: this.state.date,
+        street_address: this.state.address,
+        location: {
+          type: 'Point',
+          coordinates: [
+            this.state.latLng.lng,
+            this.state.latLng.lat
+          ]
+        }
       })
         .then(event => console.log(event))
         .catch(err => console.log(err));
@@ -120,6 +135,21 @@ class EditEvent extends React.Component {
   //     [name]: value
   //   })
   // }
+
+  handleLocationSearchChange = address => {
+    this.setState({ address });
+  };
+
+  handleLocationSearchSelect = async address => {
+    await this.setState({ address })
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(async latLng => {
+        console.log(latLng)
+        await this.setState({ latLng })
+      })
+      .catch(error => console.error('Error', error));
+  };
 
   render() {
 
@@ -157,6 +187,15 @@ class EditEvent extends React.Component {
                 <input type="text" name="date" ref="date" value={this.state.date}
                   onChange={this.handleInputChange.bind(this)} />
 
+              </div>
+
+              <div className="input-field">
+                <label style={{ marginLeft: '.5rem' }} htmlFor="name">Location</label>
+                <LocationSearchInput
+                value={this.state.address}
+                onChange={this.handleLocationSearchChange}
+                onSelect={this.handleLocationSearchSelect}
+              />
               </div>
               <Button type="submit" value="Save" className="btn" variant="dark">Save</Button>
               {/* <input type="submit" value="Save" className="btn" /> */}
