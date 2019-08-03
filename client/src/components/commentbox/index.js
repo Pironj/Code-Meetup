@@ -1,36 +1,53 @@
 import React from 'react';
 import API from '../../utils/API'
 
-class CommentBox extends React.Component {
-  constructor() {
-    super();
-    
-    this.state = {
-      showComments: true,
-      comments: [
-        {id: 1, creator: "landiggity", body: "This is my first comment on this forum so don't be a dick"},
-        {id: 2, creator: "scarlett-jo", body: "That's a mighty fine comment you've got there my good looking fellow..."},
-        {id: 3, creator: "rosco", body: "What is the meaning of all of this 'React' mumbo-jumbo?"}
-      ]
+import { connect } from 'react-redux';
 
-    };
+
+const mapStateToProps = (state) => {
+  return {
+    id: state.authState.id,
+    first_name: state.authState.first_name,
+    last_name: state.authState.last_name,
+    email: state.authState.email,
+    token: state.authState.token,
+  };
+}
+
+
+class CommentBox extends React.Component {
+
+  state = {
+    userId: '',
+    showComments: true,
+    comments: [
+      { id: 1, creator: "landiggity", body: "This is my first comment on this forum so don't be a dick" },
+      { id: 2, creator: "scarlett-jo", body: "That's a mighty fine comment you've got there my good looking fellow..." },
+      { id: 3, creator: "rosco", body: "What is the meaning of all of this 'React' mumbo-jumbo?" }
+    ]
+  };
+
+  componentDidUpdate() {
+    this.setState({
+      userId: this.props.id
+    })
   }
-  
-  render () {
+
+  render() {
     const comments = this._getComments();
     let commentNodes;
     let buttonText = 'Show Comments';
-    
+
     if (this.state.showComments) {
       buttonText = 'Hide Comments';
       commentNodes = <div className="comment-list">{comments}</div>;
     }
-    
-    return(
+
+    return (
       <div className="comment-box">
         <h2>Join the Discussion!</h2>
-        <CommentForm addComment={this._addComment.bind(this)}/>
-        <button  id="comment-reveal" onClick={this._handleClick.bind(this)}>
+        <CommentForm addComment={this._addComment.bind(this)} />
+        <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
         <h3>Comments</h3>
@@ -38,10 +55,10 @@ class CommentBox extends React.Component {
           {this._getCommentsTitle(comments.length)}
         </h4>
         {commentNodes}
-      </div>  
+      </div>
     );
   } // end render
-  
+
   _addComment(creator, body) {
     const comment = {
       id: this.state.comments.length + 1,
@@ -50,7 +67,7 @@ class CommentBox extends React.Component {
     };
     this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
   }
-  
+
   _handleClick() {
     this.setState({
       showComments: !this.state.showComments
@@ -58,17 +75,17 @@ class CommentBox extends React.Component {
   }
 
 
-  _getComments() {    
-    return this.state.comments.map((comment) => { 
+  _getComments() {
+    return this.state.comments.map((comment) => {
       return (
-        <Comment 
-          creator={comment.creator} 
-          body={comment.body} 
+        <Comment
+          creator={comment.creator}
+          body={comment.body}
           key={comment.id} />
-      ); 
+      );
     });
   }
-  
+
   _getCommentsTitle(commentCount) {
     if (commentCount === 0) {
       return 'No comments yet';
@@ -97,21 +114,21 @@ class CommentBox extends React.Component {
 
 
 
-  
-  render () {
+
+  render() {
     const comments = this._getComments();
     let commentNodes;
     let buttonText = 'Show Comments';
-    
+
     if (this.state.showComments) {
       buttonText = 'Hide Comments';
       commentNodes = <div className="comment-list">{comments}</div>;
     }
-    
-    return(
+
+    return (
       <div className="comment-box">
-        <CommentForm addComment={this._addComment.bind(this)}/>
-        <button style={{marginBottom: '2rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} id="comment-reveal" onClick={this._handleClick.bind(this)}>
+        <CommentForm addComment={this._addComment.bind(this)} />
+        <button style={{ marginBottom: '2rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8' }} id="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
         <h4>Comments</h4>
@@ -119,11 +136,11 @@ class CommentBox extends React.Component {
           {this._getCommentsTitle(comments.length)}
         </h4>
         {commentNodes}
-      </div>  
+      </div>
     );
   } // end render
-  
-  
+
+
 } // end CommentBox component
 
 class CommentForm extends React.Component {
@@ -143,7 +160,7 @@ class CommentForm extends React.Component {
   // };
 
 
-  _handleSubmit(event) { 
+  _handleSubmit(event) {
     event.preventDefault();   // prevents page from reloading on submit
     let author = this._author;
     let body = this._body;
@@ -154,17 +171,17 @@ class CommentForm extends React.Component {
     return (
       <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
         <div className="comment-form-fields">
-          <textarea placeholder="Name" style={{paddingLeft: '.25rem', paddingRight: '10rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} required ref={(input) => this._creator = input}></textarea><br />
-          <textarea placeholder="Comment" style={{paddingLeft: '.25rem', paddingRight: '10rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} rows="3" required ref={(textarea) => this._body = textarea}></textarea>
+          <textarea placeholder="Name" style={{ paddingLeft: '.25rem', paddingRight: '10rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8' }} required ref={(input) => this._creator = input}></textarea><br />
+          <textarea placeholder="Comment" style={{ paddingLeft: '.25rem', paddingRight: '10rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8' }} rows="3" required ref={(textarea) => this._body = textarea}></textarea>
         </div>
         <div className="comment-form-actions">
-          <button style={{borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', marginBottom: '.50rem'}} onClick={this.handleFormSubmit} type="submit">Post Comment</button>
+          <button style={{ borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', marginBottom: '.50rem' }} onClick={this.handleFormSubmit} type="submit">Post Comment</button>
         </div>
       </form>
     );
   } // end render
-  
-  _handleSubmit(event) { 
+
+  _handleSubmit(event) {
     event.preventDefault();   // prevents page from reloading on submit
     let creator = this._creator;
     let body = this._body;
@@ -175,8 +192,8 @@ class CommentForm extends React.Component {
 
 
 class Comment extends React.Component {
-  render () {
-    return(
+  render() {
+    return (
       <div className="comment">
         <p className="comment-header">{this.props.creator}</p>
         <p className="comment-body">- {this.props.body}</p>
@@ -191,4 +208,4 @@ class Comment extends React.Component {
   // }
 }
 
-export default CommentBox;
+export default connect(mapStateToProps)(CommentBox);

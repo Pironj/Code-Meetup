@@ -8,13 +8,13 @@ export const getAuthState = () => {
 }
 
 export const getJWTToken = () => {
-  return getFullAuthenticationState().token;
+  return getAuthState().token;
 }
 
-export const setAuthState = (authorizedUser) => {
+export const setAuthStateLocalStorage = (authorizedUser) => {
   const authUser = JSON.stringify(
     {
-      id: authorizedUser._id,
+      id: authorizedUser.id,
       first_name: authorizedUser.first_name,
       last_name: authorizedUser.last_name,
       email: authorizedUser.email,

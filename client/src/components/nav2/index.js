@@ -14,8 +14,10 @@ import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import RegisterForm from '../RegisterForm';
 import { NavDropdown } from 'react-bootstrap';
-import { getFullAuthenticationState } from '../../utils/localStorageHelper'
+import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 
+import {connect} from 'react-redux';
+import {deleteAuthState} from '../../learnredux/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +31,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MenuAppBar(props) {
+const mapStateToProps = (state) => {
+  return {
+    id: state.authState.id,
+    first_name: state.authState.first_name,
+    last_name: state.authState.last_name,
+    email: state.authState.email,
+    token: state.authState.token,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logOut: () => {
+      dispatch(deleteAuthState())
+    }
+  }
+}
+
+
+const MenuAppBar = (props) => {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,6 +62,7 @@ export default function MenuAppBar(props) {
     setAuth(event.target.checked)
     if (event.target.checked === false) {
       localStorage.removeItem('authUser');
+      props.logOut();
     }
 
   }
@@ -56,9 +78,7 @@ export default function MenuAppBar(props) {
   return (
     <div className={classes.root}>
       (Temporary for testing) Logged in as: {
-        getFullAuthenticationState() ? getFullAuthenticationState().first_name
-          :
-          'Not logged in'
+        props.first_name ? props.first_name :  'Not logged in'
       }
       <FormGroup>
         <span>
@@ -146,3 +166,5 @@ export default function MenuAppBar(props) {
     </div>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuAppBar)

@@ -2,9 +2,22 @@
 
 
 import React, { Component } from "react";
-import {Form, Button} from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import './style.css';
 import API from "../../utils/API";
+import { setAuthStateLocalStorage } from '../../utils/localStorageHelper';
+
+import { connect } from 'react-redux';
+import { setAuthState } from '../../learnredux/actions';
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logIn: (authState) => {
+      dispatch(setAuthState(authState))
+    }
+  }
+}
 
 class RegisterForm extends Component {
   // Setting the initial values of this.state.username and this.state.password
@@ -73,46 +86,67 @@ class RegisterForm extends Component {
       [name]: value
     });
   };
-  
+
   // When the form is submitted, prevent the default event
   handleFormSubmitSignup = event => {
     event.preventDefault();
     // alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     console.log(this.state);
     //create shallow copy of state
-    const user = {...this.state};
+    const user = { ...this.state };
     console.log(user);
     // front end validation checking email
     const errors = this.validateSignup()
-    if(Object.keys(errors) === errors.first_name || errors.last_name || errors.email || errors.password) {
-      this.setState({errors: errors});
+    if (Object.keys(errors) === errors.first_name || errors.last_name || errors.email || errors.password) {
+      this.setState({ errors: errors });
       return console.log(Object.keys(errors));
     }
 
-      console.log(user);
-      user.errors = {}
-      this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {}});
-      return API.authorizeSignup(user);
-    
-    // TODO return API call to server to validate user
+    // console.log(user);
+    user.errors = {}
+    this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {} });
+    API.authorizeSignup(user)
+      .then(res => {
+        this.setAuthenticationState(res.data)
+      }).catch(err => {
+        console.log(err)
+      })
   };
   // When the form is submitted, prevent the default event
-  
+
   handleFormSubmitLogin = event => {
-    event.preventDefault();
-    this.setState({email: "", password: "" });
+    event.preventDefault()
+
     console.log(this.state);
     const loginUserObj = {
       email: this.state.email,
       password: this.state.password
     }
+    this.setState({ email: "", password: "" });
     const user = loginUserObj;
-    // TODO return API call to server to validate user
-    return API.authorizeLogin(user);
-    
-  };
+    API.authorizeLogin(user)
+      .then(res => {
+        this.setAuthenticationState(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
-  
+  setAuthenticationState = (data) => {
+    const authUser = {
+      id: data.user._id,
+      first_name: data.user.first_name,
+      last_name: data.user.last_name,
+      email: data.user.email,
+      token: data.token
+    }
+    console.log(authUser)
+    setAuthStateLocalStorage(authUser);
+    
+    // Save auth state in redux store
+    this.props.logIn(authUser);
+  }
 
   render() {
     return (
@@ -155,8 +189,8 @@ class RegisterForm extends Component {
         <div className="errorMsg">{this.state.errors.password}</div>
         <br></br>
         <Button onClick={this.handleFormSubmitLogin}>Login</Button>
-        <Button 
-          style={{marginLeft: "3%"}} 
+        <Button
+          style={{ marginLeft: "3%" }}
           onClick={this.handleFormSubmitSignup}
         >Signup
         </Button>
@@ -165,4 +199,6 @@ class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+
+
+export default connect(null, mapDispatchToProps)(RegisterForm)
