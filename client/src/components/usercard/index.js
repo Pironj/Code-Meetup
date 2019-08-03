@@ -4,7 +4,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import API from "../../utils/API";
-import { PromiseProvider } from 'mongoose';
+import { PromiseProvider } from 'mongoose'
+import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
 const useStyles = makeStyles({
     card: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
     },
 });
 
-const UserCard = (props) => {
+export default function UserCard(props) {
     const classes = useStyles();
 
     return (
@@ -32,8 +33,8 @@ const UserCard = (props) => {
                 <CardContent>
                     <Typography variant="h5" component="h2">
                         <React.Fragment>
-                            <p>Name: {props.user.first_name + " " + props.user.last_name} </p>
-                            <p>Email: {props.Email} </p>
+                            <p>Name:  {props.user.first_name + " " + props.user.last_name}</p>
+                            <p>Email: {props.user.email} </p>
                         </React.Fragment>
                     </Typography>
                 </CardContent>
