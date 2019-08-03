@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleCard from "../components/usercard";
+import UserCard from "../components/usercard";
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 import UserEventCard from "../components/userEventCard";
@@ -24,7 +24,7 @@ class UserProfile extends React.Component {
     //create state
     state = {
         user: {},
-        userId: '',
+        userId: '5d44a5164e3a0c393d1e8036',
         events: []
     };
 
@@ -89,7 +89,7 @@ class UserProfile extends React.Component {
                                 <LettersAvatar />
                             </Grid>
                             <Grid container direction="row" justify="center" alignItems="center">
-                                <SimpleCard />
+                                <UserCard />
                             </Grid>
                         </div>
                     </Grid>
