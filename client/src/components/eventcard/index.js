@@ -47,15 +47,18 @@ const EventCard = (props) => {
           {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}
         <Container>
           <Card className="eventCard" border="dark" style={{ width: '20rem', height: 'auto', marginTop: '3rem'}}>
-      <Card.Header>Popular Events</Card.Header>
+      <Card.Header>{props.title}</Card.Header>
       <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
+        {/* <Card.Title></Card.Title> */}
         <Card.Text>
         {props.description.substring(0,100) + "..."}
         </Card.Text>
         <Card.Text>
+        {props.location}
+        </Card.Text>
+        <Card.Text>
                   <Moment 
-                  format="MM/DD/YYYY"
+                  format="MM/DD/YYYY HH:mm"
                   style={{fontWeight: 'bold'}}
                   calendar={calendarStrings}>{props.date}</Moment>
                 </Card.Text>

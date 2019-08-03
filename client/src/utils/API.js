@@ -101,12 +101,12 @@ export default {
   findUserById: (userId) => {
     // const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
     // const token = parseUserObj.token
-    axios.get(`${USER_API_URL}/${userId}`) // to protect add getToken() function as param to get req
-      .then(res => {
-        console.log('======= TEST RESPONSE =======\n', res);
-      }).catch(err => {
-        return err;
-      });
+   return axios.get(`${USER_API_URL}/${userId}`) // to protect add getToken() function as param to get req
+      // .then(res => {
+      //   console.log('======= TEST RESPONSE =======\n', res);
+      // }).catch(err => {
+      //   return err;
+      // });
   },
 
   updateUser: (user) => {
