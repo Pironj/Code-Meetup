@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getJWTToken } from './localStorageHelper';
-import store from '../learnredux/store';
+import store from '../redux/store';
 
 const USER_API_URL = '/api/users';
 const EVENT_API_URL = '/api/events';
@@ -175,7 +175,7 @@ export default {
    */
   createComment: (comment) => {
     // TODO Get event info first
-    return axios.post(`${COMMENT_API_URL}/`, comment); // to protect add getToken() function as param to get req
+    return axios.post(`${COMMENT_API_URL}/`, comment, generateHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**

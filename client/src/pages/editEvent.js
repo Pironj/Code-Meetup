@@ -104,10 +104,12 @@ class EditEvent extends React.Component {
           ]
         }
       })
-        .then(event => console.log(event))
-        .catch(err => console.log(err));
-      this.props.history.push('/');
-
+      .then(res => {
+        console.log(res)
+        this.props.history.push(`/events/${res.data._id}`);
+        
+      })
+      .catch(err => console.log(err));
     }
     console.log(this.state);
     // };

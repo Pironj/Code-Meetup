@@ -58,8 +58,8 @@ class CreateEvent extends React.Component {
     if (
       this.state.title &&
       this.state.description &&
-      this.state.address &&
-      this.state.date
+      this.state.address
+      // this.state.date
       ) {
       API.createEvent({
         title: this.state.title,
@@ -75,7 +75,11 @@ class CreateEvent extends React.Component {
           ]
         }
       })
-        .then(event => console.log(event))
+        .then(res => {
+          console.log(res)
+          this.props.history.push(`/events/${res.data._id}`);
+          
+        })
         .catch(err => console.log(err));
     }
   };
