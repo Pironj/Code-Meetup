@@ -9,6 +9,7 @@ import { grey } from '@material-ui/core/colors';
 import { DeleteBtn, createEventBtn, EditEventBtn, cancelBtn } from "../components/btn";
 import {Col, Row } from 'react-bootstrap';
 
+
 const useStyles = makeStyles({
     container: {
 
@@ -24,9 +25,12 @@ class UserProfile extends React.Component {
     //create state
     state = {
         user: {},
-        userId: '',
-        events: []
+        userId: '5d44a5164e3a0c393d1e0836',
+        events: [],
+
     };
+
+   
 
 
     componentWillMount() {
