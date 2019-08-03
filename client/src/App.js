@@ -14,8 +14,6 @@ import CreateEvent from "./pages/createEvent";
 import EditEvent from "./pages/editEvent";
 import FooterComponent from './components/footer';
 // import RegisterForm from "./components/RegisterForm";
-import TODOAPP from './learntestRedux/TodoApp';
-
 function App() {
   return (
     <Router>
@@ -33,9 +31,6 @@ function App() {
           <Route exact path='/users' component={NoMatch}></Route>
 
           <Route exact path='/users/:id' component={UserProfile}></Route>
-
-          <Route exact path='/todo' component={TODOAPP}></Route>
-
 
           <Route component={NoMatch} />
         </Switch>

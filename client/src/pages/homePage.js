@@ -24,17 +24,20 @@ class HomePage extends React.Component {
         eventTitle={details.title}
         eventContent={details.description}
         eventDate = {details.date}
+        eventLocation = {details.street_address}
         key={details._id}
       />
     ))
   }
 
   renderEventCards = () => {
+    console.log(this.state);
     return this.state.events.map(event => (
       <EventCard
         title={event.title}
         description={event.description}
         date={event.date}
+        location={event.street_address}
         key={event._id}
         id={event._id}
         creator={event.creator}

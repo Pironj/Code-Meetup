@@ -8,7 +8,7 @@ import API from "../../utils/API";
 import { setAuthStateLocalStorage } from '../../utils/localStorageHelper';
 
 import { connect } from 'react-redux';
-import { setAuthState } from '../../learnredux/actions';
+import { setAuthState } from '../../redux/actions';
 
 
 const mapDispatchToProps = (dispatch) => {

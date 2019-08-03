@@ -18,7 +18,7 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
 const mapStateToProps = (state) => {
@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
 
 class CreateEvent extends React.Component {
   state = {
-    creator: '',
+    creator: '5d44a5164e3a0c393d1e0836',
     title: '',
     description: '',
     date: '',
@@ -42,7 +42,7 @@ class CreateEvent extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({creator: this.props.id})
+    this.setState({ creator: this.props.id })
   }
 
   handleInputChange = event => {
@@ -53,16 +53,19 @@ class CreateEvent extends React.Component {
   };
 
   handleFormSubmit = event => {
+    console.log(this.state);
     event.preventDefault();
     if (
-      this.state.title && 
+      this.state.title &&
       this.state.description &&
       this.state.address
+      // this.state.date
       ) {
       API.createEvent({
         title: this.state.title,
         description: this.state.description,
         creator: this.state.creator,
+        date: this.state.date,
         street_address: this.state.address,
         location: {
           type: 'Point',
@@ -72,7 +75,11 @@ class CreateEvent extends React.Component {
           ]
         }
       })
-        .then(event => console.log(event))
+        .then(res => {
+          console.log(res)
+          this.props.history.push(`/events/${res.data._id}`);
+          
+        })
         .catch(err => console.log(err));
     }
   };
@@ -96,22 +103,22 @@ class CreateEvent extends React.Component {
     return (
 
       <Container fluid>
-      {'(testing) creator id: ' + this.props.id }
+      {/* {'(testing) creator id: ' + this.props.id } */}
       <Row>
         {/* {this.state.title + this.state.description} */}
         <Col size="sm-1" />
           <Col size="md-10">
 
-            <Jumbotron style={{textAlign: 'center', width: '40rem', marginTop: '3rem'}}>
+            <Jumbotron style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
               <h1>Create an Event</h1>
             </Jumbotron>
           </Col>
           <Col size="sm-1" />
 
         </Row>
-        <Row style={{marginBottom: '5rem'}}>
-        <Col size="sm-1" />
-        <Col size="md-5">
+        <Row style={{ marginBottom: '5rem' }}>
+          <Col size="sm-1" />
+          <Col size="md-5">
             <form>
               {/* Event title */}
               <Input
@@ -122,7 +129,8 @@ class CreateEvent extends React.Component {
               />
 
               {/* Event description */}
-              <Input
+              <TextArea
+                style={{height: '300px'}}
                 value={this.state.description}
                 onChange={this.handleInputChange}
                 name="description"
@@ -138,11 +146,9 @@ class CreateEvent extends React.Component {
                 onChange={this.handleLocationSearchChange}
                 onSelect={this.handleLocationSearchSelect}
               />
-              <div>
-                <br></br><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-              </div>
+              <div>   <br></br>         </div>
               <FormBtn
-                style={{width: "10rem"}}
+                style={{ width: "10rem" }}
                 disabled={!(this.state.description && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
@@ -151,13 +157,19 @@ class CreateEvent extends React.Component {
             </form>
           </Col>
           <Col size="md-5">
-              <Calendar startDate={new Date().getTime()} displayTime />
+          <div className="input-field">
+                <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
+                <input type="text" name="date" ref="date" value={this.state.date}
+                  onChange={this.handleInputChange.bind(this)} />
+
+              </div>
+              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
           </Col>
           <Col size="sm-1" />
-            {/* <Jumbotron>
+          {/* <Jumbotron>
               <h1>My Events</h1>
             </Jumbotron> */}
-            {/* {this.state.events.length ? (
+          {/* {this.state.events.length ? (
               <List>
                 {this.state.events.map(event => (
                   <ListItem key={eventNames._id}>
