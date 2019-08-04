@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function UserCard(props) {
+const UserCard = (props) => {
     const classes = useStyles();
 
     return (

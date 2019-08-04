@@ -159,7 +159,10 @@ class CreateEvent extends React.Component {
                   onChange={this.handleInputChange.bind(this)} />
 
               </div>
-              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
+              <Calendar startDate={new Date().getTime()} displayTime 
+                name="date" ref="date" value={this.state.date} onChange={this.handleInputChange.bind(this)} />
+
+              />
           </Col>
           <Col size="sm-1" />
             {/* <Jumbotron>
