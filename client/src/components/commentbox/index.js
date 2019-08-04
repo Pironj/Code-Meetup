@@ -27,6 +27,21 @@ class CommentBox extends React.Component {
     ]
   };
 
+  componentDidMount() {
+    this.getComments()
+  }
+
+  getComments = () => {
+    API.getAllComments()
+    .then(res => {
+      this.setState({
+        comments: res.data
+      })
+      console.log(res.data);
+    })
+    .catch(err => console.log(err))
+  }
+
   componentDidUpdate() {
     this.setState({
       userId: this.props.id
@@ -46,7 +61,13 @@ class CommentBox extends React.Component {
     return (
       <div className="comment-box">
         <h2>Join the Discussion!</h2>
-        <CommentForm addComment={this._addComment.bind(this)} />
+        <input style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}}name="title" value={this.state.title} onChange={this.handleChange} />
+        <textarea style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} name="body" value={this.state.body} onChange={this.handleChange} />
+        <button onClick={this._addComment}>
+        submit
+        </button>
+
+        {/* <CommentForm addComment={this._addComment.bind(this)} /> */}
         <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
@@ -60,6 +81,7 @@ class CommentBox extends React.Component {
   } // end render
 
   _addComment(creator, body) {
+    
     const comment = {
       id: this.state.comments.length + 1,
       creator,
@@ -68,12 +90,21 @@ class CommentBox extends React.Component {
     this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
   }
 
+  handleChange = (e) => {
+    const {name, value} = e.target;
+    this.setState({[name]: value})
+  }
+
   _handleClick() {
     this.setState({
       showComments: !this.state.showComments
     });
   }
 
+  _addComment=()=> {
+  const {id, creator, body} = this.state
+
+}
 
   _getComments() {
     return this.state.comments.map((comment) => {
@@ -100,12 +131,10 @@ class CommentBox extends React.Component {
   handleFormSubmit = comment => {
     comment.preventDefault();
     if (this.state.event && this.state.body && this.state.creator) {
-      API.createComment({
-        event: this.state.event,
-        body: this.state.body,
-        creator: "5d3df98b54ed5491826d7eae"
-      })
-        .then(comment => console.log(comment))
+        API.createComment(comment)
+        .then(comment => {
+          console.log(comment)
+          this.getComments()})
         .catch(err => console.log(err));
     }
   };
