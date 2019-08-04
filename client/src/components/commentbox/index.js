@@ -42,11 +42,11 @@ class CommentBox extends React.Component {
     .catch(err => console.log(err))
   }
 
-  componentDidUpdate() {
-    this.setState({
-      userId: this.props.id
-    })
-  }
+  // componentDidUpdate() {
+  //   this.setState({
+  //     userId: this.props.id
+  //   })
+  // }
 
   render() {
     const comments = this._getComments();
@@ -144,30 +144,30 @@ class CommentBox extends React.Component {
 
 
 
-  render() {
-    const comments = this._getComments();
-    let commentNodes;
-    let buttonText = 'Show Comments';
+  // render() {
+  //   const comments = this._getComments();
+  //   let commentNodes;
+  //   let buttonText = 'Show Comments';
 
-    if (this.state.showComments) {
-      buttonText = 'Hide Comments';
-      commentNodes = <div className="comment-list">{comments}</div>;
-    }
+  //   if (this.state.showComments) {
+  //     buttonText = 'Hide Comments';
+  //     commentNodes = <div className="comment-list">{comments}</div>;
+  //   }
 
-    return (
-      <div className="comment-box">
-        <CommentForm addComment={this._addComment.bind(this)} />
-        <button style={{ marginBottom: '2rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8' }} id="comment-reveal" onClick={this._handleClick.bind(this)}>
-          {buttonText}
-        </button>
-        <h4>Comments</h4>
-        <h4 className="comment-count">
-          {this._getCommentsTitle(comments.length)}
-        </h4>
-        {commentNodes}
-      </div>
-    );
-  } // end render
+  //   return (
+  //     <div className="comment-box">
+  //       <CommentForm addComment={this._addComment.bind(this)} />
+  //       <button style={{ marginBottom: '2rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8' }} id="comment-reveal" onClick={this._handleClick.bind(this)}>
+  //         {buttonText}
+  //       </button>
+  //       <h4>Comments</h4>
+  //       <h4 className="comment-count">
+  //         {this._getCommentsTitle(comments.length)}
+  //       </h4>
+  //       {commentNodes}
+  //     </div>
+  //   );
+  // } // end render
 
 
 } // end CommentBox component
