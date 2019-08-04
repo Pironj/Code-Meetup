@@ -16,7 +16,7 @@ router.route('/:id')
 router.route('/user/:id')
   .get(commentController.findCommentsForUser);
 
-router.route('/event/:id')
+router.route('/event/:eventId')
   .get(commentController.findCommentsForEvent);
 
 module.exports = router;

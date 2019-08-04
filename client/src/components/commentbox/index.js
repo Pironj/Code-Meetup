@@ -1,5 +1,5 @@
 import React from 'react';
-import API from '../../utils/API'
+import API from '../../utils/API';
 
 import { connect } from 'react-redux';
 
@@ -16,37 +16,41 @@ const mapStateToProps = (state) => {
 
 
 class CommentBox extends React.Component {
+  
+  constructor() {
+    super();
+    
+    this.state = {
+      showComments: true,
+      comments: [],
+      body: '',
+      // creator: "41224d776a326fb40f000001",
+      title:"",
+      // id: "41224d776a326fb40f000001"
+    };
 
-  state = {
-    userId: '',
-    showComments: true,
-    comments: [
-      { id: 1, creator: "landiggity", body: "This is my first comment on this forum so don't be a dick" },
-      { id: 2, creator: "scarlett-jo", body: "That's a mighty fine comment you've got there my good looking fellow..." },
-      { id: 3, creator: "rosco", body: "What is the meaning of all of this 'React' mumbo-jumbo?" }
-    ]
-  };
-
+    
+  }
   componentDidMount() {
     this.getComments()
   }
 
   getComments = () => {
-    API.getAllComments()
+    API.findCommentsForEventId(this.props.eventId)
     .then(res => {
       this.setState({
         comments: res.data
       })
-      console.log(res.data);
+      console.log(res);
     })
     .catch(err => console.log(err))
   }
 
-  componentDidUpdate() {
-    this.setState({
-      userId: this.props.id
-    })
-  }
+  // componentDidUpdate() {
+  //   this.setState({
+  //     userId: this.props.id
+  //   })
+  // }
 
   render() {
     const comments = this._getComments();
@@ -61,8 +65,9 @@ class CommentBox extends React.Component {
     return (
       <div className="comment-box">
         <h2>Join the Discussion!</h2>
-        <input style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}}name="title" value={this.state.title} onChange={this.handleChange} />
-        <textarea style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} name="body" value={this.state.body} onChange={this.handleChange} />
+        {/* <input style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}}name="title" value={this.state.title} onChange={this.handleChange} /> */}
+        <textarea rows="6" style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', width: '25rem'}} name="body" value={this.state.body} onChange={this.handleChange} />
+        <br></br><br></br>
         <button onClick={this._addComment}>
         submit
         </button>
@@ -71,7 +76,7 @@ class CommentBox extends React.Component {
         <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
-        <h3>Comments</h3>
+        <h3 style={{marginTop: '1rem'}}>Comments</h3>
         <h4 className="comment-count">
           {this._getCommentsTitle(comments.length)}
         </h4>
@@ -80,19 +85,39 @@ class CommentBox extends React.Component {
     );
   } // end render
 
-  _addComment(creator, body) {
+  // _addComment(creator, body) {
     
-    const comment = {
-      id: this.state.comments.length + 1,
-      creator,
-      body
-    };
-    this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
-  }
+  //   const comment = {
+  //     id: this.state.comments.length + 1,
+  //     creator,
+  //     body
+  //   };
+  //   this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
+  // }
 
   handleChange = (e) => {
     const {name, value} = e.target;
     this.setState({[name]: value})
+  }
+
+
+  _addComment=()=> {
+
+    const {body} = this.state
+    const comment = {
+      event:this.props.eventId,
+      creator: this.props.id,
+      body
+    };
+    console.log(comment);
+
+    API.createComment(comment)
+    .then(comment => {
+      console.log(comment)
+      this.getComments()})
+    .catch(err => console.log(err.response));
+
+    this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
   }
 
   _handleClick() {
@@ -101,16 +126,16 @@ class CommentBox extends React.Component {
     });
   }
 
-  _addComment=()=> {
-  const {id, creator, body} = this.state
+//   _addComment=()=> {
+//   const {id, creator, body} = this.state
 
-}
+// }
 
   _getComments() {
     return this.state.comments.map((comment) => {
       return (
         <Comment
-          creator={comment.creator}
+          creator={comment.creator.first_name + " " + comment.creator.last_name}
           body={comment.body}
           key={comment.id} />
       );
@@ -128,49 +153,65 @@ class CommentBox extends React.Component {
   }
 
 
-  handleFormSubmit = comment => {
-    comment.preventDefault();
+  handleFormSubmit = event => {
+    console.log(event.target)
+    event.preventDefault();
     if (this.state.event && this.state.body && this.state.creator) {
-        API.createComment(comment)
-        .then(comment => {
-          console.log(comment)
-          this.getComments()})
+      API.createComment({
+        event: this.state.event,
+        body: this.state.body,
+        creator: "5d3df98b54ed5491826d7eae"
+      })
+        .then(comment => console.log(comment))
         .catch(err => console.log(err));
     }
   };
+}
+
+
+//   handleFormSubmit = comment => {
+//     comment.preventDefault();
+//     if (this.state.event && this.state.body && this.state.creator) {
+//         API.createComment(comment)
+//         .then(comment => {
+//           console.log(comment)
+//           this.getComments()})
+//         .catch(err => console.log(err));
+//     }
+//   };
+// }
 
 
 
 
 
+  // render() {
+  //   const comments = this._getComments();
+  //   let commentNodes;
+  //   let buttonText = 'Show Comments';
 
-  render() {
-    const comments = this._getComments();
-    let commentNodes;
-    let buttonText = 'Show Comments';
+  //   if (this.state.showComments) {
+  //     buttonText = 'Hide Comments';
+  //     commentNodes = <div className="comment-list">{comments}</div>;
+  //   }
 
-    if (this.state.showComments) {
-      buttonText = 'Hide Comments';
-      commentNodes = <div className="comment-list">{comments}</div>;
-    }
-
-    return (
-      <div className="comment-box">
-        <CommentForm addComment={this._addComment.bind(this)} />
-        <button style={{ marginBottom: '2rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8' }} id="comment-reveal" onClick={this._handleClick.bind(this)}>
-          {buttonText}
-        </button>
-        <h4>Comments</h4>
-        <h4 className="comment-count">
-          {this._getCommentsTitle(comments.length)}
-        </h4>
-        {commentNodes}
-      </div>
-    );
-  } // end render
+  //   return (
+  //     <div className="comment-box">
+  //       <CommentForm addComment={this._addComment.bind(this)} />
+  //       <button style={{ marginBottom: '2rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8' }} id="comment-reveal" onClick={this._handleClick.bind(this)}>
+  //         {buttonText}
+  //       </button>
+  //       <h4>Comments</h4>
+  //       <h4 className="comment-count">
+  //         {this._getCommentsTitle(comments.length)}
+  //       </h4>
+  //       {commentNodes}
+  //     </div>
+  //   );
+  // } // end render
 
 
-} // end CommentBox component
+// } // end CommentBox component
 
 class CommentForm extends React.Component {
 
@@ -236,5 +277,6 @@ class Comment extends React.Component {
   //   alert("-- DELETE Comment Functionality COMMING SOON...");
   // }
 }
+
 
 export default connect(mapStateToProps)(CommentBox);
