@@ -7,94 +7,124 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { DeleteBtn, createEventBtn, EditEventBtn, cancelBtn } from "../components/btn";
-import {Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 
-const useStyles = makeStyles({
-    container: {
-
-        backgroundColor: grey[400]
-    }
-});
-
-
-
+// const useStyles = makeStyles({
+//     container: {
+//         backgroundColor: grey[400]
+//     }
+// });
 
 class UserProfile extends React.Component {
 
-    //create state
     state = {
         user: {},
-        userId: '5d44a5164e3a0c393d1e0836',
+        userId: '',
         events: [],
-
-    };
-
-   
-
-
-    componentWillMount() {
-        this.setState({userId: this.props.match.params.id})
     }
 
-    //when this component mounts it grabs the user by their user id
+    componentWillMount() {
+        this.setState({ userId: this.props.match.params.id })
+    }
+
+    // when this component mounts it grabs the user by their user id
     componentDidMount() {
-        // const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
-        // const token = parseUserObj.token;
-        // console.log('\nfindbyid token: ', token);
-    
-        console.log(this.state.userId)
+
+        // Get user details
         API.findUserById(this.state.userId)
             .then(res => {
-                console.log(res.data)
                 this.setState({ user: res.data })
             }).catch(err => {
                 console.log(err)
             });
 
-        //and gets all the event's in the database that user created
-        // API.getAllUserEvents(this.props.match.params.id)
-        //     .then(res => {
-        //         console.log(res.data);
-        //         this.setState({ events: res.data })
-        //     }).catch(err => console.log(err))
-
-        //gets all event's user has saved to attend from the db
-
+        // Get all events user is attending (including the events they created)
         API.findEventsForUser(this.state.userId)
             .then(res => {
-                console.log(res.data);
+
                 this.setState({ events: res.data })
-            }).catch(err => console.log(err))
-            
-            
+            })
+            .catch(err => console.log(err))
     };
 
-        onDelete = (id) => {
+    /**
+     * Delete event
+     */
+    onDelete = (id) => {
         API.deleteEvent(id)
-          .then(response => {
-            this.props.history.push('/users/:id')
-            console.log(response)
-          }).catch(err => console.log(err));
-      }
+            .then(response => {
+                console.log(response)
 
-    renderEventCards = () => {
-        this.state.events.map(event => (<UserEventCard eventTitle={event.Title} eventContent={event.description} key={event._id} />))
+            }).catch(err => console.log(err));
     }
+
+    /**
+     * Render UserEvent cards
+     */
+    renderEventCards = () => {
+        return this.state.events.map(userEvent => {
+            if (userEvent.event_id.creator === this.state.userId) {
+                return (
+                    <div>
+                        <UserEventCard
+                            title={userEvent.event_id.title}
+                            description={userEvent.event_id.description}
+                            date={userEvent.event_id.date}
+                            key={userEvent._id}
+                            id={userEvent.event_id._id}
+                            onDelete={() => this.onDelete(userEvent._id)}
+                        />
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <UserEventCard
+                            title={userEvent.event_id.title}
+                            description={userEvent.event_id.description}
+                            date={userEvent.event_id.date}
+                            key={userEvent._id}
+                            id={userEvent.event_id._id}
+                            onDelete={() => this.onDelete(userEvent._id)}
+                        />
+                    </div>
+
+                )
+            }
+        })
+    }
+
+    /** 
+     * Render events user created and is attending
+    */
+    // renderEventsCreated = () => {
+    //     return this.renderEventCards()
+    // }
+
+    /**
+     * Render event cards user is attending but did not create
+     */
+    // renderEventsAttending = () => {
+    //     return this.renderEventCards();
+    // }
 
     render() {
         return (
             <div>
-
                 <div>
-                    <Grid style={{marginTop: '2rem'}} item md={1} container direction="column" justify="center" alignItems="center">
+                    <Grid
+                        style={{ marginTop: '2rem' }}
+                        item md={1} container direction="column"
+                        justify="center"
+                        alignItems="center"
+                    >
                         <div>
                             <Grid container direction="row" justify="center" alignItems="center">
                                 <LettersAvatar />
                             </Grid>
                             <Grid container direction="row" justify="center" alignItems="center">
                                 <UserCard user={this.state.user} />
-                                
                             </Grid>
                         </div>
                     </Grid>
@@ -105,24 +135,49 @@ class UserProfile extends React.Component {
                     </Grid>
                 </div>
                 <Row>
-    <Col>
-    {this.state.events.map(userEvent=>
-    (<UserEventCard id={userEvent.event_id._id} 
-      id={userEvent.event_id._id}
-      onDelete={this.onDelete}
-      // attendEvent={this.attendEvent} 
-      title={userEvent.event_id.title} 
-      description={userEvent.event_id.description} 
-      key={userEvent.event_id._id} />))}
-    </Col>
-    </Row>
+                    <Col>
+                        <h2>Events You Created</h2>
+                        {
+                            this.state.events.map(userEvent => (
+                                userEvent.event_id.creator === this.state.userId ? (
+                                    <UserEventCard
+                                        title={userEvent.event_id.title}
+                                        description={userEvent.event_id.description}
+                                        date={userEvent.event_id.date}
+                                        key={userEvent._id}
+                                        id={userEvent.event_id._id}
+                                        onDelete={() => this.onDelete(userEvent._id)}
+                                    />
+                                ) :
+                                    ''
+                            ))
+                        }
 
+
+                    </Col>
+                    <Col id="attending">
+                        <h2>Events You Are Attending</h2>
+                        {
+                            this.state.events.map(userEvent => (
+                                userEvent.event_id.creator !== this.state.userId ? (
+                                    <UserEventCard
+                                        title={userEvent.event_id.title}
+                                        description={userEvent.event_id.description}
+                                        date={userEvent.event_id.date}
+                                        key={userEvent._id}
+                                        id={userEvent.event_id._id}
+                                        onDelete={() => this.onDelete(userEvent._id)}
+                                    />
+                                ) :
+                                    ''
+                            ))
+                        }
+                    </Col>
+                </Row>
             </div>
-
-
-
         )
     }
 }
 
 export default UserProfile;
+
