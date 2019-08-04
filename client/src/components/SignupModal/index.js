@@ -1,8 +1,5 @@
-// import React from 'react';
-
-
 import React, { Component } from "react";
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
 import './style.css';
 import API from "../../utils/API";
 import { setAuthStateLocalStorage } from '../../utils/localStorageHelper';
@@ -19,15 +16,19 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-class RegisterForm extends Component {
+class SignupModal extends Component {
   // Setting the initial values of this.state.username and this.state.password
   state = {
     first_name: "",
     last_name: "",
     email: "",
     password: "",
-    errors: {}
+    errors: {},
+    show: false
   };
+  
+  handleClose = () => this.setState({show: false});
+  handleShow = () => this.setState({show: true});
 
   validateSignup = () => {
     const errors = {};
@@ -75,7 +76,6 @@ class RegisterForm extends Component {
     return errors;
   }
 
-  // const [validated, setValidated] = useState(false);
   // handle any changes to the input fields
   handleInputChange = event => {
     // Pull the name and value properties off of the event.target (the element which triggered the event)
@@ -89,7 +89,7 @@ class RegisterForm extends Component {
 
   // When the form is submitted, prevent the default event
   handleFormSubmitSignup = event => {
-    event.preventDefault();
+    // event.preventDefault();
     // alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
     console.log(this.state);
     //create shallow copy of state
@@ -101,7 +101,7 @@ class RegisterForm extends Component {
       this.setState({ errors: errors });
       return console.log(Object.keys(errors));
     }
-
+    this.handleClose();
     // console.log(user);
     user.errors = {}
     this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {} });
@@ -112,26 +112,6 @@ class RegisterForm extends Component {
         console.log(err)
       })
   };
-  // When the form is submitted, prevent the default event
-
-  handleFormSubmitLogin = event => {
-    event.preventDefault()
-
-    console.log(this.state);
-    const loginUserObj = {
-      email: this.state.email,
-      password: this.state.password
-    }
-    this.setState({ email: "", password: "" });
-    const user = loginUserObj;
-    API.authorizeLogin(user)
-      .then(res => {
-        this.setAuthenticationState(res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
 
   setAuthenticationState = (data) => {
     const authUser = {
@@ -150,55 +130,78 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <Form id="register">
-        <Form.Control
-          type="text"
-          placeholder="First Name"
-          name="first_name"
-          value={this.state.first_name}
-          onChange={this.handleInputChange}
-        />
-        <div className="errorMsg">{this.state.errors.first_name}</div>
-        <br></br>
-        <Form.Control
-          type="text"
-          placeholder="Last Name"
-          name="last_name"
-          value={this.state.last_name}
-          onChange={this.handleInputChange}
-        />
-        <div className="errorMsg">{this.state.errors.last_name}</div>
-        <br></br>
-        <Form.Control
-          required
-          type="email"
-          placeholder="name@example.com"
-          name="email"
-          value={this.state.email}
-          onChange={this.handleInputChange}
-        />
-        <div className="errorMsg">{this.state.errors.email}</div>
-        <br></br>
-        <Form.Control
-          type="password"
-          placeholder="Password"
-          name="password"
-          value={this.state.password}
-          onChange={this.handleInputChange}
-        />
-        <div className="errorMsg">{this.state.errors.password}</div>
-        <br></br>
-        <Button onClick={this.handleFormSubmitLogin}>Login</Button>
-        <Button
-          style={{ marginLeft: "3%" }}
-          onClick={this.handleFormSubmitSignup}
-        >Signup
+      <>
+        <Button id="signup" variant="primary" onClick={ this.handleShow }>
+          SignUp
         </Button>
-      </Form>
+    
+        <Modal show={this.state.show} onHide={ this.handleClose }>
+          <Modal.Header closeButton>
+            <Modal.Title>SIGN UP</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            <Form id="register">
+              <Form.Control
+                type="text"
+                placeholder="First Name"
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChange}
+              />
+              <div className="errorMsg">{this.state.errors.first_name}</div>
+              <br></br>
+              <Form.Control
+                type="text"
+                placeholder="Last Name"
+                name="last_name"
+                value={this.state.last_name}
+                onChange={this.handleInputChange}
+              />
+              <div className="errorMsg">{this.state.errors.last_name}</div>
+              <br></br>
+              <Form.Control
+                required
+                type="email"
+                placeholder="name@example.com"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
+              />
+              <div className="errorMsg">{this.state.errors.email}</div>
+              <br></br>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+              />
+              <div className="errorMsg">{this.state.errors.password}</div>
+              <br></br>
+              {/* <Button
+                style={{ marginLeft: "3%" }}
+                onClick={this.handleFormSubmitSignup}
+                >Signup
+              </Button> */}
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={ this.handleClose }>
+              Close
+            </Button>
+            <Button onClick={ this.handleFormSubmitSignup }>
+              SignUp
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+
+
     );
   }
 }
 
 
 
-export default connect(null, mapDispatchToProps)(RegisterForm)
+export default connect(null, mapDispatchToProps)(SignupModal)
