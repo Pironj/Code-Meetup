@@ -60,13 +60,13 @@ const MenuAppBar = (props) => {
   const open = Boolean(anchorEl);
 
   function handleChange(event) {
-    
-    event.localStorage.removeItem('authUser');
-    props.logOut();
-    // console.log(event.target.checked);
-    // setAuth(event.target.checked)
-    // if (event.target.checked === false) {
-    // }
+    console.log("logout clicked")
+    console.log(event.target.checked);
+    if (event.target.checked === false) {
+      setAuth(event.target.checked)
+      event.localStorage.removeItem('authUser');
+      props.logOut();
+    }
 
   }
 
@@ -89,7 +89,7 @@ const MenuAppBar = (props) => {
             control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
             label={auth ? 'Login' : 'Logout'}
           /> */}
-          <LogoutButton onClick={handleChange} />
+          <LogoutButton checked={auth} onClick={handleChange} />
           <LoginModal />
           <SignupModal />
         </span>
