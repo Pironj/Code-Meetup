@@ -33,6 +33,7 @@ module.exports = {
    * Creates document with user_id, event_id
    */
   create: async (req, res) => {
+    console.log(req.body)
     try {
       const [user, event, userEvent] = await Promise.all(
         [

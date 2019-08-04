@@ -8,7 +8,6 @@ const USER_EVENT_API_URL = '/api/userEvents';
 const COMMENT_API_URL = '/api/comments';
 const AUTH_URL = '/auth';
 
-
 // Helper function to get token from local storage pass this function to our protected routes to create auth headers
 const generateHeaders = () => {
   const token = getJWTToken()
@@ -31,10 +30,9 @@ export default {
     return axios.post(`${AUTH_URL}/login`, user)
   },
 
-
-  // function for protected route to get the token from local storage
+  // function for testing protected route to get the token from local storage
   protectedRoute: (userId) => {
-    // grabbing the stored token from local storage
+    // grabbing the stored token from local storage and put in headers
     axios.get(`/auth/protected/${userId}`, generateHeaders()) // passing in stored token here
       .then(res => console.log(res))
       .then(alert("Authorized User token Access Granted!"))

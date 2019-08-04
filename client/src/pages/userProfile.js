@@ -43,7 +43,7 @@ class UserProfile extends React.Component {
         // const token = parseUserObj.token;
         // console.log('\nfindbyid token: ', token);
     
-
+        console.log(this.state.userId)
         API.findUserById(this.state.userId)
             .then(res => {
                 console.log(res.data)

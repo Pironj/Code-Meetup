@@ -29,51 +29,32 @@ class EditEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
+      eventId: '',
       creator: '',
       description: '',
       date: '',
       location: '',
+      streetAddress: '',
     }
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   async componentDidMount() {
     await this.setState({
-      id: this.props.match.params.id,
+      eventId: this.props.match.params.id,
       creator: this.props.id,
     })
     this.populateEvent();
-    // API.findEventById(this.state.id);
-    // this.getEventDetails();
   }
 
-  // getEventDetails() {
-  //   API.getAllUserEvents()
-  //     .then(response=> {
-  //       this.setState({
-  //         id: response.data.id,
-  //         creator: response.data.creator,
-  //         description: response.data.description,
-  //         date: response.data.description,
-
-  //       })
-  //     })
-  //     .catch (err => console.log(err))
-
-  // }
-
   populateEvent() {
-    console.log(this.state.id);
-    API.findEventById(this.state.id)
+    API.findEventById(this.state.eventId)
       .then(response => {
-        console.log(response)
-        // this.props.history.push('/utils/API')
         this.setState({
           title: response.data.title,
-          // creator: response.data.creator.first_name + " " + response.data.creator.last_name,
           description: response.data.description,
           date: response.data.date,
+          streetAddress: response.data.street_address,
         })
         console.log(response)
       }).catch(err => console.log(err));
@@ -86,16 +67,15 @@ class EditEvent extends React.Component {
     });
   };
 
-
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.title && this.state.description) {
       API.updateEvent({
-        id: this.state.id, // Event id
+        id: this.state.eventId, // Event id
         title: this.state.title,
         description: this.state.description,
         date: this.state.date,
-        street_address: this.state.address,
+        // street_address: this.state.address,
         location: {
           type: 'Point',
           coordinates: [
@@ -104,12 +84,10 @@ class EditEvent extends React.Component {
           ]
         }
       })
-      .then(res => {
-        console.log(res)
-        this.props.history.push(`/events/${res.data._id}`);
-        
-      })
-      .catch(err => console.log(err));
+        .then(res => {
+          this.props.history.push(`/events/${res.data._id}`);
+        })
+        .catch(err => console.log(err));
     }
     console.log(this.state);
     // };
@@ -189,12 +167,18 @@ class EditEvent extends React.Component {
               </div>
 
               <div className="input-field">
+                <label style={{ marginLeft: '.5rem' }} htmlFor="name">Street address</label>
+                <input type="text" name="streetAddress" ref="streetAddress" value={this.state.street_address}
+                  onChange={this.handleInputChange.bind(this)} />
+              </div>
+
+              <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Location</label>
                 <LocationSearchInput
-                value={this.state.address}
-                onChange={this.handleLocationSearchChange}
-                onSelect={this.handleLocationSearchSelect}
-              />
+                  value={this.state.address}
+                  onChange={this.handleLocationSearchChange}
+                  onSelect={this.handleLocationSearchSelect}
+                />
               </div>
               <Button type="submit" value="Save" className="btn" variant="dark">Save</Button>
               {/* <input type="submit" value="Save" className="btn" /> */}
