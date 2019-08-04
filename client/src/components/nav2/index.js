@@ -12,12 +12,13 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
-import RegisterForm from '../RegisterForm';
+import LoginModal from '../LoginModal';
+import SignupModal from '../SignupModal';
 import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 
 import {connect} from 'react-redux';
-import {deleteAuthState} from '../../learnredux/actions';
+import {deleteAuthState} from '../../redux/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,6 +52,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const MenuAppBar = (props) => {
+
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -86,9 +88,8 @@ const MenuAppBar = (props) => {
             control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
             label={auth ? 'Login' : 'Logout'}
           />
-          <NavDropdown title="Login" id="basic-nav-dropdown">
-            <RegisterForm />
-          </NavDropdown>
+          <LoginModal />
+          <SignupModal />
         </span>
       </FormGroup>
       <AppBar position="static">
@@ -132,15 +133,9 @@ const MenuAppBar = (props) => {
                 open={open}
                 onClose={handleClose}
               >
-               <Link
-                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to={`/todo`}
-                  onClick={handleClose}>
-                  Sssshhhh TODO
-                </Link>
                 <Link
                   style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to={`/userProfile/${props.id}`}
+                  to={`/users/${props.id}`}
                   onClick={handleClose}>
                   Profile
                 </Link>

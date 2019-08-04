@@ -1,3 +1,11 @@
+#signup {
+  margin-left: 1rem;
+}
+
+.modal-content {
+  width: fit-content;
+}
+
 #register, #login {
   width: 300px;
   border: 1px solid #d6d7da;
@@ -11,11 +19,11 @@
   margin: 10px auto;
 }
 
-form label, form input {
+/* form label, form input {
   display: block;
   margin-bottom: 10px;
   width: 90%
-}
+} */
 
 form input {
   padding: 10px;

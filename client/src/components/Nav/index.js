@@ -3,7 +3,7 @@ import './style.css';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 // import Login from '..//googleLogin';
-import RegisterForm from '../RegisterForm';
+// import RegisterForm from '../RegisterForm';
 import API from '../../utils/API';
 
 function Navigation(props) {
@@ -39,7 +39,7 @@ function Navigation(props) {
             <Link style={{ marginLeft: ".5rem", color: "black" }} to={'/'}>Home</Link>
             {/* <Login /> */}
             <NavDropdown title="More" id="basic-nav-dropdown">
-              <RegisterForm />
+              {/* <RegisterForm /> */}
               {/* <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to="/" onClick={linkResponse}>Test Route</Link>
               <br></br> */}
               <Link style={{ marginLeft: ".5rem", color: "black" }} className="navLink" to={`/userProfile/${props.id}`}>Profile</Link>
