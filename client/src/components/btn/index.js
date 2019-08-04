@@ -21,7 +21,7 @@ export const DeleteBtn = (props) => {
   )
 }
 
-export const CreateEventBtn = (props) => {
+export const createEventBtn = (props) => {
   const clickHandler = () => {
 
   }

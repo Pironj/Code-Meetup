@@ -34,7 +34,7 @@ class EditEvent extends React.Component {
       description: '',
       date: '',
       location: '',
-      streetAddress: '',
+      // streetAddress: '',
     }
     this.handleInputChange = this.handleInputChange.bind(this)
   }
@@ -166,11 +166,11 @@ class EditEvent extends React.Component {
 
               </div>
 
-              <div className="input-field">
+              {/* <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Street address</label>
                 <input type="text" name="streetAddress" ref="streetAddress" value={this.state.street_address}
                   onChange={this.handleInputChange.bind(this)} />
-              </div>
+              </div> */}
 
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Location</label>
