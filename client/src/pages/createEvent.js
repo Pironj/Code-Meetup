@@ -18,7 +18,7 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
 const mapStateToProps = (state) => {
@@ -42,7 +42,7 @@ class CreateEvent extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({creator: this.props.id})
+    this.setState({ creator: this.props.id })
   }
 
   handleInputChange = event => {
@@ -56,10 +56,10 @@ class CreateEvent extends React.Component {
     console.log(this.state);
     event.preventDefault();
     if (
-      this.state.title && 
+      this.state.title &&
       this.state.description &&
-      this.state.address &&
-      this.state.date
+      this.state.address
+      // this.state.date
       ) {
       API.createEvent({
         title: this.state.title,
@@ -75,7 +75,11 @@ class CreateEvent extends React.Component {
           ]
         }
       })
-        .then(event => console.log(event))
+        .then(res => {
+          console.log(res)
+          this.props.history.push(`/events/${res.data._id}`);
+          
+        })
         .catch(err => console.log(err));
     }
   };
@@ -105,16 +109,16 @@ class CreateEvent extends React.Component {
         <Col size="sm-1" />
           <Col size="md-10">
 
-            <Jumbotron style={{textAlign: 'center', width: '40rem', marginTop: '3rem'}}>
+            <Jumbotron style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
               <h1>Create an Event</h1>
             </Jumbotron>
           </Col>
           <Col size="sm-1" />
 
         </Row>
-        <Row style={{marginBottom: '5rem'}}>
-        <Col size="sm-1" />
-        <Col size="md-5">
+        <Row style={{ marginBottom: '5rem' }}>
+          <Col size="sm-1" />
+          <Col size="md-5">
             <form>
               {/* Event title */}
               <Input
@@ -144,7 +148,7 @@ class CreateEvent extends React.Component {
               />
               <div>   <br></br>         </div>
               <FormBtn
-                style={{width: "10rem"}}
+                style={{ width: "10rem" }}
                 disabled={!(this.state.description && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
@@ -165,10 +169,10 @@ class CreateEvent extends React.Component {
               />
           </Col>
           <Col size="sm-1" />
-            {/* <Jumbotron>
+          {/* <Jumbotron>
               <h1>My Events</h1>
             </Jumbotron> */}
-            {/* {this.state.events.length ? (
+          {/* {this.state.events.length ? (
               <List>
                 {this.state.events.map(event => (
                   <ListItem key={eventNames._id}>
