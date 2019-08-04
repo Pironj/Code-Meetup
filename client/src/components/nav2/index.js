@@ -59,16 +59,6 @@ const MenuAppBar = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  function handleChange(event) {
-    console.log("logout clicked")
-    console.log(event.target.checked);
-    if (event.target.checked === false) {
-      setAuth(event.target.checked)
-      event.localStorage.removeItem('authUser');
-      props.logOut();
-    }
-
-  }
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -85,11 +75,7 @@ const MenuAppBar = (props) => {
       }
       <FormGroup>
         <span>
-          {/* <FormControlLabel
-            control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-            label={auth ? 'Login' : 'Logout'}
-          /> */}
-          <LogoutButton checked={auth} onClick={handleChange} />
+          <LogoutButton />
           <LoginModal />
           <SignupModal />
         </span>
