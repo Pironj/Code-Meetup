@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import './style.css';
 
 function LogoutButton() {
 
@@ -7,7 +8,7 @@ function LogoutButton() {
 
 
   return (
-    <Button>Logout</Button>
+    <Button id="logout">Logout</Button>
   )
 }
 
