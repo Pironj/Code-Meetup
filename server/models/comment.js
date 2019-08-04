@@ -5,10 +5,12 @@ const commentSchema = new Schema(
   {
     creator: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true
     },
     event: {
       type: Schema.Types.ObjectId,
+      ref: 'Event',
       required: true
     },
     body: {

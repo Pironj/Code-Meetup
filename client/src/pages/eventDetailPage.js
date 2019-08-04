@@ -117,7 +117,9 @@ class EventDetailsPage extends React.Component {
           <Row style={{ marginTop: '2rem', marginLeft: '.5rem' }}>
 
           </Row>
-          <CommentBox />
+          <CommentBox
+          eventId={this.state.eventId}
+           />
 
         </Container>
 

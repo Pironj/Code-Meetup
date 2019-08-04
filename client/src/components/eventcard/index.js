@@ -61,7 +61,7 @@ const EventCard = (props) => {
                   format="MM/DD/YYYY HH:mm"
                   style={{fontWeight: 'bold'}}
                   calendar={calendarStrings}>{props.date}</Moment>
-                </Card.Text>
+        </Card.Text>
         
         
        <Fab
