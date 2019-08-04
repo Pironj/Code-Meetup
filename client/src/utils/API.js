@@ -1,5 +1,6 @@
 import axios from 'axios';
-import './localStorageHelper';
+import { getJWTToken } from './localStorageHelper';
+import store from '../redux/store';
 
 const USER_API_URL = '/api/users';
 const EVENT_API_URL = '/api/events';
@@ -8,10 +9,9 @@ const COMMENT_API_URL = '/api/comments';
 const AUTH_URL = '/auth';
 
 // Helper function to get token from local storage pass this function to our protected routes to create auth headers
-const getToken = () => {
-  const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
-  const token = parseUserObj.token
-  const headers = { headers: { Authorization: `bearer ${token}` } }
+const generateHeaders = () => {
+  const token = getJWTToken()
+  const headers = { headers: { Authorization: `bearer ${token}`}, data: {user_id: store.getState().authState.id} }
   return headers;
 }
 
@@ -25,68 +25,18 @@ export default {
   authorizeSignup: (user) => {
     return axios.post(`${AUTH_URL}/signup`, user)
   },
-  //   console.log(user);
-  //   try {
-  //     axios.post(`${AUTH_URL}/signup`, user)
-  //       // authorized user data sent from our server after google authorization response
-  //       .then(res => {
-  //         console.log(res);
-  //         let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });
-  //         localStorage.setItem('authUser', authUser);
-  //         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
-  //         const token = parseUserObj.token
-  //         console.log("parsed user localstorage token: ", token);
-  //         return;
-  //       })
-  //       .catch(err => {
-  //         console.log(err)
-  //       })
-  //   } catch (err) {
-  //     console.log(err);
-  //     return err
-  //   }
-  // },
 
   authorizeLogin: (user) => {
     return axios.post(`${AUTH_URL}/login`, user)
   },
-  //   try {
-  //     axios.post(`${AUTH_URL}/login`, user)
-  //       // authorized user data sent from our server after google authorization response
-  //       .then(res => {
-  //         console.log(res);
-  //         let authUser = JSON.stringify({ id: res.data.user._id, first_name: res.data.user.first_name, last_name: res.data.user.last_name, email: res.data.user.email, token: res.data.token });
-  //         console.log("========= RESPONSE ========\n", res);
-  //         console.log(res.data.user._id, res.data.user.email, res.data.token);
-  //         localStorage.setItem('authUser', authUser);
-  //         const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
-  //         const token = parseUserObj.token
-  //         console.log("parsed user localstorage token: ", token);
-  //         return res;
-  //       })
-  //       .catch(err => {
-  //         console.log(err)
-  //       })
-  //   } catch (err) {
-  //     console.log(err);
-  //     return err
-  //   }
-  // },
 
-  // function for protected route to get the token from local storage
-  protectedRoute: () => {
-    try {
-      // grabbing the stored token from local storage
-      const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
-      const token = parseUserObj.token
-      axios.get(`/auth/test`, { headers: { Authorization: `Bearer ${token}` } }) // passing in stored token here
-        .then(res => console.log(res))
-        .then(alert("Authorized User token Access Granted!"))
-        .catch(err => console.log(err))
-    } catch (err) {
-      console.log(err);
-      alert("Please Login to access that page");
-    }
+  // function for testing protected route to get the token from local storage
+  protectedRoute: (userId) => {
+    // grabbing the stored token from local storage and put in headers
+    axios.get(`/auth/protected/${userId}`, generateHeaders()) // passing in stored token here
+      .then(res => console.log(res))
+      .then(alert("Authorized User token Access Granted!"))
+      .catch(err => console.log(err))
   },
 
   // User
@@ -99,18 +49,11 @@ export default {
  * @param {string} userId
  */
   findUserById: (userId) => {
-    // const parseUserObj = JSON.parse(localStorage.getItem('authUser'));
-    // const token = parseUserObj.token
-    axios.get(`${USER_API_URL}/${userId}`) // to protect add getToken() function as param to get req
-      .then(res => {
-        console.log('======= TEST RESPONSE =======\n', res);
-      }).catch(err => {
-        return err;
-      });
+    return axios.get(`${USER_API_URL}/${userId}`)
   },
 
   updateUser: (user) => {
-    return axios.put(`${USER_API_URL}/${user.id}`, user);
+    return axios.put(`${USER_API_URL}/${user.id}`, user); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -139,8 +82,9 @@ export default {
    * Create event (Also creates a UserEvent document for the event creator with their event)
    */
   createEvent: (event) => {
+    console.log(event)
     // TODO Get event info first
-    return axios.post(`${EVENT_API_URL}`, event);
+    return axios.post(`${EVENT_API_URL}`, event, generateHeaders());
   },
 
   /**
@@ -151,7 +95,7 @@ export default {
   },
 
   updateEvent: (event) => {
-    return axios.put(`${EVENT_API_URL}/${event.id}`, event); // to protect add getToken() function as param to get req
+    return axios.put(`${EVENT_API_URL}/${event.id}`, event, generateHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -159,7 +103,7 @@ export default {
    * @param {string} eventId
    */
   deleteEvent: (eventId) => {
-    return axios.delete(`${EVENT_API_URL}/${eventId}`); // to protect add getToken() function as param to get req
+    return axios.delete(`${EVENT_API_URL}/${eventId}`, generateHeaders()); // to protect add getToken() function as param to get req
   },
 
   // UserEvent
@@ -229,7 +173,7 @@ export default {
    */
   createComment: (comment) => {
     // TODO Get event info first
-    return axios.post(`${COMMENT_API_URL}/`, comment); // to protect add getToken() function as param to get req
+    return axios.post(`${COMMENT_API_URL}/`, comment, generateHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**

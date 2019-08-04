@@ -7,10 +7,12 @@ export const getAuthState = () => {
   return JSON.parse(localStorage.getItem('authUser'));
 }
 
+// Extract JWT from local storage
 export const getJWTToken = () => {
   return getAuthState().token;
 }
 
+// Set authentication details in local storage
 export const setAuthStateLocalStorage = (authorizedUser) => {
   const authUser = JSON.stringify(
     {
@@ -24,6 +26,7 @@ export const setAuthStateLocalStorage = (authorizedUser) => {
   localStorage.setItem('authUser', authUser);
 }
 
+// Remove user details and JWT from localstorage 
 export const deleteAuthState = () => {
   localStorage.removeItem('authUser');
 }

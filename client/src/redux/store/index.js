@@ -2,7 +2,7 @@ import { createStore, compose } from "redux";
 import rootReducer from '../reducers/index';
 import { getAuthState } from "../../utils/localStorageHelper";
 
-console.log(getAuthState());
+// Store initial logged in credentials if available on page reload in Redux store
 const loadState = () => {
   try {
     const serializedState = getAuthState();

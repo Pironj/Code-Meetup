@@ -79,6 +79,7 @@ module.exports = {
   },
 
   remove: function (req, res) {
+    console.log(req.body);
     db.Event
       .findByIdAndDelete(req.params.id)
       .then(async dbModel => {

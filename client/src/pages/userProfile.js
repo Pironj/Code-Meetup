@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleCard from "../components/usercard";
+import UserCard from "../components/usercard";
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 import UserEventCard from "../components/userEventCard";
@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { DeleteBtn, createEventBtn, EditEventBtn, cancelBtn } from "../components/btn";
 import {Col, Row } from 'react-bootstrap';
+
 
 const useStyles = makeStyles({
     container: {
@@ -24,9 +25,12 @@ class UserProfile extends React.Component {
     //create state
     state = {
         user: {},
-        userId: '',
-        events: []
+        userId: '5d44a5164e3a0c393d1e0836',
+        events: [],
+
     };
+
+   
 
 
     componentWillMount() {
@@ -39,7 +43,7 @@ class UserProfile extends React.Component {
         // const token = parseUserObj.token;
         // console.log('\nfindbyid token: ', token);
     
-
+        console.log(this.state.userId)
         API.findUserById(this.state.userId)
             .then(res => {
                 console.log(res.data)
@@ -89,7 +93,8 @@ class UserProfile extends React.Component {
                                 <LettersAvatar />
                             </Grid>
                             <Grid container direction="row" justify="center" alignItems="center">
-                                <SimpleCard />
+                                <UserCard user={this.state.user} />
+                                
                             </Grid>
                         </div>
                     </Grid>
