@@ -21,12 +21,13 @@ module.exports = {
 
   findCommentsForEvent: (req, res) => {
     db.Comment.find({ event: req.params.eventId })
+      .populate('creator.first_name')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
   findCommentsForUser: (req, res) => {
-    db.Comment.find({ user: req.params.userId })
+    db.Comment.find({ user: req.params.id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
