@@ -16,6 +16,7 @@ import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
 import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
+import LogoutButton from '../LogoutButton';
 
 import {connect} from 'react-redux';
 import {deleteAuthState} from '../../redux/actions';
@@ -59,11 +60,11 @@ const MenuAppBar = (props) => {
   const open = Boolean(anchorEl);
 
   function handleChange(event) {
-
+    console.log("logout clicked")
     console.log(event.target.checked);
-    setAuth(event.target.checked)
     if (event.target.checked === false) {
-      localStorage.removeItem('authUser');
+      setAuth(event.target.checked)
+      event.localStorage.removeItem('authUser');
       props.logOut();
     }
 
@@ -84,10 +85,11 @@ const MenuAppBar = (props) => {
       }
       <FormGroup>
         <span>
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
             label={auth ? 'Login' : 'Logout'}
-          />
+          /> */}
+          <LogoutButton checked={auth} onClick={handleChange} />
           <LoginModal />
           <SignupModal />
         </span>
