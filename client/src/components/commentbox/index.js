@@ -135,7 +135,7 @@ class CommentBox extends React.Component {
     return this.state.comments.map((comment) => {
       return (
         <Comment
-          creator={comment.creator}
+          creator={comment.creator.first_name + " " + comment.creator.last_name}
           body={comment.body}
           key={comment.id} />
       );

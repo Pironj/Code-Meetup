@@ -21,7 +21,7 @@ module.exports = {
 
   findCommentsForEvent: (req, res) => {
     db.Comment.find({ event: req.params.eventId })
-      .populate('creator.first_name')
+      .populate('creator')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
