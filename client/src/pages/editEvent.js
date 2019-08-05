@@ -10,6 +10,7 @@ import {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import Calendar from "../components/calendar"
 
 
 //Function to map our current state as props
@@ -185,6 +186,9 @@ class EditEvent extends React.Component {
                   onChange={this.handleLocationSearchChange}
                   onSelect={this.handleLocationSearchSelect}
                 />
+              </div>
+              <div>
+                <Calendar />
               </div>
               <Button type="submit" value="Save" className="btn" variant="dark">Save</Button>
               {/* <input type="submit" value="Save" className="btn" /> */}
