@@ -9,12 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import { Col, Row } from 'react-bootstrap';
 
 
-// const useStyles = makeStyles({
-//     container: {
-//         backgroundColor: grey[400]
-//     }
-// });
-
 class UserProfile extends React.Component {
 
     state = {
@@ -65,93 +59,79 @@ class UserProfile extends React.Component {
             }).catch(err => console.log(err));
     }
 
-    /**
-     * Render UserEvent card
-     */
-    // renderUserEventCard = (userEvent) => {
-    //     return (
-    //         <UserEventCard
-    //             title={userEvent.event_id.title}
-    //             description={userEvent.event_id.description}
-    //             date={userEvent.event_id.date}
-    //             key={userEvent._id}
-    //             id={userEvent.event_id._id}
-    //             onDelete={() => this.onDelete(userEvent.event_id._id)}
-    //         />
-    //     )
-    // }
-
     render() {
         return (
-            <div>
-                {this.state.user._id ? (
+            this.state.user._id ? (
+                <div>
                     <div>
-                        <div>
-                            <Grid
-                                style={{ marginTop: '2rem' }}
-                                item md={1} container direction="column"
-                                justify="center"
-                                alignItems="center"
-                            >
-                                <div>
-                                    <Grid container direction="row" justify="center" alignItems="center">
-                                        <LettersAvatar />
-                                    </Grid>
-                                    <Grid container direction="row" justify="center" alignItems="center">
-                                        <UserCard user={this.state.user} />
-                                    </Grid>
-                                </div>
-                            </Grid>
-                        </div>
-                        <div>
-                            {/* <Grid item md={12} container direction="row" justify="center" alignItems="center">
-                        <createEventBtn />
-                    </Grid> */}
-                        </div>
                         <Row>
-                            <Col>
-                                <h2>Events You Created</h2>
-                                {
-                                    this.state.userEvents.map(userEvent => (
-                                        userEvent.event_id.creator === this.state.userId ? (
-                                            <UserEventCard
-                                                title={userEvent.event_id.title}
-                                                description={userEvent.event_id.description}
-                                                date={userEvent.event_id.date}
-                                                key={userEvent._id}
-                                                id={userEvent.event_id._id}
-                                                onDelete={() => this.onDelete(userEvent.event_id._id)}
-                                            />
-                                        ) :
-                                            ''
-                                    ))
-                                }
+                            <Col sm={1} />
+                            <Col md={6}>
+                                <Grid
+                                    style={{ marginTop: '2rem' }}
+                                    item md={1} container direction="column"
+                                    justify="center"
+                                    alignItems="center"
+                                >
+                                    <div>
+                                        <Grid style={{ paddingBottom: '1rem' }} container direction="row" justify="center" alignItems="center">
+                                            <LettersAvatar />
+                                        </Grid>
+                                        <Grid container direction="row" justify="center" alignItems="center">
+                                            <UserCard user={this.state.user} />
+                                        </Grid>
+                                    </div>
+                                </Grid>
                             </Col>
-                            <Col id="attending">
-                                <h2>Events You Are Attending</h2>
-                                {
-                                    this.state.userEvents.map(userEvent => (
-                                        userEvent.event_id.creator !== this.state.userId ? (
-                                            <UserEventCard
-                                                title={userEvent.event_id.title}
-                                                description={userEvent.event_id.description}
-                                                date={userEvent.event_id.date}
-                                                key={userEvent._id}
-                                                id={userEvent.event_id._id}
-                                            />
-                                        ) :
-                                            ''
-                                    ))
-                                }
-                            </Col>
+                            <Col md={4} />
                         </Row>
                     </div>
-                ) : <h2>User does not exist</h2>}
+                    <Row style={{ marginBottom: '5rem' }}>
+                        <Col md={2} />
+                        <Col md={4} style={{ marginTop: '5rem' }}>
+                            <h2 style={{ textAlign: 'center' }}>Events You Created</h2>
+                            {
+                                this.state.userEvents.map(userEvent => (
+                                    userEvent.event_id.creator === this.state.userId ? (
+                                        <UserEventCard
+                                            title={userEvent.event_id.title}
+                                            description={userEvent.event_id.description}
+                                            date={userEvent.event_id.date}
+                                            key={userEvent._id}
+                                            id={userEvent.event_id._id}
+                                            onDelete={() => this.onDelete(userEvent.event_id._id)}
+                                        />
+                                    ) :
+                                        ''
+                                ))
+                            }
+                        </Col>
+                        <Col md={4} style={{ marginTop: '5rem' }} id="attending">
+                            <h2 style={{ textAlign: 'center' }}>Events You Are Attending</h2>
+                            {
+                                this.state.userEvents.map(userEvent => (
+                                    userEvent.event_id.creator !== this.state.userId ? (
+                                        <UserEventCard
+                                            title={userEvent.event_id.title}
+                                            description={userEvent.event_id.description}
+                                            date={userEvent.event_id.date}
+                                            key={userEvent._id}
+                                            id={userEvent.event_id._id}
+                                        />
+                                    ) :
+                                        ''
+                                ))
+                            }
+                        </Col>
+                        <Col md={2} />
+                    </Row>
+                </div>
+            ) : (
+                    <h2>User does not exist</h2>
+                )
 
-            </div>
         )
     }
 }
 
 export default UserProfile;
-
