@@ -19,7 +19,6 @@ import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
 import './style.css';
-import { Row, Col } from 'react-bootstrap';
 
 import {connect} from 'react-redux';
 import {deleteAuthState} from '../../redux/actions';

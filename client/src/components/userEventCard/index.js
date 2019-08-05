@@ -98,6 +98,7 @@ const UserEventCard = (props) => {
                     aria-label="add"
                     // className={classes.margin}
                     style={{marginLeft: '4rem'}}
+                    onClick={props.onDelete}
 
                   >
                     Delete

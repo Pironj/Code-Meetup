@@ -71,8 +71,8 @@ export default {
 
   /**
    *  Find all events within a (currently hard coded distance of 10,000 meters) from a coordinate
-   * @param {int} longitude 
-   * @param {int} latitude 
+   * @param {number} longitude 
+   * @param {number} latitude 
    */
   findEventsNear: (latitude, longitude) => {
     return axios.get(`${EVENT_API_URL}/${latitude}/${longitude}`); // to protect add getToken() function as param to get req
@@ -82,7 +82,6 @@ export default {
    * Create event (Also creates a UserEvent document for the event creator with their event)
    */
   createEvent: (event) => {
-    console.log(event)
     // TODO Get event info first
     return axios.post(`${EVENT_API_URL}`, event, generateHeaders());
   },
@@ -169,7 +168,7 @@ export default {
   },
 
   /**
-   * Create event (Also creates a UserEvent document for the event creator with their event)
+   * Create a comment for an event
    */
   createComment: (comment) => {
     // TODO Get event info first
