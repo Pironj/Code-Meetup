@@ -6,8 +6,8 @@ import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link as RouterLink } from 'react-router-dom';
-import GoogleApiWrapper from '../components/googleMaps'
-
+import GoogleApiWrapper from '../components/googleMaps';
+import './style.css';
 import { connect } from 'react-redux';
 
 
@@ -83,7 +83,7 @@ class EventDetailsPage extends React.Component {
 
     return (
       <div>
-        <Container>
+        <Container id="eventDetail">
           <Row style={{ marginTop: '2rem' }}>
             <Col>
 

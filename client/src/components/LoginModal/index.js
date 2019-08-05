@@ -125,7 +125,7 @@ class LoginModal extends Component {
   render() {
     return (
       <>
-        <Button variant="primary" onClick={ this.handleShow }>
+        <Button id="loginBtn"variant="primary" onClick={ this.handleShow }>
           Login
         </Button>
     

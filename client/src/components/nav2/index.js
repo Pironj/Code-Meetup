@@ -74,11 +74,12 @@ const MenuAppBar = (props) => {
         props.first_name ? props.first_name :  'Not logged in'
       }
       <FormGroup>
-        <span>
-          <LogoutButton />
-          <LoginModal />
-          <SignupModal />
-        </span>
+        {
+          props.first_name ? <LogoutButton /> : <span><LoginModal /><SignupModal /></span>
+        }
+        {/* <LogoutButton />
+        <LoginModal />
+        <SignupModal /> */}
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
