@@ -27,6 +27,7 @@ const useStyles = makeStyles({
 export default function UserCard(props) {
     const classes = useStyles();
 
+//Here we are returning a "User Profile Card" that is shown on their profile page
     return (
         <div className = "col-md-4">
             <Card className={classes.card}>

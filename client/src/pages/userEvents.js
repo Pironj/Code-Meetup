@@ -1,9 +1,9 @@
 import React from "react";
 import API from "../utils/API";
-import CommentBox from "../components/commentbox";
+// import CommentBox from "../components/commentbox";
 import FullEvent from "../components/fullEvent"
-import FooterComponent from "../components/footer";
-import Axios from "axios";
+// import FooterComponent from "../components/footer";
+// import Axios from "axios";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 

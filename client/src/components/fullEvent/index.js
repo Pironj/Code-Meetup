@@ -18,6 +18,8 @@ const FullEvent = (props) => {
     sameElse: 'L'
   };
 
+//Full event details are returned to user
+
   return (
     <Jumbotron style={{paddingBottom: '2rem'}} className="fullEvent">
       <p>Title: {props.title}</p>

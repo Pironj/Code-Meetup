@@ -20,16 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// const getEventData = () => {
-//   console.log(req)
-//   API.findEventsForUser()
-//     .then(res => {
-//       console.log("event res", res);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     })
-// }
+
 const UserEventCard = (props) => {
   console.log("event props", props);
   const color = teal[500]
@@ -50,7 +41,7 @@ const UserEventCard = (props) => {
   };
   //const dateToFormat = (props);
   
-
+//Here we are returning a User Event Card
   return (
     <div>
       {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}
@@ -62,9 +53,9 @@ const UserEventCard = (props) => {
               {props.description}
             </Card.Text>
             <Card.Text>
-              <Moment
+              <Moment // Moment JS used to display calendar dates
                 style={{ fontWeight: 'bold' }}
-                calendar={calendarStrings}>{props.date}</Moment>
+                calendar={calendarStrings}>{props.date}</Moment> 
               {/* <hr></hr> */}
             </Card.Text>
 

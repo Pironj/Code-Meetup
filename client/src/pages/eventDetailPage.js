@@ -36,6 +36,7 @@ class EventDetailsPage extends React.Component {
     });
   }
 
+//When user hits Attend button, a new user event is created
   onAttend = () => {
     API.createUserEvent(
       {
@@ -48,6 +49,8 @@ class EventDetailsPage extends React.Component {
       .catch(err => console.log(err.response));
   }
 
+
+  //Here we are finding specific event ID on first render
   componentDidMount() {
     API.findEventById(this.state.eventId)
       .then(data => {

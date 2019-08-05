@@ -1,8 +1,8 @@
 import React from "react";
 import API from "../utils/API";
-import FullEvent from "../components/fullEvent";
-import FooterComponent from "../components/footer";
-import axios from "axios";
+// import FullEvent from "../components/fullEvent";
+// import FooterComponent from "../components/footer";
+// import axios from "axios";
 import { Jumbotron, Container, Row, Col, Button } from "react-bootstrap";
 import LocationSearchInput from "../components/googleMapsSearchAutocomplete";
 import { connect } from 'react-redux';
@@ -12,6 +12,7 @@ import {
 } from 'react-places-autocomplete';
 
 
+//Function to map our current state as props
 
 const mapStateToProps = (state) => {
   return {
@@ -38,14 +39,17 @@ class EditEvent extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
+  // Here we run componentDidMount async for proper error handling
   async componentDidMount() {
-    await this.setState({
+    await this.setState({ 
       eventId: this.props.match.params.id,
       creator: this.props.id,
     })
     this.populateEvent();
   }
 
+
+  //Function to find specific event that user wants to edit
   populateEvent() {
     API.findEventById(this.state.eventId)
       .then(response => {
@@ -59,12 +63,15 @@ class EditEvent extends React.Component {
       }).catch(err => console.log(err));
   }
 
+//
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
+
+//When user hits submit to edit event, DB is updated as well
 
   handleFormSubmit = event => {
     event.preventDefault();

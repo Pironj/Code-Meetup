@@ -41,6 +41,8 @@ const EventCard = (props) => {
   };
   //const dateToFormat = (props);
 
+
+  //Returns event cards with title, creator, date, location, etc
   return (
     <div>
           {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}

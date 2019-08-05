@@ -1,25 +1,23 @@
 import React from "react";
 import API from "../utils/API";
-import FullEvent from "../components/fullEvent";
-import axios from "axios";
+// import FullEvent from "../components/fullEvent";
+// import axios from "axios";
 import { Jumbotron, Button, Container, Row, Col } from "react-bootstrap";
 import { Form, Input, FormBtn, TextArea } from "../components/Form";
-import { List, ListItem } from "../components/List";
-import { Link } from "react-router-dom";
-import Calendar from '../components/calendar'
+// import { List, ListItem } from "../components/List";
+// import { Link } from "react-router-dom";
+// import Calendar from '../components/calendar'
 import "../components/calendar/index.css"
 //import '@lls/react-light-calendar/dist/index.css'
 import "../components/calendar/index.css"
-
 import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
 import {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-
 import { connect } from 'react-redux';
 
-
+//Function to map our current state as props
 const mapStateToProps = (state) => {
   return {
     id: state.authState.id,
@@ -40,10 +38,12 @@ class CreateEvent extends React.Component {
     latLng: {},
   };
 
+//When page loads, creator is updated
   componentDidMount() {
     this.setState({ creator: this.props.id })
   }
 
+//
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -51,6 +51,7 @@ class CreateEvent extends React.Component {
     });
   };
 
+//When user clicks submit, event is created in state and also created in DB
   handleFormSubmit = event => {
     console.log(this.state);
     event.preventDefault();
@@ -83,6 +84,9 @@ class CreateEvent extends React.Component {
     }
   };
 
+
+  //Google Maps function for setting dynamic location 
+  
   handleLocationSearchChange = address => {
     this.setState({ address });
   };
