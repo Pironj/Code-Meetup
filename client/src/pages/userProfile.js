@@ -103,9 +103,9 @@ class UserProfile extends React.Component {
                     </Grid>
                 </div>
                 <div>
-                    <Grid item md={12} container direction="row" justify="center" alignItems="center">
+                    {/* <Grid item md={12} container direction="row" justify="center" alignItems="center">
                         <createEventBtn />
-                    </Grid>
+                    </Grid> */}
                 </div>
                 <Row>
                     <Col>
