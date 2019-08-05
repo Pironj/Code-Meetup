@@ -4,7 +4,6 @@ import FullEvent from "../components/fullEvent";
 import FooterComponent from "../components/footer";
 import axios from "axios";
 import { Jumbotron, Container, Row, Col, Button } from "react-bootstrap";
-import { CreateBtn } from "../components/btn";
 import LocationSearchInput from "../components/googleMapsSearchAutocomplete";
 import { connect } from 'react-redux';
 import {

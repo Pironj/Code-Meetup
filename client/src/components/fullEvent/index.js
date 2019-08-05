@@ -1,6 +1,5 @@
 import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
-import { AttendBtn } from '../btn';
 import Moment from "react-moment";
 import GoogleApiWrapper from '../googleMaps';
 

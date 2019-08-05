@@ -6,7 +6,6 @@ import teal from '@material-ui/core/colors/teal';
 import Fab from '@material-ui/core/Fab';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 import { Card, Col, Row, Container } from 'react-bootstrap';
-import { EditEventBtn, DeleteBtn, AttendBtn } from '../btn';
 import App from "../eventDetailModal";
 import API from '../../utils/API';
 import { PromiseProvider } from 'mongoose';

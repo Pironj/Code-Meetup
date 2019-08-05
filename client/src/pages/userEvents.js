@@ -1,6 +1,5 @@
 import React from "react";
 import API from "../utils/API";
-import { AttendBtn } from "../components/btn";
 import CommentBox from "../components/commentbox";
 import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";

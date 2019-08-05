@@ -3,7 +3,6 @@ import API from "../utils/API";
 import FullEvent from "../components/fullEvent";
 import axios from "axios";
 import { Jumbotron, Button, Container, Row, Col } from "react-bootstrap";
-import { CreateBtn } from "../components/btn";
 import { Form, Input, FormBtn, TextArea } from "../components/Form";
 import { List, ListItem } from "../components/List";
 import { Link } from "react-router-dom";
