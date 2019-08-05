@@ -38,6 +38,7 @@ class EventDetailsPage extends React.Component {
 
 //When user hits Attend button, a new user event is created
   onAttend = () => {
+    alert("Nice! You are now attending this event!");
     API.createUserEvent(
       {
         event_id: this.state.eventId,

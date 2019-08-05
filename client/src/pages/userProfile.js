@@ -84,31 +84,37 @@ class UserProfile extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <Grid
-                        style={{ marginTop: '2rem' }}
-                        item md={1} container direction="column"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <div>
-                            <Grid container direction="row" justify="center" alignItems="center">
-                                <LettersAvatar />
+            <div>
+                <Row>
+                    <Col sm={1} />
+                        <Col md={6}>
+                            <Grid
+                                style={{ marginTop: '2rem' }}
+                                item md={1} container direction="column"
+                                justify="center"
+                                alignItems="center"
+                            >
+                                <div>
+                                    <Grid style={{paddingBottom: '1rem'}} container direction="row" justify="center" alignItems="center">
+                                        <LettersAvatar />
+                                    </Grid>
+                                    <Grid container direction="row" justify="center" alignItems="center">
+                                        <UserCard user={this.state.user} />
+                                    </Grid>
+                                </div>
                             </Grid>
-                            <Grid container direction="row" justify="center" alignItems="center">
-                                <UserCard user={this.state.user} />
-                            </Grid>
-                        </div>
-                    </Grid>
-                </div>
-                <div>
-                    {/* <Grid item md={12} container direction="row" justify="center" alignItems="center">
-                        <createEventBtn />
+                        </Col>
+                    <Col md={4} />
+                </Row>
+                    
+                        {/* <Grid item md={12} container direction="row" justify="center" alignItems="center">
+                            <createEventBtn />
                     </Grid> */}
                 </div>
-                <Row>
-                    <Col>
-                        <h2>Events You Created</h2>
+                <Row style={{marginBottom: '5rem'}}>
+                    <Col md={2} />
+                    <Col md={4} style={{marginTop: '5rem'}}>
+                        <h2 style={{textAlign: 'center'}}>Events You Created</h2>
                         {
                             this.state.events.map(userEvent => (
                                 userEvent.event_id.creator === this.state.userId ? (
@@ -125,8 +131,8 @@ class UserProfile extends React.Component {
                             ))
                         }
                     </Col>
-                    <Col id="attending">
-                        <h2>Events You Are Attending</h2>
+                    <Col md={4} style={{marginTop: '5rem'}} id="attending">
+                        <h2 style={{textAlign: 'center'}}>Events You Are Attending</h2>
                         {
                             this.state.events.map(userEvent => (
                                 userEvent.event_id.creator !== this.state.userId ? (
@@ -142,6 +148,7 @@ class UserProfile extends React.Component {
                             ))
                         }
                     </Col>
+                    <Col md={2} />
                 </Row>
             </div>
         )

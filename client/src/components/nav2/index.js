@@ -14,6 +14,7 @@ import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
+import {Row, Col} from 'react-bootstrap';
 import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
@@ -69,17 +70,7 @@ const MenuAppBar = (props) => {
   }
 
   return (
-    <div className={classes.root}>
-      (Temporary for testing) Logged in as: {
-        props.first_name ? props.first_name :  'Not logged in'
-      }
-      <FormGroup>
-        <span>
-          <LogoutButton />
-          <LoginModal />
-          <SignupModal />
-        </span>
-      </FormGroup>
+    <div>
       <AppBar position="static">
         <Toolbar>
           {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -146,6 +137,19 @@ const MenuAppBar = (props) => {
           )}
         </Toolbar>
       </AppBar>
+      <div style={{backgroundColor: '#3f51b5', color: 'ivory', paddingLeft: '.5rem'}} className={classes.root}>
+      (Temporary for testing) Logged in as: {
+        props.first_name ? props.first_name :  'Not logged in'
+      }
+      </div>
+      <FormGroup style={{marginTop: '.5rem', paddingBottom: '.5rem', marginLeft: '1rem'}}>
+        <span>
+          <LogoutButton />
+          <LoginModal />
+          <SignupModal />
+        </span>
+      </FormGroup>
+
     </div>
   );
 }
