@@ -51,7 +51,6 @@ class UserProfile extends React.Component {
     onDelete = (id) => {
         API.deleteEvent(id)
             .then(response => {
-                console.log(response);
                 const updatedUserEvents = this.state.userEvents.filter(userEvent => {
                     return userEvent.event_id._id !== response.data._id
                 })
@@ -129,7 +128,6 @@ class UserProfile extends React.Component {
             ) : (
                     <h2>User does not exist</h2>
                 )
-
         )
     }
 }
