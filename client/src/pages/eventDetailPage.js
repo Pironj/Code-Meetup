@@ -27,7 +27,8 @@ class EventDetailsPage extends React.Component {
     event: {},
     eventId: '',
     userId: '',
-    comments: []
+    comments: [],
+    // isAttending: false // is not mapped yet to specific events
   }
 
   componentWillMount() {
@@ -45,6 +46,9 @@ class EventDetailsPage extends React.Component {
       })
       .then(res => {
         console.log(res.data)
+        // this.setState(
+        //   this.state.isAttending = true
+        // )
       })
       .catch(err => console.log(err.response));
   }
@@ -110,6 +114,9 @@ class EventDetailsPage extends React.Component {
           {/* <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
           <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button>
+          {/* {
+            this.state.isAttending ? <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button> : <div></div>
+          } */}
 
 
           {/* </Row> */}
