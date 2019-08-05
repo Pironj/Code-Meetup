@@ -170,19 +170,7 @@ const MenuAppBar = (props) => {
           )}
         </Toolbar>
       </AppBar>
-      <div style={{backgroundColor: '#3f51b5', color: 'ivory', paddingLeft: '.5rem'}} className={classes.root}>
-      (Temporary for testing) Logged in as: {
-        props.first_name ? props.first_name :  'Not logged in'
-      }
-      </div>
-      <FormGroup style={{marginTop: '.5rem', paddingBottom: '.5rem', marginLeft: '1rem'}}>
-        <span>
-          <LogoutButton />
-          <LoginModal />
-          <SignupModal />
-        </span>
-      </FormGroup>
-
+      
     </div>
   );
 }
