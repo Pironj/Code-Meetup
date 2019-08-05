@@ -5,8 +5,8 @@ import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link as RouterLink } from 'react-router-dom';
-import GoogleApiWrapper from '../components/googleMaps'
-
+import GoogleApiWrapper from '../components/googleMaps';
+import './style.css';
 import { connect } from 'react-redux';
 
 
@@ -26,7 +26,8 @@ class EventDetailsPage extends React.Component {
     event: {},
     eventId: '',
     userId: '',
-    comments: []
+    comments: [],
+    // isAttending: false // is not mapped yet to specific events
   }
 
   componentWillMount() {
@@ -45,6 +46,9 @@ class EventDetailsPage extends React.Component {
       })
       .then(res => {
         console.log(res.data)
+        // this.setState(
+        //   this.state.isAttending = true
+        // )
       })
       .catch(err => console.log(err.response));
   }
@@ -85,7 +89,7 @@ class EventDetailsPage extends React.Component {
 
     return (
       <div>
-        <Container>
+        <Container id="eventDetail">
           <Row style={{ marginTop: '2rem' }}>
             <Col>
 
@@ -111,7 +115,10 @@ class EventDetailsPage extends React.Component {
 
           {/* <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
-          <Button onClick={this.onAttend} variant="dark">Attend</Button>
+          <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button>
+          {/* {
+            this.state.isAttending ? <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button> : <div></div>
+          } */}
 
 
           {/* </Row> */}
