@@ -15,7 +15,7 @@ export default function (state = initialState, action) {
     case SET_AUTH_STATE: {
       const content = action.payload;
       return {
-        ...state,
+        ...state, // Spread operator returns a copy of current state
         id: content.id,
         first_name: content.first_name,
         last_name: content.last_name,
