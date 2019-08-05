@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import API from "../../utils/API";
-import { PromiseProvider } from 'mongoose'
 import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
 const useStyles = makeStyles({
@@ -27,6 +25,7 @@ const useStyles = makeStyles({
 const UserCard = (props) => {
     const classes = useStyles();
 
+    //Here we are returning a "User Profile Card" that is shown on their profile page
     return (
         <div className="col-md-4">
             <Card className={classes.card}>
@@ -38,7 +37,6 @@ const UserCard = (props) => {
                         </React.Fragment>
                     </Typography>
                 </CardContent>
-    
             </Card>
         </div>
     );

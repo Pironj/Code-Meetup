@@ -10,7 +10,7 @@ router.route('/')
 // // Matches with "/api/users/:id"
 router.route('/:id')
   .get(userController.findById) // to protect in auth.authorizeUserParams
-  .put(userController.update) // to protect in auth.authorizeUserParams
-  .delete(userController.remove); // to protect in auth.authorizeUserParams
+  .put(auth.authorizeUserParams, userController.update) // to protect in auth.authorizeUserParams
+  .delete(auth.authorizeUserParams, userController.remove); // to protect in auth.authorizeUserParams
 
 module.exports = router;

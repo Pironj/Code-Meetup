@@ -32,6 +32,8 @@ const EventDetailModal = (props) => {
     );
 }
 
+//Modal that shows event details
+
   function App(props) {
     console.log("in app");
     console.log(props)

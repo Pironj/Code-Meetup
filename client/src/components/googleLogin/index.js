@@ -3,6 +3,9 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import  API from '../../utils/API';
 require("dotenv").config();
 
+
+//Function to authorize user Login
+
 function Login() {
   
   const responseGoogle = async (response) => {
@@ -34,6 +37,7 @@ function Login() {
     
   }
 
+//Function for logging out
 
   const logout = (response) => {
     console.log(response);
@@ -41,6 +45,8 @@ function Login() {
     return response;
   }
 
+
+//Return Login and Logout components specific to user
   return (
     <div>
 

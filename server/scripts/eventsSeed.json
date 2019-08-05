@@ -1,9 +1,10 @@
 [
   {
     "title": "Interview Questions",
-    "description": "Practice interview questions with us! We will grill each other for fun. Meet at the Freemont Brewing Company. Practice interview questions with us! We will grill each other for fun.",
+    "description": "Practice interview questions with us! We will grill each other for fun. Meet at the Freemont Brewing Company.",
     "creator": "",
     "date": "2019-12-17T17:30:00",
+    "street_address": "Fremont Brewing Company, North 34th Street, Seattle, WA",
     "location": {
       "type": "Point",
       "coordinates": [
@@ -14,9 +15,10 @@
   },
   {
     "title": "Study Time!",
-    "description": "Time to work on projects. Meet at El Diablo Coffee in Queen Anne. Practice interview questions with us! We will grill each other for fun",
+    "description": "Time to work on projects. Meet at El Diablo Coffee in Queen Anne.",
     "creator": "",
     "date": "2019-08-19T18:30:00",
+    "street_address": "El Diablo Coffee Co, Queen Anne Avenue North, Seattle, WA",
     "location": {
       "type": "Point",
       "coordinates": [
@@ -27,9 +29,10 @@
   },
   {
     "title": "Interview a dev",
-    "description": "Get some insight in the industry. Meet at Cafe Fiore in West Seattle. Practice interview questions with us! We will grill each other for fun",
+    "description": "Get some insight in the industry. Meet at Cafe Fiore in West Seattle.",
     "creator": "",
     "date": "2019-07-30T16:30:00",
+    "street_address": "Caffè Fiore, California Avenue Southwest, Seattle, WA", 
     "location": {
       "type": "Point",
       "coordinates": [
@@ -40,9 +43,10 @@
   },
   {
     "title": "Goof off time",
-    "description": "Let's Goof off! Meet at the Starbucks in the West Seattle Admiral district. Practice interview questions with us! We will grill each other for fun",
+    "description": "Let's Goof off! Meet at the Starbucks in the West Seattle Admiral district.",
     "creator": "",
     "date": "2019-07-26T17:00:00",
+    "street_address": "Starbucks, 2622 California Ave SW, Seattle, WA 98116",
     "location": {
       "type": "Point",
       "coordinates": [
@@ -53,9 +57,10 @@
   },
   {
     "title": "Meetup",
-    "description": "Meetup with devs. Meet at Bellden Cafe in Bellevue. Practice interview questions with us! We will grill each other for fun",
+    "description": "Meetup with devs. Meet at Bellden Cafe in Bellevue.",
     "creator": "",
     "date": "2019-11-27T18:00:00",
+    "street_address": "Bellden Cafe, Main Street, Bellevue, WA",
     "location": {
       "type": "Point",
       "coordinates": [
@@ -66,9 +71,10 @@
   },
   {
     "title": "Networking",
-    "description": "Network for days. Meet at Kelly Latte's in Kent. Practice interview questions with us! We will grill each other for fun",
+    "description": "Network for days. Meet at Kelly Latte's in Kent.",
     "creator": "",
     "date": "2019-10-17T17:30:00",
+    "street_address": "Kelly Latte's, 132nd Avenue Southeast, Kent, WA",
     "location": {
       "type": "Point",
       "coordinates": [

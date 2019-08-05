@@ -83,7 +83,7 @@ class Auth {
   }
 
   authorizeUserBody(req, res, next) {
-    console.log(req.body)
+    console.log(req.body);
     res.locals.userIdLocation = req.body.user_id;
     return this.authorizeUser(req, res, next);
   }

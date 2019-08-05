@@ -22,6 +22,7 @@ export default class Signup extends Component {
     };
   }
 
+  //Function that validates user login
   validateForm() {
     return (
       this.state.email.length > 0 &&
@@ -30,15 +31,20 @@ export default class Signup extends Component {
     );
   }
 
+  //Function to confirm login
   validateConfirmationForm() {
     return this.state.confirmationCode.length > 0;
   }
+
+
 
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
   }
+
+//When user hits Submit, page does not reload but state is updated
 
   handleSubmit = async event => {
     event.preventDefault();
@@ -50,6 +56,7 @@ export default class Signup extends Component {
     this.setState({ isLoading: false });
   }
 
+  
   handleConfirmationSubmit = async event => {
     event.preventDefault();
 
