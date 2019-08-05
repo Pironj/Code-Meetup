@@ -6,7 +6,6 @@ import teal from '@material-ui/core/colors/teal';
 import Fab from '@material-ui/core/Fab';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import {Card, Container} from 'react-bootstrap';
-import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
 import Moment from "react-moment";
@@ -42,6 +41,8 @@ const EventCard = (props) => {
   };
   //const dateToFormat = (props);
 
+
+  //Returns event cards with title, creator, date, location, etc
   return (
     <div>
           {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}

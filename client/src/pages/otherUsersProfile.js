@@ -6,7 +6,6 @@ import API from "../utils/API";
 import Nav from "../components/Nav";
 import EventCard from "../components/eventcard";
 import Grid from '@material-ui/core/Grid';
-import { AttendBtn } from "../components/btn";
 
 
 class OtherUsersProfile extends React.Component {
