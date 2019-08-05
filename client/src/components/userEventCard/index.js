@@ -10,14 +10,14 @@ import { Card, Col, Row, Container } from 'react-bootstrap';
 // import API from '../../utils/API';
 import Moment from "react-moment";
 
-const useStyles = makeStyles(theme => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}));
+// const useStyles = makeStyles(theme => ({
+//   margin: {
+//     margin: theme.spacing(0),
+//   },
+//   extendedIcon: {
+//     marginRight: theme.spacing(1),
+//   },
+// }));
 
 const calendarStrings = {
   lastDay: '[Yesterday at] LT',
@@ -32,7 +32,7 @@ const calendarStrings = {
 
 
 const UserEventCard = (props) => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   //const dateToFormat = (props);
 
@@ -54,11 +54,11 @@ const UserEventCard = (props) => {
                 style={{ fontWeight: 'bold' }}
                 calendar={calendarStrings}>{props.date}
               </Moment>
-              {/* <hr></hr> */}
+              <hr></hr>
             </Card.Text>
 
             {/* Detail view button */}
-            <Row style={{ marginLeft: '8rem' }}>
+            <Row>
               <Fab
                 variant="extended"
                 size="small"
@@ -66,8 +66,8 @@ const UserEventCard = (props) => {
                 aria-label="add"
                 component={RouterLink}
                 to={`/events/${props.id}`}
-                className={classes.margin}
-                style={{ marginLeft: '11rem' }}
+                // className={classes.margin}
+                style={{ marginLeft: '14rem' }}
               >
                 Details
               </Fab>
@@ -81,7 +81,8 @@ const UserEventCard = (props) => {
                   aria-label="add"
                   component={RouterLink}
                   to={`/events/${props.id}/edit`}
-                  className={classes.margin}
+                  // className={classes.margin}
+                  style={{marginLeft: '10rem'}}
                 >
                   Edit
                 </Fab> : ''
@@ -95,15 +96,17 @@ const UserEventCard = (props) => {
                     size="small"
                     color="secondary"
                     aria-label="add"
-                    className={classes.margin}
+                    // className={classes.margin}
+                    style={{marginLeft: '4rem'}}
+
                   >
                     Delete
                   </Fab>
                 )
                   : ''
               }
-
             </Row>
+            <Row />
           </Card.Body>
         </Card>
       </Container>

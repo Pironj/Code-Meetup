@@ -14,6 +14,7 @@ import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
+import {Row, Col} from 'react-bootstrap';
 import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
@@ -71,6 +72,7 @@ const MenuAppBar = (props) => {
   }
 
   return (
+    
     <div className={classes.root}>
       <FormGroup>
         <Row>
@@ -168,6 +170,7 @@ const MenuAppBar = (props) => {
           )}
         </Toolbar>
       </AppBar>
+      
     </div>
   );
 }
