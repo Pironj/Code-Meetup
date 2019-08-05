@@ -131,26 +131,38 @@ const MenuAppBar = (props) => {
                 open={open}
                 onClose={handleClose}
               >
-                <Link
-                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to={`/users/${props.id}`}
-                  onClick={handleClose}>
-                  Profile
-                </Link>
-                <br></br>
-                <Link
-                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to="/events"
-                  onClick={handleClose}>
-                  Events
-                </Link>
-                <br></br>
-                <Link
-                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to="/create-event"
-                  onClick={handleClose}>
-                  Create Event
-                </Link>
+                {
+                props.first_name ? 
+                <div>
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to={`/users/${props.id}`}
+                    onClick={handleClose}>
+                    Profile
+                  </Link>
+                  <br></br>
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to="/events"
+                    onClick={handleClose}>
+                    Events
+                  </Link>
+                  <br></br>
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to="/create-event"
+                    onClick={handleClose}>
+                    Create Event
+                  </Link>
+                </div>
+                :
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to="/events"
+                    onClick={handleClose}>
+                    Events
+                  </Link>
+                }
               </Menu>
             </div>
           )}
