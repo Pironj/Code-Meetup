@@ -2,10 +2,10 @@ import React from 'react';
 import './style.css';
 import {Card} from 'react-bootstrap';
 import DeleteModal from '../deleteModal'
-import {EditEventBtn, DeleteBtn, AttendBtn} from '../btn';
 import App from "../eventDetailModal";
 import { PromiseProvider } from 'mongoose';
 
+//Function to delete specific event card
 
 const DeleteEventCard = (props) => {
   const editHandler = (id) => {
@@ -13,9 +13,7 @@ const DeleteEventCard = (props) => {
     props.deleteEvent(props.id)
     props.attendEvent(props.id)
   };
-  // console.log("event card props");
   
-  // console.log(props)
 
   return (
     <div>
@@ -30,12 +28,6 @@ const DeleteEventCard = (props) => {
       eventTitle={props.eventTitle}
       eventContent={props.eventContent}
     />
-    {/* <EditEventBtn editEvent = {props.editEvent}
-                    id = {props.id} />
-    <DeleteBtn deleteEvent = {props.deleteEvent}
-                    id = {props.id} /> 
-    <AttendBtn attendEvent = {props.attendEvent}
-                    id = {props.id} /> */}
     </Card.Body>
   </Card>
     </div>

@@ -4,9 +4,8 @@ import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 import UserEventCard from "../components/userEventCard";
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
-import { DeleteBtn, createEventBtn, EditEventBtn, cancelBtn } from "../components/btn";
+// import { makeStyles } from '@material-ui/core/styles';
+// import { grey } from '@material-ui/core/colors';
 import { Col, Row } from 'react-bootstrap';
 
 
