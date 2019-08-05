@@ -2,6 +2,7 @@
   width: fit-content;
 }
 #loginBtn {
+max-width: 100px;
 width: 20%;
 color: rgb(255, 255, 255); 
 font-size: 14px; 
