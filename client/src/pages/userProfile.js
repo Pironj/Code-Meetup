@@ -65,7 +65,6 @@ class UserProfile extends React.Component {
             }).catch(err => console.log(err));
     }
 
-
     /**
      * Render UserEvent card
      */

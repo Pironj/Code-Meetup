@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
+// import teal from '@material-ui/core/colors/teal';
 import Fab from '@material-ui/core/Fab';
 // import NavigationIcon from '@material-ui/icons/Navigation';
 import { Card, Col, Row, Container } from 'react-bootstrap';
@@ -28,16 +28,11 @@ const calendarStrings = {
   sameElse: 'L'
 };
 
-const UserEventCard = (props) => {
-  // console.log("event props", props);
-  const color = teal[500]
-  const classes = useStyles();
-  // const editHandler = (id) => {
-  // props.editEvent(props.id)
-  // props.deleteEvent(props.id)
-  // props.attendEvent(props.id)
-  // };
+// const color = teal[500]
 
+
+const UserEventCard = (props) => {
+  const classes = useStyles();
 
   //const dateToFormat = (props);
 
@@ -57,7 +52,8 @@ const UserEventCard = (props) => {
             <Card.Text>
               <Moment // Moment JS used to display calendar dates
                 style={{ fontWeight: 'bold' }}
-                calendar={calendarStrings}>{props.date}</Moment>
+                calendar={calendarStrings}>{props.date}
+              </Moment>
               {/* <hr></hr> */}
             </Card.Text>
 
@@ -99,7 +95,6 @@ const UserEventCard = (props) => {
                     size="small"
                     color="secondary"
                     aria-label="add"
-                    component={RouterLink}
                     className={classes.margin}
                   >
                     Delete
@@ -108,25 +103,7 @@ const UserEventCard = (props) => {
                   : ''
               }
 
-              {/* <Fab
-          variant="extended"
-          size="small"
-          color="secondary"
-          aria-label="add"
-          component={RouterLink}
-          to={`/events/${props.id}`}
-          className={classes.margin}
-        >
-          {/* <NavigationIcon className={classes.extendedIcon} /> */}
-              {/* Details
-        </Fab> */}
-
             </Row>
-
-
-            {/* <App 
-      @@ -39,6 +40,7 @@ const EventCard = (props) => {
-                      id = {props.id} /> */}
           </Card.Body>
         </Card>
       </Container>
