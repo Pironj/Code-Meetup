@@ -1,0 +1,14 @@
+#user {
+  margin-top: 2%;
+  margin-bottom: auto;
+  font-weight: bolder;
+}
+#buttonDiv {
+  margin-top: 2%;
+  margin-bottom: auto;
+  margin-left: 2%;
+}
+.MuiFormGroup-root {
+  max-height: 60px;
+  height: fit-content;
+}
