@@ -4,9 +4,8 @@ import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 import UserEventCard from "../components/userEventCard";
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
-import { DeleteBtn, createEventBtn, EditEventBtn, cancelBtn } from "../components/btn";
+// import { makeStyles } from '@material-ui/core/styles';
+// import { grey } from '@material-ui/core/colors';
 import { Col, Row } from 'react-bootstrap';
 
 
@@ -24,13 +23,17 @@ class UserProfile extends React.Component {
         events: [],
     }
 
-    componentWillMount() {
-        this.setState({ userId: this.props.match.params.id })
+    // when this component mounts it grabs the user by their user id
+    async componentDidMount() {
+        await this.setState({ userId: this.props.match.params.id })
+
+        this.getUser();
+
+        // Get all events user is attending (including the events they created)
+        this.getEventsUserAttends()
     }
 
-    // when this component mounts it grabs the user by their user id
-    componentDidMount() {
-
+    getUser = () => {
         // Get user details
         API.findUserById(this.state.userId)
             .then(res => {
@@ -38,15 +41,15 @@ class UserProfile extends React.Component {
             }).catch(err => {
                 console.log(err)
             });
+    }
 
-        // Get all events user is attending (including the events they created)
+    getEventsUserAttends = () => {
         API.findEventsForUser(this.state.userId)
             .then(res => {
-
                 this.setState({ events: res.data })
             })
             .catch(err => console.log(err))
-    };
+    }
 
     /**
      * Delete event
@@ -54,59 +57,28 @@ class UserProfile extends React.Component {
     onDelete = (id) => {
         API.deleteEvent(id)
             .then(response => {
-                console.log(response)
-
+                console.log(response);
+                const updatedUserEvents = this.state.events.filter(userEvent => {
+                    return userEvent.event_id._id !== response.data._id
+                })
+                this.setState({ events: updatedUserEvents })
             }).catch(err => console.log(err));
     }
 
     /**
-     * Render UserEvent cards
+     * Render UserEvent card
      */
-    renderEventCards = () => {
-        return this.state.events.map(userEvent => {
-            if (userEvent.event_id.creator === this.state.userId) {
-                return (
-                    <div>
-                        <UserEventCard
-                            title={userEvent.event_id.title}
-                            description={userEvent.event_id.description}
-                            date={userEvent.event_id.date}
-                            key={userEvent._id}
-                            id={userEvent.event_id._id}
-                            onDelete={() => this.onDelete(userEvent._id)}
-                        />
-                    </div>
-                )
-            } else {
-                return (
-                    <div>
-                        <UserEventCard
-                            title={userEvent.event_id.title}
-                            description={userEvent.event_id.description}
-                            date={userEvent.event_id.date}
-                            key={userEvent._id}
-                            id={userEvent.event_id._id}
-                            onDelete={() => this.onDelete(userEvent._id)}
-                        />
-                    </div>
-
-                )
-            }
-        })
-    }
-
-    /** 
-     * Render events user created and is attending
-    */
-    // renderEventsCreated = () => {
-    //     return this.renderEventCards()
-    // }
-
-    /**
-     * Render event cards user is attending but did not create
-     */
-    // renderEventsAttending = () => {
-    //     return this.renderEventCards();
+    // renderUserEventCard = (userEvent) => {
+    //     return (
+    //         <UserEventCard
+    //             title={userEvent.event_id.title}
+    //             description={userEvent.event_id.description}
+    //             date={userEvent.event_id.date}
+    //             key={userEvent._id}
+    //             id={userEvent.event_id._id}
+    //             onDelete={() => this.onDelete(userEvent.event_id._id)}
+    //         />
+    //     )
     // }
 
     render() {
@@ -130,9 +102,9 @@ class UserProfile extends React.Component {
                     </Grid>
                 </div>
                 <div>
-                    <Grid item md={12} container direction="row" justify="center" alignItems="center">
+                    {/* <Grid item md={12} container direction="row" justify="center" alignItems="center">
                         <createEventBtn />
-                    </Grid>
+                    </Grid> */}
                 </div>
                 <Row>
                     <Col>
@@ -146,14 +118,12 @@ class UserProfile extends React.Component {
                                         date={userEvent.event_id.date}
                                         key={userEvent._id}
                                         id={userEvent.event_id._id}
-                                        onDelete={() => this.onDelete(userEvent._id)}
+                                        onDelete={() => this.onDelete(userEvent.event_id._id)}
                                     />
                                 ) :
                                     ''
                             ))
                         }
-
-
                     </Col>
                     <Col id="attending">
                         <h2>Events You Are Attending</h2>
@@ -166,7 +136,6 @@ class UserProfile extends React.Component {
                                         date={userEvent.event_id.date}
                                         key={userEvent._id}
                                         id={userEvent.event_id._id}
-                                        onDelete={() => this.onDelete(userEvent._id)}
                                     />
                                 ) :
                                     ''

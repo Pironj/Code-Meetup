@@ -35,6 +35,8 @@ class CommentBox extends React.Component {
     this.getComments()
   }
 
+  //Function grabs all comments for specific event 
+
   getComments = () => {
     API.findCommentsForEventId(this.props.eventId)
     .then(res => {
@@ -46,11 +48,8 @@ class CommentBox extends React.Component {
     .catch(err => console.log(err))
   }
 
-  // componentDidUpdate() {
-  //   this.setState({
-  //     userId: this.props.id
-  //   })
-  // }
+
+//Render buttons for Show/Hide comments
 
   render() {
     const comments = this._getComments();
@@ -107,11 +106,13 @@ class CommentBox extends React.Component {
   //   this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
   // }
 
+//
   handleChange = (e) => {
     const {name, value} = e.target;
     this.setState({[name]: value})
   }
 
+//Function to add/create comment on page and also creating/updating comments in DB
 
   _addComment=()=> {
 
@@ -132,6 +133,9 @@ class CommentBox extends React.Component {
     this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
   }
 
+
+//Click function for show comments button
+
   _handleClick() {
     this.setState({
       showComments: !this.state.showComments
@@ -143,6 +147,8 @@ class CommentBox extends React.Component {
 
 // }
 
+
+//Returns a list of comments with speicif parameters
   _getComments() {
     return this.state.comments.map((comment) => {
       return (
@@ -154,6 +160,7 @@ class CommentBox extends React.Component {
     });
   }
 
+  //Returns the user the number of comments in event
   _getCommentsTitle(commentCount) {
     if (commentCount === 0) {
       return 'No comments yet';
@@ -164,7 +171,7 @@ class CommentBox extends React.Component {
     }
   }
 
-
+//Submit function to create comment in DB
   handleFormSubmit = event => {
     console.log(event.target)
     event.preventDefault();
@@ -241,7 +248,7 @@ class CommentForm extends React.Component {
   //   }
   // };
 
-
+//Submit button function updates page
   _handleSubmit(event) {
     event.preventDefault();   // prevents page from reloading on submit
     let author = this._author;

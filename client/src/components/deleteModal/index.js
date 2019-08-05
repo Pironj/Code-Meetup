@@ -1,8 +1,9 @@
 import React from 'react';
-// import './style.css';
 import axios from 'axios';
 import {Modal, Button, ButtonToolbar} from "react-bootstrap";
 
+
+//Function to delete specific event ID in DB
 const onDelete = (props) => {
   let eventId = this.state.events;
   axios.delete(`http://localhost:3000/api/events/${eventId}`)
@@ -43,6 +44,7 @@ const EventDetailModal = (props) => {
       </Modal>
     );
 }
+// Modal pops up for user to view details
 
   function DeleteModal(props) {
     console.log("in app");

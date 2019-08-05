@@ -1,6 +1,5 @@
 import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
-import { AttendBtn } from '../btn';
 import Moment from "react-moment";
 import GoogleApiWrapper from '../googleMaps';
 
@@ -18,6 +17,8 @@ const FullEvent = (props) => {
     nextWeek: 'dddd [at] LT',
     sameElse: 'L'
   };
+
+//Full event details are returned to user
 
   return (
     <Jumbotron style={{paddingBottom: '2rem'}} className="fullEvent">
