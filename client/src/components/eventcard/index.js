@@ -47,7 +47,7 @@ const EventCard = (props) => {
     <div>
           {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}
         <Container>
-          <Card className="eventCard" border="dark" style={{ width: '20rem', height: 'auto', marginTop: '3rem'}}>
+          <Card className="eventCard" border="dark" style={{ width: '20rem', height: '20rem', marginTop: '3rem'}}>
       <Card.Header>{props.title}</Card.Header>
       <Card.Body>
         {/* <Card.Title></Card.Title> */}
