@@ -1,8 +1,8 @@
 import React from 'react';
 import API from '../../utils/API';
-
 import { connect } from 'react-redux';
 import LoginModal from '../LoginModal';
+import './style.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -70,8 +70,8 @@ class CommentBox extends React.Component {
               <h2>Join the Discussion!</h2>
               {/* <input style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}}name="title" value={this.state.title} onChange={this.handleChange} /> */}
               <textarea rows="6" style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', width: '25rem'}} name="body" value={this.state.body} onChange={this.handleChange} />
-              <br></br><br></br>
-              <button onClick={this._addComment}>
+              <br></br>
+              <button id="submitComment" onClick={this._addComment}>
               submit
               </button>
             </div>
@@ -85,7 +85,7 @@ class CommentBox extends React.Component {
         }
 
         {/* <CommentForm addComment={this._addComment.bind(this)} /> */}
-        <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
+        <button className="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
         <h3 style={{marginTop: '1rem'}}>Comments</h3>

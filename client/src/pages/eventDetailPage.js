@@ -109,7 +109,7 @@ class EventDetailsPage extends React.Component {
 
           {/* <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
-          <Button onClick={this.onAttend} variant="dark">Attend</Button>
+          <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button>
 
 
           {/* </Row> */}

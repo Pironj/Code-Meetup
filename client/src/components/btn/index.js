@@ -7,7 +7,7 @@ export const AttendBtn = (props) => {
 
   }
   return (
-    <Button variant="dark" onClick={() => props.editEvent(props.id)}>Attend</Button>
+    <Button id="attend" variant="dark" onClick={() => props.editEvent(props.id)}>Attend</Button>
   )
 }
 
