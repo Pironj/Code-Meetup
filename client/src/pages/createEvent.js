@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
 
 class CreateEvent extends React.Component {
   state = {
-    creator: '5d44a5164e3a0c393d1e0836',
+    creator: '',
     title: '',
     description: '',
     date: '',
@@ -58,8 +58,8 @@ class CreateEvent extends React.Component {
     if (
       this.state.title &&
       this.state.description &&
-      this.state.address &&
-      this.state.date
+      this.state.address 
+      // && this.state.date
       ) {
       API.createEvent({
         title: this.state.title,
