@@ -17,6 +17,8 @@ import SignupModal from '../SignupModal';
 import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
+import './style.css';
+import { Row, Col } from 'react-bootstrap';
 
 import {connect} from 'react-redux';
 import {deleteAuthState} from '../../redux/actions';
@@ -70,16 +72,23 @@ const MenuAppBar = (props) => {
 
   return (
     <div className={classes.root}>
-      (Temporary for testing) Logged in as: {
-        props.first_name ? props.first_name :  'Not logged in'
-      }
       <FormGroup>
-        {
-          props.first_name ? <LogoutButton /> : <span><LoginModal /><SignupModal /></span>
-        }
-        {/* <LogoutButton />
-        <LoginModal />
-        <SignupModal /> */}
+        <Row>
+          <Col md={4}>
+            <div id="buttonDiv">
+              {
+                props.first_name ? <LogoutButton /> : <span><LoginModal /><SignupModal /></span>
+              }
+            </div>
+          </Col>
+          <Col md={{ span: 3, offset: 5 }}>
+            <div id="user">
+              {
+                props.first_name ? "Logged in as: " + props.first_name :  ''
+              }
+            </div>
+          </Col>
+        </Row>
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
