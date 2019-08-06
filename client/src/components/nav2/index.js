@@ -14,9 +14,11 @@ import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
+import {Row, Col} from 'react-bootstrap';
 import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
+import './style.css';
 
 import {connect} from 'react-redux';
 import {deleteAuthState} from '../../redux/actions';
@@ -69,16 +71,25 @@ const MenuAppBar = (props) => {
   }
 
   return (
+    
     <div className={classes.root}>
-      (Temporary for testing) Logged in as: {
-        props.first_name ? props.first_name :  'Not logged in'
-      }
       <FormGroup>
-        <span>
-          <LogoutButton />
-          <LoginModal />
-          <SignupModal />
-        </span>
+        <Row>
+          <Col md={4}>
+            <div id="buttonDiv">
+              {
+                props.first_name ? <LogoutButton /> : <span><LoginModal /><SignupModal /></span>
+              }
+            </div>
+          </Col>
+          <Col md={{ span: 3, offset: 5 }}>
+            <div id="user">
+              {
+                props.first_name ? "Logged in as: " + props.first_name :  ''
+              }
+            </div>
+          </Col>
+        </Row>
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
@@ -121,31 +132,44 @@ const MenuAppBar = (props) => {
                 open={open}
                 onClose={handleClose}
               >
-                <Link
-                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to={`/users/${props.id}`}
-                  onClick={handleClose}>
-                  Profile
-                </Link>
-                <br></br>
-                <Link
-                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to="/events"
-                  onClick={handleClose}>
-                  Events
-                </Link>
-                <br></br>
-                <Link
-                  style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                  to="/create-event"
-                  onClick={handleClose}>
-                  Create Event
-                </Link>
+                {
+                props.first_name ? 
+                <div>
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to={`/users/${props.id}`}
+                    onClick={handleClose}>
+                    Profile
+                  </Link>
+                  <br></br>
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to="/events"
+                    onClick={handleClose}>
+                    Events
+                  </Link>
+                  <br></br>
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to="/create-event"
+                    onClick={handleClose}>
+                    Create Event
+                  </Link>
+                </div>
+                :
+                  <Link
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                    to="/events"
+                    onClick={handleClose}>
+                    Events
+                  </Link>
+                }
               </Menu>
             </div>
           )}
         </Toolbar>
       </AppBar>
+      
     </div>
   );
 }
