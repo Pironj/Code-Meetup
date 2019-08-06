@@ -16,6 +16,8 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 import { connect } from 'react-redux';
+import Calendar from "../components/calendar"
+import Date from "../components/dateTime"
 
 //Function to map our current state as props
 const mapStateToProps = (state) => {
@@ -53,7 +55,7 @@ class CreateEvent extends React.Component {
 
 //When user clicks submit, event is created in state and also created in DB
   handleFormSubmit = event => {
-    console.log(this.state);
+    console.log(this.state.date);
     event.preventDefault();
     if (
       this.state.title &&
@@ -143,7 +145,7 @@ class CreateEvent extends React.Component {
               {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
 
               {/* Google Location autocomplete search */}
-              {this.state.address}
+              {/* {this.state.address} */}
               <LocationSearchInput
                 value={this.state.address}
                 onChange={this.handleLocationSearchChange}
@@ -160,11 +162,13 @@ class CreateEvent extends React.Component {
             </form>
           </Col>
           <Col size="md-5">
+         
           <div className="input-field">
-                <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
+                {/* <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
                 <input type="text" name="date" ref="date" value={this.state.date}
-                  onChange={this.handleInputChange.bind(this)} />
-
+                  onChange={this.handleInputChange.bind(this)} /> */}
+               <Date />
+            <Calendar />
               </div>
               {/* <Calendar startDate={new Date().getTime()} displayTime  */}
                 {/* name="date" ref="date" value={this.state.date} onChange={this.handleInputChange.bind(this)} /> */}
