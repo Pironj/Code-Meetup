@@ -15,7 +15,8 @@
     "fix-server": "eslint --fix server/**",
     "fix-client": "cd client && npm run fix",
     "fix-all": "eslint --fix server/** && cd client && npm run fix",
-    "test": "mocha ./server/test --timeout 15000 --exit"
+    "test": "mocha ./server/test --timeout 15000 --exit",
+    "watch": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
