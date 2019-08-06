@@ -40,6 +40,7 @@ class EventDetailsPage extends React.Component {
 
 //When user hits Attend button, a new user event is created
   onAttend = () => {
+    console.log(this.state.event.creator._id);
     if (this.state.attend === false) {
       this.setState({ attend: true });
       API.createUserEvent(
@@ -52,7 +53,7 @@ class EventDetailsPage extends React.Component {
         })
         .catch(err => console.log(err));
 
-    } else if (this.state.attend === true) {
+    } else if (this.state.attend === true && this.state.event.creator._id !== this.state.userId) {
       this.setState({ attend: false });
       API.deleteUserEventByUserIdEventId(
         this.state.userId,
@@ -63,6 +64,8 @@ class EventDetailsPage extends React.Component {
       })
       .catch(err => console.log(err));
       
+    } else {
+      return alert("You cannot remove yourself from your created event");
     }
   }
  // function that alter button state text
