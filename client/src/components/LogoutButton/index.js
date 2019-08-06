@@ -34,7 +34,7 @@ function LogoutButton(props) {
 
 
   return (
-    <Button id="logout" onClick={handleChange}>Logout</Button>
+    <Button id="logout" onClick={handleChange}>LOGOUT</Button>
   )
 }
 

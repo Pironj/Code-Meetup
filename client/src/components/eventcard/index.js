@@ -35,7 +35,7 @@ const EventCard = (props) => {
 
       <Container>
         <Card className="eventCard" border="dark" style={{ width: '20rem', height: '20rem', marginTop: '3rem' }}>
-          <Card.Header>{props.title}</Card.Header>
+          <Card.Header className="eventHead">{props.title}</Card.Header>
           <Card.Body>
             <Card.Text>
               {props.description.substring(0, 100) + "..."}
