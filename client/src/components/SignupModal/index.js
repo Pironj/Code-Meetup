@@ -128,12 +128,12 @@ class SignupModal extends Component {
     return (
       <>
         <Button id="signup" variant="primary" onClick={this.handleShow}>
-          SignUp
+          SIGN UP
         </Button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>SIGN UP</Modal.Title>
+            <Modal.Title id="title">SIGN UP</Modal.Title>
           </Modal.Header>
           <Modal.Body>
 

@@ -72,7 +72,7 @@ const MenuAppBar = (props) => {
 
   return (
 
-    <div className={classes.root}>
+    <div id="navDiv" className={classes.root}>
       <FormGroup>
         <Row>
           <Col md={4}>
@@ -85,7 +85,7 @@ const MenuAppBar = (props) => {
           <Col md={{ span: 3, offset: 5 }}>
             <div id="user">
               {
-                props.first_name ? "Logged in as: " + props.first_name : ''
+                props.first_name ? "LOGGED IN AS: " + props.first_name : ''
               }
             </div>
           </Col>
@@ -94,10 +94,10 @@ const MenuAppBar = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Link to="/" style={{ color: "White", textDecoration: 'none' }} >
-              <div>
+            <Link to="/" style={{ color: "White", textDecoration: 'none'}} >
+              <div id="title-font">
                 <span>&#60;</span>
-                rendezvous
+                RENDEZVOUS
             <span> &#8725;</span>
                 <span>&#62;</span>
               </div>
@@ -131,34 +131,38 @@ const MenuAppBar = (props) => {
               >
                 {
                   props.first_name ?
-                    <div>
+                    <div id="links">
                       <Link
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                        className="links"
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
                         to={`/users/${props.id}`}
                         onClick={handleClose}>
-                        Profile
+                        PROFILE
                   </Link>
                       <br></br>
                       <Link
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                        className="links"
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
                         to="/events"
                         onClick={handleClose}>
-                        Events
+                        EVENTS
                   </Link>
                       <br></br>
                       <Link
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                        className="links"
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
                         to="/create-event"
                         onClick={handleClose}>
-                        Create Event
+                        CREATE EVENT
                   </Link>
                     </div>
                     :
                     <Link
-                      style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                      className="links"
+                      style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
                       to="/events"
                       onClick={handleClose}>
-                      Events
+                      EVENTS
                   </Link>
                 }
               </Menu>
