@@ -65,7 +65,7 @@ class UserProfile extends React.Component {
                     <div>
                         <Row>
                             <Col sm={1} />
-                            <Col md={6}>
+                            <Col md={4}>
                                 <Grid
                                     style={{ marginTop: '2rem' }}
                                     item md={1} container direction="column"
@@ -82,7 +82,7 @@ class UserProfile extends React.Component {
                                     </div>
                                 </Grid>
                             </Col>
-                            <Col md={4} />
+                            <Col md={6} />
                         </Row>
                     </div>
                     <Row style={{ marginBottom: '5rem' }}>
