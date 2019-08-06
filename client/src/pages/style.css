@@ -31,3 +31,16 @@
   background: #144E75; }
 
   /* End EventDetail styling */
+
+  .jumbotron__homepage {
+    background-image: url("../img/banner.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: -webkit-fill-available;
+    max-height: 455px;
+    background-attachment: local;
+    background-position: 50% 50%
+  }
+#bannerText {
+  padding-top: 3%;
+}
