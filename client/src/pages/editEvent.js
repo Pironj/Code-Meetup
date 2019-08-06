@@ -122,14 +122,14 @@ class EditEvent extends React.Component {
           </Col>
           <Col xs={3}>
 
-            <h1 style={{ marginTop: '2rem' }} >Edit Event</h1>
+            <h1 style={{ marginLeft: '4rem', marginTop: '2rem', textAlign: 'center'}} >Edit Event</h1>
             <form style={{ marginRight: '2rem' }} onSubmit={this.handleFormSubmit}>
 
 
 
               <div className="input-field">
-                <label style={{ marginLeft: '.5rem' }} htmlFor="name">Title</label>
-                <input type="text" name="title" ref="title" value={this.state.title}
+                <label style={{ marginLeft: '.5rem'}} htmlFor="name">Title</label>
+                <input  style={{width: '25rem'}} type="text" name="title" ref="title" value={this.state.title}
                   onChange={this.handleInputChange.bind(this)} />
 
               </div>
@@ -137,14 +137,16 @@ class EditEvent extends React.Component {
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Description</label>
 
-                <input type="text" name="description" ref="description" value={this.state.description}
+                <textarea style={{width: '25rem', height:'10rem'}} type="text" name="description" ref="description" value={this.state.description}
                   onChange={this.handleInputChange.bind(this)} />
               </div>
 
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
-                <input type="text" name="date" ref="date" value={this.state.date}
+                <input style={{width: '25rem'}} type="text" name="date" ref="date" value={this.state.date}
                   onChange={this.handleInputChange.bind(this)} />
+               <DateTimePickerComponent style={{width: '50rem'}} name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
+
 
               </div>
 
@@ -155,11 +157,13 @@ class EditEvent extends React.Component {
                   onChange={this.handleLocationSearchChange}
                   onSelect={this.handleLocationSearchSelect}
                 />
-
-                <DateTimePickerComponent name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
-
               </div>
-              <Button type="submit" value="Save" className="btn" variant="dark">Save</Button>
+
+              <div>                
+              
+              {/* <DateTimePickerComponent style={{width: '50rem'}} name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} /> */}
+              </div>
+              <Button style={{marginBottom: '10rem', marginTop: '4rem'}}type="submit" value="Save" className="btn" variant="dark">Save</Button>
             </form>
           </Col>
           <Col>
