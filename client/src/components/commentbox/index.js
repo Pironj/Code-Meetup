@@ -99,27 +99,13 @@ class CommentBox extends React.Component {
           {this._getCommentsTitle(comments.length)}
         </h4>
         {commentNodes}
-        {
-          // this.props.first_name + " " + this.props.last_name === this.props.creator ?
-            // <a type="button" className="comment-footer-delete" onClick={this._deleteComment}>❌</a>
-          // :
-          // <div></div>
-        }
       </div>
     );
-  } // end render
+  } 
+  // end render
 
-  // _addComment(creator, body) {
-    
-  //   const comment = {
-  //     id: this.state.comments.length + 1,
-  //     creator,
-  //     body
-  //   };
-  //   this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
-  // }
 
-//
+
   handleChange = (e) => {
     const {name, value} = e.target;
     this.setState({[name]: value})
@@ -155,12 +141,7 @@ class CommentBox extends React.Component {
       showComments: !this.state.showComments
     });
   }
-  
-  //   _addComment=()=> {
-    //   const {id, creator, body} = this.state
-    
-    // }
-    
+      
   // Function to delete user comments
   _deleteComment = (commentId) => {
     console.log(commentId);
