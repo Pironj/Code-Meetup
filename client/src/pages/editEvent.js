@@ -10,7 +10,10 @@ import {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-import Calendar from "../components/calendar"
+// import Calendar from "../components/calendar"
+import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
+
+
 
 
 //Function to map our current state as props
@@ -33,9 +36,9 @@ class EditEvent extends React.Component {
       eventId: '',
       creator: '',
       description: '',
-      date: '',
-      location: '',
-      // streetAddress: '',
+      date: Date.now,
+      latLng: {},
+      streetAddress: '',
     }
     this.handleInputChange = this.handleInputChange.bind(this)
   }
@@ -58,7 +61,7 @@ class EditEvent extends React.Component {
           title: response.data.title,
           description: response.data.description,
           date: response.data.date,
-          streetAddress: response.data.street_address,
+          // streetAddress: response.data.street_address,
         })
         console.log(response)
       }).catch(err => console.log(err));
@@ -67,6 +70,7 @@ class EditEvent extends React.Component {
 //
   handleInputChange = event => {
     const { name, value } = event.target;
+    console.log(name, value);
     this.setState({
       [name]: value
     });
@@ -75,6 +79,7 @@ class EditEvent extends React.Component {
 //When user hits submit to edit event, DB is updated as well
 
   handleFormSubmit = event => {
+    console.log(this.state);
     event.preventDefault();
     if (this.state.title && this.state.description) {
       API.updateEvent({
@@ -82,7 +87,7 @@ class EditEvent extends React.Component {
         title: this.state.title,
         description: this.state.description,
         date: this.state.date,
-        // street_address: this.state.address,
+        street_address: this.state.streetAddress,
         location: {
           type: 'Point',
           coordinates: [
@@ -96,7 +101,6 @@ class EditEvent extends React.Component {
         })
         .catch(err => console.log(err));
     }
-    console.log(this.state);
     // };
     // onSubmit(e) {
     //   e.preventDefault();
@@ -120,12 +124,12 @@ class EditEvent extends React.Component {
   //   })
   // }
 
-  handleLocationSearchChange = address => {
-    this.setState({ address });
+  handleLocationSearchChange = streetAddress => {
+    this.setState({ streetAddress });
   };
 
   handleLocationSearchSelect = async address => {
-    await this.setState({ address })
+    await this.setState({ streetAddress: address })
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(async latLng => {
@@ -182,13 +186,17 @@ class EditEvent extends React.Component {
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Location</label>
                 <LocationSearchInput
-                  value={this.state.address}
+                  value={this.state.streetAddress}
                   onChange={this.handleLocationSearchChange}
                   onSelect={this.handleLocationSearchSelect}
                 />
               </div>
               <div>
-                <Calendar />
+                {/* <Calendar /> */}
+              </div>
+              <div>
+              <DateTimePickerComponent name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange}/>
+                {/* <Date /> */}
               </div>
               <Button type="submit" value="Save" className="btn" variant="dark">Save</Button>
               {/* <input type="submit" value="Save" className="btn" /> */}
