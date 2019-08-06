@@ -16,8 +16,7 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 import { connect } from 'react-redux';
-import Calendar from "../components/calendar"
-import Date from "../components/dateTime"
+import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 //Function to map our current state as props
 const mapStateToProps = (state) => {
@@ -31,27 +30,35 @@ const mapStateToProps = (state) => {
 }
 
 class CreateEvent extends React.Component {
-  state = {
-    creator: '',
-    title: '',
-    description: '',
-    date: '',
-    address: '',
-    latLng: {},
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      eventId: '',
+      creator: '',
+      description: '',
+      date: Date.now,
+      latLng: {},
+      streetAddress: '',
+    }
+    this.handleInputChange = this.handleInputChange.bind(this)
+  }
 
 //When page loads, creator is updated
   componentDidMount() {
     this.setState({ creator: this.props.id })
   }
 
-//
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+
+handleInputChange = event => {
+  const { name, value } = event.target;
+  console.log(name, value);
+  this.setState({
+    [name]: value
+  });
+};
+
+
 
 //When user clicks submit, event is created in state and also created in DB
   handleFormSubmit = event => {
@@ -161,17 +168,15 @@ class CreateEvent extends React.Component {
               </FormBtn>
             </form>
           </Col>
-          <Col size="md-5">
-         
-          <div className="input-field">
+        
+          <div>
                 {/* <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
                 <input type="text" name="date" ref="date" value={this.state.date}
                   onChange={this.handleInputChange.bind(this)} /> */}
-               <Date />
-            <Calendar />
+                  <DateTimePickerComponent name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange}/>
               </div>
               {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
-          </Col>
+        
           <Col size="sm-1" />
           {/* <Jumbotron>
               <h1>My Events</h1>

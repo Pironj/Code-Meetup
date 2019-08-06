@@ -31,6 +31,7 @@ const mapStateToProps = (state) => {
 class EditEvent extends React.Component {
 
   constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
       eventId: '',
@@ -38,7 +39,7 @@ class EditEvent extends React.Component {
       description: '',
       date: Date.now,
       latLng: {},
-      streetAddress: '',
+      streetAddress: this.state.location
     }
     this.handleInputChange = this.handleInputChange.bind(this)
   }
