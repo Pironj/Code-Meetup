@@ -4,9 +4,9 @@ import CommentBox from "../components/commentbox";
 import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link as RouterLink } from 'react-router-dom';
-import GoogleApiWrapper from '../components/googleMaps';
-import './style.css';
+// import { Link as RouterLink } from 'react-router-dom';
+import GoogleApiWrapper from '../components/googleMaps'
+
 import { connect } from 'react-redux';
 
 
@@ -26,8 +26,7 @@ class EventDetailsPage extends React.Component {
     event: {},
     eventId: '',
     userId: '',
-    comments: [],
-    // isAttending: false // is not mapped yet to specific events
+    comments: []
   }
 
   componentWillMount() {
@@ -39,7 +38,6 @@ class EventDetailsPage extends React.Component {
 
 //When user hits Attend button, a new user event is created
   onAttend = () => {
-    alert("Nice! You are now attending this event!");
     API.createUserEvent(
       {
         event_id: this.state.eventId,
@@ -47,9 +45,6 @@ class EventDetailsPage extends React.Component {
       })
       .then(res => {
         console.log(res.data)
-        // this.setState(
-        //   this.state.isAttending = true
-        // )
       })
       .catch(err => console.log(err.response));
   }
@@ -59,6 +54,7 @@ class EventDetailsPage extends React.Component {
   componentDidMount() {
     API.findEventById(this.state.eventId)
       .then(data => {
+        console.log(data.data.date);
         this.setState({
           event: data.data
         })
@@ -90,7 +86,7 @@ class EventDetailsPage extends React.Component {
 
     return (
       <div>
-        <Container id="eventDetail">
+        <Container>
           <Row style={{ marginTop: '2rem' }}>
             <Col>
 
@@ -116,10 +112,7 @@ class EventDetailsPage extends React.Component {
 
           {/* <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
             {/* <CommentBox /> */}
-          <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button>
-          {/* {
-            this.state.isAttending ? <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button> : <div></div>
-          } */}
+          <Button onClick={this.onAttend} variant="dark">Attend</Button>
 
 
           {/* </Row> */}
