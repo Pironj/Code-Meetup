@@ -14,14 +14,14 @@ import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
-import {Row, Col} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { NavDropdown } from 'react-bootstrap';
 import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
 import './style.css';
 
-import {connect} from 'react-redux';
-import {deleteAuthState} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { deleteAuthState } from '../../redux/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,7 +71,7 @@ const MenuAppBar = (props) => {
   }
 
   return (
-    
+
     <div className={classes.root}>
       <FormGroup>
         <Row>
@@ -85,7 +85,7 @@ const MenuAppBar = (props) => {
           <Col md={{ span: 3, offset: 5 }}>
             <div id="user">
               {
-                props.first_name ? "Logged in as: " + props.first_name :  ''
+                props.first_name ? "Logged in as: " + props.first_name : ''
               }
             </div>
           </Col>
@@ -93,9 +93,6 @@ const MenuAppBar = (props) => {
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton> */}
           <Typography variant="h6" className={classes.title}>
             <Link to="/" style={{ color: "White", textDecoration: 'none' }} >
               <div>
@@ -133,35 +130,35 @@ const MenuAppBar = (props) => {
                 onClose={handleClose}
               >
                 {
-                props.first_name ? 
-                <div>
-                  <Link
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                    to={`/users/${props.id}`}
-                    onClick={handleClose}>
-                    Profile
+                  props.first_name ?
+                    <div>
+                      <Link
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                        to={`/users/${props.id}`}
+                        onClick={handleClose}>
+                        Profile
                   </Link>
-                  <br></br>
-                  <Link
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                    to="/events"
-                    onClick={handleClose}>
-                    Events
+                      <br></br>
+                      <Link
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                        to="/events"
+                        onClick={handleClose}>
+                        Events
                   </Link>
-                  <br></br>
-                  <Link
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                    to="/create-event"
-                    onClick={handleClose}>
-                    Create Event
+                      <br></br>
+                      <Link
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                        to="/create-event"
+                        onClick={handleClose}>
+                        Create Event
                   </Link>
-                </div>
-                :
-                  <Link
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
-                    to="/events"
-                    onClick={handleClose}>
-                    Events
+                    </div>
+                    :
+                    <Link
+                      style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "black" }}
+                      to="/events"
+                      onClick={handleClose}>
+                      Events
                   </Link>
                 }
               </Menu>
@@ -169,7 +166,7 @@ const MenuAppBar = (props) => {
           )}
         </Toolbar>
       </AppBar>
-      
+
     </div>
   );
 }

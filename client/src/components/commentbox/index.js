@@ -2,7 +2,6 @@ import React from 'react';
 import API from '../../utils/API';
 import { connect } from 'react-redux';
 import LoginModal from '../LoginModal';
-import { Button } from 'react-bootstrap';
 import './style.css';
 
 const mapStateToProps = (state) => {
@@ -17,20 +16,19 @@ const mapStateToProps = (state) => {
 
 
 class CommentBox extends React.Component {
-  
+
   constructor() {
     super();
-    
+
     this.state = {
       showComments: true,
       comments: [],
       body: '',
-      // creator: "41224d776a326fb40f000001",
-      title:"",
-      // id: "41224d776a326fb40f000001"
+      title: ""
+
     };
 
-    
+
   }
   componentDidMount() {
     this.getComments()
@@ -40,24 +38,23 @@ class CommentBox extends React.Component {
 
   getComments = () => {
     API.findCommentsForEventId(this.props.eventId)
-    .then(res => {
-      this.setState({
-        comments: res.data
+      .then(res => {
+        this.setState({
+          comments: res.data
+        })
+
       })
-      console.log(res);
-    })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
 
-//Render buttons for Show/Hide comments
+  //Render buttons for Show/Hide comments
 
   render() {
     const comments = this._getComments();
     let commentNodes;
     let buttonText = 'Show Comments';
-    console.log(comments);
-    console.log(this.props.first_name + " " + this.props.last_name);
+
 
     if (this.state.showComments) {
       buttonText = 'Hide Comments';
@@ -65,23 +62,21 @@ class CommentBox extends React.Component {
         {comments}
       </div>;
     }
-    
-// console.log(this.props)
-// console.log(commentNodes.props.children)
+
+
     return (
       <div className="comment-box">
         {
-          this.props.first_name ? 
+          this.props.first_name ?
             <div>
               <h2>Join the Discussion!</h2>
-              {/* <input style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}}name="title" value={this.state.title} onChange={this.handleChange} /> */}
-              <textarea rows="6" style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', width: '25rem'}} name="body" value={this.state.body} onChange={this.handleChange} />
+              <textarea rows="6" style={{ paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', width: '25rem' }} name="body" value={this.state.body} onChange={this.handleChange} />
               <br></br>
               <button id="submitComment" onClick={this._addComment}>
-              submit
+                submit
               </button>
             </div>
-          :
+            :
             <div>
               <h2>Please Sign in to join the discussion</h2>
               <br></br>
@@ -90,50 +85,50 @@ class CommentBox extends React.Component {
 
         }
 
-        {/* <CommentForm addComment={this._addComment.bind(this)} /> */}
         <button className="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
-        <h3 style={{marginTop: '1rem'}}>Comments</h3>
-        <h4 style={{marginBottom: '5rem'}} className="comment-count">
+        <h3 style={{ marginTop: '1rem' }}>Comments</h3>
+        <h4 style={{ marginBottom: '5rem' }} className="comment-count">
           {this._getCommentsTitle(comments.length)}
         </h4>
         {commentNodes}
       </div>
     );
-  } 
+  }
   // end render
 
 
 
   handleChange = (e) => {
-    const {name, value} = e.target;
-    this.setState({[name]: value})
+    const { name, value } = e.target;
+    this.setState({ [name]: value })
   }
 
-//Function to add/create comment on page and also creating/updating comments in DB
+  //Function to add/create comment on page and also creating/updating comments in DB
 
-  _addComment=()=> {
+  _addComment = () => {
 
-    const {body} = this.state
+    const { body } = this.state
     const comment = {
-      event:this.props.eventId,
+      event: this.props.eventId,
       creator: this.props.id,
       body
     };
-    console.log(comment);
+
 
     API.createComment(comment)
-    .then(comment => {
-      console.log(comment)
-      this.getComments()})
-    .catch(err => console.log(err.response));
+      .then(comment => {
+        console.log(comment)
+        this.getComments()
+      })
+      .catch(err => console.log(err.response));
 
     this.setState({ comments: this.state.comments.concat([comment]) }); // *new array references help React stay fast, so concat works better than push here.
   }
 
-  
-  
+
+
   //Click function for show comments button
 
   _handleClick() {
@@ -141,42 +136,40 @@ class CommentBox extends React.Component {
       showComments: !this.state.showComments
     });
   }
-      
+
   // Function to delete user comments
   _deleteComment = (commentId) => {
-    console.log(commentId);
+
     API.deleteCommentById(commentId)
-    .then(res => {
-      const updatedEventComments = this.state.comments.filter(comments => {
-        return comments._id !== res.data._id
+      .then(res => {
+        const updatedEventComments = this.state.comments.filter(comments => {
+          return comments._id !== res.data._id
+        })
+        this.setState({ comments: updatedEventComments })
       })
-      this.setState({comments: updatedEventComments})
-    })
-    .catch(err => console.log(err));
+      .catch(err => console.log(err));
   }
 
-//Returns a list of comments with speicif parameters
+  //Returns a list of comments with speicif parameters
   _getComments() {
     return this.state.comments.map((comment) => {
-      console.log(this.props)
-      console.log(comment);
       return (
-        <div>
+        <div key={comment.id}>
           <Comment
             creator={comment.creator.first_name + " " + comment.creator.last_name}
             body={comment.body}
-            key={comment.id} 
-            />
-            <div>
-              {
-                this.props.first_name + " " + this.props.last_name === comment.creator.first_name + " " + comment.creator.last_name 
-              ?
-                <button className="comment-footer-delete" onClick={()=>this._deleteComment(comment._id)}>❌</button>
-              :
+            key={comment.id}
+          />
+          <div>
+            {
+              this.props.first_name + " " + this.props.last_name === comment.creator.first_name + " " + comment.creator.last_name
+                ?
+                <button className="comment-footer-delete" onClick={() => this._deleteComment(comment._id)}>❌</button>
+                :
                 <div></div>
-              }
+            }
 
-            </div>
+          </div>
         </div>
       );
     });
@@ -193,20 +186,7 @@ class CommentBox extends React.Component {
     }
   }
 
-//Submit function to create comment in DB
-  handleFormSubmit = event => {
-    console.log(event.target)
-    event.preventDefault();
-    if (this.state.event && this.state.body && this.state.creator) {
-      API.createComment({
-        event: this.state.event,
-        body: this.state.body,
-        creator: "5d3df98b54ed5491826d7eae"
-      })
-        .then(comment => console.log(comment))
-        .catch(err => console.log(err));
-    }
-  };
+ 
 }
 
 class Comment extends React.Component {

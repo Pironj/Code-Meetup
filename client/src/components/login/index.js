@@ -44,7 +44,7 @@ export default class Signup extends Component {
     });
   }
 
-//When user hits Submit, page does not reload but state is updated
+  //When user hits Submit, page does not reload but state is updated
 
   handleSubmit = async event => {
     event.preventDefault();
@@ -56,7 +56,7 @@ export default class Signup extends Component {
     this.setState({ isLoading: false });
   }
 
-  
+
   handleConfirmationSubmit = async event => {
     event.preventDefault();
 

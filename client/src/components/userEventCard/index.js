@@ -2,12 +2,10 @@ import React from 'react';
 import './style.css';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-// import teal from '@material-ui/core/colors/teal';
+
 import Fab from '@material-ui/core/Fab';
-// import NavigationIcon from '@material-ui/icons/Navigation';
+
 import { Card, Col, Row, Container } from 'react-bootstrap';
-// import App from "../eventDetailModal";
-// import API from '../../utils/API';
 import Moment from "react-moment";
 
 const useStyles = makeStyles(theme => ({
@@ -38,14 +36,13 @@ const UserEventCard = (props) => {
   //Here we are returning a User Event Card
   return (
     <div>
-      {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}
       <Container>
         <Card className="eventCard" border="dark" style={{ width: '20rem', height: '20rem', marginTop: '3rem' }}>
           <Card.Header>{props.title}</Card.Header>
           <Card.Body>
 
             <Card.Text>
-            {props.description.substring(0,100) + "..."}
+              {props.description.substring(0, 100) + "..."}
             </Card.Text>
 
             <Card.Text>
@@ -57,7 +54,7 @@ const UserEventCard = (props) => {
             </Card.Text>
 
             {/* Detail view button */}
-            <Row style={{marginLeft: '6rem'}}>
+            <Row style={{ marginLeft: '6rem' }}>
               <Fab
                 variant="extended"
                 size="small"
