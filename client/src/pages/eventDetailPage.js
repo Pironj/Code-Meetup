@@ -48,14 +48,17 @@ class EventDetailsPage extends React.Component {
 					this.changeText();
 				})
 				.catch((err) => console.log(err));
-		} else if (this.state.attend === true) {
+		} else if (this.state.attend === true && this.state.event.creator._id !== this.state.userId) {
 			this.setState({ attend: false });
 			API.deleteUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 				.then((res) => {
 					this.changeText();
 				})
 				.catch((err) => console.log(err));
-		}
+		} else {
+      return alert("You cannot remove yourself from your created event");
+    
+    }
 	};
 	// function that alter button state text
 	changeText = () => {
