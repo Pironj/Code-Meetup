@@ -8,6 +8,7 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
+import "../components/dateTime/index.css"
 
 
 //Function to map our current state as props
@@ -70,6 +71,7 @@ class EditEvent extends React.Component {
   //When user hits submit to edit event, DB is updated as well
 
   handleFormSubmit = event => {
+    console.log(this.state);
     event.preventDefault();
     if (this.state.title && this.state.description) {
       API.updateEvent({
