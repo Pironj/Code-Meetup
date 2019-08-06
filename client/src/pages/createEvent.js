@@ -10,11 +10,8 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
-=======
-import Date from "../components/dateTime"
->>>>>>> f3be29e51d40a3a46d7419578efffb373f8d8d5d
+import "../components/dateTime/index.css"
 
 //Function to map our current state as props
 const mapStateToProps = (state) => {
@@ -47,7 +44,6 @@ class CreateEvent extends React.Component {
     this.setState({ creator: this.props.id })
   }
 
-<<<<<<< HEAD
 
 handleInputChange = event => {
   const { name, value } = event.target;
@@ -58,15 +54,6 @@ handleInputChange = event => {
 };
 
 
-=======
-  //
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
->>>>>>> f3be29e51d40a3a46d7419578efffb373f8d8d5d
 
   //When user clicks submit, event is created in state and also created in DB
   handleFormSubmit = event => {
@@ -169,7 +156,6 @@ handleInputChange = event => {
               </FormBtn>
             </form>
           </Col>
-<<<<<<< HEAD
         
           <div>
                 {/* <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
@@ -179,16 +165,6 @@ handleInputChange = event => {
               </div>
               {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
         
-=======
-          <Col size="md-5">
-
-            <div className="input-field">
-
-              <Date />
-            </div>
-
-          </Col>
->>>>>>> f3be29e51d40a3a46d7419578efffb373f8d8d5d
           <Col size="sm-1" />
 
         </Row>
