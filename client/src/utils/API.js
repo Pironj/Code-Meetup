@@ -191,7 +191,7 @@ export default {
    * @param {string} commentid
    */
   deleteCommentById: (commentid) => {
-    return axios.delete(`${COMMENT_API_URL}/${commentid}`); // to protect add getToken() function as param to get req
+    return axios.delete(`${COMMENT_API_URL}/${commentid}`, generateHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
