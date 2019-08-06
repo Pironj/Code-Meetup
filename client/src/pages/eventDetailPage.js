@@ -2,10 +2,9 @@ import React from "react";
 import API from "../utils/API";
 import CommentBox from "../components/commentbox";
 import FullEvent from "../components/fullEvent"
-import FooterComponent from "../components/footer";
 import './style.css';
 import { Container, Row, Col, Button } from "react-bootstrap";
-// import { Link as RouterLink } from 'react-router-dom';
+
 import GoogleApiWrapper from '../components/googleMaps'
 
 import { connect } from 'react-redux';
@@ -55,7 +54,7 @@ class EventDetailsPage extends React.Component {
   componentDidMount() {
     API.findEventById(this.state.eventId)
       .then(data => {
-        console.log(data.data.date);
+
         this.setState({
           event: data.data
         })
@@ -118,12 +117,6 @@ class EventDetailsPage extends React.Component {
             <div></div>
           }
 
-
-          {/* </Row> */}
-
-          <Row style={{ marginTop: '2rem', marginLeft: '.5rem' }}>
-
-          </Row>
           <CommentBox
           eventId={this.state.eventId}
            />

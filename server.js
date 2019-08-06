@@ -20,11 +20,12 @@ app.use(auth.initialize());
 // Add routes, both API and view
 app.use(routes);
 
-// Serve up static assets (usually on heroku)
+// Serve up static assets for deployment (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
+// Serve up static assets for development
 const root = require('path').join(__dirname, 'client', 'build');
 app.use(express.static(root));
 app.get('*', (req, res) => {

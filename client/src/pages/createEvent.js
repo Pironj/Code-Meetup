@@ -1,22 +1,15 @@
 import React from "react";
 import API from "../utils/API";
-// import FullEvent from "../components/fullEvent";
-// import axios from "axios";
-import { Jumbotron, Button, Container, Row, Col } from "react-bootstrap";
-import { Form, Input, FormBtn, TextArea } from "../components/Form";
-// import { List, ListItem } from "../components/List";
-// import { Link } from "react-router-dom";
-// import Calendar from '../components/calendar'
-import "../components/calendar/index.css"
-//import '@lls/react-light-calendar/dist/index.css'
-import "../components/calendar/index.css"
+
+import { Jumbotron, Container, Row, Col } from "react-bootstrap";
+import { Input, FormBtn, TextArea } from "../components/Form";
+
 import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
 import {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 import { connect } from 'react-redux';
-import Calendar from "../components/calendar"
 import Date from "../components/dateTime"
 
 //Function to map our current state as props
@@ -40,12 +33,12 @@ class CreateEvent extends React.Component {
     latLng: {},
   };
 
-//When page loads, creator is updated
+  //When page loads, creator is updated
   componentDidMount() {
     this.setState({ creator: this.props.id })
   }
 
-//
+  //
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -53,16 +46,15 @@ class CreateEvent extends React.Component {
     });
   };
 
-//When user clicks submit, event is created in state and also created in DB
+  //When user clicks submit, event is created in state and also created in DB
   handleFormSubmit = event => {
-    console.log(this.state.date);
     event.preventDefault();
     if (
       this.state.title &&
       this.state.description &&
-      this.state.address 
-      // && this.state.date
-      ) {
+      this.state.address
+      // && this.state.date // TODO FIX THIS
+    ) {
       API.createEvent({
         title: this.state.title,
         description: this.state.description,
@@ -78,9 +70,8 @@ class CreateEvent extends React.Component {
         }
       })
         .then(res => {
-          console.log(res)
           this.props.history.push(`/events/${res.data._id}`);
-          
+
         })
         .catch(err => console.log(err));
     }
@@ -88,7 +79,7 @@ class CreateEvent extends React.Component {
 
 
   //Google Maps function for setting dynamic location 
-  
+
   handleLocationSearchChange = address => {
     this.setState({ address });
   };
@@ -98,7 +89,6 @@ class CreateEvent extends React.Component {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(async latLng => {
-        console.log(latLng)
         await this.setState({ latLng })
       })
       .catch(error => console.error('Error', error));
@@ -108,10 +98,8 @@ class CreateEvent extends React.Component {
     return (
 
       <Container fluid>
-      {/* {'(testing) creator id: ' + this.props.id } */}
-      <Row>
-        {/* {this.state.title + this.state.description} */}
-        <Col size="sm-1" />
+        <Row>
+          <Col size="sm-1" />
           <Col size="md-10">
 
             <Jumbotron style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
@@ -135,17 +123,15 @@ class CreateEvent extends React.Component {
 
               {/* Event description */}
               <TextArea
-                style={{height: '300px'}}
+                style={{ height: '300px' }}
                 value={this.state.description}
                 onChange={this.handleInputChange}
                 name="description"
                 placeholder=" Description (required)"
               />
-              
-              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
+
 
               {/* Google Location autocomplete search */}
-              {/* {this.state.address} */}
               <LocationSearchInput
                 value={this.state.address}
                 onChange={this.handleLocationSearchChange}
@@ -162,35 +148,15 @@ class CreateEvent extends React.Component {
             </form>
           </Col>
           <Col size="md-5">
-         
-          <div className="input-field">
-                {/* <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
-                <input type="text" name="date" ref="date" value={this.state.date}
-                  onChange={this.handleInputChange.bind(this)} /> */}
-               <Date />
-            <Calendar />
-              </div>
-              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
+
+            <div className="input-field">
+
+              <Date />
+            </div>
+
           </Col>
           <Col size="sm-1" />
-          {/* <Jumbotron>
-              <h1>My Events</h1>
-            </Jumbotron> */}
-          {/* {this.state.events.length ? (
-              <List>
-                {this.state.events.map(event => (
-                  <ListItem key={eventNames._id}>
-                    <Link to={"/events/" + event._id}>
-                      <strong>
-                        {event.title} by {event.author}
-                      </strong>
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )} */}
+
         </Row>
       </Container>
     );
