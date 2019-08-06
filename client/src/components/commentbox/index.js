@@ -95,7 +95,7 @@ class CommentBox extends React.Component {
           {buttonText}
         </button>
         <h3 style={{marginTop: '1rem'}}>Comments</h3>
-        <h4 className="comment-count">
+        <h4 style={{marginBottom: '5rem'}} className="comment-count">
           {this._getCommentsTitle(comments.length)}
         </h4>
         {commentNodes}

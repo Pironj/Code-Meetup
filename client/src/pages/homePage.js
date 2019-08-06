@@ -1,6 +1,6 @@
 import React from "react";
 import API from '../utils/API';
-import App from "../components/eventDetailModal";
+// import App from "../components/eventDetailModal";
 import EventCard from "../components/eventcard";
 import { Jumbotron, Container, Row, Col } from "react-bootstrap";
 
@@ -18,20 +18,20 @@ class HomePage extends React.Component {
       .catch(err => console.log(err))
   }
 
-  renderEventDetailModalInfo() {
-    this.state.events.map(details => (
-      <App
-        eventTitle={details.title}
-        eventContent={details.description}
-        eventDate = {details.date}
-        eventLocation = {details.street_address}
-        key={details._id}
-      />
-    ))
-  }
+  // renderEventDetailModalInfo() {
+  //   this.state.events.map(details => (
+  //     <App
+  //       eventTitle={details.title}
+  //       eventContent={details.description}
+  //       eventDate={details.date}
+  //       eventLocation={details.street_address}
+  //       key={details._id}
+  //     />
+  //   ))
+  // }
 
   renderEventCards = () => {
-    console.log(this.state);
+    // console.log(this.state);
     return this.state.events.map(event => (
       <EventCard
         title={event.title}
@@ -45,10 +45,10 @@ class HomePage extends React.Component {
     ))
   }
 
-  attendEvent = (id) => {
-    // console.log(id);
+  // attendEvent = (id) => {
+  //   // console.log(id);
 
-  }
+  // }
 
   render() {
 
@@ -60,16 +60,17 @@ class HomePage extends React.Component {
               <h1>
                 <span>&#60;</span>
                 rendezvous
-             <span> &#8725;</span>
-                <span>&#62;</span></h1>
+                <span> &#8725;</span>
+                <span>&#62;</span>
+              </h1>
               <p>
                 A meet up app where you create events to network and code!
-            </p>
+              </p>
             </Container>
           </Jumbotron>
         </div>
         <div>
-          <Row style={{marginBottom: '5rem'}}>
+          <Row style={{ marginBottom: '5rem' }}>
             <Col>
               {this.renderEventCards()}
             </Col>

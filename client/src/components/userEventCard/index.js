@@ -12,7 +12,7 @@ import Moment from "react-moment";
 
 const useStyles = makeStyles(theme => ({
   margin: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(0),
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -28,7 +28,6 @@ const calendarStrings = {
   sameElse: 'L'
 };
 
-// const color = teal[500]
 
 
 const UserEventCard = (props) => {
@@ -41,12 +40,12 @@ const UserEventCard = (props) => {
     <div>
       {/* <Card className="eventCard" border="dark" style={{ width: '18rem' }}> */}
       <Container>
-        <Card className="eventCard" border="dark" style={{ width: '20rem', height: 'auto', marginTop: '3rem' }}>
+        <Card className="eventCard" border="dark" style={{ width: '20rem', height: '20rem', marginTop: '3rem' }}>
           <Card.Header>{props.title}</Card.Header>
           <Card.Body>
 
             <Card.Text>
-              {props.description}
+            {props.description.substring(0,100) + "..."}
             </Card.Text>
 
             <Card.Text>
@@ -54,11 +53,11 @@ const UserEventCard = (props) => {
                 style={{ fontWeight: 'bold' }}
                 calendar={calendarStrings}>{props.date}
               </Moment>
-              {/* <hr></hr> */}
+              <hr></hr>
             </Card.Text>
 
             {/* Detail view button */}
-            <Row style={{ marginLeft: '8rem' }}>
+            <Row style={{marginLeft: '6rem'}}>
               <Fab
                 variant="extended"
                 size="small"
@@ -67,7 +66,6 @@ const UserEventCard = (props) => {
                 component={RouterLink}
                 to={`/events/${props.id}`}
                 className={classes.margin}
-                style={{ marginLeft: '11rem' }}
               >
                 Details
               </Fab>
@@ -96,14 +94,16 @@ const UserEventCard = (props) => {
                     color="secondary"
                     aria-label="add"
                     className={classes.margin}
+                    onClick={props.onDelete}
+
                   >
                     Delete
                   </Fab>
                 )
                   : ''
               }
-
             </Row>
+            <Row />
           </Card.Body>
         </Card>
       </Container>

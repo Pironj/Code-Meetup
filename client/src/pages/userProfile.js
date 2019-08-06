@@ -9,18 +9,12 @@ import Grid from '@material-ui/core/Grid';
 import { Col, Row } from 'react-bootstrap';
 
 
-// const useStyles = makeStyles({
-//     container: {
-//         backgroundColor: grey[400]
-//     }
-// });
-
 class UserProfile extends React.Component {
 
     state = {
         user: {},
         userId: '',
-        events: [],
+        userEvents: [],
     }
 
     // when this component mounts it grabs the user by their user id
@@ -37,7 +31,7 @@ class UserProfile extends React.Component {
         // Get user details
         API.findUserById(this.state.userId)
             .then(res => {
-                this.setState({ user: res.data })
+                this.setState({ user: res.data ? res.data : {} }) // If user does not exist, set state.user to empty object
             }).catch(err => {
                 console.log(err)
             });
@@ -46,7 +40,7 @@ class UserProfile extends React.Component {
     getEventsUserAttends = () => {
         API.findEventsForUser(this.state.userId)
             .then(res => {
-                this.setState({ events: res.data })
+                this.setState({ userEvents: res.data })
             })
             .catch(err => console.log(err))
     }
@@ -57,96 +51,85 @@ class UserProfile extends React.Component {
     onDelete = (id) => {
         API.deleteEvent(id)
             .then(response => {
-                console.log(response);
-                const updatedUserEvents = this.state.events.filter(userEvent => {
+                const updatedUserEvents = this.state.userEvents.filter(userEvent => {
                     return userEvent.event_id._id !== response.data._id
                 })
-                this.setState({ events: updatedUserEvents })
+                this.setState({ userEvents: updatedUserEvents })
             }).catch(err => console.log(err));
     }
 
-    /**
-     * Render UserEvent card
-     */
-    // renderUserEventCard = (userEvent) => {
-    //     return (
-    //         <UserEventCard
-    //             title={userEvent.event_id.title}
-    //             description={userEvent.event_id.description}
-    //             date={userEvent.event_id.date}
-    //             key={userEvent._id}
-    //             id={userEvent.event_id._id}
-    //             onDelete={() => this.onDelete(userEvent.event_id._id)}
-    //         />
-    //     )
-    // }
-
     render() {
         return (
-            <div>
+            this.state.user._id ? (
                 <div>
-                    <Grid
-                        style={{ marginTop: '2rem' }}
-                        item md={1} container direction="column"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <div>
-                            <Grid container direction="row" justify="center" alignItems="center">
-                                <LettersAvatar />
-                            </Grid>
-                            <Grid container direction="row" justify="center" alignItems="center">
-                                <UserCard user={this.state.user} />
-                            </Grid>
-                        </div>
-                    </Grid>
+                    <div>
+                        <Row>
+                            <Col sm={1} />
+                            <Col md={4}>
+                                <Grid
+                                    style={{ marginTop: '2rem' }}
+                                    item md={1} container direction="column"
+                                    justify="center"
+                                    alignItems="center"
+                                >
+                                    <div>
+                                        <Grid style={{ paddingBottom: '1rem' }} container direction="row" justify="center" alignItems="center">
+                                            <LettersAvatar />
+                                        </Grid>
+                                        <Grid container direction="row" justify="center" alignItems="center">
+                                            <UserCard user={this.state.user} />
+                                        </Grid>
+                                    </div>
+                                </Grid>
+                            </Col>
+                            <Col md={6} />
+                        </Row>
+                    </div>
+                    <Row style={{ marginBottom: '5rem' }}>
+                        <Col md={2} />
+                        <Col md={4} style={{ marginTop: '5rem' }}>
+                            <h2 style={{ textAlign: 'center' }}>Events You Created</h2>
+                            {
+                                this.state.userEvents.map(userEvent => (
+                                    userEvent.event_id.creator === this.state.userId ? (
+                                        <UserEventCard
+                                            title={userEvent.event_id.title}
+                                            description={userEvent.event_id.description}
+                                            date={userEvent.event_id.date}
+                                            key={userEvent._id}
+                                            id={userEvent.event_id._id}
+                                            onDelete={() => this.onDelete(userEvent.event_id._id)}
+                                        />
+                                    ) :
+                                        ''
+                                ))
+                            }
+                        </Col>
+                        <Col md={4} style={{ marginTop: '5rem' }} id="attending">
+                            <h2 style={{ textAlign: 'center' }}>Events You Are Attending</h2>
+                            {
+                                this.state.userEvents.map(userEvent => (
+                                    userEvent.event_id.creator !== this.state.userId ? (
+                                        <UserEventCard
+                                            title={userEvent.event_id.title}
+                                            description={userEvent.event_id.description}
+                                            date={userEvent.event_id.date}
+                                            key={userEvent._id}
+                                            id={userEvent.event_id._id}
+                                        />
+                                    ) :
+                                        ''
+                                ))
+                            }
+                        </Col>
+                        <Col md={2} />
+                    </Row>
                 </div>
-                <div>
-                    {/* <Grid item md={12} container direction="row" justify="center" alignItems="center">
-                        <createEventBtn />
-                    </Grid> */}
-                </div>
-                <Row>
-                    <Col>
-                        <h2>Events You Created</h2>
-                        {
-                            this.state.events.map(userEvent => (
-                                userEvent.event_id.creator === this.state.userId ? (
-                                    <UserEventCard
-                                        title={userEvent.event_id.title}
-                                        description={userEvent.event_id.description}
-                                        date={userEvent.event_id.date}
-                                        key={userEvent._id}
-                                        id={userEvent.event_id._id}
-                                        onDelete={() => this.onDelete(userEvent.event_id._id)}
-                                    />
-                                ) :
-                                    ''
-                            ))
-                        }
-                    </Col>
-                    <Col id="attending">
-                        <h2>Events You Are Attending</h2>
-                        {
-                            this.state.events.map(userEvent => (
-                                userEvent.event_id.creator !== this.state.userId ? (
-                                    <UserEventCard
-                                        title={userEvent.event_id.title}
-                                        description={userEvent.event_id.description}
-                                        date={userEvent.event_id.date}
-                                        key={userEvent._id}
-                                        id={userEvent.event_id._id}
-                                    />
-                                ) :
-                                    ''
-                            ))
-                        }
-                    </Col>
-                </Row>
-            </div>
+            ) : (
+                    <h2>User does not exist</h2>
+                )
         )
     }
 }
 
 export default UserProfile;
-

@@ -2,24 +2,25 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
-import Navigation from './components/Nav';
+// import Navigation from './components/Nav';
 import MenuAppBar from './components/nav2';
 import HomePage from './pages/homePage';
 import EventDetailsPage from './pages/eventDetailPage';
-import User from './pages/users';
-import otherUsersProfile from './pages/otherUsersProfile';
+// import User from './pages/users';
+// import otherUsersProfile from './pages/otherUsersProfile';
 import UserProfile from "./pages/userProfile";
-import UserEvents from './pages/userEvents';
+// import UserEvents from './pages/userEvents';
 import CreateEvent from "./pages/createEvent";
 import EditEvent from "./pages/editEvent";
 import FooterComponent from './components/footer';
-// import RegisterForm from "./components/RegisterForm";
+
 function App() {
   return (
     <Router>
       <div>
         {/* <Navigation /> */}
         <MenuAppBar />
+
         <Switch>
           <Route exact path='/' component={HomePage}></Route>
           <Route exact path='/events' component={HomePage}></Route>
@@ -34,6 +35,7 @@ function App() {
 
           <Route component={NoMatch} />
         </Switch>
+
         <FooterComponent />
       </div>
     </Router>
