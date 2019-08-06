@@ -53,11 +53,11 @@ class CommentBox extends React.Component {
   render() {
     const comments = this._getComments();
     let commentNodes;
-    let buttonText = 'Show Comments';
+    let buttonText = 'Show comments';
 
 
     if (this.state.showComments) {
-      buttonText = 'Hide Comments';
+      buttonText = 'Hide comments';
       commentNodes = <div className="comment-list">
         {comments}
       </div>;
@@ -69,11 +69,11 @@ class CommentBox extends React.Component {
         {
           this.props.first_name ?
             <div>
-              <h2>Join the Discussion!</h2>
+              <h2 style={{marginTop: '3rem'}}>Join the Discussion!</h2>
               <textarea rows="6" style={{ paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', width: '25rem' }} name="body" value={this.state.body} onChange={this.handleChange} />
               <br></br>
-              <button id="submitComment" onClick={this._addComment}>
-                submit
+              <button id="submitComment" onClick={this._addComment} style={{width: '4rem',marginTop: '.5rem', marginBottom: '.75rem'}}>
+                Submit
               </button>
             </div>
             :
@@ -85,7 +85,7 @@ class CommentBox extends React.Component {
 
         }
 
-        <button className="comment-reveal" onClick={this._handleClick.bind(this)}>
+        <button style={{width: '8rem'}} className="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
         <h3 style={{ marginTop: '1rem' }}>Comments</h3>
