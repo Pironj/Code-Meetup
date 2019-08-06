@@ -3,6 +3,7 @@ import API from "../utils/API";
 import CommentBox from "../components/commentbox";
 import FullEvent from "../components/fullEvent"
 import FooterComponent from "../components/footer";
+import './style.css';
 import { Container, Row, Col, Button } from "react-bootstrap";
 // import { Link as RouterLink } from 'react-router-dom';
 import GoogleApiWrapper from '../components/googleMaps'
@@ -86,7 +87,7 @@ class EventDetailsPage extends React.Component {
 
     return (
       <div>
-        <Container>
+        <Container id="eventDetail">
           <Row style={{ marginTop: '2rem' }}>
             <Col>
 
@@ -109,10 +110,13 @@ class EventDetailsPage extends React.Component {
           </Row>
           <Row >
           </Row>
-
-          {/* <Row style={{ marginTop: '.5rem', marginLeft: '.5rem', marginBottom: '2rem' }}>
-            {/* <CommentBox /> */}
-          <Button onClick={this.onAttend} variant="dark">Attend</Button>
+          {
+            this.props.first_name 
+          ? 
+            <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button>
+          :
+            <div></div>
+          }
 
 
           {/* </Row> */}

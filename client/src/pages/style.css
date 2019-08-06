@@ -1,3 +1,5 @@
+/* Event detail styling */
+
 #eventDetail {
   margin-bottom: 10%;
 }
@@ -27,3 +29,5 @@
   }
   #attend:active {
   background: #144E75; }
+  
+  /* End EventDetail styling */
