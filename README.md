@@ -10,10 +10,13 @@
 
 <h3> Home Page </h3>
 <img width="1439" alt="Screen Shot 2019-08-06 at 1 00 02 PM" src="https://user-images.githubusercontent.com/43662571/62573606-45865400-b84b-11e9-97f7-219bf815e946.png">
+<hr><br>
 <h3> Event Page </h3>
 <img width="1440" alt="Screen Shot 2019-08-06 at 1 01 22 PM" src="https://user-images.githubusercontent.com/43662571/62573607-45865400-b84b-11e9-9d11-b4d226a0d2ea.png">
+<hr><br>
 <h3> Create Event Page </h3>
 <img width="1440" alt="Screen Shot 2019-08-06 at 1 04 01 PM" src="https://user-images.githubusercontent.com/43662571/62573608-45865400-b84b-11e9-9a65-b13b41548d2b.png">
+<hr><br>
 <h3> User Profile Page </h3>
 <img width="1103" alt="Screen Shot 2019-08-06 at 1 05 42 PM" src="https://user-images.githubusercontent.com/43662571/62573610-45865400-b84b-11e9-9477-2cf85f736b7a.png">
 
