@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import './style.css';
 
-import {connect} from 'react-redux';
-import {deleteAuthState} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { deleteAuthState } from '../../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -26,9 +26,8 @@ const mapDispatchToProps = (dispatch) => {
 function LogoutButton(props) {
 
   function handleChange(event) {
-    console.log("logout clicked")
-      localStorage.removeItem('authUser');
-      props.logOut();
+    localStorage.removeItem('authUser');
+    props.logOut();
 
   }
 

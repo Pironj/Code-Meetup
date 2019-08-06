@@ -1,6 +1,5 @@
 import React from "react";
 import API from '../utils/API';
-// import App from "../components/eventDetailModal";
 import EventCard from "../components/eventcard";
 import { Jumbotron, Container, Row, Col } from "react-bootstrap";
 
@@ -12,26 +11,15 @@ class HomePage extends React.Component {
   componentDidMount() {
     API.findAllEvents()
       .then(res => {
-        //  console.log(res.data);
+
         this.setState({ events: res.data })
       })
       .catch(err => console.log(err))
   }
 
-  // renderEventDetailModalInfo() {
-  //   this.state.events.map(details => (
-  //     <App
-  //       eventTitle={details.title}
-  //       eventContent={details.description}
-  //       eventDate={details.date}
-  //       eventLocation={details.street_address}
-  //       key={details._id}
-  //     />
-  //   ))
-  // }
 
   renderEventCards = () => {
-    // console.log(this.state);
+
     return this.state.events.map(event => (
       <EventCard
         title={event.title}
@@ -44,11 +32,6 @@ class HomePage extends React.Component {
       />
     ))
   }
-
-  // attendEvent = (id) => {
-  //   // console.log(id);
-
-  // }
 
   render() {
 

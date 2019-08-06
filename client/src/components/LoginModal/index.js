@@ -27,8 +27,8 @@ class LoginModal extends Component {
     errors: {},
     show: false
   };
-  handleClose = () => this.setState({show: false});
-  handleShow = () => this.setState({show: true});
+  handleClose = () => this.setState({ show: false });
+  handleShow = () => this.setState({ show: true });
 
   validateLogin = () => {
     const errors = {};
@@ -73,15 +73,13 @@ class LoginModal extends Component {
   };
 
   handleFormSubmitLogin = event => {
-    
-    console.log(this.state);
+
     //create shallow copy of state
     const userCopy = { ...this.state };
     const loginUserObj = {
       email: userCopy.email,
       password: userCopy.password
     }
-    console.log(loginUserObj);
     // front end validation checking email
     const errors = this.validateLogin()
     if (Object.keys(errors) === errors.first_name || errors.last_name || errors.email || errors.password) {
@@ -91,20 +89,19 @@ class LoginModal extends Component {
     this.setState({ email: "", password: "" });
     const user = loginUserObj;
     API.authorizeLogin(user)
-    .then(res => {
-      console.log(res);
-      this.setState({errors: {}})
-      this.setAuthenticationState(res.data)
-      this.handleClose();
-    })
-    .catch(err => {
-      const errors = this.validateLogin()
+      .then(res => {
+        this.setState({ errors: {} })
+        this.setAuthenticationState(res.data)
+        this.handleClose();
+      })
+      .catch(err => {
+        const errors = this.validateLogin()
         if (Object.keys(errors) === errors.user) {
           this.setState({ errors: errors });
           return console.log(Object.keys(errors));
         }
-  
-    })
+
+      })
   }
 
   setAuthenticationState = (data) => {
@@ -115,9 +112,8 @@ class LoginModal extends Component {
       email: data.user.email,
       token: data.token
     }
-    console.log(authUser)
     setAuthStateLocalStorage(authUser);
-    
+
     // Save auth state in redux store
     this.props.logIn(authUser);
   }
@@ -125,11 +121,11 @@ class LoginModal extends Component {
   render() {
     return (
       <>
-        <Button id="loginBtn"variant="primary" onClick={ this.handleShow }>
+        <Button id="loginBtn" variant="primary" onClick={this.handleShow}>
           Login
         </Button>
-    
-        <Modal show={this.state.show} onHide={ this.handleClose }>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>
               LOG IN
@@ -162,10 +158,10 @@ class LoginModal extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={ this.handleClose }>
+            <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
-            <Button onClick={ this.handleFormSubmitLogin }>
+            <Button onClick={this.handleFormSubmitLogin}>
               Login
             </Button>
           </Modal.Footer>
