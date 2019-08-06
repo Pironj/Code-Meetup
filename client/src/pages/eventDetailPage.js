@@ -2,10 +2,9 @@ import React from "react";
 import API from "../utils/API";
 import CommentBox from "../components/commentbox";
 import FullEvent from "../components/fullEvent"
-import FooterComponent from "../components/footer";
 import './style.css';
 import { Container, Row, Col, Button } from "react-bootstrap";
-// import { Link as RouterLink } from 'react-router-dom';
+
 import GoogleApiWrapper from '../components/googleMaps'
 
 import { connect } from 'react-redux';
@@ -27,9 +26,11 @@ class EventDetailsPage extends React.Component {
     event: {},
     eventId: '',
     userId: '',
-    comments: []
+    comments: [],
+    attend: false,
+    text: "Attend",
+    btnColor: {"backgroundImage": "linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)"}
   }
-
   componentWillMount() {
     this.setState({
       eventId: this.props.match.params.id,
@@ -39,28 +40,81 @@ class EventDetailsPage extends React.Component {
 
 //When user hits Attend button, a new user event is created
   onAttend = () => {
-    API.createUserEvent(
-      {
-        event_id: this.state.eventId,
-        user_id: this.state.userId
-      })
-      .then(res => {
-        console.log(res.data)
-      })
-      .catch(err => console.log(err.response));
-  }
+    if (this.state.attend === false) {
+      this.setState({ attend: true });
+      API.createUserEvent(
+        {
+          event_id: this.state.eventId,
+          user_id: this.state.userId
+        })
+        .then(res => {
+          this.changeText();
+        })
+        .catch(err => console.log(err));
 
+    } else if (this.state.attend === true) {
+      this.setState({ attend: false });
+      API.deleteUserEventByUserIdEventId(
+        this.state.userId,
+        this.state.eventId
+      )
+      .then(res => {
+        this.changeText();
+      })
+      .catch(err => console.log(err));
+      
+    }
+  }
+ // function that alter button state text
+  changeText = () => {
+    if (this.state.attend === true) {
+      this.setState(
+        { 
+          text: "Attending",
+          btnColor: {"backgroundImage": "linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)"}
+        }
+      );
+    } else if (this.state.attend === false) {
+      this.setState(
+        { 
+          text: "Attend",
+          btnColor: {"backgroundImage": "linear-gradient(to right, #0F142D 0%, #2D3A81 70%, #3F51B5 100%)"}
+        }
+      );
+    }
+  }
 
   //Here we are finding specific event ID on first render
   componentDidMount() {
     API.findEventById(this.state.eventId)
       .then(data => {
-        console.log(data.data.date);
+
         this.setState({
           event: data.data
         })
       })
       .catch(err => console.log(err))
+    API.findUserEventByUserIdEventId(this.state.userId, this.state.eventId)
+      .then(res => {
+        console.log(res.data)
+        if (res.data) {
+          this.setState(
+            { 
+              attend: true,
+              text: "Attending"
+            }
+          );
+        } if (!res.data) {
+          this.setState(
+            { 
+              attend: false,
+              text: "Attend"
+            }
+          );
+        }
+      })
+      .catch(err => console.log(err))
+ 
   }
 
   renderFullEvent = () => {
@@ -113,17 +167,11 @@ class EventDetailsPage extends React.Component {
           {
             this.props.first_name 
           ? 
-            <Button id="attend" onClick={this.onAttend} variant="dark">Attend</Button>
+            <Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">{this.state.text}</Button>
           :
             <div></div>
           }
 
-
-          {/* </Row> */}
-
-          <Row style={{ marginTop: '2rem', marginLeft: '.5rem' }}>
-
-          </Row>
           <CommentBox
           eventId={this.state.eventId}
            />

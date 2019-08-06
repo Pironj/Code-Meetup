@@ -1,22 +1,20 @@
 import React from "react";
 import API from "../utils/API";
-// import FullEvent from "../components/fullEvent";
-// import axios from "axios";
-import { Jumbotron, Button, Container, Row, Col } from "react-bootstrap";
-import { Form, Input, FormBtn, TextArea } from "../components/Form";
-// import { List, ListItem } from "../components/List";
-// import { Link } from "react-router-dom";
-// import Calendar from '../components/calendar'
-import "../components/calendar/index.css"
-//import '@lls/react-light-calendar/dist/index.css'
-import "../components/calendar/index.css"
+
+import { Jumbotron, Container, Row, Col } from "react-bootstrap";
+import { Input, FormBtn, TextArea } from "../components/Form";
+
 import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
 import {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
+=======
+import Date from "../components/dateTime"
+>>>>>>> f3be29e51d40a3a46d7419578efffb373f8d8d5d
 
 //Function to map our current state as props
 const mapStateToProps = (state) => {
@@ -44,11 +42,12 @@ class CreateEvent extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
-//When page loads, creator is updated
+  //When page loads, creator is updated
   componentDidMount() {
     this.setState({ creator: this.props.id })
   }
 
+<<<<<<< HEAD
 
 handleInputChange = event => {
   const { name, value } = event.target;
@@ -59,17 +58,25 @@ handleInputChange = event => {
 };
 
 
+=======
+  //
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+>>>>>>> f3be29e51d40a3a46d7419578efffb373f8d8d5d
 
-//When user clicks submit, event is created in state and also created in DB
+  //When user clicks submit, event is created in state and also created in DB
   handleFormSubmit = event => {
-    console.log(this.state.date);
     event.preventDefault();
     if (
       this.state.title &&
       this.state.description &&
-      this.state.address 
-      // && this.state.date
-      ) {
+      this.state.address
+      // && this.state.date // TODO FIX THIS
+    ) {
       API.createEvent({
         title: this.state.title,
         description: this.state.description,
@@ -85,9 +92,8 @@ handleInputChange = event => {
         }
       })
         .then(res => {
-          console.log(res)
           this.props.history.push(`/events/${res.data._id}`);
-          
+
         })
         .catch(err => console.log(err));
     }
@@ -95,7 +101,7 @@ handleInputChange = event => {
 
 
   //Google Maps function for setting dynamic location 
-  
+
   handleLocationSearchChange = address => {
     this.setState({ address });
   };
@@ -105,7 +111,6 @@ handleInputChange = event => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(async latLng => {
-        console.log(latLng)
         await this.setState({ latLng })
       })
       .catch(error => console.error('Error', error));
@@ -115,10 +120,8 @@ handleInputChange = event => {
     return (
 
       <Container fluid>
-      {/* {'(testing) creator id: ' + this.props.id } */}
-      <Row>
-        {/* {this.state.title + this.state.description} */}
-        <Col size="sm-1" />
+        <Row>
+          <Col size="sm-1" />
           <Col size="md-10">
 
             <Jumbotron style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
@@ -142,17 +145,15 @@ handleInputChange = event => {
 
               {/* Event description */}
               <TextArea
-                style={{height: '300px'}}
+                style={{ height: '300px' }}
                 value={this.state.description}
                 onChange={this.handleInputChange}
                 name="description"
                 placeholder=" Description (required)"
               />
-              
-              {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
+
 
               {/* Google Location autocomplete search */}
-              {/* {this.state.address} */}
               <LocationSearchInput
                 value={this.state.address}
                 onChange={this.handleLocationSearchChange}
@@ -168,6 +169,7 @@ handleInputChange = event => {
               </FormBtn>
             </form>
           </Col>
+<<<<<<< HEAD
         
           <div>
                 {/* <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
@@ -177,25 +179,18 @@ handleInputChange = event => {
               </div>
               {/* <Calendar startDate={new Date().getTime()} displayTime /> */}
         
+=======
+          <Col size="md-5">
+
+            <div className="input-field">
+
+              <Date />
+            </div>
+
+          </Col>
+>>>>>>> f3be29e51d40a3a46d7419578efffb373f8d8d5d
           <Col size="sm-1" />
-          {/* <Jumbotron>
-              <h1>My Events</h1>
-            </Jumbotron> */}
-          {/* {this.state.events.length ? (
-              <List>
-                {this.state.events.map(event => (
-                  <ListItem key={eventNames._id}>
-                    <Link to={"/events/" + event._id}>
-                      <strong>
-                        {event.title} by {event.author}
-                      </strong>
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )} */}
+
         </Row>
       </Container>
     );
