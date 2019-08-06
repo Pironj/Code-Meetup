@@ -1,6 +1,6 @@
 import React from "react";
 import API from '../utils/API';
-import App from "../components/eventDetailModal";
+// import App from "../components/eventDetailModal";
 import EventCard from "../components/eventcard";
 import { Jumbotron, Container, Row, Col } from "react-bootstrap";
 
@@ -18,17 +18,17 @@ class HomePage extends React.Component {
       .catch(err => console.log(err))
   }
 
-  renderEventDetailModalInfo() {
-    this.state.events.map(details => (
-      <App
-        eventTitle={details.title}
-        eventContent={details.description}
-        eventDate={details.date}
-        eventLocation={details.street_address}
-        key={details._id}
-      />
-    ))
-  }
+  // renderEventDetailModalInfo() {
+  //   this.state.events.map(details => (
+  //     <App
+  //       eventTitle={details.title}
+  //       eventContent={details.description}
+  //       eventDate={details.date}
+  //       eventLocation={details.street_address}
+  //       key={details._id}
+  //     />
+  //   ))
+  // }
 
   renderEventCards = () => {
     // console.log(this.state);
