@@ -13,7 +13,7 @@ router.route('/signup')
 router.route('/login')
   .post(auth.login);
 
-// For testing
+// For testing JWT in header
 router.route('/protected/:id')
   .get(auth.authorizeUserParams, (req, res) => {
     return res.json({message: 'I\'m protected!'});

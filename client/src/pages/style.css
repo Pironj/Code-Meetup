@@ -17,8 +17,8 @@
   font-style: normal; 
   font-variant: normal; 
   text-transform: none; 
-  background-image: 
-  linear-gradient(to right, #0F142D 0%, #2D3A81 70%, #3F51B5 100%); 
+  /* background-image: 
+  linear-gradient(to right, #0F142D 0%, #2D3A81 70%, #3F51B5 100%);  */
   box-shadow: rgb(0, 0, 0) 2px 2px 10px 2px; 
   border: 2px solid #2D3A81; 
   display: inline-block;
@@ -29,5 +29,18 @@
   }
   #attend:active {
   background: #144E75; }
-  
+
   /* End EventDetail styling */
+
+  .jumbotron__homepage {
+    background-image: url("../img/banner.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: -webkit-fill-available;
+    max-height: 455px;
+    background-attachment: local;
+    background-position: 50% 50%
+  }
+#bannerText {
+  padding-top: 3%;
+}

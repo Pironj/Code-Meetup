@@ -122,12 +122,12 @@ class LoginModal extends Component {
     return (
       <>
         <Button id="loginBtn" variant="primary" onClick={this.handleShow}>
-          Login
+          LOGIN
         </Button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>
+            <Modal.Title id="title">
               LOG IN
               <br></br>
               <div className="errorMsg">{this.state.errors.user}</div>

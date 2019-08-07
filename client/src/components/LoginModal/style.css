@@ -1,5 +1,17 @@
 .modal-content {
   width: fit-content;
+  background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
+  background-size: 200% 100%;
+  animation: AnimationName 15s ease-in-out infinite;
+  border: 2px solid #d6d7da;
+}
+@keyframes AnimationName { 
+  0%{background-position:0% 28%}
+  50%{background-position:100% 73%}
+  100%{background-position:0% 28%}
+}
+#title {
+  color: whitesmoke;
 }
 #loginBtn {
 max-width: 100px;
@@ -9,7 +21,7 @@ font-size: 14px;
 line-height: 14px; 
 padding: 4px; 
 border-radius: 19px; 
-font-family: Georgia, serif; 
+font-family: 'Allerta Stencil', sans-serif;
 font-weight: normal; 
 text-decoration: none; 
 font-style: normal; 
@@ -31,12 +43,12 @@ background: #144E75; }
 
 #register, #login {
   width: 300px;
-  border: 1px solid #d6d7da;
+  border: 2px solid #d6d7da;
   padding: 15px 15px 15px 15px;
   border-radius: 5px;
-  font-family: arial;
+  font-family: 'Allerta Stencil', sans-serif;
   line-height: 16px;
-  color: #333333;
+  color: whitesmoke;
   font-size: 14px;
   background: #ffffff;
   margin: 10px auto;
@@ -61,13 +73,13 @@ form input {
   padding: 12px 15px;
   color: #ffffff;
 }
-/* 
+
 .errorMsg {
   color: #cc0000;
   margin-bottom: 12px;
 }
 
-.sucessMsg {
+/* .sucessMsg {
   color: #6B8E23;
   margin-bottom: 10px;
 } */
