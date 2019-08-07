@@ -47,7 +47,11 @@ const EventCard = (props) => {
               <Moment
                 format="MM/DD/YYYY HH:mm"
                 style={{ fontWeight: 'bold' }}
-                calendar={calendarStrings}>{props.date}</Moment>
+                calendar={calendarStrings}>{props.date}
+              </Moment>
+                <br></br>
+                {// use this for month/day/timeam/pm format
+                /* <strong>{props.format}</strong> */}
             </Card.Text>
 
 
