@@ -90,7 +90,6 @@ class EventDetailsPage extends React.Component {
 			.catch((err) => console.log(err));
 		API.findUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 			.then((res) => {
-				console.log(res.data);
 				if (res.data) {
 					this.setState({
 						attend: true,
