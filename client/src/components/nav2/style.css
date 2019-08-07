@@ -3,14 +3,12 @@
   margin-bottom: auto;
   font-weight: bolder;
   color: #3F51B5;
-  font-family: 'Allerta Stencil', sans-serif;
 
 }
 #buttonDiv {
   margin-top: 2%;
   margin-bottom: auto;
   margin-left: 2%;
-  font-family: 'Allerta Stencil', sans-serif;
 }
 .MuiFormGroup-root {
   max-height: 60px;
@@ -39,14 +37,11 @@ header {
   font-size: x-large;
 }
 #title-font {
-  font-family: 'Allerta Stencil', sans-serif;
   font-weight: 400;
   font-size: x-large;
 }
 .MuiList-root {
-  font-family: 'Allerta Stencil', sans-serif;
   background-color: black;
 }
-.links {
-  font-family: 'Allerta Stencil', sans-serif;
-}
+/* .links {
+} */

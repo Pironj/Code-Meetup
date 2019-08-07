@@ -58,7 +58,7 @@ const EventCard = (props) => {
             <Fab
               variant="extended"
               size="small"
-              color="secondary"
+              color="black"
               aria-label="add"
               component={RouterLink}
               to={`/events/${props.id}`}

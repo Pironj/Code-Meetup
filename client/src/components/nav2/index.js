@@ -96,10 +96,11 @@ const MenuAppBar = (props) => {
           <Typography variant="h6" className={classes.title}>
             <Link to="/" style={{ color: "White", textDecoration: 'none'}} >
               <div id="title-font">
-                <span>&#60;</span>
+                {/* <span>&#60;</span>
                 RENDEZVOUS
             <span> &#8725;</span>
-                <span>&#62;</span>
+                {/* <span>&#62;</span> */}
+              Home
               </div>
             </Link>
           </Typography>
