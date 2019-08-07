@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function UserCard(props) {
+const UserCard = (props) => {
     const classes = useStyles();
 
     //Here we are returning a "User Profile Card" that is shown on their profile page
@@ -37,9 +37,33 @@ export default function UserCard(props) {
                         </React.Fragment>
                     </Typography>
                 </CardContent>
-
             </Card>
         </div>
     );
+    
+
 };
+
+
+export default UserCard;
+
+// export default function SimpleCard(props) {
+//     const classes = useStyles();
+
+//     return (
+//         <div className = "col-md-4">
+//             <Card className={classes.card}>
+//                 <CardContent>
+//                     <Typography variant="h5" component="h2">
+//                         <React.Fragment>
+//                             <p>Name: {props.} </p>
+//                             <p>Email: {props.Email} </p>
+//                         </React.Fragment>
+//                     </Typography>
+//                 </CardContent>
+
+//             </Card>
+//         </div>    
+//     );
+// };
 
