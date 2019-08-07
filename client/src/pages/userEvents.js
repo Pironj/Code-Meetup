@@ -1,9 +1,8 @@
 import React from "react";
 import API from "../utils/API";
-// import CommentBox from "../components/commentbox";
+
 import FullEvent from "../components/fullEvent"
-// import FooterComponent from "../components/footer";
-// import Axios from "axios";
+
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 
@@ -14,9 +13,9 @@ class UserEvents extends React.Component {
     eventId: ''
   }
 
-  onDelete = (response) => {
+  onDelete = () => {
     API.deleteEvent(this.state.eventId)
-      .then(response => {
+      .then(() => {
         this.props.history.push('/')
       }).catch(err => console.log(err));
   }
@@ -30,8 +29,7 @@ class UserEvents extends React.Component {
   componentDidMount() {
     API.findEventById(this.props.match.params.id)
       .then(data => {
-        // console.log('We are on the events details page')
-        // console.log(data.data);
+
         this.setState({
           event: data.data
         })
@@ -40,7 +38,6 @@ class UserEvents extends React.Component {
   }
 
   renderFullEvent = () => {
-    console.log(this.state.event);
 
     return (<FullEvent
       title={this.state.event.title}
@@ -49,7 +46,7 @@ class UserEvents extends React.Component {
       creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
     />
     )
-  
+
   }
 
   render() {
@@ -58,7 +55,7 @@ class UserEvents extends React.Component {
       <div>
         <Container>
           <Row style={{ marginTop: '2rem' }}>
-            <Col> 
+            <Col>
               {this.state.event ? this.renderFullEvent() : <p>This event does not exist</p>}
             </Col>
             <Col>
@@ -69,7 +66,7 @@ class UserEvents extends React.Component {
           </Row>
 
           <Row style={{ marginTop: '1rem', marginLeft: '.5rem' }}>
-            {/* <CommentBox /> */}
+
             <Button onClick={this.onDelete} variant="dark">Delete</Button>
             <Button onClick={this.onEdit} variant="dark">Edit</Button>
 

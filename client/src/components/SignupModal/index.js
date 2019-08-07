@@ -26,9 +26,9 @@ class SignupModal extends Component {
     errors: {},
     show: false
   };
-  
-  handleClose = () => this.setState({show: false});
-  handleShow = () => this.setState({show: true});
+
+  handleClose = () => this.setState({ show: false });
+  handleShow = () => this.setState({ show: true });
 
   validateSignup = () => {
     const errors = {};
@@ -89,12 +89,10 @@ class SignupModal extends Component {
 
   // When the form is submitted, prevent the default event
   handleFormSubmitSignup = event => {
-    // event.preventDefault();
-    // alert(`Username: ${this.state.username}\nPassword: ${this.state.password}`);
-    console.log(this.state);
+
     //create shallow copy of state
     const user = { ...this.state };
-    console.log(user);
+
     // front end validation checking email
     const errors = this.validateSignup()
     if (Object.keys(errors) === errors.first_name || errors.last_name || errors.email || errors.password) {
@@ -102,7 +100,6 @@ class SignupModal extends Component {
       return console.log(Object.keys(errors));
     }
     this.handleClose();
-    // console.log(user);
     user.errors = {}
     this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {} });
     API.authorizeSignup(user)
@@ -121,9 +118,8 @@ class SignupModal extends Component {
       email: data.user.email,
       token: data.token
     }
-    console.log(authUser)
     setAuthStateLocalStorage(authUser);
-    
+
     // Save auth state in redux store
     this.props.logIn(authUser);
   }
@@ -131,11 +127,11 @@ class SignupModal extends Component {
   render() {
     return (
       <>
-        <Button id="signup" variant="primary" onClick={ this.handleShow }>
+        <Button id="signup" variant="primary" onClick={this.handleShow}>
           SignUp
         </Button>
-    
-        <Modal show={this.state.show} onHide={ this.handleClose }>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>SIGN UP</Modal.Title>
           </Modal.Header>
@@ -179,18 +175,13 @@ class SignupModal extends Component {
               />
               <div className="errorMsg">{this.state.errors.password}</div>
               <br></br>
-              {/* <Button
-                style={{ marginLeft: "3%" }}
-                onClick={this.handleFormSubmitSignup}
-                >Signup
-              </Button> */}
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={ this.handleClose }>
+            <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
-            <Button onClick={ this.handleFormSubmitSignup }>
+            <Button onClick={this.handleFormSubmitSignup}>
               SignUp
             </Button>
           </Modal.Footer>
