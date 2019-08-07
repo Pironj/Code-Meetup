@@ -3,6 +3,7 @@ import API from '../utils/API';
 import EventCard from "../components/eventcard";
 import { Jumbotron, Container, Row, Col } from "react-bootstrap";
 import "./style.css";
+import { textAlign } from "@material-ui/system";
 
 class HomePage extends React.Component {
   state = {
@@ -41,15 +42,15 @@ class HomePage extends React.Component {
         <div>
           <Jumbotron className="jumbotron__homepage" fluid>
             <Container id="bannerText">
-            <a href="https://fontmeme.com/fonts/dystopian-future-font/"><img src="https://fontmeme.com/permalink/190806/ad71f4b6a60c7a3e01444c7601f8d78d.png" alt="dystopian-future-font" border="0"/></a>              
-            {/* <h1 className="brand">
+            {/* <a href="https://fontmeme.com/fonts/dystopian-future-font/"><img src="https://fontmeme.com/permalink/190806/ad71f4b6a60c7a3e01444c7601f8d78d.png" alt="dystopian-future-font" border="0"/></a>               */}
+            <h1 className="brand" style={{color: 'white', marginTop: '3rem', fontSize: '4rem'}}>
                 <span>&#60;</span>
                 rendezvous
                 <span> &#8725;</span>
                 <span>&#62;</span>
-              </h1> */}
-              <p className="brand" id="desc">
-              <a href="https://fontmeme.com/fonts/dystopian-future-font/"><img src="https://fontmeme.com/permalink/190806/924bfc3a28aa3825234a2dca46d1eaec.png" alt="dystopian-future-font" border="0"/></a>              </p>
+              </h1>
+              {/* <p className="brand" id="desc"> */}
+              {/* <a href="https://fontmeme.com/fonts/dystopian-future-font/"><img src="https://fontmeme.com/permalink/190806/924bfc3a28aa3825234a2dca46d1eaec.png" alt="dystopian-future-font" border="0"/></a>              </p> */}
             </Container>
           </Jumbotron>
         </div>

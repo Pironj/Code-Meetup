@@ -11,7 +11,7 @@
   line-height: 14px; 
   padding: 4px; 
   border-radius: 19px; 
-  font-family: Georgia, serif; 
+  font-family: 'Spectral', serif;
   font-weight: normal; 
   text-decoration: none; 
   font-style: normal; 
@@ -33,7 +33,7 @@
   /* End EventDetail styling */
 
   .jumbotron__homepage {
-    background-image: url("../img/banner.jpg");
+    background-image: url("../img/banner2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: -webkit-fill-available;
