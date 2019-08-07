@@ -1,6 +1,6 @@
 import React from "react";
 import API from "../utils/API";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Jumbotron } from "react-bootstrap";
 import LocationSearchInput from "../components/googleMapsSearchAutocomplete";
 import { connect } from 'react-redux';
 import {
@@ -115,37 +115,36 @@ class EditEvent extends React.Component {
     return (
 
       <div>
-        {'creator: ' + this.props.id}
+        {/* {'creator: ' + this.props.id} */}
         <Row>
-          <Col>
+        <Col sm={3} />
+          <Col xsß={6}  xs={3}>
+          <Jumbotron id="createEvent" style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
+              <h1 id="text">Edit Event</h1>
+            </Jumbotron>
 
-          </Col>
-          <Col xs={3}>
-
-            <h1 style={{ marginLeft: '4rem', marginTop: '2rem', textAlign: 'center'}} >Edit Event</h1>
-            <form style={{ marginRight: '2rem' }} onSubmit={this.handleFormSubmit}>
+            <form style={{ marginRight: '2rem'}} onSubmit={this.handleFormSubmit}>
 
 
 
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem'}} htmlFor="name">Title</label>
-                <input  style={{width: '25rem'}} type="text" name="title" ref="title" value={this.state.title}
+                <input  style={{width: '25rem', paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} type="text" name="title" ref="title" value={this.state.title}
                   onChange={this.handleInputChange.bind(this)} />
 
               </div>
 
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Description</label>
-
-                <textarea style={{width: '25rem', height:'10rem'}} type="text" name="description" ref="description" value={this.state.description}
+                <textarea style={{width: '25rem', height:'10rem', paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} type="text" name="description" ref="description" value={this.state.description}
                   onChange={this.handleInputChange.bind(this)} />
               </div>
 
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Date</label>
-                <input style={{width: '25rem'}} type="text" name="date" ref="date" value={this.state.date}
+                <input style={{width: '25rem', paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}} type="text" name="date" ref="date" value={this.state.date}
                   onChange={this.handleInputChange.bind(this)} />
-               <DateTimePickerComponent style={{width: '50rem'}} name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
+               <DateTimePickerComponent style={{width: '50rem', marginLeft: '1rem', margintTop: '1rem'}} name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
 
 
               </div>
@@ -153,6 +152,7 @@ class EditEvent extends React.Component {
               <div className="input-field">
                 <label style={{ marginLeft: '.5rem' }} htmlFor="name">Location</label>
                 <LocationSearchInput
+                  style={{paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8'}}
                   value={this.state.streetAddress}
                   onChange={this.handleLocationSearchChange}
                   onSelect={this.handleLocationSearchSelect}
@@ -163,12 +163,10 @@ class EditEvent extends React.Component {
               
               {/* <DateTimePickerComponent style={{width: '50rem'}} name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} /> */}
               </div>
-              <Button style={{marginBottom: '10rem', marginTop: '4rem'}}type="submit" value="Save" className="btn" variant="dark">Save</Button>
+              <Button style={{marginBottom: '10rem', marginTop: '1rem'}}type="submit" value="Save" className="btn" variant="dark">Save</Button>
             </form>
           </Col>
-          <Col>
-
-          </Col>
+          <Col sm={3} />
         </Row>
       </div>
 
