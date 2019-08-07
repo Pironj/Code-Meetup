@@ -48,14 +48,17 @@ class EventDetailsPage extends React.Component {
 					this.changeText();
 				})
 				.catch((err) => console.log(err));
-		} else if (this.state.attend === true) {
+		} else if (this.state.attend === true && this.state.event.creator._id !== this.state.userId) {
 			this.setState({ attend: false });
 			API.deleteUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 				.then((res) => {
 					this.changeText();
 				})
 				.catch((err) => console.log(err));
-		}
+		} else {
+      return alert("You cannot remove yourself from your created event");
+    
+    }
 	};
 	// function that alter button state text
 	changeText = () => {
@@ -87,7 +90,6 @@ class EventDetailsPage extends React.Component {
 			.catch((err) => console.log(err));
 		API.findUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 			.then((res) => {
-				console.log(res.data);
 				if (res.data) {
 					this.setState({
 						attend: true,
@@ -128,6 +130,13 @@ class EventDetailsPage extends React.Component {
 						<Col>
 							{/* TODO -> Need to change this conditional */}
 							{this.state.event._id ? this.renderFullEvent() : <p>This event does not exist</p>}
+							{this.props.first_name ? 
+								<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
+									{this.state.text}
+								</Button>
+							: 
+								<div></div>
+							}
 						</Col>
 						<Col>
 							{this.state.event._id ? (
@@ -141,23 +150,12 @@ class EventDetailsPage extends React.Component {
 							)}
 						</Col>
 					</Row>
-					<Row style={{ marginTop: '1rem' }}>
-						{this.props.first_name ? (
-							<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
-								{this.state.text}
-							</Button>
-						) : (
-							{
-								/* <div></div> */
-							}
-						)}
-					</Row>
-					<Row>
-						<Col md={3} />
-						<Col md={6}>
+					<Row id="commentRow">
+						<Col md={1} />
+						<Col md={10}>
 							<CommentBox eventId={this.state.eventId} />
 						</Col>
-            <Col md={3} />
+            <Col md={1} />
 					</Row>
 				</Container>
 			</div>

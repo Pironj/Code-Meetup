@@ -11,7 +11,6 @@ module.exports = {
   user: {
     first_name: 'first',
     last_name: 'last',
-    // picture: 'pictureUrl',
     password: '1234',
     email: 'user@email.com'
   },

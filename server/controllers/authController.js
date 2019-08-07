@@ -9,11 +9,16 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-
+/**
+ * Calls Passport's authentication strategy
+ */
 authenticate = (callback) => {
   return passport.authenticate('jwt', { session: false, failWithError: true }, callback);
 };
 
+/**
+ * Create a JSON Web Token (JWT)
+ */
 genToken = (user) => {
   const expiresInDays = 7;
   const expires = moment().utc().add({ days: 7 }).unix();
@@ -61,6 +66,12 @@ class Auth {
     })(req, res, next);
   }
 
+  /**
+   * Validates that the user id in res.locals.userIdLocation is equal to the user id provided in their JWT
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
   authorizeUser(req, res, next) {
     return authenticate((err, user, info) => {
       if (err) {
@@ -83,20 +94,20 @@ class Auth {
   }
 
   authorizeUserBody(req, res, next) {
-    console.log(req.body);
     res.locals.userIdLocation = req.body.user_id;
     return this.authorizeUser(req, res, next);
   }
 
   authorizeUserParams(req, res, next) {
-    // console.log('======== REQ ========\n', req);
-    // console.log('\n\n======== RES ========\n', res);
     res.locals.userIdLocation = req.params.id;
     return this.authorizeUser(req, res, next);
   }
 
-
-  // // Signup authentication
+  /**
+   *  Signup authentication
+   * @param {*} req
+   * @param {*} res
+   */
   async signup(req, res) {
     try {
       // Determine if email already exists
@@ -154,6 +165,9 @@ class Auth {
     }
   }
 
+  /**
+   * Initializes Passport strategy
+   */
   getStrategy() {
     const params = {
       secretOrKey: JWT_SECRET,

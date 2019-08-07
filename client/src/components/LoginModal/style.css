@@ -14,8 +14,7 @@
   color: whitesmoke;
 }
 #loginBtn {
-max-width: 100px;
-width: 20%;
+width: 5rem;
 color: rgb(255, 255, 255); 
 font-size: 14px; 
 line-height: 14px; 
