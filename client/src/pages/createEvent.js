@@ -111,8 +111,8 @@ handleInputChange = event => {
           <Col size="sm-1" />
           <Col size="md-10">
 
-            <Jumbotron style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
-              <h1>Create an Event</h1>
+            <Jumbotron id="createEvent" style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
+              <h1 id="text">Create an Event</h1>
             </Jumbotron>
           </Col>
           <Col size="sm-1" />

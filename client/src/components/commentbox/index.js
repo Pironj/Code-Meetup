@@ -2,6 +2,7 @@ import React from 'react';
 import API from '../../utils/API';
 import { connect } from 'react-redux';
 import LoginModal from '../LoginModal';
+import { Card, Button, Footer } from 'react-bootstrap';
 import './style.css';
 
 const mapStateToProps = (state) => {
@@ -88,21 +89,22 @@ class CommentBox extends React.Component {
     return this.state.comments.map((comment) => {
       return (
         <div
+          id="comment"
           key={comment._id}>
-          <Comment
-            creator={comment.creator.first_name + " " + comment.creator.last_name}
-            body={comment.body}
-            key={comment._id}
-          />
-          <div>
-            {
-              this.props.first_name + " " + this.props.last_name === comment.creator.first_name + " " + comment.creator.last_name
-                ?
-                <button className="comment-footer-delete" onClick={() => this._deleteComment(comment._id)}>❌</button>
-                :
-                <div></div>
-            }
-          </div>
+            <Comment
+              creator={comment.creator.first_name + " " + comment.creator.last_name}
+              body={comment.body}
+              key={comment._id}
+            />
+            <Card.Body id="delete">
+              {
+                this.props.first_name + " " + this.props.last_name === comment.creator.first_name + " " + comment.creator.last_name
+                  ?
+                  <Button className="comment-footer-delete" variant="light" onClick={() => this._deleteComment(comment._id)}>❌</Button>
+                  :
+                  <div></div>
+              }
+            </Card.Body>
         </div>
       );
     });
@@ -135,14 +137,19 @@ class CommentBox extends React.Component {
       <div className="comment-box">
         {
           this.props.first_name ?
-            <div>
-              <h2 style={{ marginTop: '3rem' }}>Join the Discussion!</h2>
-              <textarea rows="6" style={{ paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', width: '25rem' }} name="body" value={this.state.body} onChange={this.handleChange} />
-              <br></br>
-              <button id="submitComment" onClick={this._addComment} style={{ width: '4rem', marginTop: '.5rem', marginBottom: '.75rem' }}>
-                Submit
-              </button>
-            </div>
+            <Card>
+              <Card.Header id="joinDisc">
+                <h2>Join the Discussion!</h2>
+              </Card.Header>
+              <Card.Body id="textarea">
+                <textarea rows="6" style={{ paddingLeft: '.25rem', borderRadius: '1rem', borderWidth: '.10rem', borderColor: '#BDC7D8', width: '-webkit-fill-available' }} name="body" value={this.state.body} onChange={this.handleChange} />
+              </Card.Body>
+              <Card.Footer>
+                <button id="submitComment" onClick={this._addComment} style={{ width: '4rem', marginTop: '.5rem', marginBottom: '.75rem', marginLeft: '.75rem' }}>
+                  Submit
+                </button>
+              </Card.Footer>
+            </Card>
             :
             <div>
               <h2>Please Sign in to join the discussion</h2>
@@ -151,11 +158,11 @@ class CommentBox extends React.Component {
             </div>
         }
 
-        <button style={{ width: '8rem' }} className="comment-reveal" onClick={this._handleClick.bind(this)}>
+        <button style={{ width: '8rem', marginTop: '3rem' }} className="comment-reveal" onClick={this._handleClick.bind(this)}>
           {buttonText}
         </button>
-        <h3 style={{ marginTop: '1rem' }}>Comments</h3>
-        <h4 style={{ marginBottom: '5rem' }} className="comment-count">
+        {/* <h3 style={{ marginTop: '1rem' }}>Comments</h3> */}
+        <h4 style={{ marginBottom: '3rem', marginTop: '1rem' }} className="comment-count">
           {this._getCommentsTitle(comments.length)}
         </h4>
         {commentNodes}
@@ -168,12 +175,14 @@ class CommentBox extends React.Component {
 class Comment extends React.Component {
   render() {
     return (
-      <div className="comment">
-        <p className="comment-header">{this.props.creator}</p>
-        <p className="comment-body">- {this.props.body}</p>
-      </div>
+      <Card id="commentCards">
+        <Card.Header id="eventHead">{this.props.creator} said: </Card.Header>
+        <Card.Body id="commentBody">
+          <Card.Text>{this.props.body}</Card.Text>
+        </Card.Body>
+      </Card>
     );
   }
 }
 
-export default connect(mapStateToProps)(CommentBox);
+export default connect(mapStateToProps)(CommentBox, Comment);

@@ -3,15 +3,17 @@
 #eventDetail {
   margin-bottom: 10%;
 }
-
+#commentRow {
+  margin-top: 4rem;
+}
 #attend {
-  width: 9%;
+  width: 6rem;
   color: rgb(255, 255, 255); 
   font-size: 14px; 
   line-height: 14px; 
   padding: 4px; 
   border-radius: 19px; 
-  font-family: Georgia, serif; 
+  font-family: 'Allerta Stencil', sans-serif;
   font-weight: normal; 
   text-decoration: none; 
   font-style: normal; 
@@ -43,4 +45,18 @@
   }
 #bannerText {
   padding-top: 3%;
+}
+#desc {
+  margin-top: 3%;
+}
+body {
+  background-color: silver;
+}
+#createEvent {
+  background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
+  color: whitesmoke; 
+  font-family: 'Allerta Stencil', sans-serif;
+}
+#text {
+  font-family: 'Allerta Stencil', sans-serif;
 }

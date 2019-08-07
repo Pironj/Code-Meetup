@@ -30,6 +30,8 @@ class HomePage extends React.Component {
         key={event._id}
         id={event._id}
         creator={event.creator}
+        // use for month/day/time am/pm format
+        //format={event.dateFormatted}
       />
     ))
   }
@@ -41,7 +43,7 @@ class HomePage extends React.Component {
         <div>
           <Jumbotron className="jumbotron__homepage" fluid>
             <Container id="bannerText">
-            <a href="https://fontmeme.com/fonts/dystopian-future-font/"><img src="https://fontmeme.com/permalink/190806/ad71f4b6a60c7a3e01444c7601f8d78d.png" alt="dystopian-future-font" border="0"/></a>              
+            <img src="https://fontmeme.com/permalink/190807/6aadb61abb6dff195b588f6482f2ac8c.png" alt="avayx-font" border="0"/>           
             {/* <h1 className="brand">
                 <span>&#60;</span>
                 rendezvous
@@ -49,7 +51,8 @@ class HomePage extends React.Component {
                 <span>&#62;</span>
               </h1> */}
               <p className="brand" id="desc">
-              <a href="https://fontmeme.com/fonts/dystopian-future-font/"><img src="https://fontmeme.com/permalink/190806/924bfc3a28aa3825234a2dca46d1eaec.png" alt="dystopian-future-font" border="0"/></a>              </p>
+              <img src="https://fontmeme.com/permalink/190807/75ad7431bbb8a02c82d3aa34a4436fc7.png" alt="planet-n-compact-font" border="0"/>
+              </p>
             </Container>
           </Jumbotron>
         </div>
