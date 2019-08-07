@@ -13,7 +13,7 @@
   line-height: 14px; 
   padding: 4px; 
   border-radius: 19px; 
-  font-family: 'Spectral', serif;
+  font-family: 'Karla', sans-serif;
   /* font-family: 'Allerta Stencil', sans-serif; */
   font-weight: normal; 
   text-decoration: none; 
@@ -46,6 +46,8 @@
   }
 #bannerText {
   padding-top: 3%;
+  font-family: 'Karla', sans-serif;
+
 }
 #desc {
   margin-top: 3%;
@@ -56,8 +58,8 @@ body {
 #createEvent {
   background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
   color: whitesmoke; 
-  font-family: 'Allerta Stencil', sans-serif;
+  font-family: 'Karla', sans-serif;
 }
 #text {
-  font-family: 'Allerta Stencil', sans-serif;
+  font-family: 'Karla', sans-serif;
 }

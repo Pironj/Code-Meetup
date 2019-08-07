@@ -1,3 +1,5 @@
+
+
 #user {
   margin-top: 2%;
   margin-bottom: auto;
@@ -18,6 +20,7 @@ header {
   background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
   background-size: 200% 100%;
   animation: AnimationName 15s ease-in-out infinite;
+
 }
 
 
@@ -28,6 +31,7 @@ header {
 }
 #navDiv {
   background-color: black;
+  
 }
 .brand {
   color: black;
@@ -43,5 +47,7 @@ header {
 .MuiList-root {
   background-color: black;
 }
+
+
 /* .links {
 } */
