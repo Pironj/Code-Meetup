@@ -1,7 +1,6 @@
 #signup {
   margin-left: 1rem;
-  width: 20%;
-  max-width: 100px;
+  width: 5rem;
   color: rgb(255, 255, 255); 
   font-size: 14px; 
   line-height: 14px; 
@@ -39,7 +38,7 @@
   100%{background-position:0% 28%}
 }
 
-#register, #login {
+#register {
   width: 300px;
   border: 2px solid #d6d7da;
   padding: 15px 15px 15px 15px;

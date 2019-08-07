@@ -19,6 +19,10 @@ border: 2px solid #2D3A81;
 display: inline-block;
 
 }
+#comment {
+  margin-bottom: 2%;
+  display: flex;
+}
 .mb-3 {
   height: auto;
   width: 350px;
@@ -30,7 +34,7 @@ display: inline-block;
   line-height: 14px; 
   padding: 4px; 
   border-radius: 19px; 
-  font-family: Georgia, serif; 
+  font-family: 'Allerta Stencil', sans-serif;
   font-weight: normal; 
   text-decoration: none; 
   font-style: normal; 
@@ -57,7 +61,7 @@ background: #144E75; }
   line-height: 14px; 
   padding: 4px; 
   border-radius: 19px; 
-  font-family: Georgia, serif; 
+  font-family: 'Allerta Stencil', sans-serif;
   font-weight: normal; 
   text-decoration: none; 
   font-style: normal; 
@@ -69,9 +73,38 @@ background: #144E75; }
   border: 2px solid #2D3A81; 
   display: inline-block;
 }
-#comment-reveal:hover {
-background: #1C6EA4; 
-border: 2px solid #1C6EA4;
+
+.comment-footer-delete {
+  font-size: 10px;
+  height: 100%;
 }
-#comment-reveal:active {
-background: #144E75; }
+#joinDisc {
+  background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
+  color: whitesmoke; 
+}
+#delete {
+  padding: 0;
+}
+#textarea {
+  padding: 0;
+}
+#commentBody {
+  padding: 5px;
+  width: 33rem;
+  overflow: auto;
+}
+#commentCards {
+  flex-direction: row;
+  height: fit-content;
+}
+h2 {
+  font-family: 'Allerta Stencil', sans-serif;
+}
+#eventHead {
+  background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
+  color: whitesmoke; 
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+  border-bottom-right-radius: calc(0.25rem - 1px);
+  border-bottom-left-radius: calc(0.25rem - 1px);
+}

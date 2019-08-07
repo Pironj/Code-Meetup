@@ -130,6 +130,13 @@ class EventDetailsPage extends React.Component {
 						<Col>
 							{/* TODO -> Need to change this conditional */}
 							{this.state.event._id ? this.renderFullEvent() : <p>This event does not exist</p>}
+							{this.props.first_name ? 
+								<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
+									{this.state.text}
+								</Button>
+							: 
+								<div></div>
+							}
 						</Col>
 						<Col>
 							{this.state.event._id ? (
@@ -143,23 +150,12 @@ class EventDetailsPage extends React.Component {
 							)}
 						</Col>
 					</Row>
-					<Row style={{ marginTop: '1rem' }}>
-						{this.props.first_name ? (
-							<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
-								{this.state.text}
-							</Button>
-						) : (
-							{
-								/* <div></div> */
-							}
-						)}
-					</Row>
-					<Row>
-						<Col md={3} />
-						<Col md={6}>
+					<Row id="commentRow">
+						<Col md={1} />
+						<Col md={10}>
 							<CommentBox eventId={this.state.eventId} />
 						</Col>
-            <Col md={3} />
+            <Col md={1} />
 					</Row>
 				</Container>
 			</div>
