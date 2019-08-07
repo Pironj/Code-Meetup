@@ -22,7 +22,7 @@ const FullEvent = (props) => {
       <p>Address: {props.address}</p>
       <p>Host: {props.creator}</p>
 
-      <p>Time: <Moment calendar={calendarStrings}>{props.date}</Moment></p>
+      <p>Time: <Moment format = "MM/DD/YYYY HH:mm" calendar={calendarStrings}>{props.date}</Moment></p>
 
     </Jumbotron>
 
