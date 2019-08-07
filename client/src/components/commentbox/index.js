@@ -181,10 +181,6 @@ class Comment extends React.Component {
           <Card.Text>{this.props.body}</Card.Text>
         </Card.Body>
       </Card>
-      // <div className="comment">
-      //   <p className="comment-header">{this.props.creator}</p>
-      //   <p className="comment-body">- {this.props.body}</p>
-      // </div>
     );
   }
 }
