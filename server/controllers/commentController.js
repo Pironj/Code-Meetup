@@ -35,7 +35,10 @@ module.exports = {
   create: function (req, res) {
     db.Comment
       .create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .then(async savedComment => {
+        const populatedComment = await db.Comment.findById(savedComment._id).populate('creator');
+        return res.json(populatedComment);
+      })
       .catch(err => res.status(422).json(err));
   },
 

@@ -24,6 +24,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  /**
+   * Find all events near the given latitude, longitude coordinates
+   */
   findNear: (req, res) => {
     db.Event.aggregate(
       [
@@ -79,7 +82,6 @@ module.exports = {
   },
 
   remove: function (req, res) {
-    console.log(req.body);
     db.Event
       .findByIdAndDelete(req.params.id)
       .then(async dbModel => {

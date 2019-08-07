@@ -35,8 +35,7 @@
   </ul>
   <li> Redux </li>
   <li> Axios </li>
-  <li> Chain (testing) </li>
-  <li> Mocha (testin) </li>
+  <li> Unit testing using Mocha.js and Chai.js  </li>
   <li> Material UI </li>
   <li> Bootstrap </li>
   <li> Protected API Routes using authentication and authorization </li>
