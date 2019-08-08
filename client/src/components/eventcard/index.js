@@ -44,14 +44,14 @@ const EventCard = (props) => {
               {props.location}
             </Card.Text>
             <Card.Text>
-              <Moment
+              {/* <Moment
                 format="MM/DD/YYYY HH:mm"
                 style={{ fontWeight: 'bold' }}
                 calendar={calendarStrings}>{props.date}
-              </Moment>
-                <br></br>
-                {// use this for month/day/timeam/pm format
-                /* <strong>{props.format}</strong> */}
+              </Moment> */}
+                {/* <br></br> */}
+                 {/* use this for month/day/timeam/pm format */}
+                <strong>{props.format}</strong>
             </Card.Text>
 
 

@@ -31,7 +31,7 @@ class HomePage extends React.Component {
         id={event._id}
         creator={event.creator}
         // use for month/day/time am/pm format
-        //format={event.dateFormatted}
+        format={event.dateFormatted}
       />
     ))
   }
