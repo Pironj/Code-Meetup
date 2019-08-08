@@ -23,7 +23,7 @@
 
 <h2>Description </h2>
 <p> Upon page load, the user is asked to sign in or sign up (first name, last name, email, and password). Once the user is logged in, the application will develop a profile page for the user that will store the events that they are either attending or hosting. We have added a google map to help display to the user who is interested in attending the event being viewed. The user can view all pages of the application however there limited to what they can do as far confirm to attend to events, leave comments, or create an event of their own. </p>
-
+  
 <h2>Technologies</h2>
 <ul>
   <li> MERN Stack </li>
@@ -38,8 +38,16 @@
   <li> Unit testing using Mocha.js and Chai.js  </li>
   <li> Material UI </li>
   <li> Bootstrap </li>
-  <li> Protected API Routes using authentication and authorization </li>
+  <li> Protected API Routes using JSON Web Tokens </li>
  </ul>
+ 
+ <h2> Future Improvements </h2>
+ <ul>
+    <li> Implement an event search by location, date, and keywords </li>
+    <li> Map directions </li>
+    <li> Real time chat </li>
+    <li> Email notifications </li>
+  </ul>
  
  <h2> Development Information </h2>
  
