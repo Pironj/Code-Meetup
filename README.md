@@ -50,11 +50,13 @@
   </ul>
   
  <h2> Collaborators </h2>
- [Tristan Endreo](https://github.com/EndreoT)
- [Andrew Reyes](https://github.com/andrwjrdn)
- [Ramon Vidallon](https://github.com/ramonavidallon)
- [Cassie Birkbeck](https://github.com/cnbirkbeck)
- [Julian Piron](https://github.com/Pironj)
+ <ul>
+  <li><a href="https://github.com/EndreoT">Tristan Endreo</a></li>
+  <li><a href="https://github.com/andrwjrdn">Andrew Reyes</a></li>
+  <li><a href="https://github.com/ramonavidallon">Ramon Vidallon</a></li>
+  <li><a href="https://github.com/cnbirkbeck">Cassie Birkbeck</a></li>
+  <li><a href="https://github.com/Pironj">Julian Piron</a></li>
+ </ul>
 
  <h2> Development Information </h2>
  
