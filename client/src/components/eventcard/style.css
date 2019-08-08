@@ -1,6 +1,3 @@
-* {
-  font-family: 'Spectral', serif;
-}
 
 .attendBtn {
   margin-left: 160px;
@@ -19,6 +16,6 @@
 
 .eventHead {
   background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
-  font-family: 'Spectral', serif;
+  font-family: 'Karla', sans-serif;
   color: whitesmoke;
 }

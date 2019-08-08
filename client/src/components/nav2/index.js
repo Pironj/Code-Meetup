@@ -100,7 +100,7 @@ const MenuAppBar = (props) => {
                 RENDEZVOUS
             <span> &#8725;</span>
                 {/* <span>&#62;</span> */}
-              Home
+              HOME
               </div>
             </Link>
           </Typography>

@@ -39,13 +39,13 @@ const UserEventCard = (props) => {
       <Container>
         <Card className="eventCard" border="dark" style={{ width: '20rem', height: '20rem', marginTop: '3rem' }}>
           <Card.Header className="eventHead">{props.title}</Card.Header>
-          <Card.Body>
+          <Card.Body >
 
-            <Card.Text>
+            <Card.Text className="eventBody">
               {props.description.substring(0, 100) + "..."}
             </Card.Text>
 
-            <Card.Text>
+            <Card.Text className="eventBody">
               <Moment // Moment JS used to display calendar dates
                 style={{ fontWeight: 'bold' }}
                 calendar={calendarStrings}>{props.date}
