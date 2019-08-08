@@ -48,7 +48,14 @@
     <li> Real time chat </li>
     <li> Email notifications </li>
   </ul>
- 
+  
+ <h2> Collaborators </h2>
+ [Tristan Endreo](https://github.com/EndreoT)
+ [Andrew Reyes](https://github.com/andrwjrdn)
+ [Ramon Vidallon](https://github.com/ramonavidallon)
+ [Cassie Birkbeck](https://github.com/cnbirkbeck)
+ [Julian Piron](https://github.com/Pironj)
+
  <h2> Development Information </h2>
  
  <h3> Run Development Server </h3>
