@@ -74,6 +74,7 @@ class Auth {
    */
   authorizeUser(req, res, next) {
     return authenticate((err, user, info) => {
+
       if (err) {
         return next(err);
       }

@@ -16,6 +16,7 @@ router.route('/login')
 // For testing JWT in header
 router.route('/protected/:id')
   .get(auth.authorizeUser, (req, res) => {
+    console.log('made it to protected route');
     const authenticatedUser = res.locals.authenticatedUser;
 
     if (authenticatedUser._id.toString() !== req.params.id) {

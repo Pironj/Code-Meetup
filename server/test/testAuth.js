@@ -80,6 +80,7 @@ describe('User', () => {
   });
 
   describe('GET /auth/protected/:id', () => {
+
     it('should access protected route with validated credentials', async () => {
       const newUser = await request(server)
         .post('/auth/signup')
@@ -110,7 +111,7 @@ describe('User', () => {
         .get('/auth/protected/' + newUser.body.user._id)
         .set('Authorization', 'bearer ' + otherUser.body.token);
 
-      expect(authRes.body).to.have.property( 'message', 'You are not authorized to perform this action');
+      expect(authRes.body).to.have.property('message', 'You are not authorized to perform this action');
     });
 
     it('should not access a protected route with a valid JWT but no user in DB', async () => {
@@ -122,7 +123,7 @@ describe('User', () => {
         .get('/auth/protected/' + newUser.body.user._id)
         .set('Authorization', 'bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVkNGRhY2JlNTViNmQxMDVlMDJhMWI1NSIsImZpcnN0X25hbWUiOiJhc2RmIiwiZW1haWwiOiJkZGZAYWEuY29tIn0sImlhdCI6MTU2NTM3MTU4MiwiZXhwIjoxNTY1OTc2MzgyfQ.D2Wslrl0KO-byZnrvjjfyJicRpNBw-DtT5Tiek-Nih8');
 
-      expect(authRes.body).to.have.property( 'message', 'The user in the token was not found');
+      expect(authRes.body).to.have.property('message', 'The user in the token was not found');
     });
 
     it('should not access a protected route with an invalid JWT', async () => {
@@ -135,7 +136,20 @@ describe('User', () => {
         .set('Authorization', 'bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVkNGRhY2JlNTViNmQxMDVlMDJhMWI1NSIsImZpcnN0X25hbWUi8iJhc2RmIiwiZW1haWwiOiJkZGZAYWEuY29tin0sImlhdCI6MTU2NTM3MTU4MiwiZXhwIjoxNTY1OTc2MzgyfQ.D2Wslrl0KO-byZnrvjjfyJicRpNBw-dtT5Tiek-Niha');
 
       expect(authRes.body.message.slice(0, 16)).to.equal('Unexpected token');
+
     });
+
+    it('should not access a protected route with no JWT provided', async () => {
+      const newUser = await request(server)
+        .post('/auth/signup')
+        .send(testUtils.user);
+
+      const authRes = await request(server)
+        .get('/auth/protected/' + newUser.body.user._id);
+
+      expect(authRes.body.message).to.equal('No auth token');
+    });
+
   });
 
 });

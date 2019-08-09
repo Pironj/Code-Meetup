@@ -98,6 +98,7 @@ describe('Event', () => {
         .post('/api/events')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
         .send(testUtils.event);
+
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('creator', this.newUserRes.body.user._id.toString());
       expect(res.body).to.have.property('title', testUtils.event.title);
