@@ -5,13 +5,13 @@ const auth = require('../../controllers/authController');
 // // Matches with "/api/books"
 router.route('/')
   .get(commentController.findAll)
-  .post(auth.authorizeUserBody, commentController.create); // to protect in auth.authorizeUserBody
+  .post(auth.authorizeUser, commentController.create); // to protect in auth.authorizeUser
 
 // // Matches with "/api/books/:id"
 router.route('/:id')
   .get(commentController.findById)
-  .put(auth.authorizeUserBody, commentController.update) // to protect in auth.authorizeUserBody
-  .delete(auth.authorizeUserBody, commentController.remove); // to protect in auth.authorizeUserBody
+  .put(auth.authorizeUser, commentController.update) // to protect in auth.authorizeUser
+  .delete(auth.authorizeUser, commentController.remove); // to protect in auth.authorizeUser
 
 router.route('/user/:id')
   .get(commentController.findCommentsForUser);

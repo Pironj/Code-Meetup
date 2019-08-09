@@ -55,15 +55,22 @@ module.exports = {
   },
 
   create: async function (req, res) {
-    try {
-      const user = await db.User.findById(req.body.creator).select('-password'); // Check if user exists
-      if (!user) {
-        return res.status(404).json({ message: `User with id ${req.body.creator} does not exist.` });
-      }
+    const authenticatedUser = res.locals.authenticatedUser;
 
-      const event = await db.Event.create(req.body);
-      await db.UserEvent.create({ user_id: event.creator, event_id: event._id }); // Event creator will attend event
-      return res.json(event);
+    try {
+      const body = req.body;
+      const newEvent = {
+        creator: authenticatedUser._id,
+        title: body.title,
+        description: body.description,
+        date: body.date,
+        location: body.location,
+        street_address: body.street_address,
+      };
+
+      const createdEvent = await db.Event.create(newEvent);
+      await db.UserEvent.create({ user_id: createdEvent.creator, event_id: createdEvent._id }); // Event creator will attend event
+      return res.json(createdEvent);
     } catch (err) {
       return res.status(422).json(err);
     }

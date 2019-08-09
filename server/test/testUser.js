@@ -111,7 +111,7 @@ describe('User', () => {
 
       const res = await request(server)
         .delete('/api/users/' + newUserRes.body.user._id)
-        .set('Authorization', 'bearer ' + newUserRes.body.token)
+        .set('Authorization', 'bearer ' + newUserRes.body.token);
       expect(res.status).to.be.equal(200);
     });
 
@@ -131,7 +131,7 @@ describe('User', () => {
 
       const authRes = await request(server)
         .delete('/api/users/' + otherUserRes.body.user._id)
-        .set('Authorization', 'bearer ' + newUserRes.body.token)
+        .set('Authorization', 'bearer ' + newUserRes.body.token);
 
       expect(authRes.status).to.equal(422);
       expect(authRes.body).to.have.property('message', 'You are not authorized to perform this action');
@@ -144,7 +144,7 @@ describe('User', () => {
 
       const deleteRes = await request(server)
         .delete('/api/users/111111111111111111111111')
-        .set('Authorization', 'bearer ' + newUserRes.body.token)
+        .set('Authorization', 'bearer ' + newUserRes.body.token);
 
       expect(deleteRes.status).to.be.equal(422);
       expect(deleteRes.body).to.have.property('message', 'You are not authorized to perform this action');
