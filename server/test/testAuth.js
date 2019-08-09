@@ -92,7 +92,7 @@ describe('User', () => {
       expect(authRes.body).to.have.property('message', 'I\'m protected!');
     });
 
-    it('should not access protected route with invalidated credentials', async () => {
+    it('should not access a protected route with invalidated credentials', async () => {
       const newUser = await request(server)
         .post('/auth/signup')
         .send(testUtils.user);
@@ -110,7 +110,7 @@ describe('User', () => {
         .get('/auth/protected/' + newUser.body.user._id)
         .set('Authorization', 'bearer ' + otherUser.body.token);
 
-      expect(authRes.body).to.have.property( 'message', 'User id in request body does not match user id in JWT');
+      expect(authRes.body).to.have.property( 'message', 'You are not authorized to perform this action');
     });
   });
 

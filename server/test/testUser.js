@@ -60,36 +60,94 @@ describe('User', () => {
   });
 
   describe('PUT /:id', () => {
-    it('should update the existing order and return 200', async () => {
-      const newUser = new db.User(testUtils.user);
-      await newUser.save();
+    it('should update the existing user email and return 200 status only with validated credentials', async () => {
+      const newUserRes = await request(server)
+        .post('/auth/signup')
+        .send(testUtils.user);
 
-      const res = await request(server)
-        .put('/api/users/' + newUser._id)
+      const authRes = await request(server)
+        .put('/api/users/' + newUserRes.body.user._id)
+        .set('Authorization', 'bearer ' + newUserRes.body.token)
         .send({
-          first_name: 'newTest',
           email: 'newemail@gmail.com',
         });
 
-      expect(res.status).to.equal(200);
-      expect(res.body).to.have.property('first_name', 'newTest');
+      expect(authRes.status).to.equal(200);
+      expect(authRes.body).to.have.property('email', 'newemail@gmail.com');
+      expect(authRes.body._id).to.equal(newUserRes.body.user._id);
+    });
+
+    it('should NOT update the existing user email and return 422 status only with invalid credentials', async () => {
+      const newUserRes = await request(server)
+        .post('/auth/signup')
+        .send(testUtils.user);
+
+      const otherUser = await request(server)
+        .post('/auth/signup')
+        .send({
+          first_name: 'first',
+          last_name: 'last',
+          password: '1234',
+          email: 'otheruser@email.com'
+        });
+
+      const authRes = await request(server)
+        .put('/api/users/' + otherUser.body.user._id)
+        .set('Authorization', 'bearer ' + newUserRes.body.token)
+        .send({
+          email: 'newemail@gmail.com',
+        });
+
+      expect(authRes.status).to.equal(422);
+      expect(authRes.body).to.have.property('message', 'You are not authorized to perform this action');
     });
   });
 
   describe('DELETE /:id', () => {
-    it('should delete requested id and return response 200', async () => {
-      const newUser = new db.User(testUtils.user);
-      await newUser.save();
+    it('should delete requested id and return response 200 only with validated credentials', async () => {
+      const newUserRes = await request(server)
+        .post('/auth/signup')
+        .send(testUtils.user);
 
-      const res = await request(server).delete('/api/users/' + newUser._id);
+      const res = await request(server)
+        .delete('/api/users/' + newUserRes.body.user._id)
+        .set('Authorization', 'bearer ' + newUserRes.body.token)
       expect(res.status).to.be.equal(200);
     });
 
-    it('should return null when deleted user does not exist', async () => {
+    it('should NOT delete requested id and return 422 status only with invalid credentials', async () => {
+      const newUserRes = await request(server)
+        .post('/auth/signup')
+        .send(testUtils.user);
 
-      res = await request(server).get('/api/users/111111111111111111111111');
-      expect(res.status).to.be.equal(200);
-      expect(res.body).to.be.null;
+      const otherUserRes = await request(server)
+        .post('/auth/signup')
+        .send({
+          first_name: 'first',
+          last_name: 'last',
+          password: '1234',
+          email: 'otheruser@email.com'
+        });
+
+      const authRes = await request(server)
+        .delete('/api/users/' + otherUserRes.body.user._id)
+        .set('Authorization', 'bearer ' + newUserRes.body.token)
+
+      expect(authRes.status).to.equal(422);
+      expect(authRes.body).to.have.property('message', 'You are not authorized to perform this action');
+    });
+
+    it('should NOT delete an invalied requested id and return 422 status only with invalid credentials', async () => {
+      const newUserRes = await request(server)
+        .post('/auth/signup')
+        .send(testUtils.user);
+
+      const deleteRes = await request(server)
+        .delete('/api/users/111111111111111111111111')
+        .set('Authorization', 'bearer ' + newUserRes.body.token)
+
+      expect(deleteRes.status).to.be.equal(422);
+      expect(deleteRes.body).to.have.property('message', 'You are not authorized to perform this action');
     });
   });
 });

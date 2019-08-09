@@ -70,6 +70,12 @@ module.exports = {
   },
 
   update: function (req, res) {
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    if (authenticatedUser._id.toString() !== req.params.id) {
+      return res.status(422).json({ message: 'You are not authorized to perform this action' });
+    }
+
     db.Event
       .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       .then(dbModel => {
@@ -82,6 +88,12 @@ module.exports = {
   },
 
   remove: function (req, res) {
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    if (authenticatedUser._id.toString() !== req.params.id) {
+      return res.status(422).json({ message: 'You are not authorized to perform this action' });
+    }
+
     db.Event
       .findByIdAndDelete(req.params.id)
       .then(async dbModel => {
