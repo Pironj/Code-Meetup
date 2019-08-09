@@ -85,10 +85,16 @@ class Auth {
         }
       }
 
+      // ***********************************
+      // These are always the same oops
+      //***********************************
+      // console.log(user._id) 
+      // console.log(res.locals.userIdLocation)
       // Check if user details in token is the same as in the desired protected route
-      if (String(user._id) !== res.locals.userIdLocation) {
-        return res.status(401).json({ message: 'User id in request body does not match user id in JWT' });
-      }
+      // if (String(user._id) !== res.locals.userIdLocation) {
+      //   return res.status(401).json({ message: 'User id in request body does not match user id in JWT' });
+      // }
+      res.locals.authenticatedUser = user;
       return next();
     })(req, res, next);
   }

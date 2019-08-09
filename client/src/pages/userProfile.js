@@ -85,8 +85,8 @@ class UserProfile extends React.Component {
                         </Row>
                     </div>
                     <Row style={{ marginBottom: '5rem' }}>
-                        <Col md={2} />
-                        <Col md={4} style={{ marginTop: '5rem' }}>
+                        {/* <Col md={2} /> */}
+                        <Col md={6} style={{ marginTop: '5rem' }}>
                             <h2 style={{ textAlign: 'center' }}>Events You Created</h2>
                             {
                                 this.state.userEvents.map(userEvent => (
@@ -104,7 +104,7 @@ class UserProfile extends React.Component {
                                 ))
                             }
                         </Col>
-                        <Col md={4} style={{ marginTop: '5rem' }} id="attending">
+                        <Col md={6} style={{ marginTop: '5rem' }} id="attending">
                             <h2 style={{ textAlign: 'center' }}>Events You Are Attending</h2>
                             {
                                 this.state.userEvents.map(userEvent => (
@@ -121,7 +121,7 @@ class UserProfile extends React.Component {
                                 ))
                             }
                         </Col>
-                        <Col md={2} />
+                        {/* <Col md={2} /> */}
                     </Row>
                 </div>
             ) : (
