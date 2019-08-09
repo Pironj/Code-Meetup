@@ -76,15 +76,30 @@ module.exports = {
     }
   },
 
-  update: function (req, res) {
+  update: async (req, res) => {
     const authenticatedUser = res.locals.authenticatedUser;
-
-    if (authenticatedUser._id.toString() !== req.params.id) {
-      return res.status(422).json({ message: 'You are not authorized to perform this action' });
+    try {
+      // Check if user is the event's original creator
+      const event = await db.Event.findById(req.params.id);
+      if (authenticatedUser._id.toString() !== event.creator.toString()) {
+        return res.status(422).json({ message: 'You are not authorized to perform this action' });
+      }
+    } catch (err) {
+      return res.json(err);
     }
 
+    const body = req.body;
+    const existingEvent = {
+      creator: authenticatedUser._id,
+      title: body.title,
+      description: body.description,
+      date: body.date,
+      location: body.location,
+      street_address: body.street_address,
+    };
+
     db.Event
-      .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      .findOneAndUpdate({ _id: req.params.id }, existingEvent, { new: true })
       .then(dbModel => {
         if (!dbModel) { // Check if event exists
           return res.status(404).json({ message: `Event with id ${req.params.id} does not exist.` });
@@ -94,11 +109,16 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  remove: function (req, res) {
+  remove: async (req, res) => {
     const authenticatedUser = res.locals.authenticatedUser;
-
-    if (authenticatedUser._id.toString() !== req.params.id) {
-      return res.status(422).json({ message: 'You are not authorized to perform this action' });
+    try {
+      // Check if user is the event's original creator
+      const event = await db.Event.findById(req.params.id);
+      if (authenticatedUser._id.toString() !== event.creator.toString()) {
+        return res.status(422).json({ message: 'You are not authorized to perform this action' });
+      }
+    } catch (err) {
+      return res.status(404).json(err);
     }
 
     db.Event
