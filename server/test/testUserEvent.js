@@ -137,7 +137,7 @@ describe('Event', () => {
       const postRes = await request(server)
         .post('/api/userEvents')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send({ event_id: newEvent._id.toString(), user_id: this.newUserRes.body.user._id.toString() });
+        .send({ event_id: newEvent._id.toString() });
 
       expect(postRes.status).to.equal(200);
       expect(postRes.body.user_id).to.equal(this.newUserRes.body.user._id.toString());
@@ -151,23 +151,13 @@ describe('Event', () => {
       // Create event without a UserEvent document
       const newEvent = await db.Event.create(testUtils.event);
 
-      const otherUser = await request(server)
-        .post('/auth/signup')
-        .send({
-          first_name: 'first',
-          last_name: 'last',
-          password: '1234',
-          email: 'otheruser@email.com'
-        });
-
       // Add user to event
       const postRes = await request(server)
         .post('/api/userEvents')
-        .set('Authorization', 'bearer ' + otherUser.body.token)
-        .send({ event_id: newEvent._id.toString(), user_id: this.newUserRes.body.user._id.toString() });
+        .send({ event_id: newEvent._id.toString() });
 
-      expect(postRes.status).to.equal(422);
-      expect(postRes.body).to.have.property('message', 'You are not authorized to perform this action');
+      expect(postRes.status).to.equal(401);
+      expect(postRes.body).to.have.property('message', 'No auth token');
     });
 
     it('should not create a UserEvent document if user is already atttending event', async () => {
@@ -181,7 +171,7 @@ describe('Event', () => {
       const res = await request(server)
         .post('/api/userEvents/')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send({ event_id: savedEvent.body._id.toString(), user_id: this.newUserRes.body.user._id.toString() });
+        .send({ event_id: savedEvent.body._id.toString() });
       expect(res.status).to.be.eql(400);
       expect(res.body.message).to.equal('User is already attending event');
     });
@@ -196,39 +186,21 @@ describe('Event', () => {
 
       const res = await request(server)
         .post('/api/userEvents')
-        .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send({ event_id: savedEvent.body._id, user_id: '1' });
+        .set('Authorization', 'bearer ' + '1234')
+        .send({ event_id: savedEvent.body._id });
 
-      expect(res.status).to.be.eql(422);
+      expect(res.status).to.be.eql(401);
       expect(res.body).to.have.property('message');
-      expect(res.body.message).to.equal('You are not authorized to perform this action');
+      expect(res.body.message).to.equal('jwt malformed');
     });
 
-    it('should not create a UserEvent document if user does not exist', async () => {
-      testUtils.event.creator = this.newUserRes.body.user._id.toString();
-
-      const savedEvent = await request(server)
-        .post('/api/events')
-        .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send(testUtils.event);
-
-      const res = await request(server)
-        .post('/api/userEvents')
-        .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send({ event_id: savedEvent.body._id, user_id: '111111111111111111111111' });
-
-      expect(res.status).to.be.eql(422);
-      expect(res.body).to.have.property('message');
-      expect(res.body.message).to.equal('You are not authorized to perform this action');
-    });
-
-    it('should not create a UserEvent document if event id is invalid', async () => {
+    it('should not create a UserEvent document if event id does not exist', async () => {
       testUtils.event.creator = this.newUserRes.body.user._id.toString();
 
       const res = await request(server)
         .post('/api/userEvents')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send({ event_id: '111111111111111111111111', user_id: this.newUserRes.body.user._id.toString() });
+        .send({ event_id: '111111111111111111111111' });
 
       expect(res.status).to.be.eql(404);
       expect(res.body).to.have.property('message');
@@ -241,24 +213,11 @@ describe('Event', () => {
       const res = await request(server)
         .post('/api/userEvents')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send({ event_id: '1', user_id: this.newUserRes.body.user._id.toString() });
+        .send({ event_id: '1'});
 
       expect(res.status).to.be.eql(422);
       expect(res.body).to.have.property('message');
       expect(res.body.name).to.equal('CastError');
-    });
-
-    it('should not create a UserEvent document if neith event id and user id exist', async () => {
-      testUtils.event.creator = this.newUserRes.body.user._id.toString();
-
-      const res = await request(server)
-        .post('/api/userEvents')
-        .set('Authorization', 'bearer ' + this.newUserRes.body.token)
-        .send({ event_id: '111111111111111111111111', user_id: '111111111111111111111111' });
-
-      expect(res.status).to.be.eql(422);
-      expect(res.body).to.have.property('message');
-      expect(res.body.message).to.equal('You are not authorized to perform this action');
     });
   });
 
@@ -347,18 +306,5 @@ describe('Event', () => {
       expect(founduserEvents.length).to.be.equal(0);
       expect(foundUserEventsRes.body.length).to.be.equal(0);
     });
-
-    //   it('should raise 422 when deleted event id is not a valid _id', async () => {
-
-    //     res = await request(server).get('/api/events/1');
-    //     expect(res.status).to.be.equal(422);
-    //   });
-
-    //   it('should return null when deleted event does not exist', async () => {
-
-    //     res = await request(server).get('/api/events/111111111111111111111111');
-    //     expect(res.status).to.be.equal(200);
-    //     expect(res.body).to.be.null;
-    //   });
   });
 });

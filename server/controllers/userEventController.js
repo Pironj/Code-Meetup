@@ -35,15 +35,11 @@ module.exports = {
   create: async (req, res) => {
     const authenticatedUser = res.locals.authenticatedUser;
 
-    if (authenticatedUser._id.toString() !== req.body.user_id) {
-      return res.status(422).json({ message: 'You are not authorized to perform this action' });
-    }
-
     try {
       const [event, userEvent] = await Promise.all(
         [
           db.Event.findById(req.body.event_id),
-          db.UserEvent.findOne({ user_id: req.body.user_id, event_id: req.body.event_id })
+          db.UserEvent.findOne({ user_id: authenticatedUser._id.toString(), event_id: req.body.event_id })
         ]
       );
 
@@ -57,13 +53,13 @@ module.exports = {
       return res.status(422).json(err);
     }
     // Both user and event exist. Proceed to create a UserEvent
-    const userEvent = {
+    const newUserEvent = {
       user_id: authenticatedUser._id.toString(),
       event_id: req.body.event_id
     };
 
     db.UserEvent
-      .create(userEvent)
+      .create(newUserEvent)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getJWTToken } from './localStorageHelper';
-import store from '../redux/store';
+// import store from '../redux/store';
 
 const USER_API_URL = '/api/users';
 const EVENT_API_URL = '/api/events';
@@ -38,7 +38,7 @@ export default {
     axios.get(`/auth/protected/${userId}`, generateAuthHeaders()) // passing in stored token here
       .then(res => console.log(res))
       .then(alert("Authorized User token Access Granted!"))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.response))
   },
 
   // User
