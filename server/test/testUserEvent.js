@@ -8,7 +8,7 @@ const request = require('supertest');
 const db = require('../models');
 const usersSeed = require('../scripts/usersSeed.json');
 const eventsSeed = require('../scripts/eventsSeed.json');
-const testUtils = require('./testUtils');
+const testUtils = require('./utilsForTests');
 const utils = require('../scripts/utils');
 
 const expect = chai.expect;

@@ -7,7 +7,7 @@ const server = require('../../server');
 const request = require('supertest');
 const db = require('../models');
 const utils = require('../scripts/utils');
-const testUtils = require('./testUtils');
+const testUtils = require('./utilsForTests');
 
 const expect = chai.expect;
 
