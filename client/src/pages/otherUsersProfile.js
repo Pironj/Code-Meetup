@@ -31,7 +31,7 @@ class OtherUsersProfile extends React.Component {
       .then(res => {
         this.setState({ events: res.data })
       }).catch(err => console.log(err))
-  };
+  }
 
   renderEventCards = () => {
     this.state.events.map(event => (<EventCard eventTitle={event.Title} eventContent={event.description} key={event._id} />))

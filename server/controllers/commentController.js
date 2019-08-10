@@ -36,7 +36,7 @@ module.exports = {
     const authenticatedUser = res.locals.authenticatedUser;
 
     try {
-      const event = await db.Event.findById(req.body.event_id);
+      const event = await db.Event.findById(req.body.eventId);
       if (!event) {
         return res.status(404).json({ message: 'Event does not exist' });
       }
@@ -47,7 +47,7 @@ module.exports = {
     const body = req.body;
     const newComment = {
       creator: authenticatedUser._id,
-      event: body.event_id,
+      event: body.eventId,
       body: body.body,
     };
 

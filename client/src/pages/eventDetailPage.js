@@ -81,6 +81,7 @@ class EventDetailsPage extends React.Component {
 
 	//Here we are finding specific event ID on first render
 	componentDidMount() {
+		
 		API.findEventById(this.state.eventId)
 			.then((data) => {
 				this.setState({
@@ -88,6 +89,7 @@ class EventDetailsPage extends React.Component {
 				});
 			})
 			.catch((err) => console.log(err));
+
 		API.findUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 			.then((res) => {
 				if (res.data) {

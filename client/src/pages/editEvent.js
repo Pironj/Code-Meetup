@@ -71,7 +71,6 @@ class EditEvent extends React.Component {
   //When user hits submit to edit event, DB is updated as well
 
   handleFormSubmit = event => {
-    console.log(this.state);
     event.preventDefault();
     if (this.state.title && this.state.description) {
       API.updateEvent({
@@ -91,7 +90,7 @@ class EditEvent extends React.Component {
         .then(res => {
           this.props.history.push(`/events/${res.data._id}`);
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err.response));
     }
 
   }

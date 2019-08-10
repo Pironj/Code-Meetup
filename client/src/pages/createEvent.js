@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import "../components/dateTime/index.css"
 
+
 //Function to map our current state as props
 const mapStateToProps = (state) => {
   return {
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => {
     token: state.authState.token,
   };
 }
+
 
 class CreateEvent extends React.Component {
 
@@ -47,13 +49,10 @@ class CreateEvent extends React.Component {
 
 handleInputChange = event => {
   const { name, value } = event.target;
-  console.log(name, value);
   this.setState({
     [name]: value
   });
 };
-
-
 
   //When user clicks submit, event is created in state and also created in DB
   handleFormSubmit = event => {
