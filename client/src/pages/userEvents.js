@@ -6,18 +6,11 @@ import FullEvent from "../components/fullEvent"
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 
-
 class UserEvents extends React.Component {
+
   state = {
     event: {},
     eventId: ''
-  }
-
-  onDelete = () => {
-    API.deleteEvent(this.state.eventId)
-      .then(() => {
-        this.props.history.push('/')
-      }).catch(err => console.log(err));
   }
 
   componentWillMount() {
@@ -37,6 +30,14 @@ class UserEvents extends React.Component {
       .catch(err => console.log(err))
   }
 
+  onDelete = () => {
+    API.deleteEvent(this.state.eventId)
+      .then(() => {
+        this.props.history.push('/')
+      })
+      .catch(err => console.log(err.response));
+  }
+
   renderFullEvent = () => {
 
     return (<FullEvent
@@ -46,7 +47,6 @@ class UserEvents extends React.Component {
       creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
     />
     )
-
   }
 
   render() {

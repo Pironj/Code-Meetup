@@ -74,7 +74,6 @@ class EventDetailsPage extends React.Component {
 
 			API.createUserEvent({
 				event_id: this.state.eventId,
-				// user_id: this.state.userId
 			})
 				.then((res) => {
 					this.changeText();
@@ -82,7 +81,7 @@ class EventDetailsPage extends React.Component {
 				.catch((err) => console.log(err.response));
 		} else if (this.state.attend === true && this.state.event.creator._id !== this.state.userId) {
 			this.setState({ attend: false });
-			
+
 			API.deleteUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 				.then((res) => {
 					this.changeText();
