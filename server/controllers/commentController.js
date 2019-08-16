@@ -32,9 +32,27 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  create: function (req, res) {
+  create: async (req, res) => {
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    try {
+      const event = await db.Event.findById(req.body.eventId);
+      if (!event) {
+        return res.status(404).json({ message: 'Event does not exist' });
+      }
+    } catch (err) {
+      return res.status(422).json(err);
+    }
+
+    const body = req.body;
+    const newComment = {
+      creator: authenticatedUser._id,
+      event: body.eventId,
+      body: body.body,
+    };
+
     db.Comment
-      .create(req.body)
+      .create(newComment)
       .then(async savedComment => {
         const populatedComment = await db.Comment.findById(savedComment._id).populate('creator');
         return res.json(populatedComment);
@@ -42,18 +60,45 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  update: function(req, res) {
+  update: async (req, res) => {
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    try {
+      const foundComment = await db.Comment.findById(req.params.id);
+      if (authenticatedUser._id.toString() !== foundComment.creator.toString()) {
+        return res.status(422).json({ message: 'You are not authorized to perform this action' });
+      }
+    } catch (err) {
+      return res.status(422).json(err);
+    }
+
+    const body = req.body;
+    const updatedComment = {
+      body: body.body,
+    };
+
     db.Comment
-      .findOneAndUpdate({ _id: req.params.id }, req.body, {new: true})
+      .findOneAndUpdate({ _id: req.params.id }, updatedComment, { new: true })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
-  remove: function(req, res) {
+  remove: async (req, res) => {
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    try {
+      const foundComment = await db.Comment.findById(req.params.id);
+
+      if (authenticatedUser._id.toString() !== foundComment.creator.toString()) {
+        return res.status(422).json({ message: 'You are not authorized to perform this action' });
+      }
+    } catch (err) {
+      return res.status(422).json(err);
+    }
+
     db.Comment
       .findByIdAndDelete(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-
 };

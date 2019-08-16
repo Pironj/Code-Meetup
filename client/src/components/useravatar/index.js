@@ -20,5 +20,5 @@ export default function LetterAvatars() {
       <Avatar className={classes.avatar}>User</Avatar>
     
   );
-};
+}
 

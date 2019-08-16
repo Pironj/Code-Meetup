@@ -33,17 +33,16 @@ module.exports = {
    * Creates UserEvent document with user_id, event_id
    */
   create: async (req, res) => {
+    const authenticatedUser = res.locals.authenticatedUser;
+
     try {
-      const [user, event, userEvent] = await Promise.all(
+      const [event, userEvent] = await Promise.all(
         [
-          db.User.findById(req.body.user_id).select('-password'),
           db.Event.findById(req.body.event_id),
-          db.UserEvent.findOne({ user_id: req.body.user_id, event_id: req.body.event_id })
+          db.UserEvent.findOne({ user_id: authenticatedUser._id.toString(), event_id: req.body.event_id })
         ]
       );
-      if (!user) { // Check if user exists
-        return res.status(404).json({ message: `User with id ${req.body.user_id} does not exist.` });
-      }
+
       if (!event) { // Check if event exists
         return res.status(404).json({ message: `Event with id ${req.body.event_id} does not exist.` });
       }
@@ -54,8 +53,13 @@ module.exports = {
       return res.status(422).json(err);
     }
     // Both user and event exist. Proceed to create a UserEvent
+    const newUserEvent = {
+      user_id: authenticatedUser._id.toString(),
+      event_id: req.body.event_id
+    };
+
     db.UserEvent
-      .create(req.body)
+      .create(newUserEvent)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -67,14 +71,35 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  removeById: (req, res) => {
+  removeById: async (req, res) => {
+    // TODO prevent user from unattending an event they create
+
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    try {
+      const userEvent = await db.UserEvent.findById(req.params.id);
+      if (authenticatedUser._id.toString() !== userEvent.user_id.toString()) {
+        return res.status(422).json({ message: 'You are not authorized to perform this action' });
+      }
+    } catch (err) {
+      return res.status(422).json(err);
+    }
+
     db.UserEvent
       .findByIdAndDelete(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
-  removeByUserAndEventId: function (req, res) {
+  removeByUserAndEventId: async (req, res) => {
+    // TODO prevent user from unattending an event they create
+
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    if (authenticatedUser._id.toString() !== req.params.user_id) {
+      return res.status(422).json({ message: 'You are not authorized to perform this action' });
+    }
+
     db.UserEvent
       .findOneAndDelete({ user_id: req.params.user_id, event_id: req.params.event_id })
       .then(dbModel => res.json(dbModel))

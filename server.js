@@ -1,8 +1,9 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const auth = require('./server/controllers/authController');
 
+const auth = require('./server/controllers/authController');
 const routes = require('./server/routes');
 
 const app = express();
@@ -12,7 +13,11 @@ const PORT = process.env.PORT || (process.env.NODE_ENV === 'test' ? 3002 : 3001)
 const mongodbUrl = process.env.MONGODB_URI || (process.env.NODE_ENV === 'test' ? 'mongodb://localhost/testcodemeetup' : 'mongodb://localhost/codemeetup');
 
 // Define middleware here
-app.use(express.urlencoded({ extended: false }));
+// configure the app to use bodyParser()
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(auth.initialize());

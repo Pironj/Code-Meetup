@@ -55,23 +55,51 @@ module.exports = {
   },
 
   create: async function (req, res) {
-    try {
-      const user = await db.User.findById(req.body.creator).select('-password'); // Check if user exists
-      if (!user) {
-        return res.status(404).json({ message: `User with id ${req.body.creator} does not exist.` });
-      }
+    const authenticatedUser = res.locals.authenticatedUser;
 
-      const event = await db.Event.create(req.body);
-      await db.UserEvent.create({ user_id: event.creator, event_id: event._id }); // Event creator will attend event
-      return res.json(event);
+    try {
+      const body = req.body;
+      const newEvent = {
+        creator: authenticatedUser._id,
+        title: body.title,
+        description: body.description,
+        date: body.date,
+        location: body.location,
+        street_address: body.street_address,
+      };
+
+      const createdEvent = await db.Event.create(newEvent);
+      await db.UserEvent.create({ user_id: createdEvent.creator, event_id: createdEvent._id }); // Event creator will attend event
+      return res.json(createdEvent);
     } catch (err) {
       return res.status(422).json(err);
     }
   },
 
-  update: function (req, res) {
+  update: async (req, res) => {
+    const authenticatedUser = res.locals.authenticatedUser;
+    try {
+      // Check if user is the event's original creator
+      const event = await db.Event.findById(req.params.id);
+      if (authenticatedUser._id.toString() !== event.creator.toString()) {
+        return res.status(422).json({ message: 'You are not authorized to perform this action' });
+      }
+    } catch (err) {
+      return res.json(err);
+    }
+
+    const body = req.body;
+    const existingEvent = {
+      creator: authenticatedUser._id,
+      title: body.title,
+      description: body.description,
+      date: body.date,
+      location: body.location,
+      street_address: body.street_address,
+    };
+
     db.Event
-      .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      .findOneAndUpdate({ _id: req.params.id }, existingEvent, { new: true })
       .then(dbModel => {
         if (!dbModel) { // Check if event exists
           return res.status(404).json({ message: `Event with id ${req.params.id} does not exist.` });
@@ -81,7 +109,18 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  remove: function (req, res) {
+  remove: async (req, res) => {
+    const authenticatedUser = res.locals.authenticatedUser;
+    try {
+      // Check if user is the event's original creator
+      const event = await db.Event.findById(req.params.id);
+      if (authenticatedUser._id.toString() !== event.creator.toString()) {
+        return res.status(422).json({ message: 'You are not authorized to perform this action' });
+      }
+    } catch (err) {
+      return res.status(404).json(err);
+    }
+
     db.Event
       .findByIdAndDelete(req.params.id)
       .then(async dbModel => {

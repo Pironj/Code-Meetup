@@ -18,14 +18,30 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  update: function (req, res) {
+  updateEmail: function (req, res) {
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    if (authenticatedUser._id.toString() !== req.params.id) {
+      return res.status(422).json({message: 'You are not authorized to perform this action'});
+    }
+
+    const body = req.body;
+    const updatedUser = {
+      email: body.email
+    };
     db.User
-      .findByIdAndUpdate(req.params.id, req.body, { new: true })
+      .findByIdAndUpdate(req.params.id, updatedUser, { new: true })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
   remove: function (req, res) {
+    const authenticatedUser = res.locals.authenticatedUser;
+
+    if (authenticatedUser._id.toString() !== req.params.id) {
+      return res.status(422).json({message: 'You are not authorized to perform this action'});
+    }
+
     db.User
       .findByIdAndDelete(req.params.id)
       .then(dbModel => res.json(dbModel))

@@ -40,9 +40,9 @@ genToken = (user) => {
 class Auth {
 
   constructor() {
-    this.authorizeUserParams = this.authorizeUserParams.bind(this);
-    this.authorizeUserBody = this.authorizeUserBody.bind(this);
-    this.authorizeUser = this.authorizeUser.bind(this);
+    // this.authorizeUserParams = this.authorizeUserParams.bind(this);
+    // this.authorizeUserBody = this.authorizeUserBody.bind(this);
+    // this.authorizeUser = this.authorizeUser.bind(this);
   }
 
   initialize() {
@@ -74,6 +74,7 @@ class Auth {
    */
   authorizeUser(req, res, next) {
     return authenticate((err, user, info) => {
+
       if (err) {
         return next(err);
       }
@@ -85,23 +86,20 @@ class Auth {
         }
       }
 
-      // Check if user details in token is the same as in the desired protected route
-      if (String(user._id) !== res.locals.userIdLocation) {
-        return res.status(401).json({ message: 'User id in request body does not match user id in JWT' });
-      }
+      res.locals.authenticatedUser = user;
       return next();
     })(req, res, next);
   }
 
-  authorizeUserBody(req, res, next) {
-    res.locals.userIdLocation = req.body.user_id;
-    return this.authorizeUser(req, res, next);
-  }
+  // authorizeUserBody(req, res, next) {
+  //   res.locals.userIdLocation = req.body.user_id;
+  //   return this.authorizeUser(req, res, next);
+  // }
 
-  authorizeUserParams(req, res, next) {
-    res.locals.userIdLocation = req.params.id;
-    return this.authorizeUser(req, res, next);
-  }
+  // authorizeUserParams(req, res, next) {
+  //   res.locals.userIdLocation = req.params.id;
+  //   return this.authorizeUser(req, res, next);
+  // }
 
   /**
    *  Signup authentication

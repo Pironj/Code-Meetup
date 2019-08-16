@@ -25,7 +25,6 @@ class CommentBox extends React.Component {
     title: ""
   }
 
-
   componentDidMount() {
     this.getComments()
   }
@@ -51,7 +50,7 @@ class CommentBox extends React.Component {
   _addComment = () => {
     const { body } = this.state
     const comment = {
-      event: this.props.eventId,
+      eventId: this.props.eventId,
       creator: this.props.id,
       body
     };

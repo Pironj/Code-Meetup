@@ -3,9 +3,10 @@ import API from '../utils/API';
 import EventCard from "../components/eventcard";
 import { Jumbotron, Container, Row, Col } from "react-bootstrap";
 import "./style.css";
-import { textAlign } from "@material-ui/system";
+
 
 class HomePage extends React.Component {
+
   state = {
     events: [],
   }
@@ -13,12 +14,10 @@ class HomePage extends React.Component {
   componentDidMount() {
     API.findAllEvents()
       .then(res => {
-
         this.setState({ events: res.data })
       })
       .catch(err => console.log(err))
   }
-
 
   renderEventCards = () => {
 

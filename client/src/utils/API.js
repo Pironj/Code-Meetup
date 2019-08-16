@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getJWTToken } from './localStorageHelper';
-import store from '../redux/store';
+// import store from '../redux/store';
 
 const USER_API_URL = '/api/users';
 const EVENT_API_URL = '/api/events';
@@ -9,9 +9,11 @@ const COMMENT_API_URL = '/api/comments';
 const AUTH_URL = '/auth';
 
 // Helper function to get token from local storage pass this function to our protected routes to create auth headers
-const generateHeaders = () => {
+const generateAuthHeaders = () => {
   const token = getJWTToken()
-  const headers = { headers: { Authorization: `bearer ${token}`}, data: {user_id: store.getState().authState.id} }
+  const headers = { headers: { Authorization: `bearer ${token}`}, 
+  // data: {user_id: store.getState().authState.id} 
+}
   return headers;
 }
 
@@ -33,10 +35,10 @@ export default {
   // function for testing protected route to get the token from local storage
   protectedRoute: (userId) => {
     // grabbing the stored token from local storage and put in headers
-    axios.get(`/auth/protected/${userId}`, generateHeaders()) // passing in stored token here
+    axios.get(`/auth/protected/${userId}`, generateAuthHeaders()) // passing in stored token here
       .then(res => console.log(res))
       .then(alert("Authorized User token Access Granted!"))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.response))
   },
 
   // User
@@ -53,14 +55,14 @@ export default {
   },
 
   updateUser: (user) => {
-    return axios.put(`${USER_API_URL}/${user.id}`, user); // to protect add getToken() function as param to get req
+    return axios.put(`${USER_API_URL}/${user.id}`, user, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
    * @param {string} userId
    */
   deleteUser: (userId) => {
-    return axios.delete(`${USER_API_URL}/${userId}`); // to protect add getToken() function as param to get req
+    return axios.delete(`${USER_API_URL}/${userId}`, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   // Event
@@ -83,7 +85,7 @@ export default {
    */
   createEvent: (event) => {
     // TODO Get event info first
-    return axios.post(`${EVENT_API_URL}`, event, generateHeaders());
+    return axios.post(`${EVENT_API_URL}`, event, generateAuthHeaders());
   },
 
   /**
@@ -94,7 +96,7 @@ export default {
   },
 
   updateEvent: (event) => {
-    return axios.put(`${EVENT_API_URL}/${event.id}`, event, generateHeaders()); // to protect add getToken() function as param to get req
+    return axios.put(`${EVENT_API_URL}/${event.id}`, event, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -102,7 +104,7 @@ export default {
    * @param {string} eventId
    */
   deleteEvent: (eventId) => {
-    return axios.delete(`${EVENT_API_URL}/${eventId}`, generateHeaders()); // to protect add getToken() function as param to get req
+    return axios.delete(`${EVENT_API_URL}/${eventId}`, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   // UserEvent
@@ -114,7 +116,7 @@ export default {
 
   createUserEvent: (userEvent) => {
     // TODO Get user info first
-    return axios.post(`${USER_EVENT_API_URL}`, userEvent); // to protect add getToken() function as param to get req
+    return axios.post(`${USER_EVENT_API_URL}`, userEvent, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -128,7 +130,7 @@ export default {
    * @param {string} userEventId
    */
   deleteUserEvent: (userEventId) => {
-    return axios.delete(`${USER_EVENT_API_URL}/${userEventId}`); // to protect add getToken() function as param to get req
+    return axios.delete(`${USER_EVENT_API_URL}/${userEventId}`, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -150,7 +152,7 @@ export default {
   * @param {string} event_id
   */
   deleteUserEventByUserIdEventId: (user_id, event_id) => {
-    return axios.delete(`${USER_EVENT_API_URL}/${user_id}/${event_id}`); // to protect add getToken() function as param to get req
+    return axios.delete(`${USER_EVENT_API_URL}/${user_id}/${event_id}`, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -172,7 +174,7 @@ export default {
    */
   createComment: (comment) => {
     // TODO Get event info first
-    return axios.post(`${COMMENT_API_URL}/`, comment, generateHeaders()); // to protect add getToken() function as param to get req
+    return axios.post(`${COMMENT_API_URL}/`, comment, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
@@ -183,14 +185,14 @@ export default {
   },
 
   updateComment: (comment) => {
-    return axios.put(`${COMMENT_API_URL}/${comment.id}`, comment); // to protect add getToken() function as param to get req
+    return axios.put(`${COMMENT_API_URL}/${comment.id}`, comment, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
    * @param {string} commentid
    */
   deleteCommentById: (commentid) => {
-    return axios.delete(`${COMMENT_API_URL}/${commentid}`, generateHeaders()); // to protect add getToken() function as param to get req
+    return axios.delete(`${COMMENT_API_URL}/${commentid}`, generateAuthHeaders()); // to protect add getToken() function as param to get req
   },
 
   /**
