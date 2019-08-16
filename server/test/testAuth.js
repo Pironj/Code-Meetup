@@ -12,7 +12,7 @@ const testUtils = require('./utilsForTests');
 const expect = chai.expect;
 
 //Our parent block
-describe('User', () => {
+describe('Authentication', () => {
 
   beforeEach(async () => { // Before each test we empty the database
     // Seed DB with users

@@ -18,7 +18,7 @@ createEvent = async (body) => {
 };
 
 //Our parent block
-describe('Event', () => {
+describe('Comment', () => {
 
   beforeEach(async () => { // Before each test we empty the database
     // Seed DB with users
@@ -49,7 +49,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
         .send({
-          event_id: eventRes.body._id,
+          eventId: eventRes.body._id,
           body: 'Hello'
         });
 
@@ -76,7 +76,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
         .send({
-          event_id: eventRes.body._id,
+          eventId: eventRes.body._id,
           body: 'Hello'
         });
 
@@ -98,7 +98,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + '1234')
         .send({
-          event_id: eventRes.body._id,
+          eventId: eventRes.body._id,
           body: 'Hello'
         });
 
@@ -119,7 +119,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVkNGRhYzFmMDUzN2JjMjc0YzEzMzIxMCIsImZpcnN0X25hbWUiOiJCaWxseSIsImVtYWlsIjoiYmlsbHlib2JAZ21haWwuY29tIn0sImlhdCI6MTU2NTQ1ODMzNywiZXhwIjoxNTY2MDYzMTM3fQ.ows6wxM-a4XsnYiUABBw7eFIUH8WjhJNJ_S8wenjDZc')
         .send({
-          event_id: eventRes.body._id,
+          eventId: eventRes.body._id,
           body: 'Hello'
         });
 
@@ -135,7 +135,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
         .send({
-          event_id: '111111111111111111111111',
+          eventId: '111111111111111111111111',
           body: 'Hello'
         });
 
@@ -159,7 +159,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
         .send({
-          event_id: eventRes.body._id,
+          eventId: eventRes.body._id,
           body: 'Hello'
         });
 
@@ -193,7 +193,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
         .send({
-          event_id: eventRes.body._id,
+          eventId: eventRes.body._id,
           body: 'Hello'
         });
 
@@ -217,7 +217,7 @@ describe('Event', () => {
         .post('/api/comments')
         .set('Authorization', 'bearer ' + this.newUserRes.body.token)
         .send({
-          event_id: eventRes.body._id,
+          eventId: eventRes.body._id,
           body: 'Hello'
         });
 

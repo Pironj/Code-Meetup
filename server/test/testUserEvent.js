@@ -20,7 +20,7 @@ createEvent = async (body) => {
 };
 
 //Our parent block
-describe('Event', () => {
+describe('UserEvent', () => {
 
   beforeEach(async () => { // Before each test we empty the database
     // Seed DB with users
