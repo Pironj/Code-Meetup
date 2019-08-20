@@ -47,10 +47,12 @@ class HomePage extends React.Component {
             {/* <h1 className="brand" style={{color: 'white', marginTop: '3rem', fontSize: '4rem'}}>
             <img src="https://fontmeme.com/permalink/190807/6aadb61abb6dff195b588f6482f2ac8c.png" alt="avayx-font" border="0"/>            */}
              <h1 className="brand" style={{color: 'white', marginTop: '4.5rem', fontSize: '4.6rem'}}>
+               <div id="title">
                 <span>&#60;</span>
                 rendezvous
                 <span> &#8725;</span>
                 <span>&#62;</span>
+               </div>
               </h1>
               <h3 style={{fontSize: '1.5rem', marginTop: '.6rem'}}>A meet up application where you can create events to network and code.</h3>
               {/* <p className="brand" id="desc"> */}
