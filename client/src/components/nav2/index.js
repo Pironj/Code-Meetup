@@ -75,20 +75,11 @@ const MenuAppBar = (props) => {
     <div id="navDiv" className={classes.root}>
       <FormGroup>
         <Row>
-          <Col md={4}>
-            <div id="buttonDiv">
-              {
-                props.first_name ? <LogoutButton /> : <span><LoginModal /><SignupModal /></span>
-              }
-            </div>
-          </Col>
-          <Col md={{ span: 3, offset: 5 }}>
-            <div id="user">
-              {
-                props.first_name ? "LOGGED IN AS: " + props.first_name : ''
-              }
-            </div>
-          </Col>
+          <div id="user">
+            {
+              props.first_name ? "LOGGED IN AS: " + props.first_name : ''
+            }
+          </div>
         </Row>
       </FormGroup>
       <AppBar position="static">
@@ -132,39 +123,47 @@ const MenuAppBar = (props) => {
               >
                 {
                   props.first_name ?
-                    <div id="links">
-                      <Link
-                        className="links"
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                        to={`/users/${props.id}`}
-                        onClick={handleClose}>
-                        PROFILE
+                <div id="links">
+                  <Link
+                    className="links"
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                    to={`/users/${props.id}`}
+                    onClick={handleClose}>
+                    PROFILE
                   </Link>
-                      <br></br>
-                      <Link
-                        className="links"
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                        to="/events"
-                        onClick={handleClose}>
-                        EVENTS
+                  <br></br>
+                  <Link
+                    className="links"
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                    to="/events"
+                    onClick={handleClose}>
+                    EVENTS
                   </Link>
-                      <br></br>
-                      <Link
-                        className="links"
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                        to="/create-event"
-                        onClick={handleClose}>
-                        CREATE EVENT
+                  <br></br>
+                  <Link
+                    className="links"
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                    to="/create-event"
+                    onClick={handleClose}>
+                    CREATE EVENT
                   </Link>
-                    </div>
-                    :
-                    <Link
-                      className="links"
-                      style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                      to="/events"
-                      onClick={handleClose}>
-                      EVENTS
+                  <br></br>
+                  <LogoutButton />
+                </div>
+                  :
+                <div>
+                  <Link
+                    className="links"
+                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                    to="/events"
+                    onClick={handleClose}>
+                    EVENTS
                   </Link>
+                  <br></br>
+                  <LoginModal />
+                  <br></br>
+                  <SignupModal />
+                </div>   
                 }
               </Menu>
             </div>

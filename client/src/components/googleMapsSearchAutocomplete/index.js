@@ -10,7 +10,7 @@ const LocationSearchInput = (props) => {
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>
-          <input style={{ width: '25rem' }}
+          <input style={{ width: '100%' }}
             {...getInputProps({
               placeholder: 'Search Places ...',
               className: 'location-search-input',

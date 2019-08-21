@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Jumbotron, Container, Row, Col } from "react-bootstrap";
+import { Jumbotron, Container, Row, Col, Card } from "react-bootstrap";
 
 import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
 import {
@@ -103,60 +103,70 @@ class CreateEvent extends React.Component {
   render() {
     return (
       <Container fluid>
-        <Row>
-          <Col size="sm-1" />
-          <Col size="md-10">
-
-            <Jumbotron id="createEvent" style={{ textAlign: 'center', width: '40rem', marginTop: '3rem' }}>
+        <Row id="createEventRow">
+          {/* <Col size="sm-1" /> */}
+          <Col id="createEventCol" size="md-10">
+          <Card>
+            <Card.Header id="createHeader">
               <h1 id="text">Create an Event</h1>
-            </Jumbotron>
+            </Card.Header>
+            <Card.Body>
+              
+              <Row style={{ marginBottom: '1rem' }}>
+                {/* <Col size="sm-1" /> */}
+                <Col size="md-5">
+                  <form>
+
+                    {/* Event title */}
+                    <Input
+                      value={this.state.title}
+                      onChange={this.handleInputChange}
+                      name="title"
+                      placeholder="Title (required)"
+                    />
+
+                    {/* Event description */}
+                    <TextArea
+                      style={{ height: '300px' }}
+                      value={this.state.description}
+                      onChange={this.handleInputChange}
+                      name="description"
+                      placeholder=" Description (required)"
+                    />
+
+                    {/* Google Location autocomplete search */}
+                    <LocationSearchInput
+                      id="locationField"
+                      style="width: 100%;"
+                      value={this.state.address}
+                      onChange={this.handleLocationSearchChange}
+                      onSelect={this.handleLocationSearchSelect}
+                    />
+                    <br></br>
+                    <div>
+                      <DateTimePickerComponent name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
+                    </div>
+                    <br></br>
+                    <FormBtn
+                      style={{ width: "10rem" }}
+                      disabled={!(this.state.description && this.state.title)}
+                      onClick={this.handleFormSubmit}
+                    >
+                      Create Event
+                    </FormBtn>
+                  </form>
+                </Col>
+
+                {/* <Col size="sm-1" /> */}
+
+              </Row>
+            </Card.Body>
+          </Card>
+            {/* <Jumbotron id="createEvent" >
+              <h1 id="text">Create an Event</h1>
+            </Jumbotron> */}
           </Col>
-          <Col size="sm-1" />
-
-        </Row>
-        <Row style={{ marginBottom: '5rem' }}>
-          <Col size="sm-1" />
-          <Col size="md-5">
-            <form>
-
-              {/* Event title */}
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
-              />
-
-              {/* Event description */}
-              <TextArea
-                style={{ height: '300px' }}
-                value={this.state.description}
-                onChange={this.handleInputChange}
-                name="description"
-                placeholder=" Description (required)"
-              />
-
-              {/* Google Location autocomplete search */}
-              <LocationSearchInput
-                value={this.state.address}
-                onChange={this.handleLocationSearchChange}
-                onSelect={this.handleLocationSearchSelect}
-              />
-              <div>   <br></br>         </div>
-              <FormBtn
-                style={{ width: "10rem" }}
-                disabled={!(this.state.description && this.state.title)}
-                onClick={this.handleFormSubmit}
-              >
-                Create Event
-              </FormBtn>
-            </form>
-          </Col>
-
-          <div>
-            <DateTimePickerComponent name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
-          </div>
-          <Col size="sm-1" />
+          {/* <Col size="sm-1" /> */}
 
         </Row>
       </Container>
