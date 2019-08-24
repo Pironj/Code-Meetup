@@ -99,14 +99,15 @@ class SignupModal extends Component {
       this.setState({ errors: errors });
       return console.log(Object.keys(errors));
     }
-    this.handleClose();
-    user.errors = {}
-    this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {} });
+
     API.authorizeSignup(user)
       .then(res => {
+        this.handleClose();
+        user.errors = {}
+        this.setState({ first_name: "", last_name: "", email: "", password: "", errors: {} });
         this.setAuthenticationState(res.data)
       }).catch(err => {
-        console.log(err)
+        console.log(err.response)
       })
   };
 

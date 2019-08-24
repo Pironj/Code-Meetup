@@ -80,27 +80,31 @@ class LoginModal extends Component {
       email: userCopy.email,
       password: userCopy.password
     }
+
     // front end validation checking email
     const errors = this.validateLogin()
+
     if (Object.keys(errors) === errors.first_name || errors.last_name || errors.email || errors.password) {
       this.setState({ errors: errors });
       return console.log(Object.keys(errors));
     }
-    this.setState({ email: "", password: "" });
+
     const user = loginUserObj;
+
     API.authorizeLogin(user)
       .then(res => {
-        this.setState({ errors: {} })
+        this.setState({ email: "", password: "", errors: {} });
         this.setAuthenticationState(res.data)
         this.handleClose();
       })
       .catch(err => {
+        console.log(err.response)
         const errors = this.validateLogin()
         if (Object.keys(errors) === errors.user) {
           this.setState({ errors: errors });
+
           return console.log(Object.keys(errors));
         }
-
       })
   }
 
