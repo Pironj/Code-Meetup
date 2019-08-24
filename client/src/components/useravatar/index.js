@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     margin: 10,
     padding: 40,
     color: '#fff',
-    backgroundColor: indigo [500]
+    backgroundColor: indigo['500']
   }
 });
 
@@ -17,8 +17,8 @@ export default function LetterAvatars() {
 
   return (
 
-      <Avatar className={classes.avatar}>User</Avatar>
-    
+    <Avatar className={classes.avatar}>User</Avatar>
+
   );
 }
 

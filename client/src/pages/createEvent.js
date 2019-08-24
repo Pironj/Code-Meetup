@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Jumbotron, Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 
 import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
 import {
@@ -38,6 +38,7 @@ class CreateEvent extends React.Component {
     date: Date.now,
     latLng: {},
     streetAddress: '',
+    address: ''
   }
 
   //When page loads, creator is updated
@@ -78,7 +79,6 @@ class CreateEvent extends React.Component {
       )
         .then(res => {
           this.props.history.push(`/events/${res.data._id}`);
-
         })
         .catch(err => console.log(err.response));
     }
@@ -137,7 +137,7 @@ class CreateEvent extends React.Component {
                     {/* Google Location autocomplete search */}
                     <LocationSearchInput
                       id="locationField"
-                      style="width: 100%;"
+                      style={{width: '100%'}}
                       value={this.state.address}
                       onChange={this.handleLocationSearchChange}
                       onSelect={this.handleLocationSearchSelect}

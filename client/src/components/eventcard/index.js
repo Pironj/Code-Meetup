@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import { Card, Container } from 'react-bootstrap';
-import Moment from "react-moment";
+// import Moment from "react-moment";
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -20,14 +20,14 @@ const useStyles = makeStyles(theme => ({
 const EventCard = (props) => {
   const classes = useStyles();
 
-  const calendarStrings = {
-    lastDay: '[Yesterday at] LT',
-    sameDay: '[Today at] LT',
-    nextDay: '[Tomorrow at] LT',
-    lastWeek: '[last] dddd [at] LT',
-    nextWeek: 'dddd [at] LT',
-    sameElse: 'L'
-  };
+  // const calendarStrings = {
+  //   lastDay: '[Yesterday at] LT',
+  //   sameDay: '[Today at] LT',
+  //   nextDay: '[Tomorrow at] LT',
+  //   lastWeek: '[last] dddd [at] LT',
+  //   nextWeek: 'dddd [at] LT',
+  //   sameElse: 'L'
+  // };
 
   //Returns event cards with title, creator, date, location, etc
   return (
@@ -49,21 +49,21 @@ const EventCard = (props) => {
                 style={{ fontWeight: 'bold' }}
                 calendar={calendarStrings}>{props.date}
               </Moment> */}
-                {/* <br></br> */}
-                 {/* use this for month/day/timeam/pm format */}
-                <strong>{props.format}</strong>
+              {/* <br></br> */}
+              {/* use this for month/day/timeam/pm format */}
+              <strong>{props.format}</strong>
             </Card.Text>
 
 
             <Fab
               variant="extended"
               size="small"
-              color="black"
+              color='default'
               aria-label="add"
               component={RouterLink}
               to={`/events/${props.id}`}
-              className={classes.margin}
-              style={{ marginLeft: '11rem' }}
+              // className={classes.margin}
+              style={{position: 'absolute', bottom: '15px'}}
             >
               <NavigationIcon className={classes.extendedIcon} />
               Details

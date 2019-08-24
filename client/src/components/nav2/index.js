@@ -14,7 +14,7 @@ import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
-import { Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 // import { NavDropdown } from 'react-bootstrap';
 // import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
@@ -59,7 +59,9 @@ const mapDispatchToProps = (dispatch) => {
 const MenuAppBar = (props) => {
 
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const [auth,
+    // setAuth
+  ] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
