@@ -23,31 +23,27 @@ class EventDetailsPage extends React.Component {
 
 	state = {
 		event: {},
-		eventId: '',
-		userId: '',
+		eventId: this.props.match.params.id,
+		userId: this.props.id,
 		comments: [],
+		attendees: [],
 		attend: false,
 		text: 'Attend',
 		btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' }
 	};
 
-	componentWillMount() {
-		this.setState({
-			eventId: this.props.match.params.id,
-			userId: this.props.id
-		});
-	}
-
 	//Here we are finding specific event ID on first render
 	componentDidMount() {
 
 		API.findEventById(this.state.eventId)
-			.then((data) => {
-				this.setState({
-					event: data.data
-				});
+			.then(res => {
+				if (res.data) { // event exists
+					this.setState({
+						event: res.data
+					});
+				}
 			})
-			.catch((err) => console.log(err));
+			.catch(err => console.log(err));
 
 		API.findUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 			.then((res) => {
@@ -56,8 +52,7 @@ class EventDetailsPage extends React.Component {
 						attend: true,
 						text: 'Attending'
 					});
-				}
-				if (!res.data) {
+				} else {
 					this.setState({
 						attend: false,
 						text: 'Attend'
@@ -131,37 +126,51 @@ class EventDetailsPage extends React.Component {
 		return (
 			<div>
 				<Container id="eventDetail">
-					<Row style={{ marginTop: '2rem' }}>
-						<Col>
-							{/* TODO -> Need to change this conditional */}
-							{this.state.event._id ? this.renderFullEvent() : <p>This event does not exist</p>}
-							{this.props.first_name ?
-								<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
-									{this.state.text}
-								</Button>
-								:
-								<div></div>
-							}
-						</Col>
-						<Col>
-							{this.state.event._id ? (
-								<GoogleApiWrapper
-									key={this.state.event._id}
-									latitude={this.state.event.location.coordinates[1]}
-									longitude={this.state.event.location.coordinates[0]}
-								/>
-							) : (
-									<p>Loading map...</p>
-								)}
-						</Col>
-					</Row>
-					<Row id="commentRow">
-						<Col md={1} />
-						<Col md={10}>
-							<CommentBox eventId={this.state.eventId} />
-						</Col>
-						<Col md={1} />
-					</Row>
+					{
+						this.state.event._id ?
+							(
+								<React.Fragment>
+									<Row style={{ marginTop: '2rem' }}>
+										<Col>
+
+											{this.renderFullEvent()}
+
+											{
+												this.props.id ?
+													<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
+														{this.state.text}
+													</Button>
+													:
+													<div></div>
+											}
+										</Col>
+
+										<Col>
+											{this.state.event._id ? (
+												<GoogleApiWrapper
+													key={this.state.event._id}
+													latitude={this.state.event.location.coordinates[1]}
+													longitude={this.state.event.location.coordinates[0]}
+												/>
+											) : (
+													<p>Loading map...</p>
+												)}
+										</Col>
+									</Row>
+
+									<Row id="commentRow">
+										<Col md={1} />
+										<Col md={10}>
+											<CommentBox eventId={this.state.eventId} />
+										</Col>
+										<Col md={1} />
+									</Row>
+
+								</React.Fragment>
+							) :
+							<p>This event does not exist</p>
+					}
+
 				</Container>
 			</div>
 		);
