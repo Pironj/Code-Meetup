@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { Container, Row, Col, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+
+import Fab from '@material-ui/core/Fab';
+import { Link as RouterLink } from 'react-router-dom';
 
 import GoogleApiWrapper from '../components/googleMaps';
 
@@ -29,16 +32,18 @@ class NamedUser {
 	}
 }
 
+
 class EventDetailsPage extends React.Component {
 
 	state = {
 		event: {},
 		eventId: this.props.match.params.id,
 		userId: this.props.id,
+		isCreator: false,
 		comments: [],
 		attendees: [],
 		attend: false,
-		btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' }
+		btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' },
 	};
 
 	//Here we are finding specific event ID on first render
@@ -76,7 +81,8 @@ class EventDetailsPage extends React.Component {
 			.then(res => {
 				if (res.data) { // event exists
 					this.setState({
-						event: res.data
+						event: res.data,
+						isCreator: res.data.creator._id === this.props.id, // determine if logged in user is the event's creator
 					});
 				}
 			})
@@ -107,7 +113,7 @@ class EventDetailsPage extends React.Component {
 				.catch(err => {
 					console.log(err.response)
 				});
-		} else if (this.state.attend && this.state.event.creator._id !== this.state.userId) {
+		} else if (this.state.attend && !this.state.isCreator) {
 			API.deleteUserEventByUserIdEventId(this.state.userId, this.state.eventId)
 				.then(res => {
 					const attendees = this.state.attendees.filter(user => {
@@ -138,6 +144,14 @@ class EventDetailsPage extends React.Component {
 			});
 		}
 	};
+
+	deleteEvent = () => {
+		API.deleteEvent(this.state.event._id)
+			.then(response => {
+				this.props.history.push('/');
+			})
+			.catch(err => console.log(err.response));
+	}
 
 	renderFullEvent = () => {
 		return (
@@ -190,6 +204,35 @@ class EventDetailsPage extends React.Component {
 											)
 									}
 								</Col>
+							</Row>
+
+							<Row id='event-operation buttons'>
+								{
+									this.state.isCreator ?
+										<React.Fragment>
+											<Fab
+												variant="extended"
+												size="small"
+												color="secondary"
+												aria-label="add"
+												component={RouterLink}
+												to={`/events/${this.state.event._id}/edit`}
+											>
+												Edit
+											</Fab>
+
+											<Fab
+												variant="extended"
+												size="small"
+												color="secondary"
+												aria-label="add"
+												onClick={this.deleteEvent}
+											>
+												Delete
+                  </Fab>
+										</React.Fragment>
+										: ''
+								}
 							</Row>
 
 							<Row id="attending-users">
