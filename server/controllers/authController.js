@@ -96,7 +96,7 @@ class Auth {
       const result = await User.findOne({ email: req.body.email });
 
       if (result) {
-        return res.json({ message: 'Email already exists.' });
+        return res.status(401).json({ message: 'Email already exists.' });
       } else {
         // Success. Create new user
         const user = new User({
