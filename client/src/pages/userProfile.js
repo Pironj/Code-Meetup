@@ -1,5 +1,5 @@
 import React from "react";
-import UserCard from "../components/userCard";
+import UserCard from "../components/usercard";
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 import UserEventCard from "../components/userEventCard";
