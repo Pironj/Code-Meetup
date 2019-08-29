@@ -17,8 +17,8 @@ const FullEvent = (props) => {
 
   return (
     <Jumbotron style={{ paddingBottom: '2rem' }} className="fullEvent">
-      <p>Title: {props.title}</p>
-      <p>Description: {props.description}</p>
+      <h3>{props.title}</h3>
+      <p>{props.description}</p>
       <p>Address: {props.address}</p>
       <p>Host: {props.creator}</p>
 
