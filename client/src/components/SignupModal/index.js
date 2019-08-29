@@ -31,8 +31,8 @@ class SignupModal extends React.Component {
   state = {
     first_name: '',
     last_name: '',
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     serverResponse: '',
     errors: {},
     show: false
@@ -105,24 +105,18 @@ class SignupModal extends React.Component {
 
   handleFormSubmitLogin = event => {
 
-    //create shallow copy of state
-    const userCopy = { ...this.state };
-    const loginUserObj = {
-      first_name: userCopy.first_name,
-      last_name: userCopy.last_name,
-      email: userCopy.email,
-      password: userCopy.password
-    }
-
-    // front end validation checking email
+    // Front end validation checking user sign up information
     const errors = this.validateSignup()
-
-    if (Object.keys(errors) === errors.email || errors.password) {
+    if (errors.email || errors.first_name || errors.last_name || errors.password) {
       return this.setState({ errors: errors });
-      // console.log(Object.keys(errors));  
     }
 
-    const user = loginUserObj;
+    const user = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      password: this.state.password
+    }
 
     API.authorizeSignup(user)
       .then(res => {
@@ -130,11 +124,12 @@ class SignupModal extends React.Component {
         this.handleClose();
       })
       .catch(err => {
+        // Server unable to sign up user. Display error message to user
         if (err.response.data.message) {
           this.setState({serverResponse: err.response.data.message})
         }
         const errors = this.validateSignup()
-        if (Object.keys(errors) === errors.user) {
+        if (errors) {
           this.setState({ errors: errors });
         }
       })
