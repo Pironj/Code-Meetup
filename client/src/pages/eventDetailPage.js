@@ -161,7 +161,11 @@ class EventDetailsPage extends React.Component {
 				key={this.state.event._id}
 				id={this.state.event._id}
 				date={this.state.event.date}
-				creator={this.state.event.hasOwnProperty('creator') ? this.state.event.creator.first_name : ''}
+				creator={
+					this.state.event.hasOwnProperty('creator') ?
+						this.state.event.creator.first_name + ' ' + this.state.event.creator.last_name
+						: ''
+				}
 				address={this.state.event.street_address}
 				latitude={this.state.event.location.coordinates[1]}
 				longitude={this.state.event.location.coordinates[0]}
