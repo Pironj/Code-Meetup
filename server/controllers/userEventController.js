@@ -29,6 +29,34 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  // Find all events created by the user 
+  findEventsCreatedForUserId: function (req, res) {
+    db.UserEvent
+      .find({ user_id: req.params.user_id })
+      .populate('event_id')
+      .then(dbModel => {
+        const events = dbModel.filter(userEvent => {
+          return userEvent.event_id.creator.toString() === req.params.user_id;
+        });
+        return res.json(events);
+      })
+      .catch(err => res.status(422).json(err));
+  },
+
+  // Find all events user is attending but did not create
+  findEventsNotCreatedForUserId: function (req, res) {
+    db.UserEvent
+      .find({ user_id: req.params.user_id })
+      .populate('event_id')
+      .then(dbModel => {
+        const events = dbModel.filter(userEvent => {
+          return userEvent.event_id.creator.toString() !== req.params.user_id;
+        });
+        return res.json(events);
+      })
+      .catch(err => res.status(422).json(err));
+  },
+
   /**
    * Creates UserEvent document with user_id, event_id
    */
