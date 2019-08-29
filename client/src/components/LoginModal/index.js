@@ -73,14 +73,6 @@ class LoginModal extends React.Component {
       password: userCopy.password
     }
 
-    // front end validation checking email
-    const errors = this.validateLogin()
-
-    if (Object.keys(errors) === errors.email || errors.password) {
-      return this.setState({ errors: errors });
-      // console.log(Object.keys(errors));  
-    }
-
     const user = loginUserObj;
 
     API.authorizeLogin(user)
@@ -91,7 +83,7 @@ class LoginModal extends React.Component {
       })
       .catch(err => {
         const errors = this.validateLogin()
-        if (Object.keys(errors) === errors.user) {
+        if (errors) {
           this.setState({ errors: errors });
         }
       })
