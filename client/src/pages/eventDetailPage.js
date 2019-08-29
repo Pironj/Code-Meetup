@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import API from '../utils/API';
 import CommentBox from '../components/commentbox';
 import FullEvent from '../components/fullEvent';
-import UserCard from '../components/userCard'
+import UserCard from '../components/usercard'
 import './style.css';
 
 const mapStateToProps = (state) => {
