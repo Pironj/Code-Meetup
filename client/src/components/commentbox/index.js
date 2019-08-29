@@ -2,7 +2,7 @@ import React from 'react';
 import API from '../../utils/API';
 import { connect } from 'react-redux';
 import LoginModal from '../LoginModal';
-import { Card, Button, Footer } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import './style.css';
 
 const mapStateToProps = (state) => {
@@ -58,7 +58,7 @@ class CommentBox extends React.Component {
     API.createComment(comment)
       .then(res => {
         // *new array references help React stay fast, so concat works better than push here.  
-        this.setState({ comments: this.state.comments.concat([res.data]), body: ''}) 
+        this.setState({ comments: this.state.comments.concat([res.data]), body: '' })
       })
       .catch(err => console.log(err.response));
   }
@@ -90,20 +90,26 @@ class CommentBox extends React.Component {
         <div
           id="comment"
           key={comment._id}>
-            <Comment
-              creator={comment.creator.first_name + " " + comment.creator.last_name}
-              body={comment.body}
-              key={comment._id}
-            />
-            <Card.Body id="delete">
-              {
-                this.props.first_name + " " + this.props.last_name === comment.creator.first_name + " " + comment.creator.last_name
-                  ?
-                  <Button className="comment-footer-delete" variant="light" onClick={() => this._deleteComment(comment._id)}>❌</Button>
-                  :
-                  <div></div>
-              }
-            </Card.Body>
+          <Comment
+            creator={comment.creator.first_name + " " + comment.creator.last_name}
+            body={comment.body}
+            key={comment._id}
+          />
+          <Card.Body id="delete">
+            {
+              this.props.first_name + " " + this.props.last_name === comment.creator.first_name + " " + comment.creator.last_name
+                ?
+                <Button
+                  className="comment-footer-delete"
+                  variant="light"
+                  onClick={() => this._deleteComment(comment._id)}
+                >
+                  <span role='img' aria-label="delete-event">❌</span>
+                </Button>
+                :
+                <div></div>
+            }
+          </Card.Body>
         </div>
       );
     });

@@ -5,35 +5,37 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import AccountCircle from '@material-ui/icons/AccountCircle';
+// import Switch from '@material-ui/core/Switch';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
-import { Row, Col } from 'react-bootstrap';
-import { NavDropdown } from 'react-bootstrap';
-import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
+import { Row } from 'react-bootstrap';
+// import { NavDropdown } from 'react-bootstrap';
+// import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
 import LogoutButton from '../LogoutButton';
 import './style.css';
 
 import { connect } from 'react-redux';
 import { deleteAuthState } from '../../redux/actions';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+const useStyles = makeStyles(theme => (
+  {
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  })
+);
 
 const mapStateToProps = (state) => {
   return {
@@ -57,7 +59,9 @@ const mapDispatchToProps = (dispatch) => {
 const MenuAppBar = (props) => {
 
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const [auth,
+    // setAuth
+  ] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -82,19 +86,19 @@ const MenuAppBar = (props) => {
           </div>
         </Row>
       </FormGroup>
-      <AppBar position="static">
+
+      <AppBar position="sticky">
+
         <Toolbar>
+
           <Typography variant="h6" className={classes.title}>
-            <Link to="/" style={{ color: "White", textDecoration: 'none'}} >
+            <Link to="/" style={{ color: "White", textDecoration: 'none' }} >
               <div id="title-font">
-                {/* <span>&#60;</span>
-                RENDEZVOUS
-            <span> &#8725;</span>
-                {/* <span>&#62;</span> */}
-              HOME
+                HOME
               </div>
             </Link>
           </Typography>
+
           {auth && (
             <div>
               <IconButton
@@ -106,6 +110,7 @@ const MenuAppBar = (props) => {
               >
                 <MenuIcon />
               </IconButton>
+
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -123,54 +128,57 @@ const MenuAppBar = (props) => {
               >
                 {
                   props.first_name ?
-                <div id="links">
-                  <Link
-                    className="links"
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                    to={`/users/${props.id}`}
-                    onClick={handleClose}>
-                    PROFILE
-                  </Link>
-                  <br></br>
-                  <Link
-                    className="links"
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                    to="/events"
-                    onClick={handleClose}>
-                    EVENTS
-                  </Link>
-                  <br></br>
-                  <Link
-                    className="links"
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                    to="/create-event"
-                    onClick={handleClose}>
-                    CREATE EVENT
-                  </Link>
-                  <br></br>
-                  <LogoutButton />
-                </div>
-                  :
-                <div>
-                  <Link
-                    className="links"
-                    style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
-                    to="/events"
-                    onClick={handleClose}>
-                    EVENTS
-                  </Link>
-                  <br></br>
-                  <LoginModal />
-                  <br></br>
-                  <SignupModal />
-                </div>   
+                    <div id="links">
+                      <Link
+                        className="links"
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        to={`/users/${props.id}`}
+                        onClick={handleClose}>
+                        PROFILE
+                      </Link>
+                      <br></br>
+
+                      <Link
+                        className="links"
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        to="/events"
+                        onClick={handleClose}>
+                        EVENTS
+                      </Link>
+                      <br></br>
+
+                      <Link
+                        className="links"
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        to="/create-event"
+                        onClick={handleClose}>
+                        CREATE EVENT
+                      </Link>
+                      <br></br>
+                      <LogoutButton />
+                    </div>
+                    :
+                    <div>
+                      <Link
+                        className="links"
+                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        to="/events"
+                        onClick={handleClose}>
+                        EVENTS
+                      </Link>
+
+                      <br></br>
+                      <LoginModal />
+                      <br></br>
+                      <SignupModal />
+
+                    </div>
                 }
               </Menu>
             </div>
           )}
         </Toolbar>
       </AppBar>
-
     </div>
   );
 }

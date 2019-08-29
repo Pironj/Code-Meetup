@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Fab from '@material-ui/core/Fab';
 
-import { Card, Col, Row, Container } from 'react-bootstrap';
+import { Card, Row, Container } from 'react-bootstrap';
 import Moment from "react-moment";
 
 const useStyles = makeStyles(theme => ({
@@ -26,12 +26,8 @@ const calendarStrings = {
   sameElse: 'L'
 };
 
-
-
 const UserEventCard = (props) => {
   const classes = useStyles();
-
-  //const dateToFormat = (props);
 
   //Here we are returning a User Event Card
   return (
@@ -50,9 +46,10 @@ const UserEventCard = (props) => {
                 style={{ fontWeight: 'bold' }}
                 calendar={calendarStrings}>{props.date}
               </Moment>
-              <hr></hr>
             </Card.Text>
 
+            <hr></hr>
+            
             {/* Detail view button */}
             <Row style={{ marginLeft: '6rem' }}>
               <Fab

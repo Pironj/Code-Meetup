@@ -39,12 +39,6 @@ genToken = (user) => {
 
 class Auth {
 
-  constructor() {
-    // this.authorizeUserParams = this.authorizeUserParams.bind(this);
-    // this.authorizeUserBody = this.authorizeUserBody.bind(this);
-    // this.authorizeUser = this.authorizeUser.bind(this);
-  }
-
   initialize() {
     passport.use('jwt', this.getStrategy());
     return passport.initialize();
@@ -91,16 +85,6 @@ class Auth {
     })(req, res, next);
   }
 
-  // authorizeUserBody(req, res, next) {
-  //   res.locals.userIdLocation = req.body.user_id;
-  //   return this.authorizeUser(req, res, next);
-  // }
-
-  // authorizeUserParams(req, res, next) {
-  //   res.locals.userIdLocation = req.params.id;
-  //   return this.authorizeUser(req, res, next);
-  // }
-
   /**
    *  Signup authentication
    * @param {*} req
@@ -112,7 +96,7 @@ class Auth {
       const result = await User.findOne({ email: req.body.email });
 
       if (result) {
-        return res.json({ message: 'Email already exists.' });
+        return res.status(401).json({ message: 'Email already exists.' });
       } else {
         // Success. Create new user
         const user = new User({
