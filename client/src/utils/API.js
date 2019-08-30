@@ -11,9 +11,10 @@ const AUTH_URL = '/auth';
 // Helper function to get token from local storage pass this function to our protected routes to create auth headers
 const generateAuthHeaders = () => {
   const token = getJWTToken()
-  const headers = { headers: { Authorization: `bearer ${token}`}, 
-  // data: {user_id: store.getState().authState.id} 
-}
+  const headers = {
+    headers: { Authorization: `bearer ${token}` },
+    // data: {user_id: store.getState().authState.id} 
+  }
   return headers;
 }
 
@@ -138,6 +139,20 @@ export default {
   */
   findEventsForUser: (user_id) => {
     return axios.get(`${USER_EVENT_API_URL}/user/${user_id}`) // to protect add getToken() function as param to get req
+  },
+
+  /**
+ * @param {string} user_id
+ */
+  findEventsUserCreatedOnly: (user_id) => {
+    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}/create-only`) // to protect add getToken() function as param to get req
+  },
+
+  /**
+   * @param {string} user_id
+   */
+  findEventsUserAttendingNotCreated: (user_id) => {
+    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}/attend-only`) // to protect add getToken() function as param to get req
   },
 
   /**
