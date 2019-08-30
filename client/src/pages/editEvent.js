@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
     first_name: state.authState.first_name,
     last_name: state.authState.last_name,
     email: state.authState.email,
-    token: state.authState.token,
   };
 }
 
