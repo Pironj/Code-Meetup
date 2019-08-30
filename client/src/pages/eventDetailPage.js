@@ -26,9 +26,10 @@ const mapStateToProps = (state) => {
 };
 
 class NamedUser {
-	constructor(first_name, last_name) {
+	constructor(first_name, last_name, _id) {
 		this.first_name = first_name;
 		this.last_name = last_name;
+		this._id = _id;
 	}
 }
 
@@ -56,7 +57,7 @@ class EventDetailsPage extends React.Component {
 			.then(res => {
 				const attendingUsers = res.data.map(userEvent => {
 					const user = userEvent.user_id;
-					return new NamedUser(user.first_name, user.last_name)
+					return new NamedUser(user.first_name, user.last_name, user._id)
 				})
 				this.setState({ attendees: attendingUsers })
 			}).catch(err => {
@@ -106,7 +107,7 @@ class EventDetailsPage extends React.Component {
 			})
 				.then(res => {
 					const attendees = this.state.attendees
-					attendees.push(new NamedUser(this.props.first_name, this.props.last_name))
+					attendees.push(new NamedUser(this.props.first_name, this.props.last_name, this.props.id))
 					this.setState({ attend: true, attendees });
 					this.changeText();
 				})
@@ -163,7 +164,7 @@ class EventDetailsPage extends React.Component {
 				date={this.state.event.date}
 				creator={
 					this.state.event.hasOwnProperty('creator') ?
-						this.state.event.creator.first_name + ' ' + this.state.event.creator.last_name
+						this.state.event.creator.full_name
 						: ''
 				}
 				address={this.state.event.street_address}
@@ -242,7 +243,9 @@ class EventDetailsPage extends React.Component {
 							<Row id="attending-users">
 								<Col>
 									<h2>Attendees ({this.state.attendees.length})</h2>
-									<Container>{this.renderAttendees()}</Container>
+										{
+											this.renderAttendees()
+										}
 								</Col>
 
 							</Row>

@@ -12,6 +12,18 @@ import UserCard from "../components/usercard";
 
 import { Col, Row } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
+
+
+//Function to map our current state as props
+const mapStateToProps = (state) => {
+    return {
+        id: state.authState.id,
+        first_name: state.authState.first_name,
+        last_name: state.authState.last_name,
+        email: state.authState.email,
+    };
+}
 
 class UserProfile extends React.Component {
 
@@ -48,6 +60,10 @@ class UserProfile extends React.Component {
             this.findEventsUserCreated(),
             this.findEventsUserAttendingNotCreated()
         ])
+    }
+
+    compareAuthenticatedUserToOther(userId) {
+        return this.props.id === userId;
     }
 
     findEventsUserCreated = () => {
@@ -110,7 +126,11 @@ class UserProfile extends React.Component {
                     date={userEvent.event_id.date}
                     key={userEvent._id}
                     id={userEvent.event_id._id}
-                    onDelete={editable ? () => this.onDelete(userEvent.event_id._id) : null}
+                    onDelete={
+                        this.compareAuthenticatedUserToOther(userEvent.user_id) && editable ?
+                            () => this.onDelete(userEvent.event_id._id)
+                            : null
+                    }
                 />
             )
         }
@@ -161,7 +181,7 @@ class UserProfile extends React.Component {
                             <Col style={{ marginTop: '5rem' }}>
                                 <h2
                                     style={{ textAlign: 'center' }}>
-                                    Events You Created ({this.state.userEventsUserCreated.length})
+                                    Events Created by {this.state.user.full_name} ({this.state.userEventsUserCreated.length})
                                     <Button color="primary" onClick={this.handleShowAllUserCreatedEventsClick}>
                                         {
                                             this.state.displayAllCreatedEventsByUser ? 'Collapse' : 'Show all events'
@@ -180,7 +200,7 @@ class UserProfile extends React.Component {
                                 <h2
                                     style={{ textAlign: 'center' }}
                                 >
-                                    Events You Are Attending ({this.state.userEventsUserAttendingNotCreated.length})
+                                    Other Events {this.state.user.full_name} is Attending ({this.state.userEventsUserAttendingNotCreated.length})
                                     <Button color="primary" onClick={this.handleShowAllUserAttendingNotCreatedEvents}>
                                         {
                                             this.state.displayAllEventsUserAttendingNotCreated ? 'Collapse' : 'Show all events'
@@ -205,4 +225,4 @@ class UserProfile extends React.Component {
     }
 }
 
-export default UserProfile;
+export default connect(mapStateToProps)(UserProfile);
