@@ -6,6 +6,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
+import LinkButton from '../LinkButton'
+
+
 const useStyles = makeStyles({
     card: {
         minWidth: 275,
@@ -34,15 +37,14 @@ const UserCard = (props) => {
                     <CardContent>
                         <Typography variant="h5" component="h2">
                             <React.Fragment>
-                                <p>{props.user.first_name + " " + props.user.last_name}</p>
-                                {props.user.email ? <p>Email: {props.user.email} </p> : ''}
+                                {/* {props.user.email ? <p>Email: {props.user.email} </p> : ''} */}
+                                <LinkButton to={`/users/${props.user._id}`}>{props.user.first_name + " " + props.user.last_name}</LinkButton>
                             </React.Fragment>
                         </Typography>
                     </CardContent>
                 </Card>
             </div>
         </Container>
-
     );
 };
 

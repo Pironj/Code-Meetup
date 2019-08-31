@@ -42,6 +42,8 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.set('toJSON', { virtuals: true });
+
 userSchema.pre('save', async function (next) {
   try {
     // Hash password on save document
@@ -67,6 +69,12 @@ userSchema.virtual('events', {
   localField: '_id',
   foreignField: 'user_id'
 });
+
+userSchema
+  .virtual('full_name')
+  .get(function () {
+    return `${this.first_name} ${this.last_name}`;
+  });
 
 const User = mongoose.model('User', userSchema);
 

@@ -1,29 +1,48 @@
 import React from "react";
-import UserCard from "../components/usercard";
+
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+
 import LettersAvatar from "../components/useravatar";
 import API from "../utils/API";
 import UserEventCard from "../components/userEventCard";
-import Grid from '@material-ui/core/Grid';
+import UserCard from "../components/usercard";
 
 import { Col, Row } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
+
+
+//Function to map our current state as props
+const mapStateToProps = (state) => {
+    return {
+        id: state.authState.id,
+        first_name: state.authState.first_name,
+        last_name: state.authState.last_name,
+        email: state.authState.email,
+    };
+}
 
 class UserProfile extends React.Component {
 
     state = {
         user: {},
-        userId: '',
-        userEvents: [],
+        userId: this.props.match.params.id,
+        userEventsUserCreated: [],
+        userEventsUserAttendingNotCreated: [],
+        displayAllCreatedEventsByUser: false,
+        displayAllEventsUserAttendingNotCreated: false,
     }
 
     // when this component mounts it grabs the user by their user id
-    async componentDidMount() {
-        await this.setState({ userId: this.props.match.params.id })
+    componentDidMount() {
 
         this.getUser();
 
         // Get all events user is attending (including the events they created)
-        this.getEventsUserAttends()
+        this.getEvents()
     }
 
     getUser = () => {
@@ -36,35 +55,105 @@ class UserProfile extends React.Component {
             });
     }
 
-    getEventsUserAttends = () => {
-        API.findEventsForUser(this.state.userId)
+    getEvents = async () => {
+        Promise.all([
+            this.findEventsUserCreated(),
+            this.findEventsUserAttendingNotCreated()
+        ])
+    }
+
+    compareAuthenticatedUserToOther(userId) {
+        return this.props.id === userId;
+    }
+
+    findEventsUserCreated = () => {
+        API.findEventsUserCreatedOnly(this.state.userId)
             .then(res => {
-                this.setState({ userEvents: res.data })
+                this.setState({ userEventsUserCreated: res.data })
+            })
+            .catch(err => console.log(err))
+    }
+
+    findEventsUserAttendingNotCreated = () => {
+        API.findEventsUserAttendingNotCreated(this.state.userId)
+            .then(res => {
+                this.setState({ userEventsUserAttendingNotCreated: res.data })
             })
             .catch(err => console.log(err))
     }
 
     /**
-     * Delete event
+     * Delete event by id only if user created the event
      */
     onDelete = (id) => {
         API.deleteEvent(id)
             .then(response => {
-                const updatedUserEvents = this.state.userEvents.filter(userEvent => {
+                const updatedUserEvents = this.state.userEventsUserCreated.filter(userEvent => {
                     return userEvent.event_id._id !== response.data._id
                 })
-                this.setState({ userEvents: updatedUserEvents })
+                this.setState({ userEventsUserCreated: updatedUserEvents })
             })
             .catch(err => console.log(err.response));
+    }
+
+    renderCreatedEvents = () => {
+        return this.renderEvents(true)
+    }
+
+    renderEventsAttendingNotCreated = () => {
+        return this.renderEvents(false)
+    }
+
+    renderEvents = (editable) => {
+        const events = [];
+        let userEvents;
+        let numEventsDisplay;
+
+        if (editable) {
+            userEvents = this.state.userEventsUserCreated;
+            numEventsDisplay = this.state.displayAllCreatedEventsByUser ? userEvents.length : 3;
+        } else {
+            userEvents = this.state.userEventsUserAttendingNotCreated
+            numEventsDisplay = this.state.displayAllEventsUserAttendingNotCreated ? userEvents.length : 3;
+        }
+
+        for (let i = 0; i < userEvents.length && i < numEventsDisplay; i++) {
+            const userEvent = userEvents[i];
+            events.push(
+                <UserEventCard
+                    title={userEvent.event_id.title}
+                    description={userEvent.event_id.description}
+                    date={userEvent.event_id.date}
+                    key={userEvent._id}
+                    id={userEvent.event_id._id}
+                    onDelete={
+                        this.compareAuthenticatedUserToOther(userEvent.user_id) && editable ?
+                            () => this.onDelete(userEvent.event_id._id)
+                            : null
+                    }
+                />
+            )
+        }
+
+        return events;
+    }
+
+    handleShowAllUserCreatedEventsClick = () => {
+        const updatedBool = !this.state.displayAllCreatedEventsByUser;
+        this.setState({ displayAllCreatedEventsByUser: updatedBool })
+    }
+
+    handleShowAllUserAttendingNotCreatedEvents = () => {
+        const updatedBool = !this.state.displayAllEventsUserAttendingNotCreated;
+        this.setState({ displayAllEventsUserAttendingNotCreated: updatedBool })
     }
 
     render() {
         return (
             this.state.user._id ? (
-                <div>
-                    <div>
+                <Container>
+                    <Card >
                         <Row>
-                            <Col sm={1} />
                             <Col md={4}>
                                 <Grid
                                     style={{ marginTop: '2rem' }}
@@ -82,49 +171,53 @@ class UserProfile extends React.Component {
                                     </div>
                                 </Grid>
                             </Col>
-                            <Col md={6} />
+                            <Col md={8}>
+
+                            </Col>
                         </Row>
-                    </div>
-                    <Row style={{ marginBottom: '5rem' }}>
 
-                        <Col md={6} style={{ marginTop: '5rem' }}>
-                            <h2 style={{ textAlign: 'center' }}>Events You Created</h2>
-                            {
-                                this.state.userEvents.map(userEvent => (
-                                    userEvent.event_id.creator === this.state.userId ? (
-                                        <UserEventCard
-                                            title={userEvent.event_id.title}
-                                            description={userEvent.event_id.description}
-                                            date={userEvent.event_id.date}
-                                            key={userEvent._id}
-                                            id={userEvent.event_id._id}
-                                            onDelete={() => this.onDelete(userEvent.event_id._id)}
-                                        />
-                                    ) :
-                                        ''
-                                ))
-                            }
-                        </Col>
-                        <Col md={6} style={{ marginTop: '5rem' }} id="attending">
-                            <h2 style={{ textAlign: 'center' }}>Events You Are Attending</h2>
-                            {
-                                this.state.userEvents.map(userEvent => (
-                                    userEvent.event_id.creator !== this.state.userId ? (
-                                        <UserEventCard
-                                            title={userEvent.event_id.title}
-                                            description={userEvent.event_id.description}
-                                            date={userEvent.event_id.date}
-                                            key={userEvent._id}
-                                            id={userEvent.event_id._id}
-                                        />
-                                    ) :
-                                        ''
-                                ))
-                            }
-                        </Col>
+                        <Row style={{ marginBottom: '5rem' }} id='created-events'>
 
-                    </Row>
-                </div>
+                            <Col style={{ marginTop: '5rem' }}>
+                                <h2
+                                    style={{ textAlign: 'center' }}>
+                                    Events Created by {this.state.user.full_name} ({this.state.userEventsUserCreated.length})
+                                    <Button color="primary" onClick={this.handleShowAllUserCreatedEventsClick}>
+                                        {
+                                            this.state.displayAllCreatedEventsByUser ? 'Collapse' : 'Show all events'
+                                        }
+                                    </Button>
+                                </h2>
+
+                                {
+                                    this.renderCreatedEvents()
+                                }
+                            </Col>
+                        </Row>
+
+                        <Row id='not-created-but-attending-events'>
+                            <Col style={{ marginTop: '5rem' }}>
+                                <h2
+                                    style={{ textAlign: 'center' }}
+                                >
+                                    Other Events {this.state.user.full_name} is Attending ({this.state.userEventsUserAttendingNotCreated.length})
+                                    <Button color="primary" onClick={this.handleShowAllUserAttendingNotCreatedEvents}>
+                                        {
+                                            this.state.displayAllEventsUserAttendingNotCreated ? 'Collapse' : 'Show all events'
+                                        }
+                                    </Button>
+                                </h2>
+
+                                {
+                                    this.renderEventsAttendingNotCreated()
+                                }
+                            </Col>
+                        </Row>
+
+                    </Card>
+
+
+                </Container>
             ) : (
                     <h2>User does not exist</h2>
                 )
@@ -132,4 +225,4 @@ class UserProfile extends React.Component {
     }
 }
 
-export default UserProfile;
+export default connect(mapStateToProps)(UserProfile);

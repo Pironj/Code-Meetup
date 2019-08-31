@@ -13,14 +13,20 @@ router.route('/:id')
   .delete(auth.authorizeUser, userEventController.removeById); // to protect in auth.authorizeUserParams
 
 router.route('/user/:user_id')
-  .get(userEventController.findEventsForUserId); // to protect in auth.authorizeUserParams ?
+  .get(userEventController.findEventsForUserId);
+
+router.route('/user/:user_id/create-only')
+  .get(userEventController.findEventsCreatedForUserId);
+
+router.route('/user/:user_id/attend-only')
+  .get(userEventController.findEventsNotCreatedForUserId);
 
 router.route('/event/:event_id')
   .get(userEventController.findUsersForEventId);
 
 router.route('/:user_id/:event_id')
   .get(userEventController.findByUserAndEventId) // to protect in auth.authorizeUserParams ?
-  .delete (auth.authorizeUser, userEventController.removeByUserAndEventId); // to protect in auth.authorizeUserParams
+  .delete(auth.authorizeUser, userEventController.removeByUserAndEventId); // to protect in auth.authorizeUserParams
 
 
 module.exports = router;
