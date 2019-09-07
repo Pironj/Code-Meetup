@@ -30,7 +30,7 @@ module.exports = {
         return res.status(404).json({ message: `Event with id ${eventId} does not exist.` });
       }
       if (eventLike) {
-        return res.status(400).json({ message: `User already likes event with event id ${eventId}` });
+        return res.status(400).json({ message: 'User already likes event' });
       }
     } catch (err) {
       return res.status(422).json(err);
@@ -49,7 +49,7 @@ module.exports = {
 
   // Find all likes for an event id
   findLikesForEventId: function (req, res) {
-    db.eventLike
+    db.EventLike
       .find({ event_id: req.params.event_id })
       .populate('user_id')
       .then(dbModel => res.json(dbModel))
