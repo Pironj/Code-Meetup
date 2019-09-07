@@ -41,6 +41,7 @@ class EventDetailsPage extends React.Component {
 		eventId: this.props.match.params.id,
 		userId: this.props.id,
 		isCreator: false,
+		isLoggedIn: this.props.id ? true : false,
 		comments: [],
 		attendees: [],
 		attend: false,
@@ -212,6 +213,17 @@ class EventDetailsPage extends React.Component {
 							</Row>
 
 							<Row id='event-operation buttons'>
+								{/* Like event buttons */}
+								{
+									this.state.isLoggedIn ?
+										<React.Fragment>
+											{{}}
+
+										</React.Fragment>
+										: ''
+								}
+
+								{/* Modify event buttons */}
 								{
 									this.state.isCreator ?
 										<React.Fragment>
@@ -243,9 +255,9 @@ class EventDetailsPage extends React.Component {
 							<Row id="attending-users">
 								<Col>
 									<h2>Attendees ({this.state.attendees.length})</h2>
-										{
-											this.renderAttendees()
-										}
+									{
+										this.renderAttendees()
+									}
 								</Col>
 
 							</Row>
