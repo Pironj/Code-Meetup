@@ -5,6 +5,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -24,9 +25,9 @@ const mapStateToProps = (state) => {
 		first_name: state.authState.first_name,
 		last_name: state.authState.last_name,
 		email: state.authState.email,
-		token: state.authState.token
 	};
 };
+
 
 class NamedUser {
 	constructor(first_name, last_name, _id) {
@@ -42,9 +43,6 @@ class EventDetailsPage extends React.Component {
 	state = {
 		event: {},
 		eventId: this.props.match.params.id,
-		userId: this.props.id,
-		isCreator: false,
-		isLoggedIn: this.props.id ? true : false,
 		comments: [],
 		attendees: [],
 		attend: false,
@@ -54,15 +52,28 @@ class EventDetailsPage extends React.Component {
 	};
 
 	//Here we are finding specific event ID on first render
-	async componentDidMount() {
+	componentDidMount() {
 		Promise.all([
 			this.getEvent(),
-			this.getUserAttendenceForEvent(),
-			this.getAttendingUsers(),
 			this.getNumEventLikes(),
-			this.getUserLikesEvent(),
+			this.getAttendingUsers(),
+			// this.getUserLikesEvent(),
+			// this.getUserAttendenceForEvent(),
 		])
 	}
+
+	// componentDidUpdate() {
+	// 	console.log(this.state.userId)
+	// 	console.log(this.props.id)
+	// 	if (this.state.userId !== this.props.id) {
+	// 		this.setState({userID: this.props.id})
+			
+	// 	}
+		// Promise.all([
+		// 	this.getUserLikesEvent(),
+		// 	this.getUserAttendenceForEvent(),
+		// ])
+	// }
 
 	getAttendingUsers = () => {
 		API.findUsersForEvent(this.state.eventId)
@@ -78,7 +89,7 @@ class EventDetailsPage extends React.Component {
 	}
 
 	getUserAttendenceForEvent = () => {
-		API.findUserEventByUserIdEventId(this.state.userId, this.state.eventId)
+		API.findUserEventByUserIdEventId(this.state.eventId)
 			.then((res) => {
 				if (res.data) {
 					this.setState({
@@ -95,7 +106,6 @@ class EventDetailsPage extends React.Component {
 				if (res.data) { // event exists
 					this.setState({
 						event: res.data,
-						isCreator: res.data.creator._id === this.props.id, // determine if logged in user is the event's creator
 					});
 				}
 			})
@@ -116,7 +126,7 @@ class EventDetailsPage extends React.Component {
 	}
 
 	getUserLikesEvent = () => {
-		API.findEventLikeByUserIdEventId(this.state.userId, this.state.eventId)
+		API.findEventLikeByUserIdEventId(this.state.eventId)
 			.then(res => {
 				if (res.data) {
 					this.setState({ userLikesEvent: true })
@@ -124,10 +134,12 @@ class EventDetailsPage extends React.Component {
 			})
 	}
 
-	// Like or unlike the event. Updates number of likes for event 
+	/**
+	 * Like or unlike the event. Updates number of likes for event 
+	 */
 	handleEventLikeClick = () => {
 		if (this.state.userLikesEvent) {
-			API.deleteEventLikeByUserIdEventId(this.state.userId, this.state.eventId)
+			API.deleteEventLikeByUserIdEventId(this.state.eventId)
 				.then(res => {
 					this.setState({ userLikesEvent: false, numEventLikes: this.state.numEventLikes - 1 })
 				})
@@ -135,7 +147,7 @@ class EventDetailsPage extends React.Component {
 					console.log(err.response);
 				})
 		} else {
-			API.createEventLike({event_id: this.state.eventId})
+			API.createEventLike({ event_id: this.state.eventId })
 				.then(res => {
 					this.setState({ userLikesEvent: true, numEventLikes: this.state.numEventLikes + 1 })
 				})
@@ -169,8 +181,8 @@ class EventDetailsPage extends React.Component {
 				.catch(err => {
 					console.log(err.response)
 				});
-		} else if (this.state.attend && !this.state.isCreator) {
-			API.deleteUserEventByUserIdEventId(this.state.userId, this.state.eventId)
+		} else if (this.state.attend && !(this.state.event.creator._id === this.props.id)) { // determine if logged in user is the event's creator
+			API.deleteUserEventByUserIdEventId(this.state.eventId)
 				.then(res => {
 					const attendees = this.state.attendees.filter(user => {
 						return user.first_name !== this.props.first_name;
@@ -239,16 +251,11 @@ class EventDetailsPage extends React.Component {
 							<Row style={{ marginTop: '2rem' }}>
 								<Col>
 
-									{this.renderFullEvent()}
-
+									{/* Render Event */}
 									{
-										this.props.id ?
-											<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
-												{this.state.attend ? 'Attending' : 'Attend'}
-											</Button>
-											:
-											<div></div>
+										this.renderFullEvent()
 									}
+
 								</Col>
 
 								<Col>
@@ -266,28 +273,50 @@ class EventDetailsPage extends React.Component {
 								</Col>
 							</Row>
 
-							<Row id='event-operation buttons'>
-								{
-									this.state.numEventLikes
-								}
-								{
-									this.state.numEventLikes === 1 ? ' like' : ' likes'
-								}
+							<Row id="like-event">
 
 								{/* Like event buttons */}
 								{
-									this.state.isLoggedIn ?
-										<div>
-											<IconButton color="primary" onClick={this.handleEventLikeClick}>
-												<ThumbUpIcon></ThumbUpIcon>
-											</IconButton>
-										</div>
-										: ''
+									this.props.id ?
+
+										<IconButton
+											color="primary"
+											onClick={this.handleEventLikeClick}>
+											{
+												this.state.userLikesEvent ?
+													<ThumbUpIcon />
+													:
+													<ThumbUpOutlinedIcon />
+											}
+										</IconButton>
+										:
+										<ThumbUpOutlinedIcon />
 								}
+
+								{
+									this.state.numEventLikes
+								}
+
+							</Row>
+
+							<Row id='attend-event-operation'>
+								{/* Attend event operation */}
+								{
+									this.props.id ?
+										<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
+											{this.state.attend ? 'Attending' : 'Attend'}
+										</Button>
+										:
+										<div></div>
+								}
+
+							</Row>
+
+							<Row id='event-operation buttons'>
 
 								{/* Modify event buttons */}
 								{
-									this.state.isCreator ?
+									this.state.event.creator._id === this.props.id ? // determine if logged in user is the event's creator
 										<React.Fragment>
 											<Fab
 												variant="extended"

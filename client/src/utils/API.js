@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getJWTToken } from './localStorageHelper';
-// import store from '../redux/store';
+import store from '../redux/store';
 
 const USER_API_URL = '/api/users';
 const EVENT_API_URL = '/api/events';
@@ -14,9 +14,12 @@ const generateAuthHeaders = () => {
   const token = getJWTToken()
   const headers = {
     headers: { Authorization: `bearer ${token}` },
-    // data: {user_id: store.getState().authState.id} 
   }
   return headers;
+}
+
+const getUserId = () => {
+  return store.getState().authState.id;
 }
 
 export default {
@@ -164,19 +167,18 @@ export default {
   },
 
   /**
-  * @param {string} user_id
   * @param {string} event_id
   */
-  deleteUserEventByUserIdEventId: (user_id, event_id) => {
-    return axios.delete(`${USER_EVENT_API_URL}/${user_id}/${event_id}`, generateAuthHeaders());
+  deleteUserEventByUserIdEventId: (event_id) => {
+    return axios.delete(`${USER_EVENT_API_URL}/${getUserId()}/${event_id}`, generateAuthHeaders());
   },
 
   /**
    * @param {string} user_id
    * @param {string} event_id
    */
-  findUserEventByUserIdEventId: (user_id, event_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/${user_id}/${event_id}`);
+  findUserEventByUserIdEventId: (event_id) => {
+    return axios.get(`${USER_EVENT_API_URL}/${getUserId()}/${event_id}`);
   },
 
   // Comments
@@ -253,19 +255,17 @@ export default {
   },
 
   /**
-  * @param {string} user_id
   * @param {string} event_id
   */
-  findEventLikeByUserIdEventId: (user_id, event_id) => {
-    return axios.get(`${EVENT_LIKE_API_URL}/${user_id}/${event_id}`);
+  findEventLikeByUserIdEventId: (event_id) => {
+    return axios.get(`${EVENT_LIKE_API_URL}/${getUserId()}/${event_id}`);
   },
 
   /**
-  * @param {string} user_id
   * @param {string} event_id
   */
-  deleteEventLikeByUserIdEventId: (user_id, event_id) => {
-    return axios.delete(`${EVENT_LIKE_API_URL}/${user_id}/${event_id}`, generateAuthHeaders());
+  deleteEventLikeByUserIdEventId: (event_id) => {
+    return axios.delete(`${EVENT_LIKE_API_URL}/${getUserId()}/${event_id}`, generateAuthHeaders());
   },
 
 };

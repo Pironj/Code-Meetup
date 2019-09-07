@@ -26,9 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 function LogoutButton(props) {
 
   function handleChange(event) {
-    localStorage.removeItem('authUser');
     props.logOut();
-
   }
 
 

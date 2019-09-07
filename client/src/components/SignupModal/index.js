@@ -15,7 +15,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import './style.css';
 import API from "../../utils/API";
-import { setAuthStateLocalStorage } from '../../utils/localStorageHelper';
 
 
 const mapDispatchToProps = (dispatch) => {
@@ -143,7 +142,6 @@ class SignupModal extends React.Component {
       email: data.user.email,
       token: data.token
     }
-    setAuthStateLocalStorage(authUser);
 
     // Save auth state in redux store
     this.props.logIn(authUser);
