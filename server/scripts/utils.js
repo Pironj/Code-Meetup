@@ -7,6 +7,7 @@ module.exports = {
     await db.Event.remove({});
     await db.UserEvent.remove({});
     await db.Comment.remove({});
+    await db.EventLike.remove({});
   },
 
   asyncForEach: async function (array, callback) {

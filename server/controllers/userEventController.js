@@ -29,7 +29,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  // Find all events created by the user 
+  // Find all events created by the user
   findEventsCreatedForUserId: function (req, res) {
     db.UserEvent
       .find({ user_id: req.params.user_id })
