@@ -232,7 +232,7 @@ export default {
   },
 
   /**
-   * @param {{user_id: string, event_id: string}} eventLike
+   * @param {event_id: string} eventLike
    */
   createEventLike: (eventLike) => {
     return axios.post(`${EVENT_LIKE_API_URL}`, eventLike, generateAuthHeaders());
@@ -248,8 +248,16 @@ export default {
   /**
   * @param {string} event_id
   */
-  findLikesForEvent: (event_id) => {
+  findEventLikesForEvent: (event_id) => {
     return axios.get(`${EVENT_LIKE_API_URL}/event/${event_id}`)
+  },
+
+  /**
+  * @param {string} user_id
+  * @param {string} event_id
+  */
+  findEventLikeByUserIdEventId: (user_id, event_id) => {
+    return axios.get(`${EVENT_LIKE_API_URL}/${user_id}/${event_id}`);
   },
 
   /**

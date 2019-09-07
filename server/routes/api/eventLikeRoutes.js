@@ -6,16 +6,17 @@ const auth = require('../../controllers/authController');
 // // Matches with "/api/userEvents"
 router.route('/')
   .get(eventLikeController.findAllEventLikes)
-  .post(auth.authorizeUser, eventLikeController.create); // to protect in auth.authorizeUserParams
+  .post(auth.authorizeUser, eventLikeController.create);
 
 router.route('/:id')
-  .delete(auth.authorizeUser, eventLikeController.removeById); // to protect in auth.authorizeUserParams
+  .delete(auth.authorizeUser, eventLikeController.removeById);
 
 router.route('/event/:event_id')
-  .get(eventLikeController.findLikesForEventId);
+  .get(eventLikeController.findNumEventLikesForEvent);
 
 router.route('/:user_id/:event_id')
-  .delete(auth.authorizeUser, eventLikeController.removeByUserIdAndEventId);
+  .get(eventLikeController.findByUserIdAndEventId)
+  .delete (auth.authorizeUser, eventLikeController.removeByUserIdAndEventId);
 
 
 module.exports = router;

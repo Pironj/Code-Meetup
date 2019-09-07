@@ -3,6 +3,9 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+
 import { Link as RouterLink } from 'react-router-dom';
 
 import GoogleApiWrapper from '../components/googleMaps';
@@ -45,12 +48,20 @@ class EventDetailsPage extends React.Component {
 		comments: [],
 		attendees: [],
 		attend: false,
+		numEventLikes: 0,
+		userLikesEvent: false,
 		btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' },
 	};
 
 	//Here we are finding specific event ID on first render
 	async componentDidMount() {
-		Promise.all([this.getEvent(), this.getUserAttendenceForEvent(), this.getAttendingUsers()])
+		Promise.all([
+			this.getEvent(),
+			this.getUserAttendenceForEvent(),
+			this.getAttendingUsers(),
+			this.getNumEventLikes(),
+			this.getUserLikesEvent(),
+		])
 	}
 
 	getAttendingUsers = () => {
@@ -89,6 +100,49 @@ class EventDetailsPage extends React.Component {
 				}
 			})
 			.catch(err => console.log(err));
+	}
+
+	getNumEventLikes = () => {
+		API.findEventLikesForEvent(this.state.eventId)
+			.then(res => {
+				if (res.data) {
+					this.setState({
+						numEventLikes: res.data.numLikes
+					})
+				}
+			}).catch(err => {
+				console.log(err.response);
+			})
+	}
+
+	getUserLikesEvent = () => {
+		API.findEventLikeByUserIdEventId(this.state.userId, this.state.eventId)
+			.then(res => {
+				if (res.data) {
+					this.setState({ userLikesEvent: true })
+				}
+			})
+	}
+
+	// Like or unlike the event. Updates number of likes for event 
+	handleEventLikeClick = () => {
+		if (this.state.userLikesEvent) {
+			API.deleteEventLikeByUserIdEventId(this.state.userId, this.state.eventId)
+				.then(res => {
+					this.setState({ userLikesEvent: false, numEventLikes: this.state.numEventLikes - 1 })
+				})
+				.catch(err => {
+					console.log(err.response);
+				})
+		} else {
+			API.createEventLike({event_id: this.state.eventId})
+				.then(res => {
+					this.setState({ userLikesEvent: true, numEventLikes: this.state.numEventLikes + 1 })
+				})
+				.catch(err => {
+					console.log(err.response);
+				})
+		}
 	}
 
 	renderAttendees = () => {
@@ -213,13 +267,21 @@ class EventDetailsPage extends React.Component {
 							</Row>
 
 							<Row id='event-operation buttons'>
+								{
+									this.state.numEventLikes
+								}
+								{
+									this.state.numEventLikes === 1 ? ' like' : ' likes'
+								}
+
 								{/* Like event buttons */}
 								{
 									this.state.isLoggedIn ?
-										<React.Fragment>
-											{{}}
-
-										</React.Fragment>
+										<div>
+											<IconButton color="primary" onClick={this.handleEventLikeClick}>
+												<ThumbUpIcon></ThumbUpIcon>
+											</IconButton>
+										</div>
 										: ''
 								}
 

@@ -11,6 +11,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  findNumEventLikesForEvent: (req, res) => {
+    const eventId = req.params.event_id;
+    db.EventLike
+      .count({ event_id: eventId })
+      .then(numLikes => res.json({numLikes}))
+      .catch(err => res.status(422).json(err));
+  },
+
   /**
    * Creates eventLike document with user_id, event_id
    */
@@ -48,13 +56,13 @@ module.exports = {
   },
 
   // Find all likes for an event id
-  findLikesForEventId: function (req, res) {
-    db.EventLike
-      .find({ event_id: req.params.event_id })
-      .populate('user_id')
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
+  // findLikesForEventId: function (req, res) {
+  //   db.EventLike
+  //     .find({ event_id: req.params.event_id })
+  //     .populate('user_id')
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
 
   removeById: async (req, res) => {
     const authenticatedUser = res.locals.authenticatedUser;
@@ -70,6 +78,14 @@ module.exports = {
 
     db.EventLike
       .findByIdAndDelete(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  findByUserIdAndEventId: async (req, res) => {
+
+    db.EventLike
+      .findOne({ user_id: req.params.user_id, event_id: req.params.event_id })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
