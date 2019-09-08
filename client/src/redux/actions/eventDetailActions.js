@@ -40,7 +40,17 @@ export const initEventState = (eventId) => {
       dispatch(getEvent(eventId)),
       dispatch(getAttendingUsers(eventId)),
       dispatch(getNumEventLikes(eventId)),
-      
+
+      dispatch(getUserAttendenceForEvent(eventId)),
+      dispatch(getUserLikesEvent(eventId)),
+    ])
+  }
+}
+
+export const updateEventStateOnAuthChange = (eventId) => {
+
+  return async (dispatch) => {
+    Promise.all([
       dispatch(getUserAttendenceForEvent(eventId)),
       dispatch(getUserLikesEvent(eventId)),
     ])
@@ -141,5 +151,42 @@ export const updateUserLikesEvent = (eventId) => {
     }
     dispatch(setUserLikesEvent(userLikesEvent));
     dispatch(setNumEventLikes(numEventLikes))
+  }
+}
+
+export const updateUserAttendance = (eventId) => {
+  const eventDetailState = store.getState().eventDetail;
+
+  let attendees = eventDetailState.attendees;
+  const { first_name, last_name, id } = store.getState().authState;
+  let isAttending = store.getState().eventDetail.isAttending;
+
+  return async (dispatch) => {
+    if (isAttending) {
+      try {
+        await API.deleteUserEventByUserIdEventId(eventId);
+
+        attendees = attendees.filter(user => {
+          return user._id !== id;
+        })
+        isAttending = false;
+
+      } catch (err) {
+        // Error in deleting UserEvent document
+      }
+    } else {
+      try {
+        await API.createUserEvent({
+          event_id: eventId,
+        });
+        attendees.push(new NamedUser(first_name, last_name, id));
+        isAttending = true;
+
+      } catch (err) {
+        // Error in creating UserEvent document
+      }
+    }
+    dispatch(setUserAttendance(isAttending));
+    dispatch(setAttendingUsers(attendees));
   }
 }

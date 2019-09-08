@@ -12,18 +12,17 @@ import { Link as RouterLink } from 'react-router-dom';
 import GoogleApiWrapper from '../components/googleMaps';
 
 import { connect } from 'react-redux';
-import { initEventState, removeEvent, updateUserLikesEvent } from '../redux/actions/eventDetailActions';
+import { initEventState, removeEvent, updateUserLikesEvent, updateEventStateOnAuthChange, updateUserAttendance } from '../redux/actions/eventDetailActions';
 
 import API from '../utils/API';
-import { NamedUser } from '../utils/classes';
 import CommentBox from '../components/commentbox';
 import FullEvent from '../components/fullEvent';
 import UserCard from '../components/usercard'
 import './style.css';
 
+
 const mapStateToProps = (state) => {
 	return {
-
 		// authState
 		id: state.authState.id,
 		first_name: state.authState.first_name,
@@ -50,15 +49,33 @@ const mapDispatchToProps = (dispatch) => {
 		updateUserLikesEvent: (eventId) => {
 			dispatch(updateUserLikesEvent(eventId))
 		},
+		updateEventStateOnAuthChange: (eventId) => {
+			dispatch(updateEventStateOnAuthChange(eventId))
+		},
+		updateUserAttendance: (eventId) => {
+			dispatch(updateUserAttendance(eventId));
+		},
 	}
 }
+
+const attendBtnStyle = {
+	// width: '3rem',
+	// height: '.5rem',
+	isAttending: {
+		backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)'
+	},
+	isNotAttending: {
+		btnColor: { backgroundImage: 'linear-gradient(to right, #0F142D 0%, #2D3A81 70%, #3F51B5 100%)' },
+	}
+}
+
 
 class EventDetailsPage extends React.Component {
 
 	state = {
 		eventId: this.props.match.params.id,
+		userId: this.props.id,
 		comments: [],
-		btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' },
 	};
 
 	//Here we are finding specific event ID on first render
@@ -70,67 +87,26 @@ class EventDetailsPage extends React.Component {
 		this.props.removeEvent();
 	}
 
+	UNSAFE_componentWillReceiveProps() { // NEED TO FIND A BETTER WAY TO LISTEN TO AUTH STATE CHANGE
+		if (this.state.userId !== this.props.id) {
+			this.setState({ userId: this.props.id })
+			this.props.updateEventStateOnAuthChange(this.state.eventId);
+		}
+	}
+
 	/**
 	 * Like or unlike the event. Updates number of likes for event 
 	 */
 	handleEventLikeClick = () => {
 		this.props.updateUserLikesEvent(this.state.eventId);
-
-	}
-
-	renderAttendees = () => {
-		return this.props.attendees.map(user => (
-			<UserCard
-				key={user.first_name}
-				user={user}
-			/>
-		))
 	}
 
 	//When user hits Attend button, a new UserEvent is created
 	onAttend = () => {
-		if (!this.state.attend) {
-			API.createUserEvent({
-				event_id: this.props.eventId,
-			})
-				.then(res => {
-					// const attendees = this.state.attendees
-					// attendees.push(new NamedUser(this.props.first_name, this.props.last_name, this.props.id))
-					// this.setState({ attend: true, attendees });
-					this.changeText();
-				})
-				.catch(err => {
-					console.log(err.response)
-				});
-		} else if (this.state.attend && !(this.props.event.creator._id === this.props.id)) { // determine if logged in user is the event's creator
-			API.deleteUserEventByUserIdEventId(this.props.eventId)
-				.then(res => {
-					// const attendees = this.state.attendees.filter(user => {
-					// 	return user.first_name !== this.props.first_name;
-					// })
-					// this.setState({ attend: false, attendees });
-					this.changeText();
-				})
-				.catch((err) => console.log(err.response));
-		} else {
+		if (this.props.event.creator._id === this.props.id) { // determine if logged in user is the event's creator
 			alert("You cannot remove yourself from your created event");
-		}
-	};
-
-	// function that alter button state text
-	changeText = () => {
-		if (this.state.attend) {
-			this.setState({
-				btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' },
-				width: '3rem',
-				height: '.5rem'
-			});
 		} else {
-			this.setState({
-				btnColor: { backgroundImage: 'linear-gradient(to right, #0F142D 0%, #2D3A81 70%, #3F51B5 100%)' },
-				width: '3rem',
-				height: '.5rem'
-			});
+			this.props.updateUserAttendance(this.state.eventId);
 		}
 	};
 
@@ -140,6 +116,25 @@ class EventDetailsPage extends React.Component {
 				this.props.history.push('/');
 			})
 			.catch(err => console.log(err.response));
+	}
+
+	setColorOnAttendEventClick = () => {
+		let backgroundImage;
+		if (this.props.isAttending) {
+			backgroundImage = attendBtnStyle.isAttending
+		} else {
+			backgroundImage = attendBtnStyle.isNotAttending
+		}
+		return backgroundImage
+	}
+
+	renderAttendees = () => {
+		return this.props.attendees.map(user => (
+			<UserCard
+				key={user.first_name}
+				user={user}
+			/>
+		))
 	}
 
 	renderFullEvent = () => {
@@ -224,7 +219,7 @@ class EventDetailsPage extends React.Component {
 								{/* Attend event operation */}
 								{
 									this.props.id ?
-										<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
+										<Button id="attend" onClick={this.onAttend} style={{ ...this.setColorOnAttendEventClick() }} variant="info">
 											{this.props.isAttending ? 'Attending' : 'Attend'}
 										</Button>
 										:
