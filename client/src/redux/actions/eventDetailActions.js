@@ -1,7 +1,7 @@
-import { SET_EVENT } from "../actionTypes";
+import { SET_EVENT, REMOVE_EVENT, SET_ATTENDING_USERS } from "../actionTypes";
 
 import API from '../../utils/API';
-
+import { NamedUser } from '../../utils/classes';
 
 
 export const setEvent = (event) => ({
@@ -9,56 +9,61 @@ export const setEvent = (event) => ({
   payload: event
 })
 
+export const removeEvent = () => ({
+  type: REMOVE_EVENT
+})
 
+export const setAttendingUsers = (attendees) => ({
+  type: SET_ATTENDING_USERS,
+  payload: attendees,
+})
 
 export const getEvent = (eventId) => {
   return async (dispatch) => {
-
-    const res = await API.findEventById(eventId)
-
-    if (res.data) { // event exists
-      return dispatch(setEvent(res.data))
+    let event = {};
+    try {
+      const res = await API.findEventById(eventId)
+      if (res.data) { // event exists
+        event = res.data
+      }
+    } catch (err) {
+      // Error fetching event. Don't mutate state
     }
+    return dispatch(setEvent(event))
   }
 }
 
+export const getAttendingUsers = (eventId) => {
+  return async (dispatch) => {
+    let attendingUsers = [];
+    try {
+      const res = await API.findUsersForEvent(eventId);
+      attendingUsers = res.data.map(userEvent => {
+        const user = userEvent.user_id;
+        return new NamedUser(user.first_name, user.last_name, user._id)
+      });
+    } catch (err) {
+      //  Error fetching attendees
+    }
+    return dispatch(setAttendingUsers(attendingUsers))
+  }
+}
+
+export const getNumEventLikes = (eventId) => {
+
+  API.findEventLikesForEvent(this.state.eventId)
+    .then(res => {
+      if (res.data) {
+        this.setState({
+          numEventLikes: res.data.numLikes
+        })
+      }
+    }).catch(err => {
+      console.log(err.response);
+    })
+}
 
 
-// componentDidMount() {
-//   Promise.all([
-//     this.getEvent(),
-    // this.getNumEventLikes(),
-    // this.getAttendingUsers(),
-    // this.getUserLikesEvent(),
-    // this.getUserAttendenceForEvent(),
-//   ])
-// }
-
-// componentDidUpdate() {
-// 	console.log(this.state.userId)
-// 	console.log(this.props.id)
-// 	if (this.state.userId !== this.props.id) {
-// 		this.setState({userID: this.props.id})
-
-// 	}
-  // Promise.all([
-  // 	this.getUserLikesEvent(),
-  // 	this.getUserAttendenceForEvent(),
-  // ])
-// }
-
-// getAttendingUsers = () => {
-//   API.findUsersForEvent(this.state.eventId)
-//     .then(res => {
-//       const attendingUsers = res.data.map(userEvent => {
-//         const user = userEvent.user_id;
-//         return new NamedUser(user.first_name, user.last_name, user._id)
-//       })
-//       this.setState({ attendees: attendingUsers })
-//     }).catch(err => {
-//       console.log(err)
-//     })
-// }
 
 // getUserAttendenceForEvent = () => {
 //   API.findUserEventByUserIdEventId(this.state.eventId)
@@ -74,18 +79,7 @@ export const getEvent = (eventId) => {
 
 
 
-// getNumEventLikes = () => {
-//   API.findEventLikesForEvent(this.state.eventId)
-//     .then(res => {
-//       if (res.data) {
-//         this.setState({
-//           numEventLikes: res.data.numLikes
-//         })
-//       }
-//     }).catch(err => {
-//       console.log(err.response);
-//     })
-// }
+
 
 // getUserLikesEvent = () => {
 //   API.findEventLikeByUserIdEventId(this.state.eventId)

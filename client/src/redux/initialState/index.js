@@ -1,5 +1,3 @@
-
-
 export const initialAuthState = {
   id: '',
   first_name: '',
@@ -8,12 +6,9 @@ export const initialAuthState = {
   token: '',
 };
 
-
 export const initialEventDetailState = {
   event: {},
-  event_id: '',
-  // comments: [],
-  // attendees: [],
+  attendees: [],
   isAttending: false,
   numEventLikes: 0,
   userLikesEvent: false,
