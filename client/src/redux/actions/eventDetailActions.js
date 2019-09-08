@@ -1,24 +1,53 @@
-import { SET_EVENT, REMOVE_EVENT, SET_ATTENDING_USERS } from "../actionTypes";
-
+import * as ACTION_TYPES from "../actionTypes";
+import store from '../store';
 import API from '../../utils/API';
 import { NamedUser } from '../../utils/classes';
 
 
-export const setEvent = (event) => ({
-  type: SET_EVENT,
+const setEvent = (event) => ({
+  type: ACTION_TYPES.SET_EVENT,
   payload: event
 })
 
-export const removeEvent = () => ({
-  type: REMOVE_EVENT
-})
-
-export const setAttendingUsers = (attendees) => ({
-  type: SET_ATTENDING_USERS,
+const setAttendingUsers = (attendees) => ({
+  type: ACTION_TYPES.SET_ATTENDING_USERS,
   payload: attendees,
 })
 
-export const getEvent = (eventId) => {
+const setNumEventLikes = (numLikes) => ({
+  type: ACTION_TYPES.NUM_EVENT_LIKES,
+  payload: numLikes,
+})
+
+const setUserAttendance = (isAttending) => ({
+  type: ACTION_TYPES.USER_IS_ATTENDING_EVENT,
+  payload: isAttending,
+})
+
+const setUserLikesEvent = (likesEvent) => ({
+  type: ACTION_TYPES.USER_LIKES_EVENT,
+  payload: likesEvent,
+})
+
+export const removeEvent = () => ({
+  type: ACTION_TYPES.REMOVE_EVENT
+})
+
+export const initEventState = (eventId) => {
+
+  return async (dispatch) => {
+    Promise.all([
+      dispatch(getEvent(eventId)),
+      dispatch(getAttendingUsers(eventId)),
+      dispatch(getNumEventLikes(eventId)),
+      
+      dispatch(getUserAttendenceForEvent(eventId)),
+      dispatch(getUserLikesEvent(eventId)),
+    ])
+  }
+}
+
+const getEvent = (eventId) => {
   return async (dispatch) => {
     let event = {};
     try {
@@ -33,7 +62,7 @@ export const getEvent = (eventId) => {
   }
 }
 
-export const getAttendingUsers = (eventId) => {
+const getAttendingUsers = (eventId) => {
   return async (dispatch) => {
     let attendingUsers = [];
     try {
@@ -49,43 +78,68 @@ export const getAttendingUsers = (eventId) => {
   }
 }
 
-export const getNumEventLikes = (eventId) => {
-
-  API.findEventLikesForEvent(this.state.eventId)
-    .then(res => {
-      if (res.data) {
-        this.setState({
-          numEventLikes: res.data.numLikes
-        })
-      }
-    }).catch(err => {
-      console.log(err.response);
-    })
+const getNumEventLikes = (eventId) => {
+  return async (dispatch) => {
+    let numEventLikes = 0;
+    try {
+      const res = await API.findEventLikesForEvent(eventId)
+      numEventLikes = res.data.numLikes;
+    } catch (err) {
+      // Error fetching number of event likes
+    }
+    return dispatch(setNumEventLikes(numEventLikes));
+  }
 }
 
+const getUserAttendenceForEvent = (eventId) => {
+  return async (dispatch) => {
+    let isAttending = false;
+    try {
+      const res = await API.findUserEventByUserIdEventId(eventId);
+      if (res.data) {
+        isAttending = true;
+      }
+    } catch (err) {
+      // Error in fetching user attendance
+    }
+    return dispatch(setUserAttendance(isAttending));
+  }
+}
 
+const getUserLikesEvent = (eventId) => {
+  return async (dispatch) => {
+    let userLikesEvent = false;
+    try {
+      const res = await API.findEventLikeByUserIdEventId(eventId)
+      if (res.data) {
+        userLikesEvent = true;
+      }
+    } catch (err) {
+      // Error in fetching if user likes event
+    }
+    return dispatch(setUserLikesEvent(userLikesEvent));
+  }
+}
 
-// getUserAttendenceForEvent = () => {
-//   API.findUserEventByUserIdEventId(this.state.eventId)
-//     .then((res) => {
-//       if (res.data) {
-//         this.setState({
-//           attend: true,
-//         });
-//       }
-//     })
-//     .catch((err) => console.log(err));
-// }
+export const updateUserLikesEvent = (eventId) => {
+  return async (dispatch) => {
+    let numEventLikes = store.getState().eventDetail.numEventLikes;
+    let userLikesEvent = store.getState().eventDetail.userLikesEvent;
 
-
-
-
-
-// getUserLikesEvent = () => {
-//   API.findEventLikeByUserIdEventId(this.state.eventId)
-//     .then(res => {
-//       if (res.data) {
-//         this.setState({ userLikesEvent: true })
-//       }
-//     })
-// }
+    try {
+      if (userLikesEvent) {
+        await API.deleteEventLikeByUserIdEventId(eventId)
+        userLikesEvent = false
+        numEventLikes = numEventLikes - 1
+      } else {
+        await API.createEventLike({ event_id: eventId })
+        userLikesEvent = true
+        numEventLikes = numEventLikes + 1
+      }
+    } catch (err) {
+      // Error in updating user event like
+    }
+    dispatch(setUserLikesEvent(userLikesEvent));
+    dispatch(setNumEventLikes(numEventLikes))
+  }
+}

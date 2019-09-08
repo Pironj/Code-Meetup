@@ -12,7 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import GoogleApiWrapper from '../components/googleMaps';
 
 import { connect } from 'react-redux';
-import { getEvent, removeEvent, getAttendingUsers } from '../redux/actions/eventDetailActions';
+import { initEventState, removeEvent, updateUserLikesEvent } from '../redux/actions/eventDetailActions';
 
 import API from '../utils/API';
 import { NamedUser } from '../utils/classes';
@@ -23,30 +23,32 @@ import './style.css';
 
 const mapStateToProps = (state) => {
 	return {
+
 		// authState
 		id: state.authState.id,
 		first_name: state.authState.first_name,
 		last_name: state.authState.last_name,
 		email: state.authState.email,
+
 		// eventDetail
 		event: state.eventDetail.event,
 		attendees: state.eventDetail.attendees,
-		numEventLikes: 0,
-		isAttending: false,
-		userLikesEvent: false,
+		numEventLikes: state.eventDetail.numEventLikes,
+		isAttending: state.eventDetail.isAttending,
+		userLikesEvent: state.eventDetail.userLikesEvent,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getEvent: (eventId) => {
-			dispatch(getEvent(eventId))
+		initEventState: (eventId) => {
+			dispatch(initEventState(eventId))
 		},
 		removeEvent: () => {
-			dispatch(removeEvent());
+			dispatch(removeEvent())
 		},
-		getAttendingUsers: (eventId) => {
-			dispatch(getAttendingUsers(eventId))
+		updateUserLikesEvent: (eventId) => {
+			dispatch(updateUserLikesEvent(eventId))
 		},
 	}
 }
@@ -54,116 +56,26 @@ const mapDispatchToProps = (dispatch) => {
 class EventDetailsPage extends React.Component {
 
 	state = {
-		// event: {},
 		eventId: this.props.match.params.id,
 		comments: [],
-		// attendees: [],
-		attend: false,
-		numEventLikes: 0,
-		userLikesEvent: false,
 		btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' },
 	};
 
 	//Here we are finding specific event ID on first render
 	componentDidMount() {
-
-
-		Promise.all([
-			this.props.getEvent(this.state.eventId),
-			this.props.getAttendingUsers(this.state.eventId),
-			// this.getEvent(),
-			// this.getNumEventLikes(),
-			// this.getAttendingUsers(),
-			// this.getUserLikesEvent(),
-			// this.getUserAttendenceForEvent(),
-		])
-	}
-
-	componentDidUpdate() {
-		// 	console.log(this.state.userId)
-		// 	console.log(this.props.id)
-		// 	if (this.state.userId !== this.props.id) {
-		// 		this.setState({userID: this.props.id})
-
-		// 	}
-		// Promise.all([
-		// 	this.getUserLikesEvent(),
-		// 	this.getUserAttendenceForEvent(),
-		// ])
+		this.props.initEventState(this.state.eventId);
 	}
 
 	componentWillUnmount() {
 		this.props.removeEvent();
 	}
 
-	// getAttendingUsers = () => {
-	// 	API.findUsersForEvent(this.props.eventId)
-	// 		.then(res => {
-	// 			const attendingUsers = res.data.map(userEvent => {
-	// 				const user = userEvent.user_id;
-	// 				return new NamedUser(user.first_name, user.last_name, user._id)
-	// 			})
-	// 			this.setState({ attendees: attendingUsers })
-	// 		}).catch(err => {
-	// 			console.log(err)
-	// 		})
-	// }
-
-	getUserAttendenceForEvent = () => {
-		API.findUserEventByUserIdEventId(this.props.eventId)
-			.then((res) => {
-				if (res.data) {
-					this.setState({
-						attend: true,
-					});
-				}
-			})
-			.catch((err) => console.log(err));
-	}
-
-	getNumEventLikes = () => {
-		API.findEventLikesForEvent(this.props.eventId)
-			.then(res => {
-				if (res.data) {
-					this.setState({
-						numEventLikes: res.data.numLikes
-					})
-				}
-			}).catch(err => {
-				console.log(err.response);
-			})
-	}
-
-	getUserLikesEvent = () => {
-		API.findEventLikeByUserIdEventId(this.props.eventId)
-			.then(res => {
-				if (res.data) {
-					this.setState({ userLikesEvent: true })
-				}
-			})
-	}
-
 	/**
 	 * Like or unlike the event. Updates number of likes for event 
 	 */
 	handleEventLikeClick = () => {
-		if (this.state.userLikesEvent) {
-			API.deleteEventLikeByUserIdEventId(this.props.eventId)
-				.then(res => {
-					this.setState({ userLikesEvent: false, numEventLikes: this.state.numEventLikes - 1 })
-				})
-				.catch(err => {
-					console.log(err.response);
-				})
-		} else {
-			API.createEventLike({ event_id: this.props.eventId })
-				.then(res => {
-					this.setState({ userLikesEvent: true, numEventLikes: this.state.numEventLikes + 1 })
-				})
-				.catch(err => {
-					console.log(err.response);
-				})
-		}
+		this.props.updateUserLikesEvent(this.state.eventId);
+
 	}
 
 	renderAttendees = () => {
@@ -292,7 +204,7 @@ class EventDetailsPage extends React.Component {
 											color="primary"
 											onClick={this.handleEventLikeClick}>
 											{
-												this.state.userLikesEvent ?
+												this.props.userLikesEvent ?
 													<ThumbUpIcon />
 													:
 													<ThumbUpOutlinedIcon />
@@ -303,7 +215,7 @@ class EventDetailsPage extends React.Component {
 								}
 
 								{
-									this.state.numEventLikes
+									this.props.numEventLikes
 								}
 
 							</Row>
@@ -313,7 +225,7 @@ class EventDetailsPage extends React.Component {
 								{
 									this.props.id ?
 										<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
-											{this.state.attend ? 'Attending' : 'Attend'}
+											{this.props.isAttending ? 'Attending' : 'Attend'}
 										</Button>
 										:
 										<div></div>
