@@ -1,19 +1,16 @@
 import { SET_AUTH_STATE, DELETE_AUTH_STATE } from "../actionTypes";
+import { setAuthStateLocalStorage, deleteAuthState } from '../../utils/localStorageHelper'
+import { initialAuthState } from '../initialState'
 
 
-const initialState = {
-  id: '',
-  first_name: '',
-  last_name: '',
-  email: '',
-  token: '',
-};
-
-export default function (state = initialState, action) {
+export default function (state = initialAuthState, action) {
   switch (action.type) {
 
     case SET_AUTH_STATE: {
       const content = action.payload;
+
+      setAuthStateLocalStorage(content);
+
       return {
         ...state, // Spread operator returns a copy of current state
         id: content.id,
@@ -25,6 +22,8 @@ export default function (state = initialState, action) {
     }
 
     case DELETE_AUTH_STATE: {
+      deleteAuthState();
+      
       return {
         ...state,
         id: '',

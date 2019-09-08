@@ -1,6 +1,7 @@
 # API Endpoints
 
 ## (Work in progress)
+!!!! OUT OF DATE !!!! -> Look at API.js instead
 
 ## Authentication and Authorization
 

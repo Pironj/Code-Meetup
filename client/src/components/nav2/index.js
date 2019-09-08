@@ -1,27 +1,22 @@
 import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-// import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from "react-router-dom";
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
 import { Row } from 'react-bootstrap';
-// import { NavDropdown } from 'react-bootstrap';
-// import { getFullAuthenticationState, getAuthState } from '../../utils/localStorageHelper'
+
 import LogoutButton from '../LogoutButton';
 import './style.css';
 
 import { connect } from 'react-redux';
-import { deleteAuthState } from '../../redux/actions';
 
 const useStyles = makeStyles(theme => (
   {
@@ -43,18 +38,8 @@ const mapStateToProps = (state) => {
     first_name: state.authState.first_name,
     last_name: state.authState.last_name,
     email: state.authState.email,
-    token: state.authState.token,
   };
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logOut: () => {
-      dispatch(deleteAuthState())
-    }
-  }
-}
-
 
 const MenuAppBar = (props) => {
 
@@ -183,4 +168,4 @@ const MenuAppBar = (props) => {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuAppBar)
+export default connect(mapStateToProps)(MenuAppBar)
