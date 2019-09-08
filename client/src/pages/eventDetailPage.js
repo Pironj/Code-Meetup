@@ -12,6 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import GoogleApiWrapper from '../components/googleMaps';
 
 import { connect } from 'react-redux';
+import { getEvent } from '../redux/actions';
 
 import API from '../utils/API';
 import CommentBox from '../components/commentbox';
@@ -25,8 +26,21 @@ const mapStateToProps = (state) => {
 		first_name: state.authState.first_name,
 		last_name: state.authState.last_name,
 		email: state.authState.email,
+
+		event_id: state.eventDetail.event_id,
+		event: state.eventDetail.event,
+		isAttending: state.eventDetail.isAttending,
+
 	};
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getEvent: (eventId) => {
+      dispatch(getEvent(eventId))
+    }
+  }
+}
 
 
 class NamedUser {
@@ -41,7 +55,7 @@ class NamedUser {
 class EventDetailsPage extends React.Component {
 
 	state = {
-		event: {},
+		// event: {},
 		eventId: this.props.match.params.id,
 		comments: [],
 		attendees: [],
@@ -53,16 +67,18 @@ class EventDetailsPage extends React.Component {
 
 	//Here we are finding specific event ID on first render
 	componentDidMount() {
-		Promise.all([
-			this.getEvent(),
-			this.getNumEventLikes(),
-			this.getAttendingUsers(),
+		this.props.getEvent(this.state.eventId)
+
+		// Promise.all([
+			// this.getEvent(),
+			// this.getNumEventLikes(),
+			// this.getAttendingUsers(),
 			// this.getUserLikesEvent(),
 			// this.getUserAttendenceForEvent(),
-		])
+		// ])
 	}
 
-	// componentDidUpdate() {
+	componentDidUpdate() {
 	// 	console.log(this.state.userId)
 	// 	console.log(this.props.id)
 	// 	if (this.state.userId !== this.props.id) {
@@ -73,10 +89,10 @@ class EventDetailsPage extends React.Component {
 		// 	this.getUserLikesEvent(),
 		// 	this.getUserAttendenceForEvent(),
 		// ])
-	// }
+	}
 
 	getAttendingUsers = () => {
-		API.findUsersForEvent(this.state.eventId)
+		API.findUsersForEvent(this.props.eventId)
 			.then(res => {
 				const attendingUsers = res.data.map(userEvent => {
 					const user = userEvent.user_id;
@@ -89,7 +105,7 @@ class EventDetailsPage extends React.Component {
 	}
 
 	getUserAttendenceForEvent = () => {
-		API.findUserEventByUserIdEventId(this.state.eventId)
+		API.findUserEventByUserIdEventId(this.props.eventId)
 			.then((res) => {
 				if (res.data) {
 					this.setState({
@@ -100,20 +116,20 @@ class EventDetailsPage extends React.Component {
 			.catch((err) => console.log(err));
 	}
 
-	getEvent = () => {
-		API.findEventById(this.state.eventId)
-			.then(res => {
-				if (res.data) { // event exists
-					this.setState({
-						event: res.data,
-					});
-				}
-			})
-			.catch(err => console.log(err));
-	}
+	// getEvent = () => {
+	// 	API.findEventById(this.props.eventId)
+	// 		.then(res => {
+	// 			if (res.data) { // event exists
+	// 				this.setState({
+	// 					event: res.data,
+	// 				});
+	// 			}
+	// 		})
+	// 		.catch(err => console.log(err));
+	// }
 
 	getNumEventLikes = () => {
-		API.findEventLikesForEvent(this.state.eventId)
+		API.findEventLikesForEvent(this.props.eventId)
 			.then(res => {
 				if (res.data) {
 					this.setState({
@@ -126,7 +142,7 @@ class EventDetailsPage extends React.Component {
 	}
 
 	getUserLikesEvent = () => {
-		API.findEventLikeByUserIdEventId(this.state.eventId)
+		API.findEventLikeByUserIdEventId(this.props.eventId)
 			.then(res => {
 				if (res.data) {
 					this.setState({ userLikesEvent: true })
@@ -139,7 +155,7 @@ class EventDetailsPage extends React.Component {
 	 */
 	handleEventLikeClick = () => {
 		if (this.state.userLikesEvent) {
-			API.deleteEventLikeByUserIdEventId(this.state.eventId)
+			API.deleteEventLikeByUserIdEventId(this.props.eventId)
 				.then(res => {
 					this.setState({ userLikesEvent: false, numEventLikes: this.state.numEventLikes - 1 })
 				})
@@ -147,7 +163,7 @@ class EventDetailsPage extends React.Component {
 					console.log(err.response);
 				})
 		} else {
-			API.createEventLike({ event_id: this.state.eventId })
+			API.createEventLike({ event_id: this.props.eventId })
 				.then(res => {
 					this.setState({ userLikesEvent: true, numEventLikes: this.state.numEventLikes + 1 })
 				})
@@ -170,7 +186,7 @@ class EventDetailsPage extends React.Component {
 	onAttend = () => {
 		if (!this.state.attend) {
 			API.createUserEvent({
-				event_id: this.state.eventId,
+				event_id: this.props.eventId,
 			})
 				.then(res => {
 					const attendees = this.state.attendees
@@ -181,8 +197,8 @@ class EventDetailsPage extends React.Component {
 				.catch(err => {
 					console.log(err.response)
 				});
-		} else if (this.state.attend && !(this.state.event.creator._id === this.props.id)) { // determine if logged in user is the event's creator
-			API.deleteUserEventByUserIdEventId(this.state.eventId)
+		} else if (this.state.attend && !(this.props.event.creator._id === this.props.id)) { // determine if logged in user is the event's creator
+			API.deleteUserEventByUserIdEventId(this.props.eventId)
 				.then(res => {
 					const attendees = this.state.attendees.filter(user => {
 						return user.first_name !== this.props.first_name;
@@ -214,7 +230,7 @@ class EventDetailsPage extends React.Component {
 	};
 
 	deleteEvent = () => {
-		API.deleteEvent(this.state.event._id)
+		API.deleteEvent(this.props.event._id)
 			.then(response => {
 				this.props.history.push('/');
 			})
@@ -224,149 +240,153 @@ class EventDetailsPage extends React.Component {
 	renderFullEvent = () => {
 		return (
 			<FullEvent
-				title={this.state.event.title}
-				description={this.state.event.description}
-				key={this.state.event._id}
-				id={this.state.event._id}
-				date={this.state.event.date}
+				title={this.props.event.title}
+				description={this.props.event.description}
+				key={this.props.event._id}
+				id={this.props.event._id}
+				date={this.props.event.date}
 				creator={
-					this.state.event.hasOwnProperty('creator') ?
-						this.state.event.creator.full_name
+					this.props.event.hasOwnProperty('creator') ?
+						this.props.event.creator.full_name
 						: ''
 				}
-				address={this.state.event.street_address}
-				latitude={this.state.event.location.coordinates[1]}
-				longitude={this.state.event.location.coordinates[0]}
+				address={this.props.event.street_address}
+				latitude={this.props.event.location.coordinates[1]}
+				longitude={this.props.event.location.coordinates[0]}
 			/>
 		);
 	};
 
 	render() {
-		return (
-			<div>
-				{
-					this.state.event._id ?
-						<Container id="eventDetail">
-
-							<Row style={{ marginTop: '2rem' }}>
-								<Col>
-
-									{/* Render Event */}
-									{
-										this.renderFullEvent()
-									}
-
-								</Col>
-
-								<Col>
-									{
-										this.state.event._id ? (
-											<GoogleApiWrapper
-												key={this.state.event._id}
-												latitude={this.state.event.location.coordinates[1]}
-												longitude={this.state.event.location.coordinates[0]}
-											/>
-										) : (
-												<p>Loading map...</p>
-											)
-									}
-								</Col>
-							</Row>
-
-							<Row id="like-event">
-
-								{/* Like event buttons */}
-								{
-									this.props.id ?
-
-										<IconButton
-											color="primary"
-											onClick={this.handleEventLikeClick}>
-											{
-												this.state.userLikesEvent ?
-													<ThumbUpIcon />
-													:
-													<ThumbUpOutlinedIcon />
-											}
-										</IconButton>
-										:
-										<ThumbUpOutlinedIcon />
-								}
-
-								{
-									this.state.numEventLikes
-								}
-
-							</Row>
-
-							<Row id='attend-event-operation'>
-								{/* Attend event operation */}
-								{
-									this.props.id ?
-										<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
-											{this.state.attend ? 'Attending' : 'Attend'}
-										</Button>
-										:
-										<div></div>
-								}
-
-							</Row>
-
-							<Row id='event-operation buttons'>
-
-								{/* Modify event buttons */}
-								{
-									this.state.event.creator._id === this.props.id ? // determine if logged in user is the event's creator
-										<React.Fragment>
-											<Fab
-												variant="extended"
-												size="small"
-												color="secondary"
-												aria-label="add"
-												component={RouterLink}
-												to={`/events/${this.state.event._id}/edit`}
-											>
-												Edit
-											</Fab>
-
-											<Fab
-												variant="extended"
-												size="small"
-												color="secondary"
-												aria-label="add"
-												onClick={this.deleteEvent}
-											>
-												Delete
-                  </Fab>
-										</React.Fragment>
-										: ''
-								}
-							</Row>
-
-							<Row id="attending-users">
-								<Col>
-									<h2>Attendees ({this.state.attendees.length})</h2>
-									{
-										this.renderAttendees()
-									}
-								</Col>
-
-							</Row>
-
-							<Row id="commentRow">
-								<Col md={1} />
-								<Col md={10}>
-									<CommentBox eventId={this.state.eventId} />
-								</Col>
-								<Col md={1} />
-							</Row>
-						</Container>
-						:
-						<p>This event does not exist</p>
-				}
-			</div>
-		);
+		return <div>{this.props.event._id + this.props.event.description}</div>
 	}
+
+	// render() {
+	// 	return (
+	// 		<div>
+	// 			{
+	// 				this.props.event._id ?
+	// 					<Container id="eventDetail">
+
+	// 						<Row style={{ marginTop: '2rem' }}>
+	// 							<Col>
+
+	// 								{/* Render Event */}
+	// 								{
+	// 									this.renderFullEvent()
+	// 								}
+
+	// 							</Col>
+
+	// 							<Col>
+	// 								{
+	// 									this.props.event._id ? (
+	// 										<GoogleApiWrapper
+	// 											key={this.props.event._id}
+	// 											latitude={this.props.event.location.coordinates[1]}
+	// 											longitude={this.props.event.location.coordinates[0]}
+	// 										/>
+	// 									) : (
+	// 											<p>Loading map...</p>
+	// 										)
+	// 								}
+	// 							</Col>
+	// 						</Row>
+
+	// 						<Row id="like-event">
+
+	// 							{/* Like event buttons */}
+	// 							{
+	// 								this.props.id ?
+
+	// 									<IconButton
+	// 										color="primary"
+	// 										onClick={this.handleEventLikeClick}>
+	// 										{
+	// 											this.state.userLikesEvent ?
+	// 												<ThumbUpIcon />
+	// 												:
+	// 												<ThumbUpOutlinedIcon />
+	// 										}
+	// 									</IconButton>
+	// 									:
+	// 									<ThumbUpOutlinedIcon />
+	// 							}
+
+	// 							{
+	// 								this.state.numEventLikes
+	// 							}
+
+	// 						</Row>
+
+	// 						<Row id='attend-event-operation'>
+	// 							{/* Attend event operation */}
+	// 							{
+	// 								this.props.id ?
+	// 									<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
+	// 										{this.state.attend ? 'Attending' : 'Attend'}
+	// 									</Button>
+	// 									:
+	// 									<div></div>
+	// 							}
+
+	// 						</Row>
+
+	// 						<Row id='event-operation buttons'>
+
+	// 							{/* Modify event buttons */}
+	// 							{
+	// 								this.props.event.creator._id === this.props.id ? // determine if logged in user is the event's creator
+	// 									<React.Fragment>
+	// 										<Fab
+	// 											variant="extended"
+	// 											size="small"
+	// 											color="secondary"
+	// 											aria-label="add"
+	// 											component={RouterLink}
+	// 											to={`/events/${this.props.event._id}/edit`}
+	// 										>
+	// 											Edit
+	// 										</Fab>
+
+	// 										<Fab
+	// 											variant="extended"
+	// 											size="small"
+	// 											color="secondary"
+	// 											aria-label="add"
+	// 											onClick={this.deleteEvent}
+	// 										>
+	// 											Delete
+  //                 </Fab>
+	// 									</React.Fragment>
+	// 									: ''
+	// 							}
+	// 						</Row>
+
+	// 						<Row id="attending-users">
+	// 							<Col>
+	// 								<h2>Attendees ({this.state.attendees.length})</h2>
+	// 								{
+	// 									this.renderAttendees()
+	// 								}
+	// 							</Col>
+
+	// 						</Row>
+
+	// 						<Row id="commentRow">
+	// 							<Col md={1} />
+	// 							<Col md={10}>
+	// 								<CommentBox eventId={this.props.eventId} />
+	// 							</Col>
+	// 							<Col md={1} />
+	// 						</Row>
+	// 					</Container>
+	// 					:
+	// 					<p>This event does not exist</p>
+	// 			}
+	// 		</div>
+	// 	);
+	// }
 }
 
-export default connect(mapStateToProps)(EventDetailsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EventDetailsPage);

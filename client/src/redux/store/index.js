@@ -1,6 +1,10 @@
-import { createStore, compose } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
+
+import thunk from 'redux-thunk';
+
 import rootReducer from '../reducers/index';
 import { getAuthState } from "../../utils/localStorageHelper";
+import { initialEventDetailState } from '../initialState'
 
 // Store initial logged in credentials if available on page reload in Redux store
 const loadState = () => {
@@ -24,7 +28,12 @@ const loadState = () => {
 export default createStore(
   rootReducer,
   {
-    authState: loadState() // Load local storage into initial state on page load
+    authState: loadState(), // Load local storage into initial state on page load
+    eventDetail: initialEventDetailState,
   },
-  compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+  compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 );
