@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { setAuthState } from '../../redux/actions';
+import { setAuthState } from '../../redux/actions/authActions';
 
 import { STATUS_CODES } from 'http';
 

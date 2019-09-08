@@ -12,7 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import GoogleApiWrapper from '../components/googleMaps';
 
 import { connect } from 'react-redux';
-import { getEvent } from '../redux/actions';
+import { getEvent } from '../redux/actions/eventDetailActions';
 
 import API from '../utils/API';
 import CommentBox from '../components/commentbox';

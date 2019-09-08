@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import './style.css';
 
 import { connect } from 'react-redux';
-import { deleteAuthState } from '../../redux/actions';
+import { deleteAuthState } from '../../redux/actions/authActions';
 
 const mapStateToProps = (state) => {
   return {
