@@ -3,6 +3,9 @@ import store from '../store';
 import API from '../../utils/API';
 import { NamedUser } from '../../utils/classes';
 
+/**
+ * Synchronous Actions
+**/
 
 const setEvent = (event) => ({
   type: ACTION_TYPES.SET_EVENT,
@@ -33,6 +36,10 @@ export const removeEvent = () => ({
   type: ACTION_TYPES.REMOVE_EVENT
 })
 
+/**
+ * Asynchronous Actions allowed by redux-thunk package
+**/
+
 export const initEventState = (eventId) => {
 
   return async (dispatch) => {
@@ -50,10 +57,15 @@ export const initEventState = (eventId) => {
 export const updateEventStateOnAuthChange = (eventId) => {
 
   return async (dispatch) => {
-    Promise.all([
-      dispatch(getUserAttendenceForEvent(eventId)),
-      dispatch(getUserLikesEvent(eventId)),
-    ])
+    if (store.getState().authState.id) {
+      Promise.all([
+        dispatch(getUserAttendenceForEvent(eventId)),
+        dispatch(getUserLikesEvent(eventId)),
+      ])
+    } else {
+      dispatch(setUserAttendance(false));
+      dispatch(setUserLikesEvent(false))
+    }
   }
 }
 

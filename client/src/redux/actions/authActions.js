@@ -16,7 +16,3 @@ export const setAuthState = auth => ({
 export const deleteAuthState = () => ({
   type: DELETE_AUTH_STATE,
 })
-
-
-
-

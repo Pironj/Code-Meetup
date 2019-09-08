@@ -21,6 +21,7 @@ import UserCard from '../components/usercard'
 import './style.css';
 
 
+// Get redux store state 
 const mapStateToProps = (state) => {
 	return {
 		// authState
@@ -38,6 +39,7 @@ const mapStateToProps = (state) => {
 	};
 };
 
+// Get redux store actions
 const mapDispatchToProps = (dispatch) => {
 	return {
 		initEventState: (eventId) => {
@@ -74,7 +76,6 @@ class EventDetailsPage extends React.Component {
 
 	state = {
 		eventId: this.props.match.params.id,
-		userId: this.props.id,
 		comments: [],
 	};
 
@@ -85,13 +86,6 @@ class EventDetailsPage extends React.Component {
 
 	componentWillUnmount() {
 		this.props.removeEvent();
-	}
-
-	UNSAFE_componentWillReceiveProps() { // NEED TO FIND A BETTER WAY TO LISTEN TO AUTH STATE CHANGE
-		if (this.state.userId !== this.props.id) {
-			this.setState({ userId: this.props.id })
-			this.props.updateEventStateOnAuthChange(this.state.eventId);
-		}
 	}
 
 	/**
@@ -157,9 +151,17 @@ class EventDetailsPage extends React.Component {
 		);
 	};
 
+	handleAuthChange = () => {
+		this.props.updateEventStateOnAuthChange(this.state.eventId)
+	}
+
 	render() {
 		return (
 			<div>
+				{/* Handle show/hide UI buttons on login/logout */}
+				{/* Better way to do this??? */}
+				{this.handleAuthChange()} 
+
 				{
 					this.props.event._id ?
 						<Container id="eventDetail">

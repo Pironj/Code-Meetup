@@ -1,6 +1,6 @@
 import { SET_AUTH_STATE, DELETE_AUTH_STATE } from "../actionTypes";
-import {setAuthStateLocalStorage, deleteAuthState} from '../../utils/localStorageHelper'
-import {initialAuthState} from '../initialState'
+import { setAuthStateLocalStorage, deleteAuthState } from '../../utils/localStorageHelper'
+import { initialAuthState } from '../initialState'
 
 
 export default function (state = initialAuthState, action) {
@@ -23,6 +23,7 @@ export default function (state = initialAuthState, action) {
 
     case DELETE_AUTH_STATE: {
       deleteAuthState();
+      
       return {
         ...state,
         id: '',
