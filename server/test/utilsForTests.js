@@ -15,6 +15,13 @@ module.exports = {
     email: 'user@email.com'
   },
 
+  otherUser: {
+    first_name: 'otherFirst',
+    last_name: 'otherLast',
+    password: 'other1234',
+    email: 'otherUser@email.com',
+  },
+
   seedUsers: async (usersSeed) => {
     await asyncForEach(usersSeed, async (item, index) => {
       console.log(index);

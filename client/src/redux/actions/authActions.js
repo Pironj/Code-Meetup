@@ -1,5 +1,6 @@
 import { SET_AUTH_STATE, DELETE_AUTH_STATE } from "../actionTypes";
 
+
 /**
  * For logging in or signing up a user in redux
  * @param {} auth 

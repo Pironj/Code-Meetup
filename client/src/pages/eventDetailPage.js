@@ -3,11 +3,16 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+
 import { Link as RouterLink } from 'react-router-dom';
 
 import GoogleApiWrapper from '../components/googleMaps';
 
 import { connect } from 'react-redux';
+import { initEventState, removeEvent, updateUserLikesEvent, updateEventStateOnAuthChange, updateUserAttendance } from '../redux/actions/eventDetailActions';
 
 import API from '../utils/API';
 import CommentBox from '../components/commentbox';
@@ -15,21 +20,54 @@ import FullEvent from '../components/fullEvent';
 import UserCard from '../components/usercard'
 import './style.css';
 
+
+// Get redux store state 
 const mapStateToProps = (state) => {
 	return {
+		// authState
 		id: state.authState.id,
 		first_name: state.authState.first_name,
 		last_name: state.authState.last_name,
 		email: state.authState.email,
-		token: state.authState.token
+
+		// eventDetail
+		event: state.eventDetail.event,
+		attendees: state.eventDetail.attendees,
+		numEventLikes: state.eventDetail.numEventLikes,
+		isAttending: state.eventDetail.isAttending,
+		userLikesEvent: state.eventDetail.userLikesEvent,
 	};
 };
 
-class NamedUser {
-	constructor(first_name, last_name, _id) {
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this._id = _id;
+// Get redux store actions
+const mapDispatchToProps = (dispatch) => {
+	return {
+		initEventState: (eventId) => {
+			dispatch(initEventState(eventId))
+		},
+		removeEvent: () => {
+			dispatch(removeEvent())
+		},
+		updateUserLikesEvent: (eventId) => {
+			dispatch(updateUserLikesEvent(eventId))
+		},
+		updateEventStateOnAuthChange: (eventId) => {
+			dispatch(updateEventStateOnAuthChange(eventId))
+		},
+		updateUserAttendance: (eventId) => {
+			dispatch(updateUserAttendance(eventId));
+		},
+	}
+}
+
+const attendBtnStyle = {
+	// width: '3rem',
+	// height: '.5rem',
+	isAttending: {
+		backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)'
+	},
+	isNotAttending: {
+		btnColor: { backgroundImage: 'linear-gradient(to right, #0F142D 0%, #2D3A81 70%, #3F51B5 100%)' },
 	}
 }
 
@@ -37,61 +75,55 @@ class NamedUser {
 class EventDetailsPage extends React.Component {
 
 	state = {
-		event: {},
 		eventId: this.props.match.params.id,
-		userId: this.props.id,
-		isCreator: false,
 		comments: [],
-		attendees: [],
-		attend: false,
-		btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' },
 	};
 
 	//Here we are finding specific event ID on first render
-	async componentDidMount() {
-		Promise.all([this.getEvent(), this.getUserAttendenceForEvent(), this.getAttendingUsers()])
+	componentDidMount() {
+		this.props.initEventState(this.state.eventId);
 	}
 
-	getAttendingUsers = () => {
-		API.findUsersForEvent(this.state.eventId)
-			.then(res => {
-				const attendingUsers = res.data.map(userEvent => {
-					const user = userEvent.user_id;
-					return new NamedUser(user.first_name, user.last_name, user._id)
-				})
-				this.setState({ attendees: attendingUsers })
-			}).catch(err => {
-				console.log(err)
-			})
+	componentWillUnmount() {
+		this.props.removeEvent();
 	}
 
-	getUserAttendenceForEvent = () => {
-		API.findUserEventByUserIdEventId(this.state.userId, this.state.eventId)
-			.then((res) => {
-				if (res.data) {
-					this.setState({
-						attend: true,
-					});
-				}
-			})
-			.catch((err) => console.log(err));
+	/**
+	 * Like or unlike the event. Updates number of likes for event 
+	 */
+	handleEventLikeClick = () => {
+		this.props.updateUserLikesEvent(this.state.eventId);
 	}
 
-	getEvent = () => {
-		API.findEventById(this.state.eventId)
-			.then(res => {
-				if (res.data) { // event exists
-					this.setState({
-						event: res.data,
-						isCreator: res.data.creator._id === this.props.id, // determine if logged in user is the event's creator
-					});
-				}
+	//When user hits Attend button, a new UserEvent is created
+	onAttend = () => {
+		if (this.props.event.creator._id === this.props.id) { // determine if logged in user is the event's creator
+			alert("You cannot remove yourself from your created event");
+		} else {
+			this.props.updateUserAttendance(this.state.eventId);
+		}
+	};
+
+	deleteEvent = () => {
+		API.deleteEvent(this.props.event._id)
+			.then(response => {
+				this.props.history.push('/');
 			})
-			.catch(err => console.log(err));
+			.catch(err => console.log(err.response));
+	}
+
+	setColorOnAttendEventClick = () => {
+		let backgroundImage;
+		if (this.props.isAttending) {
+			backgroundImage = attendBtnStyle.isAttending
+		} else {
+			backgroundImage = attendBtnStyle.isNotAttending
+		}
+		return backgroundImage
 	}
 
 	renderAttendees = () => {
-		return this.state.attendees.map(user => (
+		return this.props.attendees.map(user => (
 			<UserCard
 				key={user.first_name}
 				user={user}
@@ -99,110 +131,58 @@ class EventDetailsPage extends React.Component {
 		))
 	}
 
-	//When user hits Attend button, a new UserEvent is created
-	onAttend = () => {
-		if (!this.state.attend) {
-			API.createUserEvent({
-				event_id: this.state.eventId,
-			})
-				.then(res => {
-					const attendees = this.state.attendees
-					attendees.push(new NamedUser(this.props.first_name, this.props.last_name, this.props.id))
-					this.setState({ attend: true, attendees });
-					this.changeText();
-				})
-				.catch(err => {
-					console.log(err.response)
-				});
-		} else if (this.state.attend && !this.state.isCreator) {
-			API.deleteUserEventByUserIdEventId(this.state.userId, this.state.eventId)
-				.then(res => {
-					const attendees = this.state.attendees.filter(user => {
-						return user.first_name !== this.props.first_name;
-					})
-					this.setState({ attend: false, attendees });
-					this.changeText();
-				})
-				.catch((err) => console.log(err.response));
-		} else {
-			alert("You cannot remove yourself from your created event");
-		}
-	};
-
-	// function that alter button state text
-	changeText = () => {
-		if (this.state.attend) {
-			this.setState({
-				btnColor: { backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)' },
-				width: '3rem',
-				height: '.5rem'
-			});
-		} else {
-			this.setState({
-				btnColor: { backgroundImage: 'linear-gradient(to right, #0F142D 0%, #2D3A81 70%, #3F51B5 100%)' },
-				width: '3rem',
-				height: '.5rem'
-			});
-		}
-	};
-
-	deleteEvent = () => {
-		API.deleteEvent(this.state.event._id)
-			.then(response => {
-				this.props.history.push('/');
-			})
-			.catch(err => console.log(err.response));
-	}
-
 	renderFullEvent = () => {
 		return (
 			<FullEvent
-				title={this.state.event.title}
-				description={this.state.event.description}
-				key={this.state.event._id}
-				id={this.state.event._id}
-				date={this.state.event.date}
+				title={this.props.event.title}
+				description={this.props.event.description}
+				key={this.props.event._id}
+				id={this.props.event._id}
+				date={this.props.event.date}
 				creator={
-					this.state.event.hasOwnProperty('creator') ?
-						this.state.event.creator.full_name
+					this.props.event.hasOwnProperty('creator') ?
+						this.props.event.creator.full_name
 						: ''
 				}
-				address={this.state.event.street_address}
-				latitude={this.state.event.location.coordinates[1]}
-				longitude={this.state.event.location.coordinates[0]}
+				address={this.props.event.street_address}
+				latitude={this.props.event.location.coordinates[1]}
+				longitude={this.props.event.location.coordinates[0]}
 			/>
 		);
 	};
 
+	handleAuthChange = () => {
+		this.props.updateEventStateOnAuthChange(this.state.eventId)
+	}
+
 	render() {
 		return (
 			<div>
+				{/* Handle show/hide UI buttons on login/logout */}
+				{/* Better way to do this??? */}
+				{this.handleAuthChange()} 
+
 				{
-					this.state.event._id ?
+					this.props.event._id ?
 						<Container id="eventDetail">
 
 							<Row style={{ marginTop: '2rem' }}>
 								<Col>
 
-									{this.renderFullEvent()}
-
+									{/* Render Event */}
 									{
-										this.props.id ?
-											<Button id="attend" onClick={this.onAttend} style={this.state.btnColor} variant="dark">
-												{this.state.attend ? 'Attending' : 'Attend'}
-											</Button>
-											:
-											<div></div>
+										this.renderFullEvent()
 									}
+
 								</Col>
 
 								<Col>
 									{
-										this.state.event._id ? (
+										this.props.event._id ? (
 											<GoogleApiWrapper
-												key={this.state.event._id}
-												latitude={this.state.event.location.coordinates[1]}
-												longitude={this.state.event.location.coordinates[0]}
+												key={this.props.event._id}
+												latitude={this.props.event.location.coordinates[1]}
+												longitude={this.props.event.location.coordinates[0]}
 											/>
 										) : (
 												<p>Loading map...</p>
@@ -211,9 +191,50 @@ class EventDetailsPage extends React.Component {
 								</Col>
 							</Row>
 
-							<Row id='event-operation buttons'>
+							<Row id="like-event">
+
+								{/* Like event buttons */}
 								{
-									this.state.isCreator ?
+									this.props.id ?
+
+										<IconButton
+											color="primary"
+											onClick={this.handleEventLikeClick}>
+											{
+												this.props.userLikesEvent ?
+													<ThumbUpIcon />
+													:
+													<ThumbUpOutlinedIcon />
+											}
+										</IconButton>
+										:
+										<ThumbUpOutlinedIcon />
+								}
+
+								{
+									this.props.numEventLikes
+								}
+
+							</Row>
+
+							<Row id='attend-event-operation'>
+								{/* Attend event operation */}
+								{
+									this.props.id ?
+										<Button id="attend" onClick={this.onAttend} style={{ ...this.setColorOnAttendEventClick() }} variant="info">
+											{this.props.isAttending ? 'Attending' : 'Attend'}
+										</Button>
+										:
+										<div></div>
+								}
+
+							</Row>
+
+							<Row id='event-operation buttons'>
+
+								{/* Modify event buttons */}
+								{
+									this.props.event.creator._id === this.props.id ? // determine if logged in user is the event's creator
 										<React.Fragment>
 											<Fab
 												variant="extended"
@@ -221,7 +242,7 @@ class EventDetailsPage extends React.Component {
 												color="secondary"
 												aria-label="add"
 												component={RouterLink}
-												to={`/events/${this.state.event._id}/edit`}
+												to={`/events/${this.props.event._id}/edit`}
 											>
 												Edit
 											</Fab>
@@ -242,10 +263,10 @@ class EventDetailsPage extends React.Component {
 
 							<Row id="attending-users">
 								<Col>
-									<h2>Attendees ({this.state.attendees.length})</h2>
-										{
-											this.renderAttendees()
-										}
+									<h2>Attendees ({this.props.attendees.length})</h2>
+									{
+										this.renderAttendees()
+									}
 								</Col>
 
 							</Row>
@@ -266,4 +287,4 @@ class EventDetailsPage extends React.Component {
 	}
 }
 
-export default connect(mapStateToProps)(EventDetailsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EventDetailsPage);

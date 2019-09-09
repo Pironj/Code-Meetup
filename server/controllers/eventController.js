@@ -128,6 +128,8 @@ module.exports = {
           return res.status(404).json({ message: `Event with id ${req.params.id} does not exist.` });
         }
         await db.UserEvent.deleteMany({ event_id: dbModel._id }); // Delete all UserEvent documents for the deleted event
+        await db.EventLike.deleteMany({ event_id: dbModel._id }); // Delete all EventLike documents for the deleted event
+
         return res.json(dbModel);
       })
       .catch(err => res.status(422).json(err));
