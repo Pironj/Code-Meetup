@@ -33,16 +33,21 @@ const UserCard = (props) => {
     return (
         <Container>
             <div className="col-md-4">
-                <Card className={classes.card}>
+            <React.Fragment>
+                <LinkButton
+                className={classes.card}
+                to={`/users/${props.user._id}`}>{props.user.first_name + " " + props.user.last_name}
                     <CardContent>
-                        <Typography variant="h5" component="h2">
-                            <React.Fragment>
+                    
+                        {/* <Typography variant="h5" component="h2">
+                            <React.Fragment> */}
                                 {/* {props.user.email ? <p>Email: {props.user.email} </p> : ''} */}
-                                <LinkButton to={`/users/${props.user._id}`}>{props.user.first_name + " " + props.user.last_name}</LinkButton>
-                            </React.Fragment>
-                        </Typography>
+                                {/* <LinkButton></LinkButton> */}
+                            {/* </React.Fragment>
+                        </Typography> */}
                     </CardContent>
-                </Card>
+                </LinkButton>
+                </React.Fragment>
             </div>
         </Container>
     );

@@ -11,8 +11,8 @@ const FooterComponent = () => {
           bottom: '0',
           width: '100%',
           textAlign: 'center',
-          color: 'white',
-          backgroundColor: 'black'
+          color: 'black',
+          backgroundColor: 'white'
         }}
       >
         &copy; {new Date().getFullYear()} Copyright:

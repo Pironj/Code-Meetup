@@ -191,11 +191,11 @@ class EventDetailsPage extends React.Component {
 								</Col>
 							</Row>
 
-							<Row id="like-event">
+							{/* <Row id="like-event"> */}
 
 								{/* Like event buttons */}
-								{
-									this.props.id ?
+								
+									{/* this.props.id ?
 
 										<IconButton
 											color="primary"
@@ -208,15 +208,15 @@ class EventDetailsPage extends React.Component {
 											}
 										</IconButton>
 										:
-										<ThumbUpOutlinedIcon />
+										 <ThumbUpOutlinedIcon />
 								}
 
 								{
 									this.props.numEventLikes
+								} 
+
+							</Row> */
 								}
-
-							</Row>
-
 							<Row id='attend-event-operation'>
 								{/* Attend event operation */}
 								{

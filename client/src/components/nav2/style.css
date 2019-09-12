@@ -4,7 +4,7 @@
   margin-left: 1.5rem;
   margin-bottom: auto;
   font-weight: bolder;
-  color: #3F51B5;
+  /* color: #3F51B5; */
 
 }
 #buttonDiv {
@@ -17,18 +17,19 @@
   height: fit-content;
 }
 header {
-  background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff);
-  background-size: 200% 100%;
-  animation: AnimationName 15s ease-in-out infinite;
+  /* background: linear-gradient(104deg, #090c1b, #3f51b5, #6c1bff); */
+  background-color:white;
+  /* background-size: 200% 100%;
+  animation: AnimationName 15s ease-in-out infinite; */
 
 }
 
 
-@keyframes AnimationName { 
+/* @keyframes AnimationName { 
     0%{background-position:0% 28%}
     50%{background-position:100% 73%}
     100%{background-position:0% 28%}
-}
+} */
 #navDiv {
   background-color: black;
   
@@ -43,6 +44,9 @@ header {
 #title-font {
   font-weight: 400;
   font-size: x-large;
+  color: black;
+  background-color: white;
+
 }
 .MuiList-root {
   background-color: black;
