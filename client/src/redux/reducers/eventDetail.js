@@ -1,11 +1,11 @@
-import * as ACTION_TYPES from "../actionTypes";
+import * as actionTypes from "../actionTypes";
 import { initialEventDetailState } from '../initialState'
 
 
 export default function (state = initialEventDetailState, action) {
   switch (action.type) {
 
-    case ACTION_TYPES.SET_EVENT: {
+    case actionTypes.SET_EVENT: {
       const event = action.payload;
 
       return {
@@ -14,14 +14,14 @@ export default function (state = initialEventDetailState, action) {
       }
     }
 
-    case ACTION_TYPES.REMOVE_EVENT: {
+    case actionTypes.REMOVE_EVENT: {
       return {
         ...state,
         ...initialEventDetailState,
       }
     }
 
-    case ACTION_TYPES.SET_ATTENDING_USERS: {
+    case actionTypes.SET_ATTENDING_USERS: {
       const attendees = action.payload;
       return {
         ...state,
@@ -29,7 +29,7 @@ export default function (state = initialEventDetailState, action) {
       }
     }
 
-    case ACTION_TYPES.NUM_EVENT_LIKES: {
+    case actionTypes.NUM_EVENT_LIKES: {
       const numEventLikes = action.payload;
       return {
         ...state,
@@ -37,7 +37,7 @@ export default function (state = initialEventDetailState, action) {
       }
     }
 
-    case ACTION_TYPES.USER_IS_ATTENDING_EVENT: {
+    case actionTypes.USER_IS_ATTENDING_EVENT: {
       const isAttending = action.payload;
       return {
         ...state,
@@ -45,7 +45,7 @@ export default function (state = initialEventDetailState, action) {
       }
     }
 
-    case ACTION_TYPES.USER_LIKES_EVENT: {
+    case actionTypes.USER_LIKES_EVENT: {
       const userLikesEvent = action.payload;
       return {
         ...state,

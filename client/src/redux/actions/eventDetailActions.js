@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from "../actionTypes";
+import * as actionTypes from "../actionTypes";
 import store from '../store';
 import API from '../../utils/API';
 import { NamedUser } from '../../utils/classes';
@@ -8,32 +8,32 @@ import { NamedUser } from '../../utils/classes';
 **/
 
 const setEvent = (event) => ({
-  type: ACTION_TYPES.SET_EVENT,
+  type: actionTypes.SET_EVENT,
   payload: event
 })
 
 const setAttendingUsers = (attendees) => ({
-  type: ACTION_TYPES.SET_ATTENDING_USERS,
+  type: actionTypes.SET_ATTENDING_USERS,
   payload: attendees,
 })
 
 const setNumEventLikes = (numLikes) => ({
-  type: ACTION_TYPES.NUM_EVENT_LIKES,
+  type: actionTypes.NUM_EVENT_LIKES,
   payload: numLikes,
 })
 
 const setUserAttendance = (isAttending) => ({
-  type: ACTION_TYPES.USER_IS_ATTENDING_EVENT,
+  type: actionTypes.USER_IS_ATTENDING_EVENT,
   payload: isAttending,
 })
 
 const setUserLikesEvent = (likesEvent) => ({
-  type: ACTION_TYPES.USER_LIKES_EVENT,
+  type: actionTypes.USER_LIKES_EVENT,
   payload: likesEvent,
 })
 
 export const removeEvent = () => ({
-  type: ACTION_TYPES.REMOVE_EVENT
+  type: actionTypes.REMOVE_EVENT
 })
 
 /**
@@ -171,7 +171,7 @@ export const updateUserAttendance = (eventId) => {
 
   let attendees = eventDetailState.attendees;
   const { first_name, last_name, id } = store.getState().authState;
-  let isAttending = store.getState().eventDetail.isAttending;
+  let isAttending = eventDetailState.isAttending;
 
   return async (dispatch) => {
     if (isAttending) {
