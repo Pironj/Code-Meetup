@@ -4,6 +4,7 @@ import Moment from "react-moment";
 
 import LikeButtonAndCount from '../likeButton'
 
+
 const FullEvent = (props) => {
 
   const calendarStrings = {
@@ -18,20 +19,18 @@ const FullEvent = (props) => {
   //Full event details are returned to user
 
   return (
-    <Jumbotron style={{ paddingBottom: '2rem' }} className="fullEvent">
+    <Jumbotron style={{ paddingBottom: '2rem', backgroundColor: 'white' }} className="fullEvent">
       <h3>{props.title}</h3>
       <p>{props.description}</p>
       <p>Address: {props.address}</p>
       <p>Host: {props.creator}</p>
 
-      <p>Time: <Moment format = "MM/DD/YYYY HH:mm" calendar={calendarStrings}>{props.date}</Moment></p>
+      <p>Time: <Moment format="MM/DD/YYYY HH:mm" calendar={calendarStrings}>{props.date}</Moment></p>
 
-      <LikeButtonAndCount></LikeButtonAndCount>
+      <LikeButtonAndCount/>
 
     </Jumbotron>
-
   )
-
 }
 
 export default FullEvent;

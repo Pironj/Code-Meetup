@@ -72,7 +72,7 @@ const MenuAppBar = (props) => {
         </Row>
       </FormGroup>
 
-      <AppBar position="sticky">
+      <AppBar style={{backgroundColor: 'white'}} position="sticky">
 
         <Toolbar>
 
@@ -93,7 +93,9 @@ const MenuAppBar = (props) => {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                <MenuIcon
+                style={{color: 'black'}}
+                 />
               </IconButton>
 
               <Menu
