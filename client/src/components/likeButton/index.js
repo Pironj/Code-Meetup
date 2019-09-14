@@ -42,7 +42,7 @@ class LikeButtonAndCount extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
 
         {/* Like event buttons */}
         {
@@ -61,24 +61,23 @@ class LikeButtonAndCount extends React.Component {
             :
             <ThumbUpOutlinedIcon />
         }
-
-        {
-          this.props.numEventLikes
-        }
-      </React.Fragment>
+        <span>{this.props.numEventLikes}</span>
+        
+      </div>
     )
   }
 }
 
 LikeButtonAndCount.propTypes = {
-	// state
+  // state
   id: PropTypes.string,
   event: PropTypes.object,
-	numEventLikes: PropTypes.number,
-	userLikesEvent: PropTypes.bool,
+  numEventLikes: PropTypes.number,
+  userLikesEvent: PropTypes.bool,
 
-	// functions
-	updateUserLikesEvent: PropTypes.func,
+  // functions
+  updateUserLikesEvent: PropTypes.func,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LikeButtonAndCount);
+
