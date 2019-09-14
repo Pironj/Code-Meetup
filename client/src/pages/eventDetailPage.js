@@ -1,18 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 
 import { Link as RouterLink } from 'react-router-dom';
 
 import GoogleApiWrapper from '../components/googleMaps';
 
 import { connect } from 'react-redux';
-import { initEventState, removeEvent, updateUserLikesEvent, updateEventStateOnAuthChange, updateUserAttendance } from '../redux/actions/eventDetailActions';
+import { initEventState, removeEvent, updateEventStateOnAuthChange, updateUserAttendance } from '../redux/actions/eventDetailActions';
 
 import API from '../utils/API';
 import CommentBox from '../components/commentbox';
@@ -26,16 +24,12 @@ const mapStateToProps = (state) => {
 	return {
 		// authState
 		id: state.authState.id,
-		first_name: state.authState.first_name,
-		last_name: state.authState.last_name,
-		email: state.authState.email,
 
 		// eventDetail
 		event: state.eventDetail.event,
 		attendees: state.eventDetail.attendees,
 		numEventLikes: state.eventDetail.numEventLikes,
 		isAttending: state.eventDetail.isAttending,
-		userLikesEvent: state.eventDetail.userLikesEvent,
 	};
 };
 
@@ -47,9 +41,6 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		removeEvent: () => {
 			dispatch(removeEvent())
-		},
-		updateUserLikesEvent: (eventId) => {
-			dispatch(updateUserLikesEvent(eventId))
 		},
 		updateEventStateOnAuthChange: (eventId) => {
 			dispatch(updateEventStateOnAuthChange(eventId))
@@ -86,13 +77,6 @@ class EventDetailsPage extends React.Component {
 
 	componentWillUnmount() {
 		this.props.removeEvent();
-	}
-
-	/**
-	 * Like or unlike the event. Updates number of likes for event 
-	 */
-	handleEventLikeClick = () => {
-		this.props.updateUserLikesEvent(this.state.eventId);
 	}
 
 	//When user hits Attend button, a new UserEvent is created
@@ -136,8 +120,8 @@ class EventDetailsPage extends React.Component {
 			<FullEvent
 				title={this.props.event.title}
 				description={this.props.event.description}
-				key={this.props.event._id}
-				id={this.props.event._id}
+				key={this.state.eventId}
+				id={this.state.eventId}
 				date={this.props.event.date}
 				creator={
 					this.props.event.hasOwnProperty('creator') ?
@@ -160,7 +144,7 @@ class EventDetailsPage extends React.Component {
 			<div>
 				{/* Handle show/hide UI buttons on login/logout */}
 				{/* Better way to do this??? */}
-				{this.handleAuthChange()} 
+				{this.handleAuthChange()}
 
 				{
 					this.props.event._id ?
@@ -191,32 +175,6 @@ class EventDetailsPage extends React.Component {
 								</Col>
 							</Row>
 
-							{/* <Row id="like-event"> */}
-
-								{/* Like event buttons */}
-								
-									{/* this.props.id ?
-
-										<IconButton
-											color="primary"
-											onClick={this.handleEventLikeClick}>
-											{
-												this.props.userLikesEvent ?
-													<ThumbUpIcon />
-													:
-													<ThumbUpOutlinedIcon />
-											}
-										</IconButton>
-										:
-										 <ThumbUpOutlinedIcon />
-								}
-
-								{
-									this.props.numEventLikes
-								} 
-
-							</Row> */
-								}
 							<Row id='attend-event-operation'>
 								{/* Attend event operation */}
 								{
@@ -285,6 +243,21 @@ class EventDetailsPage extends React.Component {
 			</div>
 		);
 	}
+}
+
+EventDetailsPage.propTypes = {
+	// state
+	id: PropTypes.string,
+	event: PropTypes.object,
+	attendees: PropTypes.arrayOf(PropTypes.object),
+	numEventLikes: PropTypes.number,
+	isAttending: PropTypes.bool,
+
+	// functions
+	initEventState: PropTypes.func,
+	removeEvent: PropTypes.func,
+	updateEventStateOnAuthChange: PropTypes.func,
+	updateUserAttendance: PropTypes.func,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventDetailsPage);
