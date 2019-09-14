@@ -2,6 +2,8 @@ import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
 import Moment from "react-moment";
 
+import LikeButtonAndCount from '../likeButton'
+
 const FullEvent = (props) => {
 
   const calendarStrings = {
@@ -23,6 +25,8 @@ const FullEvent = (props) => {
       <p>Host: {props.creator}</p>
 
       <p>Time: <Moment format = "MM/DD/YYYY HH:mm" calendar={calendarStrings}>{props.date}</Moment></p>
+
+      <LikeButtonAndCount></LikeButtonAndCount>
 
     </Jumbotron>
 
