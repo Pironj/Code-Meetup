@@ -238,22 +238,26 @@ class EventDetailsPage extends React.Component {
 								}
 							</Row>
 
-							{/* Attendees */}
+							{/* Attendees Controls*/}
 							<Row id="attending-users">
-								<Col>
 
-									<h2 style={{ display: 'inline-block' }}>Attendees ({this.props.attendees.length})</h2>
+								<div>
+									<h2 style={{ display: 'inline-block' }} >Attendees ({this.props.attendees.length})</h2>
 
-									<Button color="primary" style={{ display: 'inline-block' }} onClick={this.handleShowAllAttendeesClick}>
+									<Button style={{ display: 'inline-block' }} color="primary" onClick={this.handleShowAllAttendeesClick}>
 										{
 											this.state.showAllAttendees ? 'Collapse' : 'Show all attendees'
 										}
 									</Button>
-									{
-										this.renderAttendees()
-									}
-								</Col>
+								</div>
 
+							</Row>
+
+							{/* Attendees */}
+							<Row>
+								{
+									this.renderAttendees()
+								}
 							</Row>
 
 							{/* Comments */}
