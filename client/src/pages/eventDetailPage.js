@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import {
+	Container, Row, Col
+	//  Button
+} from 'react-bootstrap';
+
+import Button from '@material-ui/core/Button';
 
 import Fab from '@material-ui/core/Fab';
 
@@ -68,6 +73,7 @@ class EventDetailsPage extends React.Component {
 	state = {
 		eventId: this.props.match.params.id,
 		comments: [],
+		showAllAttendees: false,
 	};
 
 	//Here we are finding specific event ID on first render
@@ -106,13 +112,30 @@ class EventDetailsPage extends React.Component {
 		return backgroundImage
 	}
 
+	handleShowAllAttendeesClick = () => {
+		const updatedBool = !this.state.showAllAttendees;
+		this.setState({ showAllAttendees: updatedBool })
+	}
+
+	handleAuthChange = () => {
+		this.props.updateEventStateOnAuthChange(this.state.eventId)
+	}
+
 	renderAttendees = () => {
-		return this.props.attendees.map(user => (
-			<UserCard
-				key={user.first_name}
-				user={user}
-			/>
-		))
+		const attendees = [];
+		const numAttendeesDisplay = this.state.showAllAttendees ? this.props.attendees.length : 3;
+
+		for (let i = 0; i < this.props.attendees.length && i < numAttendeesDisplay; i++) {
+			const attendee = this.props.attendees[i];
+			attendees.push(
+				<UserCard
+					key={attendee._id}
+					user={attendee}
+				/>
+			)
+		}
+
+		return attendees
 	}
 
 	renderFullEvent = () => {
@@ -134,10 +157,6 @@ class EventDetailsPage extends React.Component {
 			/>
 		);
 	};
-
-	handleAuthChange = () => {
-		this.props.updateEventStateOnAuthChange(this.state.eventId)
-	}
 
 	render() {
 		return (
@@ -219,9 +238,17 @@ class EventDetailsPage extends React.Component {
 								}
 							</Row>
 
+							{/* Attendees */}
 							<Row id="attending-users">
 								<Col>
-									<h2>Attendees ({this.props.attendees.length})</h2>
+
+									<h2 style={{ display: 'inline-block' }}>Attendees ({this.props.attendees.length})</h2>
+
+									<Button color="primary" style={{ display: 'inline-block' }} onClick={this.handleShowAllAttendeesClick}>
+										{
+											this.state.showAllAttendees ? 'Collapse' : 'Show all attendees'
+										}
+									</Button>
 									{
 										this.renderAttendees()
 									}
@@ -229,6 +256,7 @@ class EventDetailsPage extends React.Component {
 
 							</Row>
 
+							{/* Comments */}
 							<Row id="commentRow">
 								<Col md={1} />
 								<Col md={10}>
