@@ -57,8 +57,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const attendBtnStyle = {
-	// width: '3rem',
-	// height: '.5rem',
 	isAttending: {
 		backgroundImage: 'linear-gradient(to right, #042003 0%, #33AF16 73%, #042002 100%)'
 	},
@@ -179,6 +177,7 @@ class EventDetailsPage extends React.Component {
 
 								</Col>
 
+								{/* Google map for event */}
 								<Col>
 									{
 										this.props.event._id ? (
@@ -194,20 +193,16 @@ class EventDetailsPage extends React.Component {
 								</Col>
 							</Row>
 
+							{/* Attend event operation */}
 							<Row id='attend-event-operation'>
-								{/* Attend event operation */}
 								{
 									this.props.id ?
 										<Button id="attend" onClick={this.onAttend} style={{ ...this.setColorOnAttendEventClick() }} variant="info">
 											{this.props.isAttending ? 'Attending' : 'Attend'}
 										</Button>
 										:
-										<div></div>
+										''
 								}
-
-							</Row>
-
-							<Row id='event-operation buttons'>
 
 								{/* Modify event buttons */}
 								{
