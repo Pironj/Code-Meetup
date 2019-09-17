@@ -1,10 +1,9 @@
-import { createStore, applyMiddleware } from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import { createStore, compose, applyMiddleware } from "redux";
 
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers/index';
-import { getAuthState } from '../../utils/localStorageHelper';
+import { getAuthState } from "../../utils/localStorageHelper";
 import { initialEventDetailState } from '../initialState';
 
 // Store initial logged in credentials if available on page reload in Redux store
@@ -18,13 +17,15 @@ const loadState = () => {
         last_name: '',
         email: '',
         token: ''
-      };
+      }
     }
     return serializedState;
   } catch (err) {
     return undefined;
   }
 };
+
+// const devTools = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() : null;
 
 export default createStore(
   rootReducer,
@@ -33,7 +34,8 @@ export default createStore(
     eventDetail: initialEventDetailState,
   },
 
-  composeWithDevTools(
+  compose(
     applyMiddleware(thunk), // thunk allows for asynchronous actions
+    // devTools,
   )
 );
