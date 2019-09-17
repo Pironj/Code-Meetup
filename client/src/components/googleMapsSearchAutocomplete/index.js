@@ -42,6 +42,6 @@ const LocationSearchInput = (props) => {
       )}
     </PlacesAutocomplete>
   );
-}
+};
 
 export default LocationSearchInput;

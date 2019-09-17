@@ -1,10 +1,11 @@
-import { createStore, compose, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers/index';
-import { getAuthState } from "../../utils/localStorageHelper";
-import { initialEventDetailState } from '../initialState'
+import { getAuthState } from '../../utils/localStorageHelper';
+import { initialEventDetailState } from '../initialState';
 
 // Store initial logged in credentials if available on page reload in Redux store
 const loadState = () => {
@@ -17,7 +18,7 @@ const loadState = () => {
         last_name: '',
         email: '',
         token: ''
-      }
+      };
     }
     return serializedState;
   } catch (err) {
@@ -32,8 +33,7 @@ export default createStore(
     eventDetail: initialEventDetailState,
   },
 
-  compose(
+  composeWithDevTools(
     applyMiddleware(thunk), // thunk allows for asynchronous actions
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

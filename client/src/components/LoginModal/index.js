@@ -16,28 +16,28 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import './style.css';
-import API from "../../utils/API";
+import API from '../../utils/API';
 
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logIn: (authState) => {
-      dispatch(setAuthState(authState))
+      dispatch(setAuthState(authState));
     }
-  }
-}
+  };
+};
 
 
 class LoginModal extends React.Component {
   state = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     errors: {},
     show: false
   };
 
   handleClickOpen = () => {
-    this.setState({ show: true })
+    this.setState({ show: true });
   }
 
   handleClose = () => {
@@ -47,7 +47,7 @@ class LoginModal extends React.Component {
   validateLogin = () => {
     const errors = {};
     if (STATUS_CODES) {
-      errors.user = "*Either your email or password is incorrect.";
+      errors.user = '*Either your email or password is incorrect.';
     }
     return errors;
   }
@@ -70,22 +70,22 @@ class LoginModal extends React.Component {
     const loginUserObj = {
       email: userCopy.email,
       password: userCopy.password
-    }
+    };
 
     const user = loginUserObj;
 
     API.authorizeLogin(user)
       .then(res => {
-        this.setState({ email: "", password: "", errors: {} });
-        this.setAuthenticationState(res.data)
+        this.setState({ email: '', password: '', errors: {} });
+        this.setAuthenticationState(res.data);
         this.handleClose();
       })
       .catch(err => {
-        const errors = this.validateLogin()
+        const errors = this.validateLogin();
         if (errors) {
           this.setState({ errors: errors });
         }
-      })
+      });
   }
 
   setAuthenticationState = (data) => {
@@ -95,14 +95,14 @@ class LoginModal extends React.Component {
       last_name: data.user.last_name,
       email: data.user.email,
       token: data.token
-    }
+    };
 
     // Save auth state in redux store
     this.props.logIn(authUser);
   }
 
   clearLoginForm = () => {
-    this.setState({ email: '', password: '', show: false })
+    this.setState({ email: '', password: '', show: false });
   }
 
   render() {
@@ -169,7 +169,7 @@ class LoginModal extends React.Component {
 // import React, { Component } from "react";
 // import {
 //   Form, Button,
-//   // Modal 
+//   // Modal
 // } from 'react-bootstrap';
 
 // import './style.css';
@@ -347,4 +347,4 @@ class LoginModal extends React.Component {
 
 
 
-export default connect(null, mapDispatchToProps)(LoginModal)
+export default connect(null, mapDispatchToProps)(LoginModal);

@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
     email: state.authState.email,
     token: state.authState.token,
   };
-}
+};
 
 
 class CommentBox extends React.Component {
@@ -22,33 +22,33 @@ class CommentBox extends React.Component {
     showComments: true,
     comments: [],
     body: '',
-    title: ""
+    title: ''
   }
 
   componentDidMount() {
-    this.getComments()
+    this.getComments();
   }
 
-  //Function grabs all comments for specific event 
+  //Function grabs all comments for specific event
   getComments = () => {
     API.findCommentsForEventId(this.props.eventId)
       .then(res => {
         this.setState({
           comments: res.data
-        })
+        });
 
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value })
+    this.setState({ [name]: value });
   }
 
   //Function to add/create comment on page and also creating/updating comments in DB
   _addComment = () => {
-    const { body } = this.state
+    const { body } = this.state;
     const comment = {
       eventId: this.props.eventId,
       creator: this.props.id,
@@ -57,8 +57,8 @@ class CommentBox extends React.Component {
 
     API.createComment(comment)
       .then(res => {
-        // *new array references help React stay fast, so concat works better than push here.  
-        this.setState({ comments: this.state.comments.concat([res.data]), body: '' })
+        // *new array references help React stay fast, so concat works better than push here.
+        this.setState({ comments: this.state.comments.concat([res.data]), body: '' });
       })
       .catch(err => console.log(err.response));
   }
@@ -76,9 +76,9 @@ class CommentBox extends React.Component {
     API.deleteCommentById(commentId)
       .then(res => {
         const updatedEventComments = this.state.comments.filter(comments => {
-          return comments._id !== res.data._id
-        })
-        this.setState({ comments: updatedEventComments })
+          return comments._id !== res.data._id;
+        });
+        this.setState({ comments: updatedEventComments });
       })
       .catch(err => console.log(err));
   }
@@ -91,13 +91,13 @@ class CommentBox extends React.Component {
           id="comment"
           key={comment._id}>
           <Comment
-            creator={comment.creator.first_name + " " + comment.creator.last_name}
+            creator={comment.creator.first_name + ' ' + comment.creator.last_name}
             body={comment.body}
             key={comment._id}
           />
           <Card.Body id="delete">
             {
-              this.props.first_name + " " + this.props.last_name === comment.creator.first_name + " " + comment.creator.last_name
+              this.props.first_name + ' ' + this.props.last_name === comment.creator.first_name + ' ' + comment.creator.last_name
                 ?
                 <Button
                   className="comment-footer-delete"
@@ -120,7 +120,7 @@ class CommentBox extends React.Component {
     if (commentCount === 0) {
       return 'No comments yet';
     } else if (commentCount === 1) {
-      return "1 comment";
+      return '1 comment';
     } else {
       return `${commentCount} comments`;
     }

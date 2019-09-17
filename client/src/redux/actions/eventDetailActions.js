@@ -1,4 +1,4 @@
-import * as actionTypes from "../actionTypes";
+import * as actionTypes from '../actionTypes';
 import store from '../store';
 import API from '../../utils/API';
 import { NamedUser } from '../../utils/classes';
@@ -10,31 +10,31 @@ import { NamedUser } from '../../utils/classes';
 const setEvent = (event) => ({
   type: actionTypes.SET_EVENT,
   payload: event
-})
+});
 
 const setAttendingUsers = (attendees) => ({
   type: actionTypes.SET_ATTENDING_USERS,
   payload: attendees,
-})
+});
 
 const setNumEventLikes = (numLikes) => ({
   type: actionTypes.NUM_EVENT_LIKES,
   payload: numLikes,
-})
+});
 
 const setUserAttendance = (isAttending) => ({
   type: actionTypes.USER_IS_ATTENDING_EVENT,
   payload: isAttending,
-})
+});
 
 const setUserLikesEvent = (likesEvent) => ({
   type: actionTypes.USER_LIKES_EVENT,
   payload: likesEvent,
-})
+});
 
 export const removeEvent = () => ({
   type: actionTypes.REMOVE_EVENT
-})
+});
 
 /**
  * Asynchronous Actions allowed by redux-thunk package
@@ -50,9 +50,9 @@ export const initEventState = (eventId) => {
 
       dispatch(getUserAttendenceForEvent(eventId)),
       dispatch(getUserLikesEvent(eventId)),
-    ])
-  }
-}
+    ]);
+  };
+};
 
 export const updateEventStateOnAuthChange = (eventId) => {
 
@@ -61,28 +61,28 @@ export const updateEventStateOnAuthChange = (eventId) => {
       Promise.all([
         dispatch(getUserAttendenceForEvent(eventId)),
         dispatch(getUserLikesEvent(eventId)),
-      ])
+      ]);
     } else {
       dispatch(setUserAttendance(false));
-      dispatch(setUserLikesEvent(false))
+      dispatch(setUserLikesEvent(false));
     }
-  }
-}
+  };
+};
 
 const getEvent = (eventId) => {
   return async (dispatch) => {
     let event = {};
     try {
-      const res = await API.findEventById(eventId)
+      const res = await API.findEventById(eventId);
       if (res.data) { // event exists
-        event = res.data
+        event = res.data;
       }
     } catch (err) {
       // Error fetching event. Don't mutate state
     }
-    return dispatch(setEvent(event))
-  }
-}
+    return dispatch(setEvent(event));
+  };
+};
 
 const getAttendingUsers = (eventId) => {
   return async (dispatch) => {
@@ -91,27 +91,27 @@ const getAttendingUsers = (eventId) => {
       const res = await API.findUsersForEvent(eventId);
       attendingUsers = res.data.map(userEvent => {
         const user = userEvent.user_id;
-        return new NamedUser(user.first_name, user.last_name, user._id)
+        return new NamedUser(user.first_name, user.last_name, user._id);
       });
     } catch (err) {
       //  Error fetching attendees
     }
-    return dispatch(setAttendingUsers(attendingUsers))
-  }
-}
+    return dispatch(setAttendingUsers(attendingUsers));
+  };
+};
 
 const getNumEventLikes = (eventId) => {
   return async (dispatch) => {
     let numEventLikes = 0;
     try {
-      const res = await API.findEventLikesForEvent(eventId)
+      const res = await API.findEventLikesForEvent(eventId);
       numEventLikes = res.data.numLikes;
     } catch (err) {
       // Error fetching number of event likes
     }
     return dispatch(setNumEventLikes(numEventLikes));
-  }
-}
+  };
+};
 
 const getUserAttendenceForEvent = (eventId) => {
   return async (dispatch) => {
@@ -125,14 +125,14 @@ const getUserAttendenceForEvent = (eventId) => {
       // Error in fetching user attendance
     }
     return dispatch(setUserAttendance(isAttending));
-  }
-}
+  };
+};
 
 const getUserLikesEvent = (eventId) => {
   return async (dispatch) => {
     let userLikesEvent = false;
     try {
-      const res = await API.findEventLikeByUserIdEventId(eventId)
+      const res = await API.findEventLikeByUserIdEventId(eventId);
       if (res.data) {
         userLikesEvent = true;
       }
@@ -140,8 +140,8 @@ const getUserLikesEvent = (eventId) => {
       // Error in fetching if user likes event
     }
     return dispatch(setUserLikesEvent(userLikesEvent));
-  }
-}
+  };
+};
 
 export const updateUserLikesEvent = (eventId) => {
   return async (dispatch) => {
@@ -150,21 +150,21 @@ export const updateUserLikesEvent = (eventId) => {
 
     try {
       if (userLikesEvent) {
-        await API.deleteEventLikeByUserIdEventId(eventId)
-        userLikesEvent = false
-        numEventLikes = numEventLikes - 1
+        await API.deleteEventLikeByUserIdEventId(eventId);
+        userLikesEvent = false;
+        numEventLikes = numEventLikes - 1;
       } else {
-        await API.createEventLike({ event_id: eventId })
-        userLikesEvent = true
-        numEventLikes = numEventLikes + 1
+        await API.createEventLike({ event_id: eventId });
+        userLikesEvent = true;
+        numEventLikes = numEventLikes + 1;
       }
     } catch (err) {
       // Error in updating user event like
     }
     dispatch(setUserLikesEvent(userLikesEvent));
-    dispatch(setNumEventLikes(numEventLikes))
-  }
-}
+    dispatch(setNumEventLikes(numEventLikes));
+  };
+};
 
 export const updateUserAttendance = (eventId) => {
   const eventDetailState = store.getState().eventDetail;
@@ -180,7 +180,7 @@ export const updateUserAttendance = (eventId) => {
 
         attendees = attendees.filter(user => {
           return user._id !== id;
-        })
+        });
         isAttending = false;
 
       } catch (err) {
@@ -200,5 +200,5 @@ export const updateUserAttendance = (eventId) => {
     }
     dispatch(setUserAttendance(isAttending));
     dispatch(setAttendingUsers(attendees));
-  }
-}
+  };
+};

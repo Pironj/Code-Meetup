@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.css';
 import { Card } from 'react-bootstrap';
-import DeleteModal from '../deleteModal'
+import DeleteModal from '../deleteModal';
 
 
 //Function to delete specific event card
@@ -25,7 +25,7 @@ const DeleteEventCard = (props) => {
       </Card>
     </div>
   );
-}
+};
 
 
 export default DeleteEventCard;

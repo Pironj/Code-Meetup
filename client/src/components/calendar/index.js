@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 // import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { CalendarComponent } from '@syncfusion/ej2-react-calendars';
 
@@ -10,16 +10,16 @@ import { CalendarComponent } from '@syncfusion/ej2-react-calendars';
 
 class Calendar extends Component {
   constructor(props) {
-        super(props) 
-          this.state = {
-            dateValue: '',
-          }
-        }
-        
+    super(props);
+    this.state = {
+      dateValue: '',
+    };
+  }
+
   render() {
-    return <CalendarComponent id="calendar" value={this.dateValue} />
-    
-}
+    return <CalendarComponent id="calendar" value={this.dateValue} />;
+
+  }
 }
 // import React, { Component } from 'react'
 // import ReactLightCalendar from '@lls/react-light-calendar'
@@ -56,7 +56,7 @@ class Calendar extends Component {
 //         onChange={this.onChange}
 //         {...this.props} // Add parent's additionnal props
 //         startDate={startDate}
-      
+
 //       />
 //     )
 //   }
@@ -103,5 +103,5 @@ class Calendar extends Component {
 // //   }
 // // }
 
-export default Calendar
+export default Calendar;
 

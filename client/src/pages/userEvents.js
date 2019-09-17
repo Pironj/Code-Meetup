@@ -1,9 +1,9 @@
-import React from "react";
-import API from "../utils/API";
+import React from 'react';
+import API from '../utils/API';
 
-import FullEvent from "../components/fullEvent"
+import FullEvent from '../components/fullEvent';
 
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
 class UserEvents extends React.Component {
@@ -25,15 +25,15 @@ class UserEvents extends React.Component {
 
         this.setState({
           event: data.data
-        })
+        });
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   onDelete = () => {
     API.deleteEvent(this.state.eventId)
       .then(() => {
-        this.props.history.push('/')
+        this.props.history.push('/');
       })
       .catch(err => console.log(err.response));
   }
@@ -44,9 +44,9 @@ class UserEvents extends React.Component {
       title={this.state.event.title}
       description={this.state.event.description}
       key={this.state.event._id}
-      creator={(this.state.event.hasOwnProperty("creator") ? this.state.event.creator.first_name : "")}
+      creator={(this.state.event.hasOwnProperty('creator') ? this.state.event.creator.first_name : '')}
     />
-    )
+    );
   }
 
   render() {
@@ -74,7 +74,7 @@ class UserEvents extends React.Component {
         </Container>
 
       </div>
-    )
+    );
   }
 }
 

@@ -9,7 +9,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 
 
-// Get redux store state 
+// Get redux store state
 const mapStateToProps = (state) => {
   return {
     // authState
@@ -26,15 +26,15 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUserLikesEvent: (eventId) => {
-      dispatch(updateUserLikesEvent(eventId))
+      dispatch(updateUserLikesEvent(eventId));
     },
-  }
-}
+  };
+};
 
 class LikeButtonAndCount extends React.Component {
 
   /**
-    * Like or unlike the event. Updates number of likes for event 
+    * Like or unlike the event. Updates number of likes for event
   */
   handleEventLikeClick = () => {
     this.props.updateUserLikesEvent(this.props.event._id);
@@ -62,9 +62,9 @@ class LikeButtonAndCount extends React.Component {
             <ThumbUpOutlinedIcon />
         }
         <span>{this.props.numEventLikes}</span>
-        
+
       </div>
-    )
+    );
   }
 }
 
@@ -77,7 +77,7 @@ LikeButtonAndCount.propTypes = {
 
   // functions
   updateUserLikesEvent: PropTypes.func,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LikeButtonAndCount);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import './style.css';
 
 const FooterComponent = () => {
@@ -16,7 +16,7 @@ const FooterComponent = () => {
         }}
       >
         &copy; {new Date().getFullYear()} Copyright:
-            <span>&#60;</span>
+        <span>&#60;</span>
         rendezvous
         <span> &#8725;</span>
         <span>&#62;</span>
@@ -24,6 +24,6 @@ const FooterComponent = () => {
       </div>
     </div>
   );
-}
+};
 
 export default FooterComponent;

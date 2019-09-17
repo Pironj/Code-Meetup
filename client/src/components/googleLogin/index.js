@@ -7,7 +7,7 @@
 // //Function to authorize user Login
 
 // function Login() {
-  
+
 //   const responseGoogle = async (response) => {
 
 //     console.log("Google Response: \n", response);
@@ -24,7 +24,7 @@
 //       token: response.Zi.id_token
 //      };
 //     //  localStorage.setItem('currentUser', JSON.stringify(`${user.token}`));
-  
+
 //       // const userToken = JSON.parse(localStorage.getItem('currentUser'));
 //       // console.log(userToken);
 //       // console.log(JSON.parse(localStorage.getItem('currentUser')));
@@ -34,7 +34,7 @@
 //      console.log(user);
 //      console.log('\n========================================================\n\n')
 //     return await API.authorize(user.token);
-    
+
 //   }
 
 // //Function for logging out
@@ -69,6 +69,6 @@
 
 
 
- 
+
 
 // export default Login
