@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
-import LocationSearchInput from '../components/googleMapsSearchAutocomplete'
+import LocationSearchInput from '../components/googleMapsSearchAutocomplete';
 import {
   geocodeByAddress,
   getLatLng,
@@ -12,9 +12,9 @@ import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 import { connect } from 'react-redux';
 
-import API from "../utils/API";
-import { Input, FormBtn, TextArea } from "../components/Form";
-import "../components/dateTime/index.css"
+import API from '../utils/API';
+import { Input, FormBtn, TextArea } from '../components/Form';
+import '../components/dateTime/index.css';
 
 
 //Function to map our current state as props
@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
     email: state.authState.email,
     token: state.authState.token,
   };
-}
+};
 
 
 class CreateEvent extends React.Component {
@@ -43,7 +43,7 @@ class CreateEvent extends React.Component {
 
   //When page loads, creator is updated
   componentDidMount() {
-    this.setState({ creator: this.props.id })
+    this.setState({ creator: this.props.id });
   }
 
   handleInputChange = event => {
@@ -84,18 +84,18 @@ class CreateEvent extends React.Component {
     }
   };
 
-  //Google Maps function for searching location 
+  //Google Maps function for searching location
   handleLocationSearchChange = address => {
     this.setState({ address });
   };
 
-  //Google Maps function for setting dynamic location 
+  //Google Maps function for setting dynamic location
   handleLocationSearchSelect = async address => {
-    await this.setState({ address })
+    await this.setState({ address });
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(async latLng => {
-        await this.setState({ latLng })
+        await this.setState({ latLng });
       })
       .catch(error => console.error('Error', error));
   };
@@ -106,62 +106,62 @@ class CreateEvent extends React.Component {
         <Row id="createEventRow">
           {/* <Col size="sm-1" /> */}
           <Col id="createEventCol" size="md-10">
-          <Card>
-            <Card.Header id="createHeader">
-              <h1 id="text">Create an Event</h1>
-            </Card.Header>
-            <Card.Body>
-              
-              <Row style={{ marginBottom: '1rem' }}>
-                {/* <Col size="sm-1" /> */}
-                <Col size="md-5">
-                  <form>
+            <Card>
+              <Card.Header id="createHeader">
+                <h1 id="text">Create an Event</h1>
+              </Card.Header>
+              <Card.Body>
 
-                    {/* Event title */}
-                    <Input
-                      value={this.state.title}
-                      onChange={this.handleInputChange}
-                      name="title"
-                      placeholder="Title (required)"
-                    />
+                <Row style={{ marginBottom: '1rem' }}>
+                  {/* <Col size="sm-1" /> */}
+                  <Col size="md-5">
+                    <form>
 
-                    {/* Event description */}
-                    <TextArea
-                      style={{ height: '300px' }}
-                      value={this.state.description}
-                      onChange={this.handleInputChange}
-                      name="description"
-                      placeholder=" Description (required)"
-                    />
+                      {/* Event title */}
+                      <Input
+                        value={this.state.title}
+                        onChange={this.handleInputChange}
+                        name="title"
+                        placeholder="Title (required)"
+                      />
 
-                    {/* Google Location autocomplete search */}
-                    <LocationSearchInput
-                      id="locationField"
-                      style={{width: '100%'}}
-                      value={this.state.address}
-                      onChange={this.handleLocationSearchChange}
-                      onSelect={this.handleLocationSearchSelect}
-                    />
-                    <br></br>
-                    <div>
-                      <DateTimePickerComponent name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
-                    </div>
-                    <br></br>
-                    <FormBtn
-                      style={{ width: "10rem" }}
-                      disabled={!(this.state.description && this.state.title)}
-                      onClick={this.handleFormSubmit}
-                    >
+                      {/* Event description */}
+                      <TextArea
+                        style={{ height: '300px' }}
+                        value={this.state.description}
+                        onChange={this.handleInputChange}
+                        name="description"
+                        placeholder=" Description (required)"
+                      />
+
+                      {/* Google Location autocomplete search */}
+                      <LocationSearchInput
+                        id="locationField"
+                        style={{width: '100%'}}
+                        value={this.state.address}
+                        onChange={this.handleLocationSearchChange}
+                        onSelect={this.handleLocationSearchSelect}
+                      />
+                      <br></br>
+                      <div>
+                        <DateTimePickerComponent name="date" value={this.state.date} id="datetimepicker" placeholder="Select a date and time" onChange={this.handleInputChange} />
+                      </div>
+                      <br></br>
+                      <FormBtn
+                        style={{ width: '10rem' }}
+                        disabled={!(this.state.description && this.state.title)}
+                        onClick={this.handleFormSubmit}
+                      >
                       Create Event
-                    </FormBtn>
-                  </form>
-                </Col>
+                      </FormBtn>
+                    </form>
+                  </Col>
 
-                {/* <Col size="sm-1" /> */}
+                  {/* <Col size="sm-1" /> */}
 
-              </Row>
-            </Card.Body>
-          </Card>
+                </Row>
+              </Card.Body>
+            </Card>
             {/* <Jumbotron id="createEvent" >
               <h1 id="text">Create an Event</h1>
             </Jumbotron> */}

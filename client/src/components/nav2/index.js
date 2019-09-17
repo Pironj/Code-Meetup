@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import FormGroup from '@material-ui/core/FormGroup';
 import Menu from '@material-ui/core/Menu';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
 import { Row } from 'react-bootstrap';
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
     last_name: state.authState.last_name,
     email: state.authState.email,
   };
-}
+};
 
 const MenuAppBar = (props) => {
 
@@ -66,7 +66,7 @@ const MenuAppBar = (props) => {
         <Row>
           <div id="user">
             {
-              props.first_name ? "LOGGED IN AS: " + props.first_name : ''
+              props.first_name ? 'LOGGED IN AS: ' + props.first_name : ''
             }
           </div>
         </Row>
@@ -77,7 +77,7 @@ const MenuAppBar = (props) => {
         <Toolbar>
 
           <Typography variant="h6" className={classes.title}>
-            <Link to="/" style={{ color: "White", textDecoration: 'none' }} >
+            <Link to="/" style={{ color: 'White', textDecoration: 'none' }} >
               <div id="title-font">
                 HOME
               </div>
@@ -94,8 +94,8 @@ const MenuAppBar = (props) => {
                 color="inherit"
               >
                 <MenuIcon
-                style={{color: 'black'}}
-                 />
+                  style={{color: 'black'}}
+                />
               </IconButton>
 
               <Menu
@@ -118,7 +118,7 @@ const MenuAppBar = (props) => {
                     <div id="links">
                       <Link
                         className="links"
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        style={{ marginLeft: '.5rem', paddingRight: '3rem', color: 'white' }}
                         to={`/users/${props.id}`}
                         onClick={handleClose}>
                         PROFILE
@@ -127,7 +127,7 @@ const MenuAppBar = (props) => {
 
                       <Link
                         className="links"
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        style={{ marginLeft: '.5rem', paddingRight: '3rem', color: 'white' }}
                         to="/events"
                         onClick={handleClose}>
                         EVENTS
@@ -136,7 +136,7 @@ const MenuAppBar = (props) => {
 
                       <Link
                         className="links"
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        style={{ marginLeft: '.5rem', paddingRight: '3rem', color: 'white' }}
                         to="/create-event"
                         onClick={handleClose}>
                         CREATE EVENT
@@ -148,7 +148,7 @@ const MenuAppBar = (props) => {
                     <div>
                       <Link
                         className="links"
-                        style={{ marginLeft: ".5rem", paddingRight: '3rem', color: "white" }}
+                        style={{ marginLeft: '.5rem', paddingRight: '3rem', color: 'white' }}
                         to="/events"
                         onClick={handleClose}>
                         EVENTS
@@ -168,6 +168,6 @@ const MenuAppBar = (props) => {
       </AppBar>
     </div>
   );
-}
+};
 
-export default connect(mapStateToProps)(MenuAppBar)
+export default connect(mapStateToProps)(MenuAppBar);

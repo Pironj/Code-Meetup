@@ -1,7 +1,7 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
-require('dotenv').config()
+require('dotenv').config();
 
 
 const mapStyles = {
@@ -41,8 +41,8 @@ class MapContainer extends React.Component {
         lat: this.props.latitude,
         lng: this.props.longitude
       }}
-      onClick={() => console.log("You clicked me!")}
-    />
+      onClick={() => console.log('You clicked me!')}
+    />;
   }
 
   render() {

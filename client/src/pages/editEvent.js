@@ -1,14 +1,14 @@
-import React from "react";
-import API from "../utils/API";
-import { Row, Col, Button, Jumbotron } from "react-bootstrap";
-import LocationSearchInput from "../components/googleMapsSearchAutocomplete";
+import React from 'react';
+import API from '../utils/API';
+import { Row, Col, Button, Jumbotron } from 'react-bootstrap';
+import LocationSearchInput from '../components/googleMapsSearchAutocomplete';
 import { connect } from 'react-redux';
 import {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
-import "../components/dateTime/index.css"
+import '../components/dateTime/index.css';
 
 
 //Function to map our current state as props
@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
     last_name: state.authState.last_name,
     email: state.authState.email,
   };
-}
+};
 
 class EditEvent extends React.Component {
 
@@ -33,8 +33,8 @@ class EditEvent extends React.Component {
       date: Date.now,
       latLng: {},
       streetAddress: '',
-    }
-    this.handleInputChange = this.handleInputChange.bind(this)
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   // Here we run componentDidMount async for proper error handling
@@ -42,7 +42,7 @@ class EditEvent extends React.Component {
     await this.setState({
       eventId: this.props.match.params.id,
       creator: this.props.id,
-    })
+    });
     this.populateEvent();
   }
 
@@ -56,7 +56,7 @@ class EditEvent extends React.Component {
           description: response.data.description,
           date: response.data.date,
           // streetAddress: response.data.street_address,
-        })
+        });
       }).catch(err => console.log(err));
   }
 
@@ -98,11 +98,11 @@ class EditEvent extends React.Component {
   };
 
   handleLocationSearchSelect = async address => {
-    await this.setState({ streetAddress: address })
+    await this.setState({ streetAddress: address });
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(async latLng => {
-        await this.setState({ latLng })
+        await this.setState({ latLng });
       })
       .catch(error => console.error('Error', error));
   };
@@ -161,7 +161,7 @@ class EditEvent extends React.Component {
           <Col sm={3} />
         </Row>
       </div>
-    )
+    );
   }
 }
 

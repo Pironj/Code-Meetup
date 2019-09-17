@@ -8,10 +8,10 @@ import HomePage from './pages/homePage';
 import EventDetailsPage from './pages/eventDetailPage';
 // import User from './pages/users';
 // import otherUsersProfile from './pages/otherUsersProfile';
-import UserProfile from "./pages/userProfile";
+import UserProfile from './pages/userProfile';
 // import UserEvents from './pages/userEvents';
-import CreateEvent from "./pages/createEvent";
-import EditEvent from "./pages/editEvent";
+import CreateEvent from './pages/createEvent';
+import EditEvent from './pages/editEvent';
 import FooterComponent from './components/footer';
 
 function App() {

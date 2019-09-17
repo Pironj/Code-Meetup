@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers/index';
 import { getAuthState } from "../../utils/localStorageHelper";
-import { initialEventDetailState } from '../initialState'
+import { initialEventDetailState } from '../initialState';
 
 // Store initial logged in credentials if available on page reload in Redux store
 const loadState = () => {
@@ -25,6 +25,8 @@ const loadState = () => {
   }
 };
 
+// const devTools = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() : null;
+
 export default createStore(
   rootReducer,
   {
@@ -34,6 +36,6 @@ export default createStore(
 
   compose(
     applyMiddleware(thunk), // thunk allows for asynchronous actions
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    // devTools,
   )
 );

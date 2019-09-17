@@ -14,16 +14,16 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import './style.css';
-import API from "../../utils/API";
+import API from '../../utils/API';
 
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logIn: (authState) => {
-      dispatch(setAuthState(authState))
+      dispatch(setAuthState(authState));
     }
-  }
-}
+  };
+};
 
 
 class SignupModal extends React.Component {
@@ -38,7 +38,7 @@ class SignupModal extends React.Component {
   };
 
   handleClickOpen = () => {
-    this.setState({ show: true })
+    this.setState({ show: true });
   }
 
   handleClose = () => {
@@ -46,50 +46,50 @@ class SignupModal extends React.Component {
   }
 
    validateSignup = () => {
-    const errors = {};
-    if (!this.state.first_name) {
-      errors.first_name = "*Please enter your first name.";
-    }
+     const errors = {};
+     if (!this.state.first_name) {
+       errors.first_name = '*Please enter your first name.';
+     }
 
-    if (typeof this.state.first_name !== "undefined") {
-      if (!this.state.first_name.match(/^[a-zA-Z ]*$/)) {
-        errors.first_name = "*Please enter alphabet characters only.";
-      }
-    }
+     if (typeof this.state.first_name !== 'undefined') {
+       if (!this.state.first_name.match(/^[a-zA-Z ]*$/)) {
+         errors.first_name = '*Please enter alphabet characters only.';
+       }
+     }
 
-    if (!this.state.last_name) {
-      errors.last_name = "*Please enter your last name.";
-    }
+     if (!this.state.last_name) {
+       errors.last_name = '*Please enter your last name.';
+     }
 
-    if (typeof this.state.last_name !== "undefined") {
-      if (!this.state.last_name.match(/^[a-zA-Z ]*$/)) {
-        errors.last_name = "*Please enter alphabet characters only.";
-      }
-    }
+     if (typeof this.state.last_name !== 'undefined') {
+       if (!this.state.last_name.match(/^[a-zA-Z ]*$/)) {
+         errors.last_name = '*Please enter alphabet characters only.';
+       }
+     }
 
-    if (!this.state.email) {
-      errors.email = "*Please enter your email.";
-    }
+     if (!this.state.email) {
+       errors.email = '*Please enter your email.';
+     }
 
-    if (typeof this.state.email !== "undefined") {
-      //regular expression for email validation
-      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-      if (!pattern.test(this.state.email)) {
-        errors.email = "*Please enter valid email (example@gmail.com)";
-      }
-    }
+     if (typeof this.state.email !== 'undefined') {
+       //regular expression for email validation
+       var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+       if (!pattern.test(this.state.email)) {
+         errors.email = '*Please enter valid email (example@gmail.com)';
+       }
+     }
 
-    if (!this.state.password) {
-      errors.password = "*Please enter your password.";
-    }
+     if (!this.state.password) {
+       errors.password = '*Please enter your password.';
+     }
 
-    if (typeof this.state.password !== "undefined") {
-      if (!this.state.password.match(/^.*(?=.{4,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&]).*$/)) {
-        errors.password = "*Password must be at least 4 character at least 1 Cap and lower case letter and contain 1 symbol";
-      }
-    }
-    return errors;
-  }
+     if (typeof this.state.password !== 'undefined') {
+       if (!this.state.password.match(/^.*(?=.{4,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&]).*$/)) {
+         errors.password = '*Password must be at least 4 character at least 1 Cap and lower case letter and contain 1 symbol';
+       }
+     }
+     return errors;
+   }
 
   // handle any changes to the input fields
   handleInputChange = event => {
@@ -105,7 +105,7 @@ class SignupModal extends React.Component {
   handleFormSubmitLogin = event => {
 
     // Front end validation checking user sign up information
-    const errors = this.validateSignup()
+    const errors = this.validateSignup();
     if (errors.email || errors.first_name || errors.last_name || errors.password) {
       return this.setState({ errors: errors });
     }
@@ -115,23 +115,23 @@ class SignupModal extends React.Component {
       last_name: this.state.last_name,
       email: this.state.email,
       password: this.state.password
-    }
+    };
 
     API.authorizeSignup(user)
       .then(res => {
-        this.setAuthenticationState(res.data)
+        this.setAuthenticationState(res.data);
         this.handleClose();
       })
       .catch(err => {
         // Server unable to sign up user. Display error message to user
         if (err.response.data.message) {
-          this.setState({serverResponse: err.response.data.message})
+          this.setState({serverResponse: err.response.data.message});
         }
-        const errors = this.validateSignup()
+        const errors = this.validateSignup();
         if (errors) {
           this.setState({ errors: errors });
         }
-      })
+      });
   }
 
   setAuthenticationState = (data) => {
@@ -141,14 +141,14 @@ class SignupModal extends React.Component {
       last_name: data.user.last_name,
       email: data.user.email,
       token: data.token
-    }
+    };
 
     // Save auth state in redux store
     this.props.logIn(authUser);
   }
 
   clearLoginForm = () => {
-    this.setState({ first_name: '', last_name: '', email: '', password: '', serverResponse: '', errors: {}, show: false })
+    this.setState({ first_name: '', last_name: '', email: '', password: '', serverResponse: '', errors: {}, show: false });
   }
 
   render() {
@@ -167,8 +167,8 @@ class SignupModal extends React.Component {
               Signup to Rendezvous and develop your skills!
             </DialogContentText>
             <form>
-            <div className="errorMsg">{this.state.errors.first_name}</div>
-            <TextField
+              <div className="errorMsg">{this.state.errors.first_name}</div>
+              <TextField
                 autoFocus
                 margin="dense"
                 id="first_name-input"
@@ -441,4 +441,4 @@ class SignupModal extends React.Component {
 
 
 
-export default connect(null, mapDispatchToProps)(SignupModal)
+export default connect(null, mapDispatchToProps)(SignupModal);

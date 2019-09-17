@@ -38,7 +38,7 @@ const EventCard = (props) => {
           <Card.Header className="eventHead">{props.title}</Card.Header>
           <Card.Body>
             <Card.Text>
-              {props.description.substring(0, 100) + "..."}
+              {props.description.substring(0, 100) + '...'}
             </Card.Text>
             <Card.Text>
               {props.location}
@@ -67,7 +67,7 @@ const EventCard = (props) => {
             >
               <NavigationIcon className={classes.extendedIcon} />
               Details
-        </Fab>
+            </Fab>
           </Card.Body>
         </Card>
       </Container>
