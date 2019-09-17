@@ -4,7 +4,7 @@
 
 // function Logout() {
 
-  
+
 //   function signOut() {
 //     const auth2 = window.gapi.auth2.getAuthInstance()
 //     if (auth2 != null) {
@@ -13,7 +13,7 @@
 //       )
 //     }
 //   }
-  
+
 //   const forceMyOwnLogout = ((response) => {
 //     document.cookie = "loginSuccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 //     if (window.gapi) {

@@ -13,14 +13,14 @@ const mapStateToProps = (state) => {
     email: state.authState.email,
     token: state.authState.token,
   };
-}
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     logOut: () => {
-      dispatch(deleteAuthState())
+      dispatch(deleteAuthState());
     }
-  }
-}
+  };
+};
 
 
 function LogoutButton(props) {
@@ -33,7 +33,7 @@ function LogoutButton(props) {
 
   return (
     <Button id="logout" onClick={handleChange}>LOGOUT</Button>
-  )
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);

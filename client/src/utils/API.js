@@ -11,16 +11,16 @@ const EVENT_LIKE_API_URL = '/api/eventLikes';
 
 // Helper function to get token from local storage pass this function to our protected routes to create auth headers
 const generateAuthHeaders = () => {
-  const token = getJWTToken()
+  const token = getJWTToken();
   const headers = {
     headers: { Authorization: `bearer ${token}` },
-  }
+  };
   return headers;
-}
+};
 
 const getUserId = () => {
   return store.getState().authState.id;
-}
+};
 
 export default {
 
@@ -30,11 +30,11 @@ export default {
   // create our verify url and passing in an Authorization header in headers
   // passing in the token value with ${token} from our utils API call on our googleLogin component
   authorizeSignup: (user) => {
-    return axios.post(`${AUTH_URL}/signup`, user)
+    return axios.post(`${AUTH_URL}/signup`, user);
   },
 
   authorizeLogin: (user) => {
-    return axios.post(`${AUTH_URL}/login`, user)
+    return axios.post(`${AUTH_URL}/login`, user);
   },
 
   // function for testing protected route to get the token from local storage
@@ -42,21 +42,21 @@ export default {
     // grabbing the stored token from local storage and put in headers
     axios.get(`/auth/protected/${userId}`, generateAuthHeaders()) // passing in stored token here
       .then(res => console.log(res))
-      .then(alert("Authorized User token Access Granted!"))
-      .catch(err => console.log(err.response))
+      .then(alert('Authorized User token Access Granted!'))
+      .catch(err => console.log(err.response));
   },
 
   // User
 
   getAllUsers: () => {
-    return axios.get(`${USER_API_URL}`)
+    return axios.get(`${USER_API_URL}`);
   },
 
   /**
  * @param {string} userId
  */
   findUserById: (userId) => {
-    return axios.get(`${USER_API_URL}/${userId}`)
+    return axios.get(`${USER_API_URL}/${userId}`);
   },
 
   updateUser: (user) => {
@@ -78,8 +78,8 @@ export default {
 
   /**
    *  Find all events within a (currently hard coded distance of 10,000 meters) from a coordinate
-   * @param {number} longitude 
-   * @param {number} latitude 
+   * @param {number} longitude
+   * @param {number} latitude
    */
   findEventsNear: (latitude, longitude) => {
     return axios.get(`${EVENT_API_URL}/${latitude}/${longitude}`);
@@ -94,7 +94,7 @@ export default {
   },
 
   /**
-   * @param {string} eventId 
+   * @param {string} eventId
    */
   findEventById(eventId) {
     return axios.get(`${EVENT_API_URL}/${eventId}`);
@@ -116,7 +116,7 @@ export default {
 
 
   getAllUserEvents: () => {
-    return axios.get(`${USER_EVENT_API_URL}`)
+    return axios.get(`${USER_EVENT_API_URL}`);
   },
 
   createUserEvent: (userEvent) => {
@@ -128,7 +128,7 @@ export default {
    * @param {string} userEventId
    */
   findUserEventsById: (userEventId) => {
-    return axios.get(`${USER_EVENT_API_URL}/${userEventId}`)
+    return axios.get(`${USER_EVENT_API_URL}/${userEventId}`);
   },
 
   /**
@@ -142,28 +142,28 @@ export default {
   * @param {string} user_id
   */
   findEventsForUser: (user_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}`)
+    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}`);
   },
 
   /**
  * @param {string} user_id
  */
   findEventsUserCreatedOnly: (user_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}/create-only`)
+    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}/create-only`);
   },
 
   /**
    * @param {string} user_id
    */
   findEventsUserAttendingNotCreated: (user_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}/attend-only`)
+    return axios.get(`${USER_EVENT_API_URL}/user/${user_id}/attend-only`);
   },
 
   /**
   * @param {string} event_id
   */
   findUsersForEvent: (event_id) => {
-    return axios.get(`${USER_EVENT_API_URL}/event/${event_id}`)
+    return axios.get(`${USER_EVENT_API_URL}/event/${event_id}`);
   },
 
   /**
@@ -196,7 +196,7 @@ export default {
   },
 
   /**
-   * @param {string} commentId 
+   * @param {string} commentId
    */
   findCommentById(commentId) {
     return axios.get(`${COMMENT_API_URL}/${commentId}`);
@@ -214,14 +214,14 @@ export default {
   },
 
   /**
-   * @param {string} userId 
+   * @param {string} userId
    */
   findCommentsForUserId(userId) {
     return axios.get(`${COMMENT_API_URL}/user/${userId}`);
   },
 
   /**
-  * @param {string} eventId 
+  * @param {string} eventId
   */
   findCommentsForEventId(eventId) {
     return axios.get(`${COMMENT_API_URL}/event/${eventId}`);
@@ -230,7 +230,7 @@ export default {
   // Event Likes
 
   getAllEventLikes: () => {
-    return axios.get(`${EVENT_LIKE_API_URL}`)
+    return axios.get(`${EVENT_LIKE_API_URL}`);
   },
 
   /**
@@ -251,7 +251,7 @@ export default {
   * @param {string} event_id
   */
   findEventLikesForEvent: (event_id) => {
-    return axios.get(`${EVENT_LIKE_API_URL}/event/${event_id}`)
+    return axios.get(`${EVENT_LIKE_API_URL}/event/${event_id}`);
   },
 
   /**

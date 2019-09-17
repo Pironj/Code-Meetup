@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 
 import { Card, Row, Container } from 'react-bootstrap';
-import Moment from "react-moment";
+import Moment from 'react-moment';
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -38,7 +38,7 @@ const UserEventCard = (props) => {
           <Card.Body >
 
             <Card.Text className="eventBody">
-              {props.description.substring(0, 100) + "..."}
+              {props.description.substring(0, 100) + '...'}
             </Card.Text>
 
             <Card.Text className="eventBody">
@@ -49,7 +49,7 @@ const UserEventCard = (props) => {
             </Card.Text>
 
             <hr></hr>
-            
+
             {/* Detail view button */}
             <Row style={{ marginLeft: '6rem' }}>
               <Fab

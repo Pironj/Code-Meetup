@@ -1,6 +1,6 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 import authState from './authState';
-import eventDetail from './eventDetail'
+import eventDetail from './eventDetail';
 
 export default combineReducers(
   {

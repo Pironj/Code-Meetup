@@ -1,8 +1,8 @@
 import React from 'react';
 import { Jumbotron, } from 'react-bootstrap';
-import Moment from "react-moment";
+import Moment from 'react-moment';
 
-import LikeButtonAndCount from '../likeButton'
+import LikeButtonAndCount from '../likeButton';
 
 
 const FullEvent = (props) => {
@@ -30,7 +30,7 @@ const FullEvent = (props) => {
       <LikeButtonAndCount/>
 
     </Jumbotron>
-  )
-}
+  );
+};
 
 export default FullEvent;
