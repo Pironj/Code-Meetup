@@ -27,7 +27,7 @@ const UserCard = (props) => {
 
   //Here we are returning a "User Profile Card" that is shown on their profile page
   return (
-    <div style={{ 'margin-left': '5px', 'margin-right': '5px' }}>
+    <div style={{ 'marginLeft': '5px', 'marginRight': '5px' }}>
       <LinkButton
         className={classes.card}
         to={`/users/${props.user._id}`}>{props.user.first_name + ' ' + props.user.last_name}

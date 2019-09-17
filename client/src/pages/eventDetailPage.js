@@ -69,7 +69,7 @@ const attendBtnStyle = {
 class EventDetailsPage extends React.Component {
 
 	state = {
-	  eventId: this.props.match.params.id,
+		eventId: this.props.match.params.id,
 	  comments: [],
 	  showAllAttendees: false,
 	};
@@ -197,7 +197,7 @@ class EventDetailsPage extends React.Component {
 	            <Row id='attend-event-operation'>
 	              {
 	                this.props.id ?
-	                  <Button id="attend" onClick={this.onAttend} style={{ ...this.setColorOnAttendEventClick() }} variant="info">
+	                  <Button id="attend" onClick={this.onAttend} style={{ ...this.setColorOnAttendEventClick() }} variant="text">
 	                    {this.props.isAttending ? 'Attending' : 'Attend'}
 	                  </Button>
 	                  :
